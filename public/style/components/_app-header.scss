@@ -1,0 +1,12 @@
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 5vh;
+    background-color: lightsalmon;
+    padding: 5px;
+    text-align: center;
+    color: $clr2;
+    // background-image: url() ;
+}

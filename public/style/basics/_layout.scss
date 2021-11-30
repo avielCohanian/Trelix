@@ -1,0 +1,42 @@
+.main-layout {
+	display: grid;
+	grid-template-columns: $layoutPadding 1fr $layoutPadding;
+	min-height: 90vh;
+	> * {
+		grid-column: 2;
+	}
+
+	> *.full {
+		grid-column: 1 / -1;
+	}
+
+	@include for-narrow-layout {
+		@include layoutGTC($break-narrow);
+	}
+
+	@include for-normal-layout {
+		@include layoutGTC($break-normal);
+	}
+
+	@include for-wide-layout {
+		@include layoutGTC($break-wide);
+	}
+}
+
+.card-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 20px;
+	grid-auto-flow: dense;
+
+	> * {
+		display: grid;
+
+		align-items: center;
+		justify-items: center;
+
+		> * {
+			grid-area: 1 / 1;
+		}
+	}
+}

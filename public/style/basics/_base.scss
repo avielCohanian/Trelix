@@ -1,0 +1,60 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	//    font-family: Montserrat;
+	//    font-family: GreatVibes;
+	font-family: Opensans, sans-serif;
+	color: $clr2;
+	line-height: 1.8;
+}
+
+body {
+	margin: 0;
+	background-size: 400px;
+	// background-attachment: fixed;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: GreatVibes;
+	font-weight: 500;
+	margin: 0 0 1rem;
+}
+
+h1 {
+	font-size: rem(60px);
+}
+
+img {
+	width: 100%;
+}
+
+p {
+	margin: 0 0 1rem;
+	max-width: 60ch;
+}
+
+button {
+	border-radius: 3em;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: lightgrey;
+}
+
+.el-input--suffix .el-input__inner,
+.el-input__inner {
+	width: 150px;
+}
+
+li {
+	display: inline-block;
+	margin: 0;
+}
