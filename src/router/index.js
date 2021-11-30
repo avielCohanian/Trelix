@@ -25,7 +25,7 @@ const routes = [
         component: board,
     },
     {
-        path: '/card/details',
+        path: '/cardDetails/:id',
         name: 'cardDetails',
         component: cardDetails,
     },
