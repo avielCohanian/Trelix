@@ -1,13 +1,13 @@
 <template>
     <section class="card-edit">
         <div class="sidebar">
-            <!-- <p v-if="card.members.length"> -->
-            Add to card
-            <a @click="dynamicCmp('join')">
-                <!-- <span class="el-icon-user"></span> למצוא את האייקון המתאים-->
-                Join</a
-            >
-            <!-- </p> -->
+            <p v-if="card.members.length">
+                Add to card
+                <a @click="dynamicCmp('join')">
+                    <!-- <span class="el-icon-user"></span> למצוא את האייקון המתאים-->
+                    Join</a
+                >
+            </p>
 
             <p>Add to card</p>
             <a @click="dynamicCmp('members')">
@@ -60,10 +60,15 @@ import attachment from './edit-attachment.vue';
 import trelix from './edit-trelix.vue';
 export default {
     name: 'cardEdit',
+    props: {
+        card: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
             component: '',
-            card: { member: [] },
         };
     },
     methods: {
