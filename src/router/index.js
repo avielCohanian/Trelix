@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import home from '../pages/home.vue';
 import about from '../pages/about.vue';
 
-import cardEdit from '../pages/card-edit.vue';
+import cardDetails from '../pages/card-details.vue';
 import board from '../pages/board.vue';
 
 Vue.use(VueRouter);
@@ -25,15 +25,15 @@ const routes = [
         component: board,
     },
     {
-        path: '/card/edit',
-        name: 'cardEdit',
-        component: cardEdit,
+        path: '/card/details',
+        name: 'cardDetails',
+        component: cardDetails,
     },
 ];
 
 const router = new VueRouter({
     routes,
-    cardEdit,
+    cardDetails,
 });
 
 export default router;
