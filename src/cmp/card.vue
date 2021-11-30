@@ -9,7 +9,10 @@
         </label>
 
         <div v-if="isAdd">
-            <el-input placeholder="Enter list title..." v-model="card.txt"></el-input>
+            <el-input
+                placeholder="Enter list title..."
+                v-model="card.txt"
+            ></el-input>
             <el-button type="primary" @click="addCard"> Add list</el-button>
             <i class="el-icon-close" @click="add"></i>
         </div>
@@ -22,9 +25,9 @@ export default {
     data() {
         return {
             isAdd: false,
-            card:{
-txt:'',
-            }
+            card: {
+                txt: '',
+            },
         };
     },
     methods: {
@@ -32,9 +35,7 @@ txt:'',
             console.log('click');
             this.isAdd = !this.isAdd;
         },
-        addCard(){
-
-        }
+        addCard() {},
     },
 };
 </script>

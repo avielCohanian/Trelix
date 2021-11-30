@@ -1,7 +1,7 @@
 <template>
     <section class="nav-menu">
         <h1> hi </h1>
-        <component :is="getComponent" @trelix="trelix"> </component>
+        <component :is="getComponent" > </component>
     </section>
 </template>
 
