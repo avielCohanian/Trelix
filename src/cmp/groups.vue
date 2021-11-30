@@ -1,6 +1,8 @@
 <template>
     <section class="groups">
-    <group/>
+        <div v-for=" group in getGroups" :key="group.id">
+    <group :group="group" />
+             </div>
     </section>
 </template>
 
@@ -11,7 +13,22 @@ export default {
     name: 'groups',
     components:{
         group
-    }
+    },
+    data(){
+        return{
+        }
+    },
+     created() {
+     
+  },
+  methods:{
+
+  },
+  computed:{
+      getGroups(){
+       return this.$store.getters.getBoard
+      }
+  }
 };
 </script>
 
