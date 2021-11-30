@@ -1,6 +1,8 @@
 <template>
     <section class="group">
-<card/>
+        <div v-for="card in group" :key="card.id">
+        <card :card="card"/>
+        </div>
     </section>
     
 </template>
@@ -10,6 +12,7 @@ import card from './card.vue';
 
 export default {
   components: { card },
+  props:['group'],
     name: 'group',
 };
 </script>

@@ -1,5 +1,5 @@
-[
-    {
+
+   const groups = {
         "_id": "b101",
         "title": "Robot dev proj",
         "createdAt": 1589983468418,
@@ -118,15 +118,6 @@
                 }
             }
         ]
-    },
-    {
-        "user": {
-            "_id": "u101",
-            "fullname": "Abi Abambi",
-            "username": "abi@ababmi.com",
-            "password": "aBambi123",
-            "imgUrl": "http://some-img.jpg",
-            "boards": ["b101", "b102"]
-        }
     }
-]
+
+

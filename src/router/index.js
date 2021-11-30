@@ -20,7 +20,7 @@ const routes = [
         component: about,
     },
     {
-        path: '/board',
+        path: '/board/:boardId?',
         name: 'board',
         component: board,
     },

@@ -1,6 +1,6 @@
 <template>
     <section class="board">
-        <nav-menu/>
+        <nav-menu />
         <groups />
     </section>
 </template>
@@ -14,6 +14,20 @@ export default {
         groups,
         NavMenu,
     },
+    created() {
+        // const boardId = this.$params.boardId;
+        this.loadBoard()
+    },
+    methods:{
+   async loadBoard(boardId='b101'){
+        try {
+           var res = await this.$store.dispatch({ type: 'loadBoard', boardId })
+           console.log(res);
+        } catch (err) {
+            console.log(err);
+        }
+}
+    }
 };
 </script>
 
