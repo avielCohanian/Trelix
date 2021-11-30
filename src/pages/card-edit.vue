@@ -16,7 +16,7 @@ export default {
     },
     methods: {
         trelix() {
-            console.log('aa');
+            console.log('aayael');
         },
     },
     components: {
