@@ -1,8 +1,8 @@
 <template>
     <section class="groups">
-        <div v-for=" group in getGroups" :key="group.id">
-    <group :group="group" />
-             </div>
+        <div v-for="group in getGroups" :key="group.id">
+            <group :group="group" />
+        </div>
     </section>
 </template>
 
@@ -11,24 +11,20 @@ import group from './group.vue';
 
 export default {
     name: 'groups',
-    components:{
-        group
+    components: {
+        group,
     },
-    data(){
-        return{
-        }
+    data() {
+        return {};
     },
-     created() {
-     
-  },
-  methods:{
-
-  },
-  computed:{
-      getGroups(){
-       return this.$store.getters.getBoard
-      }
-  }
+    created() {},
+    methods: {},
+    computed: {
+        getGroups() {
+            console.log(this.$store.getters.getBoard);
+            return this.$store.getters.getBoard.groups;
+        },
+    },
 };
 </script>
 
