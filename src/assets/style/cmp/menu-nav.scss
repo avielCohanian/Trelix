@@ -1,0 +1,52 @@
+
+.nav-menu{
+        width: 300px;
+    .menu-list{
+        margin: 0;
+        padding: 0;
+        .menu-header{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: Neue,sans-serif;
+            .menu-header{
+                padding: 0 100px;
+            }
+            .close-menu{
+                padding: 0 20px;
+            }
+
+        }
+        .menu-about{
+            display: flex;
+            flex-direction: column;
+            span{
+            display: flex;
+
+            }
+        }
+        
+
+           
+    }
+    
+    .close-menu::after {
+        font-family: iconSolid;
+        content: "\f00d";
+    }
+    .logo::after{
+        font-family: iconSolid;
+        content: "\f181";
+        
+    }
+    
+}
+.cmp-about{
+    background-color: aqua;
+    .about::after{
+        font-family: iconRegular;
+        content: "\f007";
+        
+    }
+}
