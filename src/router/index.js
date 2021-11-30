@@ -4,6 +4,7 @@ import home from '../pages/home.vue';
 import about from '../pages/about.vue';
 
 import cardEdit from '../pages/card-edit.vue';
+import board from '../pages/board.vue';
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,11 @@ const routes = [
         path: '/about',
         name: 'about',
         component: about,
+    },
+    {
+        path: '/board',
+        name: 'board',
+        component: board,
     },
     {
         path: '/card/edit',
