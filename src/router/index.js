@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 import home from '../pages/home.vue';
 import about from '../pages/about.vue';
 
+import cardEdit from '../pages/card-edit.vue';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -16,10 +18,16 @@ const routes = [
         name: 'about',
         component: about,
     },
+    {
+        path: '/card/edit',
+        name: 'cardEdit',
+        component: cardEdit,
+    },
 ];
 
 const router = new VueRouter({
     routes,
+    cardEdit,
 });
 
 export default router;
