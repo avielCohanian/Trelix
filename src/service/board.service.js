@@ -1,9 +1,11 @@
-
 import { utilService } from './util.service.js';
 // import { upDownService } from '../../../main-services/upDown-service.js';
 import { storageService } from './async-storage.service.js';
 export const boardService = {
     getById,
+    getGroupById,
+    addCard,
+    getEmptyCard
     // query,
     // createNote,
     // changeIsDone,
@@ -15,39 +17,58 @@ export const boardService = {
     // saveCanvas,
     // copyNote,
     // pinnedNote
-
-}
-
+};
 
 const BOARD_KEY = 'boards';
 
-function getById(id){
-    return query().then(boards => {
-        let currBoards = boards.find(board => board._id === id)
-        return Promise.resolve(currBoards) 
-})
-        
-}
-function saveCanvas(canvas, note) {
-    return upDownService.uploadImg(canvas)
-        .then(urlImg => {
-            console.log('upload success', urlImg)
-            note.info.canvas.url = urlImg
-            return save(note)
-                .then(res => {
-                    console.log('upload and save success', res)
-                })
-        })
+function getById(id) {
+    return query().then((boards) => {
+        let currBoards = boards.find((board) => board._id === id);
+        return Promise.resolve(currBoards);
+    });
 }
 
+ function getGroupById(board,groupId) {
+     console.log(board);
+       var res = board.groups.find((group) => {
+        return group.id === groupId;
+        });
+        return Promise.resolve(res);
+           
+}
 
+function addCard (board,groupId, newCard){
+    var groupIdx = board.groups.findIndex((group) => {
+        return group.id === groupId;
+        });
+        board = JSON.parse(JSON.stringify(board))
+        console.log(board.groups[groupIdx]);
+        newCard.id = makeId()
+        board.groups[groupIdx].cards.push(newCard)
+         
+         return storageService.put(BOARD_KEY, board);
+}
 
+function getEmptyCard(){
+return{
+    title : ''
+}
+}
+// function saveCanvas(canvas, note) {
+//     return upDownService.uploadImg(canvas).then((urlImg) => {
+//         console.log('upload success', urlImg);
+//         note.info.canvas.url = urlImg;
+//         return save(note).then((res) => {
+//             console.log('upload and save success', res);
+//         });
+//     });
+// }
 
 function query() {
-    return storageService.query(BOARD_KEY)
+    return storageService.query(BOARD_KEY);
     // .then(res => {
-        // console.log(res);
-            // return Promise.resolve(res)
+    // console.log(res);
+    // return Promise.resolve(res)
 
     //     if (res.length) {
     //         return res
@@ -58,30 +79,27 @@ function query() {
     // })
 }
 
-
 function save(note) {
     if (note.id) return storageService.put(BOARD_KEY, note);
     else return storageService.post(BOARD_KEY, note);
 }
 
 function remove(noteId) {
-    return query().then(notes => {
+    return query().then((notes) => {
         const idx = notes.findIndex((note) => note.id === noteId);
         notes.splice(idx, 1);
         utilService.saveToStorage(BOARD_KEY, notes);
-    })
+    });
 }
 // function changeNote(updateNote){
 //     query().then(notes => {
-
 
 //     }
 // }
 function createNote(note) {
     console.log(note);
-    return storageService.post(BOARD_KEY, note)
+    return storageService.post(BOARD_KEY, note);
 }
-
 
 // function getById(noteID) {
 //     return storageService.get(BOARD_KEY, noteID);
@@ -102,7 +120,6 @@ function createNote(note) {
 //         })
 
 // }
-
 
 // function getYoutubeResult(value = 'binyamin netanyahu') {
 //     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&videoEmbeddable=true&type=video&key=AIzaSyCQ6tXHw7h_o4k-qIIjjfQoIP2avTDx2No&q=${value}`

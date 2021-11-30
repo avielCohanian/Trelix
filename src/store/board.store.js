@@ -16,12 +16,15 @@ export const boardStore = {
         setBoard(state, {board}) {
             state.currBoard = board;
         },
+        addCard(state, {savedBoard}){
+            state.currBoard = savedBoard
+        }
     },
     actions: {
         async loadBoard({commit},{boardId}) {
             try {
                 const board = await boardService.getById(boardId);
-                console.log(board);
+                // console.log(board);
                 commit({ type: 'setBoard', board });
                 return board
             } catch (err) {
@@ -29,13 +32,17 @@ export const boardStore = {
             }
         },
 
-        //   async loadBoard({commit}){
-        //       try{
-        //         const board = await boardService.query()
-        //         commit({type : "setBoard" , board})
-        //       }catch(err){
-        //           console.log(err)
-        //       }
-        //     }
+          async addCard({commit, getters}, {newCard, groupId}){
+              console.log(newCard);
+              try{
+                const board = getters.getBoard 
+                var savedBoard = await boardService.addCard(board,groupId,newCard)
+                console.log(savedBoard);
+                commit({type : "addCard" , savedBoard})
+                return savedBoard
+              }catch(err){
+                  console.log(err)
+              }
+            }
     },
 };

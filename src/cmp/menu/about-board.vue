@@ -8,7 +8,7 @@ export default {
 created(){
 
     boardService.getById('b101').then(res=>{
-console.log(res);
+// console.log(res);
     })
 }
 }
