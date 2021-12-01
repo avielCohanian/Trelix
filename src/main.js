@@ -27,6 +27,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Element);
 Vue.use(VueDragDrop);
+Vue.use(require('vue-moment'));
 
 Vue.config.productionTip = false;
 

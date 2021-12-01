@@ -14,7 +14,7 @@
                 <!--TODO @click in a -->
             </header>
 
-            <div class="main-details" v-if="headerShoe">
+            <div class="main-details" v-if="headerShow">
                 <div class="members" v-if="card.byMember.length">
                     <ul>
                         <h3>Members</h3>
@@ -80,13 +80,13 @@
                     </div>
                 </div>
 
-                <div class="attachments" v-if="card.attachments">
+                <div class="trelix-attachments" v-if="card.attachments">
                     <!--TODO  לקחת מאלי אייקון של טריילו -->
                     <h3>Trello attachments</h3>
                     <div class="attachments-list">
                         <article
                             v-for="(attachment, idx) in card.attachments"
-                            :key="attachment"
+                            :key="idx"
                             class="attachment-link"
                             @click="attachmentLink(idx)"
                         >
@@ -95,9 +95,64 @@
                             <!-- <a @click="connectCard">Connect cards…</a> -->
                         </article>
                     </div>
-                    <a @click="openAttachment"></a>
+                    <a @click="openAttachment">Add Trelix attachment</a>
+                </div>
+
+                <div class="section-attachments">
+                    <!--TODO  למצוא אייקון מתאים -->
+                    <span></span>
+                    <h3>Attachments</h3>
+                    <div class="attachment-list">
+                        <!-- <div > -->
+                        <a
+                            v-for="att in cardAttachments"
+                            :key="att.link"
+                            class="attachment-link"
+                            :href="att.link"
+                        >
+                            <img v-if="att.img" src="att.img" alt="" />
+                            <img v-else src="" alt="" />
+                            <!--TODO  תמונת לינק קבועה-->
+                            <p class="attachment-option">
+                                <span
+                                    >{{ att.name || att.link || att.img }}
+                                </span>
+                                <!--TODO  למצוא אייקון מתאים   external-link-alt-->
+                                <span>
+                                    <span
+                                        >Added {{ att.upAt | moment('from') }}
+                                        <span v-if="dayLeft(att.upAt)">
+                                            at {{ getTime(att.upAt) }}</span
+                                        >
+                                    </span>
+                                    -
+                                </span>
+                                <a @click.stop="addLinkToActivity(att.link)"
+                                    >Comment</a
+                                >
+                                -
+                                <a @click.stop="removeMsg">Remove</a>
+                                -
+                                <a @click.stop="editName(att.name)">Edit</a>
+                            </p>
+                            <a
+                                v-show="att.img"
+                                v-if="att.img"
+                                @makeCover.stop="makeCover(att.img)"
+                                >Make cover</a
+                            >
+                            <a
+                                v-show="att.img"
+                                @makeCover.stop="makeCover(att.img)"
+                                >Remove cover</a
+                            >
+                        </a>
+
+                        <!-- </div> -->
+                    </div>
                 </div>
             </div>
+
             <card-edit :card="card"></card-edit>
         </div>
     </article>
@@ -152,14 +207,33 @@ export default {
             console.log('TODO');
             // TODO: show if he shore delete
         },
+        getTime(t) {
+            return `${new Date(t).getHours()} :${new Date(t).getMinutes()} `;
+        },
+        dayLeft(t) {
+            return Date.now() - t > 100 * 60 * 60 * 24;
+        },
+        addLinkToActivity(link) {
+            // TODO: start msg to the activity with link dynamicCmp
+            console.log(link);
+        },
+        editName(attName) {
+            // TODO: show input with attName and edit it with dynamicCmp
+        },
+        makeCover(imgUrl) {
+            // TODO: img in bcg
+        },
     },
     computed: {
-        headerShoe() {
+        headerShow() {
             return (
                 this.card.members.length ||
                 this.card.members.labelIds.length ||
                 this.card.members.dueDate
             );
+        },
+        cardAttachments() {
+            return this.card.attachments;
         },
     },
     components: {
@@ -212,6 +286,15 @@ export default {
                 fullname: 'Tal Tarablus',
                 imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
             },
+            trelixAttachmentId: ['c202'],
+            attachments: [
+                {
+                    link: 'www.google.com',
+                    img: 'src',
+                    upAt: 1638339747876,
+                    name: 'google',
+                },
+            ],
             style: {
                 bgColor: '#26de81',
             },
