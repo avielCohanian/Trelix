@@ -1,7 +1,23 @@
 <template>
     <section>
         <div class="group">
-            <h4>{{ group.title }}</h4>
+            <header>
+                <h4>{{ group.title }}</h4>
+                <i class="el-icon-more" @click="openModal = !openModal"></i>
+            </header>
+            <div class="modal" v-if="openModal">
+                <div class="title">
+                    <i class="el-icon-close" @click="openModal = !openModal"></i>
+                    <i>List actions</i>
+                </div>
+                <hr />
+                <ul>
+                    <li>Add card...</li>
+                    <li>Copy list...</li>
+                    <li>Move list...</li>
+                    <li @click="deleteGroup">Archive this list</li>
+                </ul>
+            </div>
             <div v-for="card in group.cards" :key="card.id">
                 <card @click="showEdit(card.id)" :card="card" />
             </div>
@@ -11,20 +27,20 @@
             </label>
 
             <label v-if="isAddCard" class="btn-group">
-                <div >
-                <el-input
-                    placeholder="Enter a title for this card... "
-                    v-model="newCard.title"
-                ></el-input>
-                <el-button type="primary" @click="addCard"> Add card</el-button>
-                <!-- <font-awesome-icon icon="times" @click="toggleCard" /> -->
-              
-                <i class="el-icon-close" @click="toggleCard"></i>
-            </div>
+                <div>
+                    <el-input
+                        placeholder="Enter a title for this card... "
+                        v-model="newCard.title"
+                    ></el-input>
+                    <el-button type="primary" @click="addCard">
+                        Add card</el-button
+                    >
+                    <!-- <font-awesome-icon icon="times" @click="toggleCard" /> -->
+
+                    <i class="el-icon-close" @click="toggleCard"></i>
+                </div>
             </label>
         </div>
-
-      
     </section>
 </template>
 
@@ -39,12 +55,11 @@ export default {
     data() {
         return {
             isAddCard: false,
-           
+            openModal: false,
             newCard: boardService.getEmptyCard(),
         };
     },
     methods: {
-        
         toggleCard() {
             this.isAddCard = !this.isAddCard;
         },
@@ -65,11 +80,19 @@ export default {
                 console.log(err);
             }
         },
-        
+        async deleteGroup() {
+            try {
+                var res = await this.$store.dispatch({
+                    type: 'deleteGroup',
+                    groupId: this.group.id,
+                });
+                console.log(res);
+            } catch (err) {
+                console.log(err);
+            }
+        },
     },
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

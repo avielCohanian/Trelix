@@ -3,6 +3,7 @@
         <div v-for="group in getGroups" :key="group.id">
             <group :group="group" />
         </div>
+<div class="add-list">
   <label for="add" @click="toggleGroup" v-if="!isAddGroup">
             <el-input
                 name="add"
@@ -23,6 +24,7 @@
             <i class="el-icon-close" @click="toggleGroup"></i>
             
         </label>
+</div>
 
     </section>
 </template>

@@ -10,7 +10,8 @@ export const boardService = {
     getEmptyGroup,
     addGroup,
     getColors,
-    getImgs
+    getImgs,
+    deleteGroup,
     // query,
     // createNote,
     // changeIsDone,
@@ -33,47 +34,59 @@ function getById(id) {
     });
 }
 
- function getGroupById(board,groupId) {
-     console.log(board);
-       var res = board.groups.find((group) => {
+function getGroupById(board, groupId) {
+    console.log(board);
+    var res = board.groups.find((group) => {
         return group.id === groupId;
-        });
-        return Promise.resolve(res);
-           
+    });
+    return Promise.resolve(res);
 }
 
-function addCard (board,groupId, newCard){
+function addCard(board, groupId, newCard) {
     var groupIdx = board.groups.findIndex((group) => {
         return group.id === groupId;
-        });
-        board = JSON.parse(JSON.stringify(board))
-        console.log(board.groups[groupIdx]);
-        newCard.id = makeId()
-        board.groups[groupIdx].cards.push(newCard)
-         
-         return storageService.put(BOARD_KEY, board);
+    });
+    board = JSON.parse(JSON.stringify(board));
+    console.log(board.groups[groupIdx]);
+    newCard.id = makeId();
+    board.groups[groupIdx].cards.push(newCard);
+
+    return storageService.put(BOARD_KEY, board);
 }
 
+function deleteGroup(board, groupId) {
+    //    var group = getGroupById(board,groupId)
+    var idx = board.groups.findIndex((group) => group.id === groupId);
+    board.groups.splice(idx, 1);
+    return storageService.put(BOARD_KEY, board);
+}
 function addGroup(board,newGroup){
-        board = JSON.parse(JSON.stringify(board))
-        newGroup.id = makeId()
-        board.groups.push(newGroup)
-         
-         return storageService.put(BOARD_KEY, board);
+    board = JSON.parse(JSON.stringify(board))
+    newGroup.id = makeId()
+    board.groups.push(newGroup)
+     
+     return storageService.put(BOARD_KEY, board);
 }
 
-function getEmptyCard(){
-return{
-    title : ''
+function getEmptyCard() {
+    return {
+        title: '',
+    };
 }
+
+function getEmptyCard() {
+    return {
+        title: '',
+    };
 }
-function getEmptyGroup(){
-return{
-    style: {},
-    cards: [],
-    title : ''
+function getEmptyGroup() {
+    return {
+        style: {},
+        cards: [],
+        title: '',
+    };
 }
-}
+
 // function saveCanvas(canvas, note) {
 //     return upDownService.uploadImg(canvas).then((urlImg) => {
 //         console.log('upload success', urlImg);
@@ -99,7 +112,7 @@ function query() {
     // })
 }
 function updatedBoard(board) {
-    return storageService.put(BOARD_KEY,board)
+    return storageService.put(BOARD_KEY, board);
 }
 function save(note) {
     if (note.id) return storageService.put(BOARD_KEY, note);
