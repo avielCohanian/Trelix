@@ -24,7 +24,6 @@ export default {
   },
 methods:{
   changeBgc(newBcg){
-    console.log(newBcg);
  this.$emit('changeBcg',newBcg)
 }
 }

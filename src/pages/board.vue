@@ -23,6 +23,8 @@ return {
     created() {
         // const boardId = this.$params.boardId;
         this.loadBoard()
+        this.$store.dispatch({ type: 'loadImgsAndColor' })
+        
     },
     methods:{
         toggleMenu(){

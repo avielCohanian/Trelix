@@ -4,6 +4,8 @@ import { boardService } from '../service/board.service.js';
 export const boardStore = {
     state: {
         currBoard: '',
+        colors:{},
+        imgs:{}
         // watchedUser: null,
         // currUser: userService.getLoggedinUser(),
     },
@@ -11,6 +13,13 @@ export const boardStore = {
         getBoard(state) {
             return state.currBoard;
         },
+        getColors(state){
+            return state.colors
+        },
+        getImgs(state){
+            return state.imgs
+        }
+
     },
     mutations: {
         setBoard(state, {board}) {
@@ -22,8 +31,17 @@ export const boardStore = {
         addGroup(state, {savedBoard}){
             state.currBoard = savedBoard
         },
+        addImgsAndColor(state, {imgs,colors}){
+            state.imgs = imgs
+            state.colors = colors
+        }
+
     },
     actions: {
+         loadImgsAndColor({commit}){
+               commit({type:"addImgsAndColor",imgs: boardService.getImgs() ,colors:boardService.getColors()}) 
+       
+         },
         async loadBoard({commit},{boardId}) {
             try {
                 const board = await boardService.getById(boardId);

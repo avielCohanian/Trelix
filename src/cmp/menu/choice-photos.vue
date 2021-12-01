@@ -1,21 +1,30 @@
 <template>
-<section class="cmp-photos">
+<section class="cmp-img">
 
-  <!-- <div class="bcg-choice" v-else>
-    <ul v-if="OpenchoiceColor">
-      <li v-for="(color,idx) in colors" :key="idx" :style="color" class="card-color" >
+  <div class="bcg-choice" >
+    <ul >
+      <li v-for="(img,idx) in imgs" :key="idx" :style="img" class="card-img" @click="changeBgc(img)">
       </li>
     </ul>
-  </div> -->
+  </div>
 
 </section>
 </template>
 
 <script>
 export default {
+  props:{
+    imgs:{
+      type:Object
+    }
+  },
  
 
 methods:{
+  changeBgc(newBcg){
+    console.log(newBcg);
+ this.$emit('changeBcg',newBcg)
+  }
 }, 
 components:{
 }

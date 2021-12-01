@@ -12,10 +12,8 @@
     .icon-description::before{
         font-family: iconSolid;
         content: "\f036";
-        
     } 
     }
-
     .cmp-background{
         
         ul{
@@ -31,6 +29,7 @@
                 }
             }
             .colors ,.photos{
+            background-size: cover;
                 width: 44%;
                 height: 96px;
                 border-radius: 1rem;
@@ -45,6 +44,13 @@
             
         }
         .card-color {
+            width: 44%;
+            height: 96px;
+            border-radius: 1rem;
+            margin: 0 8px ;
+        }
+        .card-img {
+            background-size: cover;
             width: 44%;
             height: 96px;
             border-radius: 1rem;
