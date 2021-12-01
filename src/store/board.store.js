@@ -33,6 +33,7 @@ export const boardStore = {
     },
     mutations: {
         setBoard(state, { board }) {
+            console.log(board);
             state.currBoard = board;
         },
         cardById(state, { cardId }) {
