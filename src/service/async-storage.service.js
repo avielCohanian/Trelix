@@ -78,7 +78,7 @@ const groups = [{
                             "todos": [
                                 {
                                     "id": "212jX",
-                                    "title": "To Do 1",
+                                    "txt": "To Do 1",
                                     "isDone": false
                                 }
                             ]
