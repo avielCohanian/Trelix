@@ -1,6 +1,16 @@
 
 .nav-menu{
+    position: fixed;
+    right: 0;
+    top: 50px;
+    background-color: azure;
+    z-index: 1;
         width: 300px;
+        height: 80%;
+        padding: 10px;
+        >*{
+            cursor: pointer;
+        }
     .menu-list{
         margin: 0;
         padding: 0;
@@ -11,7 +21,7 @@
             text-align: center;
             font-family: Neue,sans-serif;
             .menu-header{
-                padding: 0 100px;
+                // padding: 0 100px;
             }
             .close-menu{
                 padding: 0 20px;
@@ -41,12 +51,30 @@
         
     }
     
-}
-.cmp-about{
-    background-color: aqua;
-    .about::after{
-        font-family: iconRegular;
-        content: "\f007";
+    .cmp-about{
+        .about::before{
+            font-family: iconRegular;
+            content: "\f007";
+            
+        }
+        
+        .icon-description::before{
+            font-family: iconSolid;
+            content: "\f036";
+            
+        }
+        .about-name{
+            display: flex;
+        }
+    }
+    .plus::before{
+        font-family: iconSolid;
+        content: "\f067";
+        
+    }
+    .back-menu::before{
+        font-family: iconSolid;
+        content: "\f053";
         
     }
 }
