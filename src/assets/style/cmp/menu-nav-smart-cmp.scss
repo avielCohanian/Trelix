@@ -1,0 +1,55 @@
+
+
+.cmp-about{
+    .about::before{
+        font-family: iconRegular;
+        content: "\f007";
+        
+    }
+    .about-name{
+        display: flex;
+    }
+    .icon-description::before{
+        font-family: iconSolid;
+        content: "\f036";
+        
+    } 
+    }
+
+    .cmp-background{
+        
+        ul{
+            margin: 0;
+            padding: 0;
+        }
+        .bcg-main{
+            .choice-bcg-up{
+                display: flex;
+                .colors{
+                    background-image: url(https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg);
+                    background-size: cover;
+                }
+            }
+            .colors ,.photos{
+                width: 44%;
+                height: 96px;
+                border-radius: 1rem;
+                margin: 0 8px ;
+            }
+            .custom{
+            }
+        }
+        .plus::before{
+            font-family: iconSolid;
+            content: "\f067";
+            
+        }
+        .card-color {
+            width: 44%;
+            height: 96px;
+            border-radius: 1rem;
+            margin: 0 8px ;
+        }
+        
+    }
+ 

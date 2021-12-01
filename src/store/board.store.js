@@ -43,6 +43,17 @@ export const boardStore = {
               }catch(err){
                   console.log(err)
               }
-            }
+            },
+        
+        async updateBoard({commit},{board}){
+               try{
+                const updateBoard = await boardService.updatedBoard(board)
+                commit({type:'setBoard',board:updateBoard})
+               }
+               catch(err){
+               throw err 
+               }
+
+           }
     },
 };

@@ -7,7 +7,7 @@
     z-index: 1;
         width: 300px;
         height: 80%;
-        padding: 10px;
+        padding: 8px;
         >*{
             cursor: pointer;
         }
@@ -20,61 +20,50 @@
             justify-content: center;
             text-align: center;
             font-family: Neue,sans-serif;
-            .menu-header{
-                // padding: 0 100px;
+            .back-menu::before{
+                font-family: iconSolid;
+                content: "\f053";
+                
+            }
+            .menu-header-txt{
+
+            }
+            .close-menu::after {
+                font-family: iconSolid;
+                content: "\f00d";
             }
             .close-menu{
                 padding: 0 20px;
             }
-
         }
         .menu-about{
             display: flex;
             flex-direction: column;
             span{
             display: flex;
+            .logo::after{
+                font-family: iconSolid;
+                content: "\f181";
+                // problem with font awsome
+            }
+            }
 
+        }
+        .menu-background{
+            h2{
+                color:brown;
             }
         }
         
-
-           
-    }
-    
-    .close-menu::after {
-        font-family: iconSolid;
-        content: "\f00d";
-    }
-    .logo::after{
-        font-family: iconSolid;
-        content: "\f181";
-        
-    }
-    
-    .cmp-about{
-        .about::before{
-            font-family: iconRegular;
-            content: "\f007";
-            
+        .menu-stickers{
+        h2{
+            color: chocolate;
+        }    
         }
-        
-        .icon-description::before{
-            font-family: iconSolid;
-            content: "\f036";
-            
+        .menu-nore{
+            h2{
+                color: crimson;
+            }
         }
-        .about-name{
-            display: flex;
-        }
-    }
-    .plus::before{
-        font-family: iconSolid;
-        content: "\f067";
-        
-    }
-    .back-menu::before{
-        font-family: iconSolid;
-        content: "\f053";
-        
-    }
+    } 
 }

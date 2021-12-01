@@ -5,7 +5,8 @@ export const boardService = {
     getById,
     getGroupById,
     addCard,
-    getEmptyCard
+    getEmptyCard,
+    updatedBoard
     // query,
     // createNote,
     // changeIsDone,
@@ -78,7 +79,9 @@ function query() {
     //     }
     // })
 }
-
+function updatedBoard(board) {
+    return storageService.put(BOARD_KEY,board)
+}
 function save(note) {
     if (note.id) return storageService.put(BOARD_KEY, note);
     else return storageService.post(BOARD_KEY, note);

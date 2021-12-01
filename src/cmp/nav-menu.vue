@@ -3,7 +3,7 @@
     <ul class="menu-list">
         <li class="menu-header">
         <h3 class="back-menu" @click="changeCmp(null)"></h3>
-        <h2 class="menu-header">{{headerTxt}}</h2>
+        <h2 class="menu-header-txt">{{headerTxt}}</h2>
         <h3 class="close-menu"> </h3>
         </li>
         <hr>
@@ -21,12 +21,13 @@
         <li class="menu-stickers" @click="changeCmp('addStickers')">
         <h2> Stickers </h2>
         </li>
+        <br>
         <li class="menu-nore" @click="changeCmp('moreMenu')"> 
         <h2> More </h2>
         </li>
         </div>
     </ul>
-        <component :is="getComponent" :board="getBoard"> </component>
+        <component :is="getComponent" :board="getBoard" > </component>
         <hr>
         <menu-activity />
     </section>
@@ -50,7 +51,8 @@ export default {
     methods: {
         changeCmp(cmp){
             this.showCmp = cmp
-        }
+        },
+      
        
     },
     components: {
