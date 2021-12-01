@@ -1,8 +1,8 @@
 <template>
-    <section class="screen">
-        <article class="card-details" v-if="card">
+    <section class="screen" v-if="card" @click="closeDetails">
+        <article class="card-details">
             <header class="heder">
-                <a @click="back" class="back-btn">
+                <a @click="closeDetails" class="back-btn">
                     <font-awesome-icon icon="times" />
                 </a>
             </header>
@@ -10,22 +10,24 @@
 
             <!-- {{ card }} -->
 
-            <div>
+            <div class="details">
                 <div class="main-details" v-if="headerShow">
                     <header class="secund-header">
                         <!-- <span></span> למצוא אייקון מתאים -->
                         <el-input v-model="card.title"></el-input>
-                        <p>
+                        <p class="title">
                             in list <a>{{ currGroup.title }}</a>
                         </p>
                         <!--TODO @click in a -->
                     </header>
-
-                    <div class="members" v-if="card.byMember.length">
+                    <div
+                        class="members"
+                        v-if="card.members || card.members.length"
+                    >
                         <ul>
                             <h3>Members</h3>
                             <li
-                                v-for="member in card.byMember.length"
+                                v-for="member in card.members.length"
                                 :key="member._id"
                             >
                                 {{ member.imgUrl }}
@@ -178,8 +180,7 @@
                         <activity-log></activity-log>
                     </div>
                 </div>
-
-                <card-edit :card="card"></card-edit>
+                <card-edit class="card-edit" :card="card"></card-edit>
             </div>
         </article>
     </section>
@@ -189,6 +190,7 @@
 import cardEdit from '../cmp/card-edit.vue';
 import checkList from '../cmp/checklist-details.vue';
 import activityLog from '../cmp/activity-log.vue';
+
 export default {
     name: 'cardDetails',
     data() {
@@ -201,13 +203,32 @@ export default {
         };
     },
     methods: {
-        back() {
+        async loadCard() {
+            try {
+                let board = await this.$store.dispatch({
+                    type: 'loadBoard',
+                    boardId: 'b101',
+                });
+                const cardId = this.$route.params.cardId;
+                // const card = await boardService.getById(cardId);
+                this.$store.commit({
+                    type: 'cardById',
+                    cardId,
+                });
+                const card = this.$store.getters.currCard;
+                this.card = card;
+                // this.newReview.aboutToyId = toy._id;
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        closeDetails() {
             console.log('TODO');
             // TODO: back board page
             // this.$router.push('')
         },
         getLabel(labelId) {
-            console.log('TODO');
+            // console.log('TODO');
             // TODO: connect service and return label by ID
             //    return S.getLabelById(labelId)
         },
@@ -262,8 +283,8 @@ export default {
         headerShow() {
             return (
                 this.card.members.length ||
-                this.card.members.labelIds.length ||
-                this.card.members.dueDate
+                this.card.labelIds.length ||
+                this.card.dueDate
             );
         },
         cardAttachments() {
@@ -280,66 +301,72 @@ export default {
         checkList,
         activityLog,
     },
-    created() {
-        this.card = {
-            id: 'c104',
-            title: 'Help me',
-            description: 'description',
-            comments: [
-                {
-                    id: 'ZdPnm',
-                    txt: 'also @yaronb please CR this',
-                    createdAt: 1590999817436.0,
-                    byMember: {
-                        _id: 'u101',
-                        fullname: 'Tal Tarablus',
-                        imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-                    },
-                },
-            ],
-            checklists: [
-                {
-                    id: 'YEhmF',
-                    title: 'Checklist',
-                    todos: [
-                        {
-                            id: '212jX',
-                            txt: 'To Do 1',
-                            isDone: false,
-                        },
-                    ],
-                },
-            ],
-            members: [
-                {
-                    _id: 'u101',
-                    username: 'Tal',
-                    fullname: 'Tal Tarablus',
-                    imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-                },
-            ],
-            labelIds: ['l101', 'l102'],
-            createdAt: 1590999730348,
-            dueDate: 16156215211,
-            byMember: {
-                _id: 'u101',
-                username: 'Tal',
-                fullname: 'Tal Tarablus',
-                imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-            },
-            trelixAttachmentId: ['c202'],
-            attachments: [
-                {
-                    link: 'www.google.com',
-                    img: 'src',
-                    upAt: 1638339747876,
-                    name: 'google',
-                },
-            ],
-            style: {
-                bgColor: '#26de81',
-            },
+    async created() {
+        await this.loadCard();
+        this.currGroup = {
+            style: {},
+            id: 'g101',
+            title: 'Group 1',
         };
+        // this.card = {
+        //     id: 'c104',
+        //     title: 'Help me',
+        //     description: 'description',
+        //     comments: [
+        //         {
+        //             id: 'ZdPnm',
+        //             txt: 'also @yaronb please CR this',
+        //             createdAt: 1590999817436.0,
+        //             byMember: {
+        //                 _id: 'u101',
+        //                 fullname: 'Tal Tarablus',
+        //                 imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+        //             },
+        //         },
+        //     ],
+        //     checklists: [
+        //         {
+        //             id: 'YEhmF',
+        //             title: 'Checklist',
+        //             todos: [
+        //                 {
+        //                     id: '212jX',
+        //                     txt: 'To Do 1',
+        //                     isDone: false,
+        //                 },
+        //             ],
+        //         },
+        //     ],
+        //     members: [
+        //         {
+        //             _id: 'u101',
+        //             username: 'Tal',
+        //             fullname: 'Tal Tarablus',
+        //             imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+        //         },
+        //     ],
+        //     labelIds: ['l101', 'l102'],
+        //     createdAt: 1590999730348,
+        //     dueDate: 16156215211,
+        //     byMember: {
+        //         _id: 'u101',
+        //         username: 'Tal',
+        //         fullname: 'Tal Tarablus',
+        //         imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+        //     },
+        //     trelixAttachmentId: ['c202'],
+        //     attachments: [
+        //         {
+        //             link: 'www.google.com',
+        //             img: 'src',
+        //             upAt: 1638339747876,
+        //             name: 'google',
+        //         },
+        //     ],
+        //     style: {
+        //         bgColor: '#26de81',
+        //     },
+        // };
         this.description = this.card.description;
     },
 };

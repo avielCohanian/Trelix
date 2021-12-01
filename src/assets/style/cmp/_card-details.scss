@@ -32,18 +32,19 @@
         width: 700px;
         .heder {
             .back-btn {
-                width: rem(140px);
                 position: absolute;
-                right: 20px;
+                top: 0;
+                right: 0;
+                margin: rem(5px);
             }
         }
-        .main-details {
-            // display: flex;
+        .details {
+            display: flex;
 
-            .task-data {
+            .details-data {
                 margin: rem(20px);
                 min-height: 100%;
-                .task-name {
+                .secund-header {
                     display: flex;
                     align-items: center;
                     margin-bottom: rem(10px);
@@ -53,7 +54,15 @@
                         cursor: pointer;
                         font-size: rem(20px);
                     }
+                    .title {
+                        margin-left: rem(20px);
+                        color: #5e6c84;
+                        margin-bottom: rem(30px);
+                    }
                 }
+            }
+
+            .card-edit {
             }
         }
         // icon!!!
