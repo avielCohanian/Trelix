@@ -3,6 +3,7 @@
         <nav>
             <div class="nav-list">
                 <i class="el-icon-s-grid"></i>
+                <font-awesome-icon :icon="[ 'fab', 'trello' ]" />
                 <div class="logo">Trelix</div>
                 <ul>
                     <li>Workspace <i class="el-icon-arrow-down"></i></li>
@@ -16,9 +17,29 @@
                 <el-input placeholder="Search... "></el-input>
                 <i class="el-icon-info"></i>
                 <i class="el-icon-bell"></i>
-                <avatar :size="35" username="member.username" class="member"></avatar>
+                <avatar  @click.native="showProfile" :size="35"  username="member.username" class="member" ></avatar>
             </div>
         </nav>
+        <div class="modal" v-if="isShowProfile">
+                  <div class="title">
+                    <i class="el-icon-close" @click="isShowProfile = !isShowProfile"></i>
+                    <i>Account</i>
+                </div>
+                <hr />
+                <div class="avatar-user"> 
+
+                <avatar  :size="35 "  username="member.username" class="member" ></avatar>
+                <div class="user-details">
+               <div>{{createdBy.fullname}}</div>
+               
+               <div>{{createdBy.mail}}</div>
+                </div>
+                </div>
+               <div>Activity</div>
+               <hr>
+               <div>Log out</div>
+                
+        </div>
     </section>
 </template>
 
@@ -27,8 +48,22 @@ import avatar from 'vue-avatar';
 
 export default {
     name: 'appHeader',
+    props:['createdBy'],
+    data(){
+        return{
+            isShowProfile:false,
+
+        }
+    },
     computed: {},
-    methods: {},
+    methods: {
+        showProfile(){
+            console.log('clickk');
+            this.isShowProfile = ! this.isShowProfile
+        }
+    },
+    mounted(){
+    },
     components: {
         avatar,
     },

@@ -1,14 +1,16 @@
 
 .nav-menu{
+    transform: translateX(100%);
+    transition:all 3s;
     position: fixed;
     right: 0;
     top: 50px;
-    background-color: azure;
+    background-color: #f4f5f7;
     z-index: 1;
         width: 300px;
-        height: 80%;
+        height: 100%;
         padding: 8px;
-        >*{
+        >* {
             cursor: pointer;
         }
     .menu-list{
@@ -22,13 +24,19 @@
             font-family: Neue,sans-serif;
             line-height: 20px;
              margin: 14px 32px;
+             color: #172b4d;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+
             .back-menu::before{
                 font-family: iconSolid;
                 content: "\f053";
                 
             }
             .menu-header-txt{
-
+            font-size: 1rem;
             }
             .close-menu::after {
                 font-family: iconSolid;
@@ -40,20 +48,41 @@
         }
         .menu-about{
             display: flex;
-            flex-direction: column;
-            span{
-            display: flex;
-            .logo::after{
-                font-family: iconSolid;
-                content: "\f181";
-                // problem with font awsome
-            }
+            // flex-direction: column;
+            font-family: NotoSerifRegular;
+            h2{
+            font-family: NotoSerifBold;
+        }
+        &:hover{
+            background-color: rgba(132, 148, 148, 0.794);
+        }
+        
+// NotoSerifBold
+// NotoSerifBoldItalic
+// NotoSerifItalic
+// NotoSerifRegular
+            .logo{
+                margin: 0 10px;
             }
 
         }
+
         .menu-background{
+            display: flex;
+            align-items: center;
+            .border-color{
+                width: 25px;
+                height: 25px;
+                background-color: aqua;
+                margin: 0 10px;
+                border-radius: 0.3rem;
+                background-size: cover;
+            }
             h2{
-                color:brown;
+            font-family: NotoSerifBold;
+            }
+            &:hover{
+                background-color: rgba(147, 148, 148, 0.842);
             }
         }
         
@@ -69,3 +98,4 @@
         }
     } 
 }
+
