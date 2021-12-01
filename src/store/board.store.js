@@ -33,8 +33,10 @@ export const boardStore = {
     },
     mutations: {
         setBoard(state, { board }) {
+            console.log(board);
             state.currBoard = board;
         },
+
         cardById(state, { cardId }) {
             state.currBoard.groups.forEach((group) => {
                 if (
@@ -48,7 +50,7 @@ export const boardStore = {
                     state.currGroup = group;
             });
         },
-        deleteGroup(state, { savedBoard }) {
+        deleteGroup(board, { savedBoard }) {
             state.currBoard = savedBoard;
         },
         addImgsAndColor(state, { imgs, colors }) {
@@ -119,7 +121,7 @@ export const boardStore = {
                 const board = getters.getBoard;
                 var savedBoard = await boardService.addGroup(board, newGroup);
                 console.log(savedBoard);
-                commit({ type: 'board', board });
+                commit({ type: 'setBoard', board: savedBoard });
                 return savedBoard;
             } catch (err) {
                 console.log(err);

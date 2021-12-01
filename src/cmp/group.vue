@@ -27,7 +27,7 @@
                 :remove-on-drop-out="true"
                 @drop-ready="onDropReady"
             >
-                <Draggable v-for="card in cards" :key="card.id">
+                <Draggable v-for="card in cardsToShow" :key="card.id">
                     <div class="draggable-item">
                         <card @click="showEdit(card.id)" :card="card" />
                     </div>
@@ -120,6 +120,11 @@ export default {
             // this.cards.
             // console.log('drop ready', dropResult);
             // console.log('drop ready', this.cards);
+        },
+    },
+    computed: {
+        cardsToShow() {
+            return this.group.cards;
         },
     },
 };
