@@ -3,9 +3,6 @@
 }
 
 html {
-    //    font-family: Montserrat;
-    //    font-family: GreatVibes;
-    font-family: Opensans, sans-serif;
     color: $clr2;
     line-height: 1.8;
 }
@@ -14,9 +11,9 @@ body {
     margin: 0;
    
     color: #172b4d;
-    font-size: 14px;
+    font-size: rem(12px);
     font-weight: 400px;
-    line-height: 20px;
+    line-height: 10px;
 }
 
 h1,
@@ -25,9 +22,8 @@ h3,
 h4,
 h5,
 h6 {
-	// font-family: GreatVibes;
 	font-weight: 500;
-	margin: 0 0 1rem;
+	// margin: 0.8rem;
 }
 
 h1 {

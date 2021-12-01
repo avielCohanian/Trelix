@@ -33,8 +33,6 @@
     return{
       showCmp:null,
       openOpt:null,
-      OpenchoiceColor:null,
-      OpenchoicePhotos:null,
         colors:{},
         imgs:{}
 }
@@ -51,7 +49,6 @@ methods:{
     this.openOpt=choice
   },
      changeCmp(cmp){
-       console.log(cmp);
             this.showCmp = cmp
             this.openOpt =null
         },
@@ -59,6 +56,7 @@ methods:{
          const coppyBoard= JSON.parse(JSON.stringify(this.board))
          coppyBoard.style =newBcg
          this.$store.dispatch({type:'updateBoard',board:coppyBoard})
+         this.$emit('changeBcg')
         }
 
    },
