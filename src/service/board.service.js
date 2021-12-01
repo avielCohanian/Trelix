@@ -8,7 +8,8 @@ export const boardService = {
     getEmptyCard,
     updatedBoard,
     getEmptyGroup,
-    addGroup
+    addGroup,
+    deleteGroup
     // query,
     // createNote,
     // changeIsDone,
@@ -58,6 +59,13 @@ function addGroup(board,newGroup){
         board.groups.push(newGroup)
          
          return storageService.put(BOARD_KEY, board);
+}
+
+function deleteGroup(board,groupId) {
+//    var group = getGroupById(board,groupId)
+   var idx = board.groups.findIndex(group=> group.id ===groupId)
+   board.groups.splice(idx,1)
+   return storageService.put(BOARD_KEY, board);
 }
 
 function getEmptyCard(){
