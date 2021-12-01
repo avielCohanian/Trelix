@@ -1,15 +1,15 @@
 <template>
     <section class="card-edit">
         <div class="sidebar">
-            <p v-if="card.members.length">
-                Add to card
-                <a @click="dynamicCmp('join')">
+            <div v-if="card.members.length">
+                <h3>Add to card</h3>
+
+                <a class="btn" @click="dynamicCmp('join')">
                     <!-- <span class="el-icon-user"></span> למצוא את האייקון המתאים-->
                     Join</a
                 >
-            </p>
-
-            <h4>Add to card</h4>
+            </div>
+            <h3>Add to card</h3>
             <div class="edit-btn">
                 <a class="btn" @click="dynamicCmp('members')">
                     <span class="el-icon-user"></span>
@@ -17,11 +17,11 @@
                 >
 
                 <a class="btn" @click="dynamicCmp('labels')">
-                    <span class="el-icon-price-tag"></span> Labels</a
+                    <span class="el-icon-price-tag icon"></span> Labels</a
                 >
 
                 <a class="btn" @click="dynamicCmp('checklist')">
-                    <span class="el-icon-document-checked"> </span>
+                    <span class="el-icon-document-checked icon"> </span>
                     Checklist</a
                 >
 
@@ -47,8 +47,10 @@
             </div>
         </div>
         <div class="dynamic-cmp" v-if="component.currCmp">
-            <h2>{{ component.name }}</h2>
-            <a @click="closeModel"> <font-awesome-icon icon="times" /> </a>
+            <header>
+                <h2>{{ component.name }}</h2>
+                <a @click="closeModel" class="el-icon-close"> </a>
+            </header>
             <component
                 :is="component.currCmp"
                 :card="card"

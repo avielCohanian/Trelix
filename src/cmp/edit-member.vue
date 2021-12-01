@@ -11,11 +11,11 @@
                 :key="member._id"
                 @click="updateMember(member)"
             >
-                <img
+                <avatar
                     v-if="member.imgUrl"
                     :src="member.imgUrl"
-                    class="member-img"
-                />
+                    class="avatar"
+                ></avatar>
                 <avatar
                     v-else
                     :username="member.fullname"

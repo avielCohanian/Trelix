@@ -1,25 +1,32 @@
 <template>
     <section class="screen" v-if="card" @click="closeDetails">
-        <article class="card-details">
+        <article class="card-details" @click.stop>
             <header class="heder">
                 <a @click="closeDetails" class="back-btn">
-                    <font-awesome-icon icon="times" />
+                    <a class="close-btn el-icon-close"></a>
                 </a>
+                <font-awesome-icon class="icon" :icon="['fab', 'trello']" />
             </header>
-            <!-- למצוא אייקון מתאים -->
-
-            <!-- {{ card }} -->
 
             <div class="details">
                 <div class="main-details" v-if="headerShow">
                     <header class="secund-header">
                         <!-- <span></span> למצוא אייקון מתאים -->
-                        <el-input v-model="card.title"></el-input>
-                        <p class="title">
-                            in list <a>{{ currGroup.title }}</a>
-                        </p>
-                        <!--TODO @click in a -->
+                        <h2 v-if="!isOpenTitle" @click.stop="toggleTitle()">
+                            {{ card.title }}
+                        </h2>
+                        <el-input
+                            v-else
+                            v-model="card.title"
+                            @blur="saveTitle"
+                            @keyup.enter="saveTitle"
+                        ></el-input>
+                        <!--TODO @click in a dynamicCmp -->
                     </header>
+                    <p class="title">
+                        in list <a>{{ currGroup.title }}</a>
+                    </p>
+
                     <div
                         class="members"
                         v-if="card.members || card.members.length"
@@ -27,11 +34,21 @@
                         <ul>
                             <h3>Members</h3>
                             <li
-                                v-for="member in card.members.length"
+                                v-for="member in card.members"
                                 :key="member._id"
                             >
-                                {{ member.imgUrl }}
-                                <a>+</a>
+                                <avatar
+                                    v-if="member.imgUrl"
+                                    :src="member.imgUrl"
+                                    class="member"
+                                ></avatar>
+                                <avatar
+                                    v-else
+                                    :username="member.fullname"
+                                    class="member"
+                                ></avatar>
+                                <a class="el-icon-plus"></a>
+                                <!-- <a @click="">+</a> -->
                                 <!--TODO  למצוא אייקון מתאים -->
                             </li>
                         </ul>
@@ -40,13 +57,11 @@
                     <div class="labels">
                         <ul>
                             <h3>Labels</h3>
-                            <li
-                                v-for="label in card.labelIds.length"
-                                :key="label"
-                            >
+                            <li v-for="label in card.labelIds" :key="label">
                                 {{ getLabel(label) }}
                             </li>
-                            <a>+</a>
+                            <a class="el-icon-plus"></a>
+                            <!-- <a @click="">+</a> -->
                             <!--TODO  למצוא אייקון מתאים -->
                         </ul>
                     </div>
@@ -191,6 +206,8 @@ import cardEdit from '../cmp/card-edit.vue';
 import checkList from '../cmp/checklist-details.vue';
 import activityLog from '../cmp/activity-log.vue';
 
+import avatar from 'vue-avatar';
+
 export default {
     name: 'cardDetails',
     data() {
@@ -200,6 +217,7 @@ export default {
             checked: false,
             description: '',
             editDescription: false,
+            isOpenTitle: false,
         };
     },
     methods: {
@@ -215,7 +233,9 @@ export default {
                     type: 'cardById',
                     cardId,
                 });
-                const card = this.$store.getters.currCard;
+                const card = JSON.parse(
+                    JSON.stringify(this.$store.getters.currCard)
+                );
                 this.card = card;
                 // this.newReview.aboutToyId = toy._id;
             } catch (err) {
@@ -224,6 +244,10 @@ export default {
         },
         closeDetails() {
             console.log('TODO');
+            const { boardId } = this.$route.params;
+            // this.$router.push(`/board/${boardId}`);
+            // TODO: board id
+            this.$router.push(`/board/b101`);
             // TODO: back board page
             // this.$router.push('')
         },
@@ -278,6 +302,29 @@ export default {
         makeCover(imgUrl) {
             // TODO: img in bcg
         },
+        toggleTitle() {
+            this.isOpenTitle = !this.isOpenTitle;
+        },
+        async updateCard() {
+            try {
+                await this.$store.dispatch({
+                    type: 'updateCard',
+                    card: JSON.parse(JSON.stringify(this.card)),
+                });
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        async saveTitle() {
+            let card = JSON.parse(JSON.stringify(this.card));
+            card.title = this.card.title;
+            try {
+                await this.updateCard();
+                this.isOpenTitle = false;
+            } catch (err) {
+                console.log(err);
+            }
+        },
     },
     computed: {
         headerShow() {
@@ -300,6 +347,7 @@ export default {
         cardEdit,
         checkList,
         activityLog,
+        avatar,
     },
     async created() {
         await this.loadCard();
@@ -308,65 +356,6 @@ export default {
             id: 'g101',
             title: 'Group 1',
         };
-        // this.card = {
-        //     id: 'c104',
-        //     title: 'Help me',
-        //     description: 'description',
-        //     comments: [
-        //         {
-        //             id: 'ZdPnm',
-        //             txt: 'also @yaronb please CR this',
-        //             createdAt: 1590999817436.0,
-        //             byMember: {
-        //                 _id: 'u101',
-        //                 fullname: 'Tal Tarablus',
-        //                 imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-        //             },
-        //         },
-        //     ],
-        //     checklists: [
-        //         {
-        //             id: 'YEhmF',
-        //             title: 'Checklist',
-        //             todos: [
-        //                 {
-        //                     id: '212jX',
-        //                     txt: 'To Do 1',
-        //                     isDone: false,
-        //                 },
-        //             ],
-        //         },
-        //     ],
-        //     members: [
-        //         {
-        //             _id: 'u101',
-        //             username: 'Tal',
-        //             fullname: 'Tal Tarablus',
-        //             imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-        //         },
-        //     ],
-        //     labelIds: ['l101', 'l102'],
-        //     createdAt: 1590999730348,
-        //     dueDate: 16156215211,
-        //     byMember: {
-        //         _id: 'u101',
-        //         username: 'Tal',
-        //         fullname: 'Tal Tarablus',
-        //         imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-        //     },
-        //     trelixAttachmentId: ['c202'],
-        //     attachments: [
-        //         {
-        //             link: 'www.google.com',
-        //             img: 'src',
-        //             upAt: 1638339747876,
-        //             name: 'google',
-        //         },
-        //     ],
-        //     style: {
-        //         bgColor: '#26de81',
-        //     },
-        // };
         this.description = this.card.description;
     },
 };

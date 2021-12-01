@@ -20,17 +20,17 @@ const routes = [
         component: about,
     },
     {
-        path: '/board/:boardId?',
+        path: '/board/:boardId',
         name: 'board',
         component: board,
+        children: [
+            {
+                path: '/board/:boardId/:cardId',
+                name: 'cardDetails',
+                component: cardDetails,
+            },
+        ],
     },
-    // children: [
-        {
-            path: '/board/cardDetails/:cardId?',
-            name: 'cardDetails',
-            component: cardDetails,
-        },
-    // ],
 ];
 
 const router = new VueRouter({

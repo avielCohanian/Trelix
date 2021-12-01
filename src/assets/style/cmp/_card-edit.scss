@@ -3,14 +3,39 @@
     min-height: 100%;
     margin-top: rem(50px);
     margin-left: rem(70px);
-    h4 {
+    display: flex;
+    flex-direction: column;
+    h3 {
         font-weight: normal;
+        font-weight: 600;
+        line-height: 20px;
+        color: #5e6c84;
+        font-size: 12px;
         text-transform: uppercase;
-        margin: 0;
+        margin: 0 0 8px;
         margin-bottom: rem(10px);
     }
+    .icon {
+        font-size: rem(15px);
+    }
     .btn {
-        width: rem(160px);
-        text-align: left;
+        outline: none;
+        cursor: pointer;
+        border: none;
+        border-radius: rem(3px);
+        height: rem(30px);
+        margin-bottom: rem(8px);
+        color: $clr2;
+        transition: 0.3s;
+        background-color: #e7e9eb;
+        &:hover {
+            background-color: #d0d2d4;
+        }
+    }
+    .edit-btn {
+        display: flex;
+        flex-direction: column;
+    }
+    .dynamic-cmp {
     }
 }

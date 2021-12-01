@@ -4,8 +4,8 @@ import { boardService } from '../service/board.service.js';
 export const boardStore = {
     state: {
         currBoard: '',
-        colors:{},
-        imgs:{},
+        colors: {},
+        imgs: {},
         currBoard: null,
         currCard: null,
         currGroup: null,
@@ -16,11 +16,11 @@ export const boardStore = {
         getBoard(state) {
             return state.currBoard;
         },
-        getColors(state){
-            return state.colors
+        getColors(state) {
+            return state.colors;
         },
-        getImgs(state){
-            return state.imgs
+        getImgs(state) {
+            return state.imgs;
         },
         currGroup(state) {
             return state.currGroup;
@@ -28,16 +28,13 @@ export const boardStore = {
         currCard(state) {
             return state.currCard;
         },
+        boardLabels(state) {
+            return state.currBoard.labels;
+        },
     },
     mutations: {
         setBoard(state, { board }) {
             state.currBoard = board;
-        },
-        addCard(state, { savedBoard }) {
-            state.currBoard = savedBoard;
-        },
-        addGroup(state, { savedBoard }) {
-            state.currBoard = savedBoard;
         },
         cardById(state, { cardId }) {
             state.currBoard.groups.forEach((group) => {
@@ -55,17 +52,19 @@ export const boardStore = {
         deleteGroup(state, { savedBoard }) {
             state.currBoard = savedBoard;
         },
-        addImgsAndColor(state, {imgs,colors}){
-            state.imgs = imgs
-            state.colors = colors
-        }
-
+        addImgsAndColor(state, { imgs, colors }) {
+            state.imgs = imgs;
+            state.colors = colors;
+        },
     },
     actions: {
-         loadImgsAndColor({commit}){
-               commit({type:"addImgsAndColor",imgs: boardService.getImgs() ,colors:boardService.getColors()}) 
-       
-         },
+        loadImgsAndColor({ commit }) {
+            commit({
+                type: 'addImgsAndColor',
+                imgs: boardService.getImgs(),
+                colors: boardService.getColors(),
+            });
+        },
         async loadBoard({ commit }, { boardId }) {
             try {
                 const board = await boardService.getById(boardId);
@@ -78,17 +77,30 @@ export const boardStore = {
         },
 
         async addCard({ commit, getters }, { newCard, groupId }) {
-            console.log(newCard);
             try {
                 const board = getters.getBoard;
-                var savedBoard = await boardService.addCard(
+                let updateBoard = await boardService.saveCard(
                     board,
                     groupId,
                     newCard
                 );
-                console.log(savedBoard);
-                commit({ type: 'addCard', savedBoard });
-                return savedBoard;
+                commit({ type: 'setBoard', board: updateBoard });
+                return updateBoard;
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        async updateCard({ commit, getters }, { card }) {
+            const board = getters.getBoard;
+            const groupId = getters.currGroup.id;
+            try {
+                const updateBoard = await boardService.saveCard(
+                    board,
+                    groupId,
+                    card
+                );
+                commit({ type: 'setBoard', board: updateBoard });
+                return updateBoard;
             } catch (err) {
                 console.log(err);
             }
@@ -108,7 +120,7 @@ export const boardStore = {
                 const board = getters.getBoard;
                 var savedBoard = await boardService.addGroup(board, newGroup);
                 console.log(savedBoard);
-                commit({ type: 'addGroup', savedBoard });
+                commit({ type: 'board', board });
                 return savedBoard;
             } catch (err) {
                 console.log(err);

@@ -4,7 +4,7 @@ import { storageService } from './async-storage.service.js';
 export const boardService = {
     getById,
     getGroupById,
-    addCard,
+    saveCard,
     getEmptyCard,
     updatedBoard,
     getEmptyGroup,
@@ -12,17 +12,6 @@ export const boardService = {
     getColors,
     getImgs,
     deleteGroup,
-    // query,
-    // createNote,
-    // changeIsDone,
-    // getYoutubeResult,
-    // remove,
-    // save,
-    // makeId,
-    // connectGoogleApi,
-    // saveCanvas,
-    // copyNote,
-    // pinnedNote
 };
 
 const BOARD_KEY = 'boards';
@@ -42,21 +31,35 @@ function getGroupById(board, groupId) {
     return Promise.resolve(res);
 }
 
-function addCard(board, groupId, newCard) {
-    var groupIdx = board.groups.findIndex((group) => {
-        return group.id === groupId;
-    });
-    board = JSON.parse(JSON.stringify(board));
-    console.log(board.groups[groupIdx]);
+function addCard(board, groupIdx, newCard) {
     newCard.id = makeId();
     board.groups[groupIdx].cards.push(newCard);
 
     return storageService.put(BOARD_KEY, board);
 }
 
+function updateCard(board, groupIdx, cardToSave) {
+    let cardIx = board.groups[groupIdx].cards.findIndex((card) => {
+        return card.id === cardToSave.id;
+    });
+    board.groups[groupIdx].cards.splice(cardIx, 1, cardToSave);
+    return storageService.put(BOARD_KEY, board);
+}
+
+function saveCard(board, groupId, card) {
+    let groupIdx = board.groups.findIndex((group) => {
+        return group.id === groupId;
+    });
+    board = JSON.parse(JSON.stringify(board));
+    card = card.id
+        ? updateCard(board, groupIdx, card)
+        : addCard(board, groupIdx, card);
+    return card;
+}
+
 function deleteGroup(board, groupId) {
     //    var group = getGroupById(board,groupId)
-    var idx = board.groups.findIndex((group) => group.id === groupId);
+    let idx = board.groups.findIndex((group) => group.id === groupId);
     board.groups.splice(idx, 1);
     return storageService.put(BOARD_KEY, board);
 }
@@ -82,29 +85,8 @@ function getEmptyGroup() {
     };
 }
 
-// function saveCanvas(canvas, note) {
-//     return upDownService.uploadImg(canvas).then((urlImg) => {
-//         console.log('upload success', urlImg);
-//         note.info.canvas.url = urlImg;
-//         return save(note).then((res) => {
-//             console.log('upload and save success', res);
-//         });
-//     });
-// }
-
 function query() {
     return storageService.query(BOARD_KEY);
-    // .then(res => {
-    // console.log(res);
-    // return Promise.resolve(res)
-
-    //     if (res.length) {
-    //         return res
-    //     } else {
-    //         utilService.saveToStorage(BOARD_KEY, );
-    //         return Promise.resolve(BOARD_KEY)
-    //     }
-    // })
 }
 function updatedBoard(board) {
     return storageService.put(BOARD_KEY, board);
@@ -121,55 +103,11 @@ function remove(noteId) {
         utilService.saveToStorage(BOARD_KEY, notes);
     });
 }
-// function changeNote(updateNote){
-//     query().then(notes => {
 
-//     }
-// }
 function createNote(note) {
     console.log(note);
     return storageService.post(BOARD_KEY, note);
 }
-
-// function getById(noteID) {
-//     return storageService.get(BOARD_KEY, noteID);
-// }
-
-// function changeIsDone(is, id, idx) {
-//     return getById(id)
-//         .then(note => {
-//             note.info.todos[idx].isDone = is
-//             return save(note).then(note => {
-//                 if (note.info.todos[idx].isDone) {
-//                     console.log(note.info.todos[idx].isDone);
-//                     return Promise.resolve('is done')
-//                 } else {
-//                     return Promise.resolve('is not done')
-//                 }
-//             })
-//         })
-
-// }
-
-// function getYoutubeResult(value = 'binyamin netanyahu') {
-//     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&videoEmbeddable=true&type=video&key=AIzaSyCQ6tXHw7h_o4k-qIIjjfQoIP2avTDx2No&q=${value}`
-//     return axios.get(url)
-//         .then(res => res.data)
-// }
-
-// function connectGoogleApi() {
-//     if (window.google) return Promise.resolve()
-//     const API_KEY = 'AIzaSyCQ6tXHw7h_o4k-qIIjjfQoIP2avTDx2No';
-//     var elGoogleApi = document.createElement('script');
-//     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBs7t_yPGVD1cd2HsAoLMiOZjC_l9vbPlA`;
-//     elGoogleApi.async = true;
-
-//     document.body.append(elGoogleApi);
-//     return new Promise((resolve, reject) => {
-//         elGoogleApi.onload = resolve;
-//         elGoogleApi.onerror = () => reject('Google script failed to load')
-//     })
-// }
 
 function makeId(length = 5) {
     var text = '';

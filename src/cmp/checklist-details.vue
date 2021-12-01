@@ -4,7 +4,7 @@
         <!--TODO  למצוא אייקון מתאים -->
         <header class="checklist-header">
             <h3>{{ checklist.title }}</h3>
-            <i class="el-icon-circle-check check-icon"></i>
+            <i class="el-icon-circle-check check-icon icon"></i>
 
             <a
                 v-if="countTodosDone(checklist.id)"

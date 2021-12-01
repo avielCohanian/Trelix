@@ -1,8 +1,9 @@
 <template>
-    <section class="board" v-if="getBoard" :style="getBoard.style" >
+    <section class="board" v-if="getBoard" :style="getBoard.style">
         <button @click="toggleMenu">menu</button>
-        <nav-menu v-if="showMenu" :closeMenu="toggleMenu"/>
+        <nav-menu v-if="showMenu" :closeMenu="toggleMenu" />
         <groups />
+        <router-view />
     </section>
 </template>
 
@@ -15,35 +16,37 @@ export default {
         groups,
         NavMenu,
     },
-    data(){
-return {
-    showMenu : false
-}
+    data() {
+        return {
+            showMenu: false,
+        };
     },
     created() {
         // const boardId = this.$params.boardId;
-        this.loadBoard()
-        this.$store.dispatch({ type: 'loadImgsAndColor' })
-        
+        this.loadBoard();
+        this.$store.dispatch({ type: 'loadImgsAndColor' });
     },
-    methods:{
-        toggleMenu(){
-this.showMenu = !this.showMenu
+    methods: {
+        toggleMenu() {
+            this.showMenu = !this.showMenu;
         },
-   async loadBoard(boardId='b101'){
-        try {
-           var res = await this.$store.dispatch({ type: 'loadBoard', boardId })
-        //    console.log(res);
-        } catch (err) {
-            console.log(err);
-        }
-}
+        async loadBoard(boardId = 'b101') {
+            try {
+                var res = await this.$store.dispatch({
+                    type: 'loadBoard',
+                    boardId,
+                });
+                //    console.log(res);
+            } catch (err) {
+                console.log(err);
+            }
+        },
     },
-    computed:{
-        getBoard(){
-            return this.$store.getters.getBoard
-        }
-    }
+    computed: {
+        getBoard() {
+            return this.$store.getters.getBoard;
+        },
+    },
 };
 </script>
 

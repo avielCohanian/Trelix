@@ -2,7 +2,7 @@
     width: 100vw;
     height: 100vh;
     position: fixed;
-    //   z-index: 900;
+    z-index: 2;
     top: 0;
     background-color: rgba(0, 0, 0, 0.64);
     overflow-y: auto;
@@ -30,25 +30,46 @@
         font-size: rem(14px);
         color: #172b4d;
         width: 700px;
+        .icon {
+            margin-right: rem(10px);
+            font-size: rem(20px);
+        }
         .heder {
             .back-btn {
                 position: absolute;
                 top: 0;
                 right: 0;
-                margin: rem(5px);
+                margin: rem(7px);
+                cursor: pointer;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                font-size: rem(20px);
+
+                .close-btn {
+                    display: block;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(31%, 73%);
+                }
+            }
+            .back-btn:hover {
+                background-color: rgba(187, 221, 221, 0.568);
             }
         }
         .details {
             display: flex;
-
-            .details-data {
+            .main-details {
                 margin: rem(20px);
                 min-height: 100%;
+                width: 90%;
                 .secund-header {
                     display: flex;
                     align-items: center;
                     margin-bottom: rem(10px);
-                    h3 {
+                    width: 100%;
+                    //TODO w100%
+                    h2 {
                         margin: 0;
                         font-weight: 500;
                         cursor: pointer;
@@ -63,6 +84,8 @@
             }
 
             .card-edit {
+                width: 295px;
+                // background-color: lightcoral;
             }
         }
         // icon!!!
@@ -70,10 +93,10 @@
         .heder {
         }
 
-        .back-btn {
-            position: absolute;
-            right: 0;
-        }
+        // .back-btn {
+        //     position: absolute;
+        //     right: 0;
+        // }
         .main-details {
             a {
                 background-color: #091e420a;

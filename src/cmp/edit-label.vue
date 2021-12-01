@@ -9,9 +9,18 @@
             <li
                 v-for="label in labelsToShow"
                 :key="label.id"
-                @click="updateMember(label)"
-            ></li>
+                @click="updateLabels(label)"
+            >
+                <span class="label" :style="{ backgroundColor: label.color }">
+                    <span class="label-title" v-if="label.title">{{
+                        label.title
+                    }}</span>
+                    <!-- v-if="isSelectedLabel(labelColor)" -->
+                    <span class="check-title el-icon-check"></span>
+                </span>
+            </li>
         </ul>
+        <a></a>
     </section>
 </template>
 
@@ -31,13 +40,17 @@ export default {
     },
     computed: {
         labelsToShow() {
-            let labelToShow = this.card.labelIds;
-            console.log(this.card.labelIds);
-
-            if (this.filterLabel) {
-                console.log(labelToShow);
-                const regex = new RegExp(this.filterLabel, 'i');
-                labelToShow = this.card.labels.filter((label) =>
+            let labelToShow = this.$store.getters.boardLabels;
+            let currLabels = this.card.labelIds;
+            labelToShow.forEach((lable) => {
+                let switchLable = currLabels.find(
+                    (currLabel) => currLabel.id === lable.id
+                );
+                if (switchLable) lable = switchLable;
+            });
+            if (this.filterLabels) {
+                const regex = new RegExp(this.filterLabels, 'i');
+                labelToShow = labelToShow.filter((label) =>
                     regex.test(label.title)
                 );
             }
