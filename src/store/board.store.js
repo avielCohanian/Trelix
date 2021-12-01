@@ -3,7 +3,6 @@ import { boardService } from '../service/board.service.js';
 
 export const boardStore = {
     state: {
-        currBoard: '',
         colors:{},
         imgs:{},
         currBoard: null,

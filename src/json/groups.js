@@ -24,6 +24,7 @@ const groups = [
                 fullname: 'Tal Tarablus',
                 imgUrl: 'https://www.google.com',
             },
+            
         ],
         groups: [
             {

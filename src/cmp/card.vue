@@ -42,7 +42,7 @@ export default {
     this.isOpenEditor= !this.isOpenEditor
     },
     openDetails(cardId){
-      this.$router.push(`/board/cardDetails/c104`)
+      this.$router.push(`/cardDetails/${cardId}`)
     }
   },
  components: {

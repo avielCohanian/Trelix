@@ -1,43 +1,35 @@
 <template>
-    <section class="board" v-if="getBoard" :style="getBoard.style" >
-        <button @click="toggleMenu">menu</button>
-        <nav-menu v-if="showMenu" @closeMenu="toggleMenu"/>
+
+    <section   class="board" v-if="getBoard" :style="getBoard.style" >
+        <nav-board :getBoard="getBoard"/>
+        
+       
         <groups />
     </section>
 </template>
 
 <script>
+import navBoard from '../cmp/nav-board.vue'
 import groups from '../cmp/groups.vue';
-import NavMenu from '../cmp/nav-menu.vue';
 export default {
     name: 'board',
     components: {
         groups,
-        NavMenu,
+        navBoard
     },
     data(){
 return {
-    showMenu : false
+   
 }
     },
     created() {
         // const boardId = this.$params.boardId;
-        this.loadBoard()
         this.$store.dispatch({ type: 'loadImgsAndColor' })
         
     },
     methods:{
-        toggleMenu(){
-this.showMenu = !this.showMenu
-        },
-   async loadBoard(boardId='b101'){
-        try {
-           var res = await this.$store.dispatch({ type: 'loadBoard', boardId })
-        //    console.log(res);
-        } catch (err) {
-            console.log(err);
-        }
-}
+  
+
     },
     computed:{
         getBoard(){

@@ -1,7 +1,7 @@
 .app-header {
     color: white;
     background-color: rgba(0, 0, 0, 0.45);
-    max-height: 50px;
+    // max-height: 50px;
     // border: 1px solid black;
     nav {
         width: 100%;
@@ -19,31 +19,45 @@
             .logo {
                 font-size: 20px;
             }
-            ul{
+            ul {
                 gap: 15px;
                 display: flex;
                 flex-direction: row;
-              
             }
-           
         }
-        .search{
+        .search {
             display: flex;
             flex-direction: row;
             align-items: center;
             gap: 10px;
             // justify-content: space-between;
-            min-width:470px;
-            i{
+            // min-width:470px;
+            i {
                 font-size: 20px;
             }
-            input{
+            input {
                 width: 250px;
-
-
             }
         }
     }
 
     // background-image: url() ;
+}
+
+.modal {
+    .avatar-user {
+        display: flex;
+        flex-direction: row;
+    }
+    .user-details {
+        cursor: pointer;
+        display: block;
+        font-weight: 400;
+        margin: 0 -12px;
+        padding: 6px 12px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-inline-start: 10px;
+    }
 }
