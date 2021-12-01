@@ -60,12 +60,12 @@ function deleteGroup(board, groupId) {
     board.groups.splice(idx, 1);
     return storageService.put(BOARD_KEY, board);
 }
-function addGroup(board,newGroup){
-    board = JSON.parse(JSON.stringify(board))
-    newGroup.id = makeId()
-    board.groups.push(newGroup)
-     
-     return storageService.put(BOARD_KEY, board);
+function addGroup(board, newGroup) {
+    board = JSON.parse(JSON.stringify(board));
+    newGroup.id = makeId();
+    board.groups.push(newGroup);
+
+    return storageService.put(BOARD_KEY, board);
 }
 
 function getEmptyCard() {
@@ -73,7 +73,6 @@ function getEmptyCard() {
         title: '',
     };
 }
-
 
 function getEmptyGroup() {
     return {
@@ -181,30 +180,51 @@ function makeId(length = 5) {
     }
     return text;
 }
-function getColors(){
-    return colors
+function getColors() {
+    return colors;
 }
-function getImgs(){
-    return imgs
+function getImgs() {
+    return imgs;
 }
 
-const colors={
-    orange:{background:'rgb(210, 144, 52)'},
-    blue:{background:'rgb(0, 121, 191)'},
-    red:{background:'rgb(176, 70, 50)'},
-    green:{background:'rgb(81, 152, 57)'},
-    pink:{background:'rgb(205, 90, 145)'},
-    purple:{background:'rgb(137, 96, 158)'},
-    blueLight:{background:'rgb(0, 174, 204)'},
-    greenLight:{background:'rgb(75, 191, 107)'},
-    gray:{background:'rgb(131, 140, 145)'}
-}
-const imgs={
-    pic1:{backgroundImage: 'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367875/greg-rakozy-oMpAz-DN-9I-unsplash_wccuwf.jpg)'} ,
-    pic2:{backgroundImage: 'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367876/nasa-1lfI7wkGWZ4-unsplash_jzvyg1.jpg)'},
-    pic3:{backgroundImage: 'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367877/kunal-shinde--f0YLss50Bs-unsplash_agacft.jpg)'},
-    pic4:{backgroundImage: 'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367912/casey-horner-4rDCa5hBlCs-unsplash_x0crec.jpg)'} ,
-    pic5:{backgroundImage: 'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367918/denys-nevozhai-UzagqG756OU-unsplash_hpcahv.jpg)'} ,
-    pic6:{backgroundImage: 'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg)'} ,
-    pic7:{backgroundImage: 'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367176/chris-karidis-nnzkZNYWHaU-unsplash_1_ralbng.jpg)'} ,
-}
+const colors = {
+    orange: { background: 'rgb(210, 144, 52)' },
+    blue: { background: 'rgb(0, 121, 191)' },
+    red: { background: 'rgb(176, 70, 50)' },
+    green: { background: 'rgb(81, 152, 57)' },
+    pink: { background: 'rgb(205, 90, 145)' },
+    purple: { background: 'rgb(137, 96, 158)' },
+    blueLight: { background: 'rgb(0, 174, 204)' },
+    greenLight: { background: 'rgb(75, 191, 107)' },
+    gray: { background: 'rgb(131, 140, 145)' },
+};
+const imgs = {
+    pic1: {
+        backgroundImage:
+            'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367875/greg-rakozy-oMpAz-DN-9I-unsplash_wccuwf.jpg)',
+    },
+    pic2: {
+        backgroundImage:
+            'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367876/nasa-1lfI7wkGWZ4-unsplash_jzvyg1.jpg)',
+    },
+    pic3: {
+        backgroundImage:
+            'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367877/kunal-shinde--f0YLss50Bs-unsplash_agacft.jpg)',
+    },
+    pic4: {
+        backgroundImage:
+            'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367912/casey-horner-4rDCa5hBlCs-unsplash_x0crec.jpg)',
+    },
+    pic5: {
+        backgroundImage:
+            'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367918/denys-nevozhai-UzagqG756OU-unsplash_hpcahv.jpg)',
+    },
+    pic6: {
+        backgroundImage:
+            'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg)',
+    },
+    pic7: {
+        backgroundImage:
+            'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367176/chris-karidis-nnzkZNYWHaU-unsplash_1_ralbng.jpg)',
+    },
+};
