@@ -1,0 +1,29 @@
+.nav-board{
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+    li{
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        // margin:  0 0 12px;
+        padding: 0 12px;
+        // padding-top: 8px;
+        background-color: #ffffff91;
+    }
+    .left{
+        color: white;
+        display: flex;
+        gap: 5px;
+    }
+    .right{
+        color: white;
+        display: flex;
+        gap: 5px;
+    }
+.member{ 
+background-color: rgba(149, 43, 43, 0.938);
+}
+}
