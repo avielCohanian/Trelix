@@ -1,5 +1,5 @@
 <template>
-    <section class="board" :style="board.style">
+    <section class="board" :style="getBoard.style">
         <button @click="toggleMenu">menu</button>
         <nav-menu v-if="showMenu" :closeMenu="toggleMenu"/>
         <groups />
@@ -36,6 +36,11 @@ this.showMenu = !this.showMenu
             console.log(err);
         }
 }
+    },
+    computed:{
+        getBoard(){
+            return this.$store.getters.getBoard
+        }
     }
 };
 </script>
