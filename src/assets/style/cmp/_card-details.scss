@@ -1,11 +1,78 @@
-.card-details {
-    .main-details {
-        a {
-            background-color: #091e420a;
+.screen {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    //   z-index: 900;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.64);
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.32);
+    }
+    .card-details {
+        position: absolute;
+        z-index: 999;
+        background-color: #f4f5f7;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, 0%);
+        padding: rem(20px);
+        margin-top: rem(80px);
+        margin-bottom: rem(60px);
+        font-size: rem(14px);
+        color: #172b4d;
+        width: 700px;
+        .heder {
+            .back-btn {
+                width: rem(140px);
+                position: absolute;
+                right: 20px;
+            }
         }
-        .members {
+        .main-details {
+            // display: flex;
+
+            .task-data {
+                margin: rem(20px);
+                min-height: 100%;
+                .task-name {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: rem(10px);
+                    h3 {
+                        margin: 0;
+                        font-weight: 500;
+                        cursor: pointer;
+                        font-size: rem(20px);
+                    }
+                }
+            }
+        }
+        // icon!!!
+        // btns
+        .heder {
+        }
+
+        .back-btn {
+            position: absolute;
+            right: 0;
+        }
+        .main-details {
             a {
-                border-radius: 100%;
+                background-color: #091e420a;
+            }
+            .members {
+                a {
+                    border-radius: 100%;
+                }
             }
         }
     }
