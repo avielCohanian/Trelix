@@ -23,15 +23,14 @@ const routes = [
         path: '/board/:boardId?',
         name: 'board',
         component: board,
-        children:[
-            {
-                path: '/cardDetails/:id',
-                name: 'cardDetails',
-                component: cardDetails,
-            },
-        ]
-       
     },
+    // children: [
+        {
+            path: '/board/cardDetails/:cardId?',
+            name: 'cardDetails',
+            component: cardDetails,
+        },
+    // ],
 ];
 
 const router = new VueRouter({
