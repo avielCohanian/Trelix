@@ -12,7 +12,8 @@ const groups = [{
     "createdBy": {
         "_id": "u101",
         "fullname": "Abi Abambi",
-        "imgUrl": "http://some-img"
+        "imgUrl": "http://some-img",
+        "mail":"abi@mail.com"
     },
     "style": {},
     "labels": [

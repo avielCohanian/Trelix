@@ -2,10 +2,12 @@
     <section class="nav-menu">
     <ul class="menu-list">
         <li class="menu-header">
-        <!-- <h2 class="menu-header">{{headerTxt}}</h2> -->
+        <h3 class="back-menu" @click="changeCmp(null)"></h3>
+        <h2 class="menu-header">{{headerTxt}}</h2>
         <h3 class="close-menu"> </h3>
         </li>
         <hr>
+        <div v-if="!showCmp">
         <li class="menu-about" @click="changeCmp('aboutBoard')">
         <span>
         <h3 class="logo"> logo </h3>
@@ -22,8 +24,9 @@
         <li class="menu-nore" @click="changeCmp('moreMenu')"> 
         <h2> More </h2>
         </li>
+        </div>
     </ul>
-        <component :is="getComponent" > </component>
+        <component :is="getComponent" :board="getBoard"> </component>
         <hr>
         <menu-activity />
     </section>
@@ -41,15 +44,14 @@ export default {
     data() {
         return {
             showCmp:null
+            // board: this.getBoard
         };
     },
     methods: {
         changeCmp(cmp){
             this.showCmp = cmp
         }
-        // headerTxt(){
-        //     return showCmp ? 'Menu' : 
-        // }
+       
     },
     components: {
         aboutBoard,
@@ -61,7 +63,13 @@ export default {
     computed: {
        getComponent(){
            return this.showCmp
-       }
+       },
+        headerTxt(){
+            return !this.showCmp ? 'Menu' : this.showCmp
+        },
+        getBoard(){
+            return this.$store.getters.getBoard
+        }
     },
 };
 </script>

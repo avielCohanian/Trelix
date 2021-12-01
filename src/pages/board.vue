@@ -1,6 +1,7 @@
 <template>
     <section class="board">
-        <nav-menu />
+        <button @click="toggleMenu">menu</button>
+        <nav-menu v-if="showMenu" :closeMenu="toggleMenu"/>
         <groups />
     </section>
 </template>
@@ -14,11 +15,19 @@ export default {
         groups,
         NavMenu,
     },
+    data(){
+return {
+    showMenu : false
+}
+    },
     created() {
         // const boardId = this.$params.boardId;
         this.loadBoard()
     },
     methods:{
+        toggleMenu(){
+this.showMenu = !this.showMenu
+        },
    async loadBoard(boardId='b101'){
         try {
            var res = await this.$store.dispatch({ type: 'loadBoard', boardId })
