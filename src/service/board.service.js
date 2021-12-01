@@ -74,11 +74,7 @@ function getEmptyCard() {
     };
 }
 
-function getEmptyCard() {
-    return {
-        title: '',
-    };
-}
+
 function getEmptyGroup() {
     return {
         style: {},

@@ -1,6 +1,9 @@
 <template>
 <!-- <section class="screen" @click="openEditor" v-if="openEditor"> -->
   <section class="card" @click="openDetails(card.id)">
+    <!-- <router-link :to="{name:'cardDetails'}">
+    go to beteet world
+    </router-link> -->
       <header>  
     {{card.title}}
     <i class="el-icon-edit"  @click="openEditor"></i>
@@ -39,7 +42,7 @@ export default {
     this.isOpenEditor= !this.isOpenEditor
     },
     openDetails(cardId){
-      this.$route.push(`/cardDetails/${cardId}`)
+      this.$router.push(`/board/cardDetails/c104`)
     }
   },
  components: {
