@@ -18,7 +18,10 @@ export const boardStore = {
         },
         addCard(state, {savedBoard}){
             state.currBoard = savedBoard
-        }
+        },
+        addGroup(state, {savedBoard}){
+            state.currBoard = savedBoard
+        },
     },
     actions: {
         async loadBoard({commit},{boardId}) {
@@ -43,6 +46,19 @@ export const boardStore = {
               }catch(err){
                   console.log(err)
               }
-            }
+            },
+          async addGroup({commit, getters}, {newGroup}){
+              console.log(newGroup);
+              try{
+                const board = getters.getBoard 
+                var savedBoard = await boardService.addGroup(board,newGroup)
+                console.log(savedBoard);
+                commit({type : "addGroup" , savedBoard})
+                return savedBoard
+              }catch(err){
+                  console.log(err)
+              }
+            },
+            
     },
 };

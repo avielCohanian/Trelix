@@ -2,10 +2,11 @@
   <section class="card">
       <header>  
     {{card.title}}
+    
+      </header>
     <main>
 
     </main>
-      </header>
    
   </section>
 </template>
