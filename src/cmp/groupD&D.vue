@@ -22,12 +22,16 @@
                 </ul>
             </div>
             <Container
-                @drop="onDrop"
-                :get-ghost-parent="getGhostParent"
-                :remove-on-drop-out="true"
-                @drop-ready="onDropReady"
+                group-name="col"
+                @drop="(e) => onCardDrop(group.id, e)"
+                @drag-start="(e) => log('drag start', e)"
+                @drag-end="(e) => log('drag end', e)"
+                :get-child-payload="getCardPayload(group.id)"
+                drag-class="card-ghost"
+                drop-class="card-ghost-drop"
+                :drop-placeholder="dropPlaceholderOptions"
             >
-                <Draggable v-for="card in cardsToShow" :key="card.id">
+                <Draggable v-for="card in cards" :key="card.id">
                     <div class="draggable-item">
                         <card @click="showEdit(card.id)" :card="card" />
                     </div>
@@ -70,10 +74,11 @@ export default {
             openModal: false,
             newCard: boardService.getEmptyCard(),
             cards: this.group.cards,
-            items: generateItems(10, (i) => ({
-                id: i,
-                data: 'Draggable ' + i,
-            })),
+            dropPlaceholderOptions: {
+                className: 'drop-preview',
+                animationDuration: '150',
+                showOnTop: true,
+            },
         };
     },
     methods: {
@@ -108,23 +113,31 @@ export default {
                 console.log(err);
             }
         },
-        onDrop(dropResult) {
-            // console.log(dropResult, 'dropResult');
-            this.cards = applyDrag(this.cards, dropResult);
-            console.log('drop ready', this.cards);
+
+        onColumnDrop(dropResult) {
+            const group = Object.assign({}, this.group);
+            group.cards = applyDrag(group.cards, dropResult);
+            this.group = group;
         },
-        getGhostParent() {
-            return document.body;
+        onCardDrop(columnId, dropResult) {
+            const obj = { columnId, dropResult };
+            this.$emit('onCardDrop', obj);
         },
-        onDropReady(dropResult) {
-            // this.cards.
-            // console.log('drop ready', dropResult);
-            // console.log('drop ready', this.cards);
+
+        getCardPayload(columnId) {
+            return (index) => {
+                for (const key in this.group) {
+                    if (this.group[key] === columnId) {
+                        return this.group[key][index];
+                    }
+                }
+            };
         },
-    },
-    computed: {
-        cardsToShow() {
-            return this.group.cards;
+        dragStart() {
+            console.log('drag started');
+        },
+        log(...params) {
+            console.log(...params);
         },
     },
 };

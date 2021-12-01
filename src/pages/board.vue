@@ -24,6 +24,11 @@ export default {
         this.$store.dispatch({ type: 'loadImgsAndColor' });
     },
     methods: {},
+    computed: {
+        getBoard() {
+            return this.$store.getters.getBoard;
+        },
+    },
 };
 </script>
 
