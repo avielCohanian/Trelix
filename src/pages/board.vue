@@ -1,5 +1,5 @@
 <template>
-    <section class="board">
+    <section class="board" :style="board.style">
         <button @click="toggleMenu">menu</button>
         <nav-menu v-if="showMenu" :closeMenu="toggleMenu"/>
         <groups />

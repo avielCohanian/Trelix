@@ -6,7 +6,9 @@ export const boardService = {
     getGroupById,
     addCard,
     getEmptyCard,
-    updatedBoard
+    updatedBoard,
+    getEmptyGroup,
+    addGroup
     // query,
     // createNote,
     // changeIsDone,
@@ -50,8 +52,23 @@ function addCard (board,groupId, newCard){
          return storageService.put(BOARD_KEY, board);
 }
 
+function addGroup(board,newGroup){
+        board = JSON.parse(JSON.stringify(board))
+        newGroup.id = makeId()
+        board.groups.push(newGroup)
+         
+         return storageService.put(BOARD_KEY, board);
+}
+
 function getEmptyCard(){
 return{
+    title : ''
+}
+}
+function getEmptyGroup(){
+return{
+    style: {},
+    cards: [],
     title : ''
 }
 }
