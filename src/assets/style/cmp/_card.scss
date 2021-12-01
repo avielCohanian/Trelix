@@ -9,15 +9,41 @@
     min-height: 20px;
     position: relative;
     text-decoration: none;
-    z-index: 10;
+    // z-index: 1;
     padding:  6px 8px 2px;
 
     header {
         word-wrap: break-word;
         clear: both;
         color: #172b4d;
-        display: block;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         margin: 0 0 4px;
         overflow: hidden;
     }
+}
+.screen {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    //   z-index: 900;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.64);
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.32);
+    }
+}
+
+.avatar{
+    background-color: greenyellow;
 }

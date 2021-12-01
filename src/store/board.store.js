@@ -43,6 +43,9 @@ export const boardStore = {
                     state.currGroup = group;
             });
         },
+        deleteGroup(state, { savedBoard }) {
+            state.currBoard = savedBoard;
+        },
     },
     actions: {
         async loadBoard({ commit }, { boardId }) {
@@ -88,6 +91,17 @@ export const boardStore = {
                 var savedBoard = await boardService.addGroup(board, newGroup);
                 console.log(savedBoard);
                 commit({ type: 'addGroup', savedBoard });
+                return savedBoard;
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        async deleteGroup({ commit, getters }, { groupId }) {
+            try {
+                const board = getters.getBoard;
+                var savedBoard = await boardService.deleteGroup(board, groupId);
+                console.log(savedBoard);
+                commit({ type: 'deleteGroup', savedBoard });
                 return savedBoard;
             } catch (err) {
                 console.log(err);

@@ -23,11 +23,13 @@ const routes = [
         path: '/board/:boardId?',
         name: 'board',
         component: board,
-    },
-    {
-        path: '/cardDetails/:cardId',
-        name: 'cardDetails',
-        component: cardDetails,
+        children: [
+            {
+                path: '/cardDetails/:id',
+                name: 'cardDetails',
+                component: cardDetails,
+            },
+        ],
     },
 ];
 
