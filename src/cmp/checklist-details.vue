@@ -3,8 +3,8 @@
         <span></span>
         <!--TODO  למצוא אייקון מתאים -->
         <header class="checklist-header">
-            <h3>{{ checklist.title }}</h3>
             <i class="el-icon-circle-check check-icon icon"></i>
+            <h3>{{ checklist.title }}</h3>
 
             <a
                 v-if="countTodosDone(checklist.id)"

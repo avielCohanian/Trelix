@@ -20,8 +20,7 @@
 @import 'cmp/group';
 @import 'cmp/groups';
 @import 'cmp/board';
-@import 'cmp/card-details';
-@import 'cmp/card-edit';
+
 // @import 'cmp/user-details';
 // @import 'cmp/toy-preview';
 // @import 'cmp/toy-dashboard';
@@ -37,3 +36,8 @@
 // @import './cmp/menu/app-header';
 // @import './cmp/menu/app-header';
 // @import './cmp/menu/app-header';
+
+// details
+@import 'cmp/card-details';
+@import 'cmp/checklist-details';
+@import 'cmp/card-edit';

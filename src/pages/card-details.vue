@@ -176,7 +176,6 @@
                     </div>
 
                     <!-- TODO ALL logic -->
-
                     <div
                         class="section-attachments"
                         v-if="card.attachment.computerAttachment"
