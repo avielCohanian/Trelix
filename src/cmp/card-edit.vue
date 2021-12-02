@@ -1,10 +1,9 @@
 <template>
     <section class="card-edit">
         <div class="sidebar">
-            <div class="join-member" v-if="card.members.length">
+            <div class="join-member" v-if="!userJoin">
                 <h3>Suggested</h3>
-
-                <a class="join-btn btn" @click="dynamicCmp('join')">
+                <a class="join-btn btn" @click="join('userId')">
                     <span class="el-icon-user icon"></span> Join</a
                 >
             </div>
@@ -80,6 +79,7 @@ export default {
                 currCmp: null,
                 name: '',
             },
+            userJoin: false,
         };
     },
     methods: {
@@ -91,6 +91,11 @@ export default {
         closeModel() {
             this.component.currCmp = null;
         },
+        join(userId) {
+            //TODO
+            console.log('todo ', userId);
+            this.userJoin = true;
+        },
     },
     components: {
         'card-attachment': attachment,
@@ -99,7 +104,12 @@ export default {
         'card-labels': label,
     },
 
-    computed: {},
+    computed: {
+        // display() {
+        //     if (this.userJoin) return 'display : none';
+        //     else return 'display : block';
+        // },
+    },
 };
 </script>
 
