@@ -8,21 +8,23 @@
                 |
                 <li>Trelix Workspace</li>
                 |
-                <li><i class="fas fa-users"></i>Workspace visible</li>
+                <li><span class="material-icons-outlined">people</span>Workspace visible</li>
                 |
-                <li v-for="member in getBoard.members" :key="member.id">
+                <li v-for="member in getBoard.members" :key="member.id" class="avatar-logo">
                     <avatar
                         :size="35"
                         :username="member.fullname"
                         class="member"
                     ></avatar>
                 </li>
-                <li><i class="fas fa-user-plus"></i>Invite</li>
+                <li><span class="material-icons-outlined">person_add</span>Invite</li>
             </ul>
             <ul class="right">
-                <li>Automation</li>
+                <li><span class="material-icons-outlined">
+flash_on
+</span>Automation</li>
                 |
-                <li>filter</li>
+                <li><span class="material-icons-outlined">filter_list</span>filter</li>
                 <li class="el-icon-more" @click="toggleMenu">Show menu</li>
             </ul>
         </section>

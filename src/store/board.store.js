@@ -106,6 +106,20 @@ export const boardStore = {
                 console.log(err);
             }
         },
+        async updateGroup({ commit, getters }, { group }) {
+            console.log(group);
+            const board =  JSON.parse(JSON.stringify(getters.getBoard))
+            try {
+                const updateBoard = await boardService.saveGroup(
+                    board,
+                    group,
+                );
+                commit({ type: 'setBoard', board: updateBoard });
+                return updateBoard;
+            } catch (err) {
+                console.log(err);
+            }
+        },
 
         async updateBoard({ commit }, { board }) {
             try {
