@@ -130,6 +130,7 @@
                 .header-optional {
                     position: relative;
                     display: flex;
+                    flex-wrap: wrap;
 
                     & > * {
                         margin: 0 18px 8px 0;
@@ -309,7 +310,7 @@
                             }
                             .close-btn {
                                 cursor: pointer;
-                                color: #42526e;
+                                color: $clr9;
                                 height: 32px;
                                 line-height: 32px;
                                 width: 32px;
@@ -343,6 +344,7 @@
                     line-height: 24px;
                     width: 24px;
                     font-size: rem(24px);
+                    color: $clr9;
                 }
                 .icon {
                     display: block;
@@ -353,6 +355,7 @@
                     line-height: 32px;
                     width: 32px;
                     font-size: 24px;
+                    color: $clr9;
                 }
             }
 

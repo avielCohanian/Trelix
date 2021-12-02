@@ -13,18 +13,26 @@
                 :key="member._id"
                 @click="updateMember(member)"
             >
-                <avatar
-                    v-if="member.imgUrl"
-                    :src="member.imgUrl"
-                    class="avatar"
-                ></avatar>
-                <avatar
-                    v-else
-                    :username="member.fullname"
-                    class="avatar"
-                ></avatar>
-                <p>{{ member.fullname }}</p>
-                <p>({{ member.username }})</p>
+                <div class="curr-user">
+                    <avatar
+                        v-if="member.imgUrl"
+                        :src="member.imgUrl"
+                        :size="32"
+                        class="avatar"
+                    ></avatar>
+                    <avatar
+                        v-else
+                        :username="member.fullname"
+                        class="avatar"
+                    ></avatar>
+
+                    <span class="user">
+                        <span>{{ member.fullname }}</span>
+                        <span>({{ member.username }})</span>
+                    </span>
+                </div>
+
+                <span class="check el-icon-check"></span>
             </li>
         </ul>
     </section>

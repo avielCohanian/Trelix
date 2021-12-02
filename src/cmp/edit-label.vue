@@ -1,9 +1,12 @@
 <template>
     <section class="edit-label">
-        <el-input
+        <input
+            class="search"
+            type="text"
             placeholder="Search labels..."
             v-model="filterLabels"
-        ></el-input>
+        />
+
         <h3 class="labels-title">Labels</h3>
         <ul>
             <li
@@ -11,13 +14,25 @@
                 :key="label.id"
                 @click="updateLabels(label)"
             >
-                <span class="label" :style="{ backgroundColor: label.color }">
-                    <span class="label-title" v-if="label.title">{{
-                        label.title
-                    }}</span>
+                <!-- boxShadow: ` -8px 0 ${label.color}`, -->
+                <span
+                    class="label"
+                    :style="{
+                        backgroundColor: label.color,
+                    }"
+                    @mouseover="label.hover = true"
+                    @mouseleave="label.hover = false"
+                >
+                    <span>
+                        <span class="label-title" v-if="label.title"
+                            >{{ label.title }}
+                        </span>
+                    </span>
                     <!-- v-if="isSelectedLabel(labelColor)" -->
-                    <span class="check-title el-icon-check"></span>
+                    <!-- v-show="label.isDone" -->
+                    <span class="check-title el-icon-check check"></span>
                 </span>
+                <span class="material-icons-outlined icon"> edit </span>
             </li>
         </ul>
         <a></a>
@@ -42,12 +57,18 @@ export default {
         labelsToShow() {
             let labelToShow = this.$store.getters.boardLabels;
             let currLabels = this.card.labelIds;
-            labelToShow.forEach((lable) => {
-                let switchLable = currLabels.find(
-                    (currLabel) => currLabel.id === lable.id
+            labelToShow.forEach((label) => {
+                let switchLabel = currLabels.find(
+                    (currLabel) => currLabel.id === label.id
                 );
-                if (switchLable) lable = switchLable;
+                if (!label.hover) {
+                    label.hover = false;
+                }
+                if (switchLabel) {
+                    label = switchLabel;
+                }
             });
+
             if (this.filterLabels) {
                 const regex = new RegExp(this.filterLabels, 'i');
                 labelToShow = labelToShow.filter((label) =>

@@ -1,18 +1,18 @@
 <template>
 <section class="cmp-background">
     <div class="menu-header background-header">
-                <h3 class="back-menu" @click="back"> 
+                <h3 class="back-menu pointer" @click="back"> 
                 <span  class="material-icons-outlined back">arrow_back_ios</span></h3>
                 <h2 class="menu-header-txt"> Change background </h2>
-                <h3  @click="closeMenu" class=" close-menu material-icons-outlined">close </h3>
+                <h3  @click="closeMenu" class="close-menu material-icons-outlined pointer">close </h3>
         </div>
         <hr>
   <div class="bcg-main" v-if="!showCmp" >
     <div class="choice-bcg-up">
 
-    <div class="photos" :style="getImg" @click="changeCmp('choicePhotos')" >
+    <div class="photos pointer" :style="getImg" @click="changeCmp('choicePhotos')" >
     </div>
-    <div class="colors" @click="changeCmp('choiceColors')">
+    <div class="colors pointer" @click="changeCmp('choiceColors')">
       
     </div>
     </div>
@@ -22,8 +22,9 @@
       <h3 class="plus"></h3>
     </div>
   </div>
-
-  <component @click="back" :is="getComponent" :imgs="imgs" @changeBcg="changeBcg"  :colors="colors" v-else></component>
+    <transition name="slide-fade" v-else>  
+          <component @click="back" :is="getComponent" :imgs="imgs" @changeBcg="changeBcg"  :colors="colors" ></component>
+    </transition>
 </section>
 </template>
 
