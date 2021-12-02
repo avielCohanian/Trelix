@@ -1,7 +1,7 @@
 .main-layout {
 	// display: grid;
 	grid-template-columns: $layoutPadding 1fr $layoutPadding;
-	min-height: 95vh;
+	min-height: 100vh;
 	> * {
 		grid-column: 2;
 	}
