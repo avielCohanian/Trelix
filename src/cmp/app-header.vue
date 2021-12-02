@@ -4,7 +4,7 @@
             <div class="nav-list">
                 <i class="el-icon-s-grid"></i>
               
-                <div class="logo">   <font-awesome-icon :icon="[ 'fab', 'trello' ]" /> Trelix</div>
+                <div class="logo">   <font-awesome-icon :icon="[ 'fab', 'trello' ]" /><strong> Trelix</strong></div>
                 <ul>
                     <li>Workspace <i class="el-icon-arrow-down"></i></li>
                     <li>Recent <i class="el-icon-arrow-down"></i></li>

@@ -5,27 +5,25 @@
                 <li>Board <i class="el-icon-arrow-down"></i></li>
                 <li>Board Name</li>
                 <li class="el-icon-star-off"></li>
-                |
+                <span class="divider"></span>
                 <li>Trelix Workspace</li>
-                |
-                <li><span class="material-icons-outlined">people</span>Workspace visible</li>
-                |
-                <li v-for="member in getBoard.members" :key="member.id" class="avatar-logo">
+                <span class="divider"></span>
+                <li class="icon"><span class="material-icons-outlined ">people</span>Workspace visible</li>
+                <span class="divider"></span>
+                <li v-for="member in getBoard.members" :key="member.id" class="avatar-logo" >
                     <avatar
                         :size="35"
                         :username="member.fullname"
-                        class="member"
+                        class="member icon-member"
                     ></avatar>
                 </li>
-                <li><span class="material-icons-outlined">person_add</span>Invite</li>
+                <li class="icon"><span class="material-icons-outlined ">person_add</span>Invite</li>
             </ul>
             <ul class="right">
-                <li><span class="material-icons-outlined">
-flash_on
-</span>Automation</li>
-                |
-                <li><span class="material-icons-outlined">filter_list</span>filter</li>
-                <li class="el-icon-more" @click="toggleMenu">Show menu</li>
+                <li class="icon"><span class="material-icons-outlined ">flash_on</span>Automation</li>
+               <span class="divider"></span>
+                <li class="icon"><span class="material-icons-outlined">filter_list</span>filter</li>
+                <li class="el-icon-more icon" @click="toggleMenu">Show menu</li>
             </ul>
         </section>
         <nav-menu @closeMenu="toggleMenu" v-if="showMenu" />

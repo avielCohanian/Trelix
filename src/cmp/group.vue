@@ -51,7 +51,7 @@
                 <div class="btn-group">
                     <el-input
                     type="textarea"
-                    :rows="2"
+                    :rows="3"
                         placeholder="Enter a title for this card... "
                         v-model="newCard.title"
                         @keyup.enter.native="addCard">
