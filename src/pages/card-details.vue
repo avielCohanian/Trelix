@@ -1,38 +1,35 @@
 <template>
     <section class="screen" v-if="card" @click="closeDetails">
         <article class="card-details" @click.stop>
-            <header class="heder">
-                <!-- TODO -->
-                <a class="back-btn">
-                    <a
-                        @click="closeDetails"
-                        class="close-btn el-icon-close"
-                    ></a>
+            <header class="header">
+                <a
+                    class="back-btn close-btn el-icon-close"
+                    @click="closeDetails"
+                >
                 </a>
+                <div class="secund-header">
+                    <font-awesome-icon class="svg" :icon="['fab', 'trello']" />
+                    <!-- <span></span> למצוא אייקון מתאים -->
+                    <div
+                        class="secund-header-input"
+                        :class="{ focus: isOpenTitle }"
+                        @click="toggleTitle"
+                    >
+                        <el-input
+                            v-model="card.title"
+                            @keyup.enter="saveTitle"
+                            @blur="saveTitle"
+                        ></el-input>
+                    </div>
+                    <!--TODO @click in a dynamicCmp -->
+                </div>
+                <p class="title">
+                    in list <a>{{ currGroup.title }}</a>
+                </p>
             </header>
 
             <div class="details">
                 <div class="main-details" v-if="headerShow">
-                    <header class="secund-header">
-                        <font-awesome-icon
-                            class="svg"
-                            :icon="['fab', 'trello']"
-                        />
-                        <!-- <span></span> למצוא אייקון מתאים -->
-                        <h2 v-if="!isOpenTitle" @click.stop="toggleTitle()">
-                            {{ card.title }}
-                        </h2>
-                        <el-input
-                            v-else
-                            v-model="card.title"
-                            @blur="saveTitle"
-                            @keyup.enter="saveTitle"
-                        ></el-input>
-                        <!--TODO @click in a dynamicCmp -->
-                    </header>
-                    <p class="title">
-                        in list <a>{{ currGroup.title }}</a>
-                    </p>
                     <div class="header-optional">
                         <div
                             class="members"
@@ -108,14 +105,14 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="description">
                         <i class="el-icon-s-unfold icon"></i>
                         <header>
                             <h3>Description</h3>
                             <a
                                 class="edit-btn"
-                                v-if="!editDescription"
+                                v-show="!editDescription"
                                 @click="openEditDescription"
                                 >Edit</a
                             >
@@ -335,8 +332,6 @@ export default {
             // TODO: open cmpDynamic in datesMode
         },
         openEditDescription() {
-            // this.selectInInput();
-
             this.editDescription = !this.editDescription;
         },
         closeDescription() {
@@ -380,6 +375,7 @@ export default {
             // TODO: img in bcg
         },
         toggleTitle() {
+            console.log('lll');
             this.isOpenTitle = !this.isOpenTitle;
         },
         async updateCard() {
@@ -404,7 +400,6 @@ export default {
         },
         selectInInput() {
             console.log(this.$refs);
-            this.$refs.input.focusInput();
         },
     },
     computed: {
@@ -428,7 +423,10 @@ export default {
             return new Date(t).getUTCDay() + 1;
         },
     },
-    mounted() {},
+    mounted() {
+        // this.selectInInput();
+        // this.$refs.editInput.focus();
+    },
 
     components: {
         cardEdit,

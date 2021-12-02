@@ -43,8 +43,7 @@ function getGroupById(board, groupId) {
 async function getLabelByCard(boardId, card) {
     try {
         let board = await query();
-        console.log(board);
-        console.log(boardId);
+
         board = board.find((board) => board._id === boardId);
         let carrLabels = [];
         board.labels.forEach((label) => {
