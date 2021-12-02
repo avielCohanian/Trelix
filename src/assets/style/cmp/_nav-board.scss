@@ -8,10 +8,9 @@
         align-items: center;
         justify-content: center;
         height: 30px;
-        // margin:  0 0 12px;
         padding: 0 12px;
-        // padding-top: 8px;
         background-color: #ffffff91;
+        
     }
     .left{
         color: white;
@@ -22,8 +21,11 @@
         color: white;
         display: flex;
         gap: 5px;
+        padding: 0px 12px;
     }
-.member{ 
-background-color: rgba(149, 43, 43, 0.938);
-}
+    .avatar-logo{
+      background-color: rgba(65, 105, 225, 0);
+    
+    }
+
 }

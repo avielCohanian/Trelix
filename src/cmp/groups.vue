@@ -6,24 +6,28 @@
         <div class="add-list">
             <label for="add" @click="toggleGroup" v-if="!isAddGroup">
                 <el-input
+                class="opacity-more "
                     name="add"
                     placeholder="+ Add a list"
                     v-model="newGroup.title"
                 ></el-input>
             </label>
+<div class="add-list-container" v-if="isAddGroup">
 
-            <label v-if="isAddGroup">
+            <label  >
                 <el-input
                     placeholder="Enter list title..."
                     v-model="newGroup.title"
+                     @keyup.enter.native="addGroup"
                 ></el-input>
 
                 <el-button type="primary" @click="addGroup">
                     Add list</el-button
                 >
-                <!-- <font-awesome-icon icon="times" @click="toggleGroup" /> -->
-                <i class="el-icon-close" @click="toggleGroup"></i>
+                <span class="material-icons-outlined" @click="toggleGroup">close</span>
+                <!-- <i class="el-icon-close" @click="toggleGroup"></i> -->
             </label>
+</div>
         </div>
     </section>
 </template>

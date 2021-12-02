@@ -2,15 +2,25 @@
     <section>
         <div class="group">
             <header>
-                <h4>{{ group.title }}</h4>
+                <template v-if="!isEditTitle">
+                <h3 @click="isEditTitle = !isEditTitle">{{ group.title }}</h3>
+                </template>
+                <template v-if="isEditTitle">
+                        <el-input
+                        size="mini"
+                        v-model="groupToEdit.title"
+                        @keyup.enter.native="updateGroup "
+                        ></el-input>
+                </template>
                 <i class="el-icon-more" @click="openModal = !openModal"></i>
             </header>
             <div class="modal" v-if="openModal">
                 <div class="title">
-                    <i
+                <span class="material-icons-outlined"  @click=" openModal = !openModal">close</span>
+                    <!-- <i
                         class="el-icon-close"
                         @click="openModal = !openModal"
-                    ></i>
+                    ></i> -->
                     <i>List actions</i>
                 </div>
                 <hr />
@@ -21,33 +31,42 @@
                     <li @click="deleteGroup">Archive this list</li>
                 </ul>
             </div>
-            <Container
+            <!-- <Container
                 @drop="onDrop"
                 :get-ghost-parent="getGhostParent"
                 :remove-on-drop-out="true"
                 @drop-ready="onDropReady"
-            >
+            > -->
                 <Draggable v-for="card in cardsToShow" :key="card.id">
                     <div class="draggable-item">
                         <card @click="showEdit(card.id)" :card="card" />
                     </div>
                 </Draggable>
-            </Container>
+            <!-- </Container> -->
             <label for="addCard" @click="toggleCard" v-if="!isAddCard">
-                <el-input name="addCard" placeholder="+ Add a card"></el-input>
+ 
+                <el-input  class="opacity " name="addCard" placeholder="+ Add a card"></el-input>
             </label>
-            <label v-if="isAddCard" class="btn-group">
-                <div>
+            <label v-if="isAddCard" >
+                <div class="btn-group">
                     <el-input
+                    type="textarea"
+                    :rows="2"
                         placeholder="Enter a title for this card... "
                         v-model="newCard.title"
+                        @keyup.enter.native="addCard">
                     ></el-input>
+
+                    <div class="bottom-btn">
+<div class="btn-left">
+
                     <el-button type="primary" @click="addCard">
                         Add card</el-button
                     >
-                    <!-- <font-awesome-icon icon="times" @click="toggleCard" /> -->
-
-                    <i class="el-icon-close" @click="toggleCard"></i>
+                    <p class="material-icons-outlined" @click="toggleCard">close</p>
+</div>
+                      <i class="el-icon-more" ></i>
+                    </div>
                 </div>
             </label>
         </div>
@@ -66,8 +85,10 @@ export default {
     name: 'group',
     data() {
         return {
+            isEditTitle: false,
             isAddCard: false,
             openModal: false,
+            groupToEdit : JSON.parse(JSON.stringify(this.group)) ,
             newCard: boardService.getEmptyCard(),
             cards: this.group.cards,
             items: generateItems(10, (i) => ({
@@ -82,6 +103,19 @@ export default {
         },
         showEdit(cardId) {
             this.route.push(`/cardDetails/${cardId}`);
+        },
+       async updateGroup(){
+           console.log(this.group);
+           this.isEditTitle = !this.isEditTitle
+                try {
+                var res = await this.$store.dispatch({
+                    type: 'updateGroup',
+                    group: this.groupToEdit,
+                });
+                console.log(res);
+            } catch (err) {
+                console.log(err);
+            }
         },
         async addCard() {
             try {

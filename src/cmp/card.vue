@@ -5,8 +5,10 @@
     go to beteet world
     </router-link> -->
         <header>
-            {{ card.title }}
-            <i class="el-icon-edit" @click="openEditor"></i>
+            <p>{{ card.title }}</p>
+         
+            <p class="material-icons-outlined" @click="openEditor">create</p>
+            <!-- <i class="el-icon-edit" @click="openEditor"></i> -->
         </header>
         <div>
             <div class="icons">

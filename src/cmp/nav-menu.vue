@@ -1,14 +1,17 @@
 <template>
     <section class="nav-menu" :style="openCmp">
         <!-- <i class="fab fa-trello"></i> -->
-    <ul class="menu-list">
+
+
+
+    <ul class="menu-list"  v-if="!showCmp">
         <li class="menu-header">
         <h3 class="back-menu" @click="changeCmp(null)"></h3>
-        <h2 class="menu-header-txt">{{headerTxt}}</h2>
-        <h3 class="close-menu" @click="closeMenu"> </h3>
+        <h2 class="menu-header-txt">Menu</h2>
+        <h3  @click="closeMenu" class=" close-menu material-icons-outlined">close </h3>
         </li>
         <hr>
-        <div v-if="!showCmp">
+        <div>
         <li class="menu-about" @click="changeCmp('aboutBoard')">
             <h2>
          <font-awesome-icon class="logo" :icon="[ 'fab', 'trello' ]" />
@@ -33,7 +36,7 @@
         </li>
         </div>
     </ul>
-        <component :is="getComponent" :board="getBoard" @changeBcg="changeBcg"> </component>
+        <component  :is="getComponent" @closeMenu="closeMenu" @changeCmp="changeCmp" :board="getBoard" @changeBcg="changeBcg"> </component>
         <hr>
         <menu-activity />
     </section>
@@ -78,10 +81,8 @@ export default {
     computed: {
        getComponent(){
            return this.showCmp
-       },
-        headerTxt(){
-            return !this.showCmp ? 'Menu' : this.showCmp
-        },
+       }
+      ,
         getBoard(){
             this.bcgColor =this.$store.getters.getBoard.style
             return this.$store.getters.getBoard

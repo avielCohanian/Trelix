@@ -13,6 +13,7 @@ export const boardService = {
     getImgs,
     deleteGroup,
     getLabelByCard,
+    saveGroup,
 };
 
 const BOARD_KEY = 'boards';
@@ -88,6 +89,16 @@ function saveCard(board, groupId, card) {
         ? updateCard(board, groupIdx, card)
         : addCard(board, groupIdx, card);
     return card;
+}
+
+function saveGroup(board, group) {
+    let groupIdx = board.groups.findIndex((group1) => {
+        return group1.id === group.id;
+    });
+    console.log(groupIdx);
+    console.log(board.groups);
+    board.groups.splice(groupIdx, 1, group);
+    return storageService.put(BOARD_KEY, board);
 }
 
 function deleteGroup(board, groupId) {

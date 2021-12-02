@@ -3,8 +3,8 @@
         <nav>
             <div class="nav-list">
                 <i class="el-icon-s-grid"></i>
-                <font-awesome-icon :icon="[ 'fab', 'trello' ]" />
-                <div class="logo">Trelix</div>
+              
+                <div class="logo">   <font-awesome-icon :icon="[ 'fab', 'trello' ]" /> Trelix</div>
                 <ul>
                     <li>Workspace <i class="el-icon-arrow-down"></i></li>
                     <li>Recent <i class="el-icon-arrow-down"></i></li>
