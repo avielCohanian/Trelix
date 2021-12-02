@@ -208,7 +208,7 @@
                                 padding: 6px 12px;
                                 text-decoration: none;
                                 background-color: #091e420a;
-                                transition-duration: 85ms;
+                                transition-duration: 0.85ms;
                                 transition-property: background-color;
                             }
                             .date-dedline-container:hover {
@@ -291,6 +291,30 @@
                                 background-color: #0000;
                             }
                         }
+                    }
+                }
+                .trelix-attachments {
+                    position: relative;
+                    .svg {
+                        // background-color: lightcoral;
+                        display: block;
+                        left: -40px;
+                        top: -2px;
+                        position: absolute;
+                        height: 1em;
+                        line-height: 24px;
+                        width: 24px;
+                        font-size: 24px;
+                    }
+                    h3 {
+                        margin: 0;
+                        min-height: 18px;
+                        min-width: 40px;
+                        font-size: rem(16px);
+                        line-height: 20px;
+                        font-weight: 600;
+                        margin-block-start: 1em;
+                        margin-block-end: 1em;
                     }
                 }
             }

@@ -2,8 +2,12 @@
     <section class="screen" v-if="card" @click="closeDetails">
         <article class="card-details" @click.stop>
             <header class="heder">
-                <a @click="closeDetails" class="back-btn">
-                    <a class="close-btn el-icon-close"></a>
+                <!-- TODO -->
+                <a class="back-btn">
+                    <a
+                        @click="closeDetails"
+                        class="close-btn el-icon-close"
+                    ></a>
                 </a>
             </header>
 
@@ -147,8 +151,11 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="trelix-attachments" v-if="card.attachments">
+                    <!-- TODO ALL logic -->
+                    <div
+                        class="trelix-attachments"
+                        v-if="card.attachment.trelixAttachments"
+                    >
                         <font-awesome-icon
                             class="svg"
                             :icon="['fab', 'trello']"
@@ -169,7 +176,12 @@
                         <a @click="openAttachment">Add Trelix attachment</a>
                     </div>
 
-                    <div class="section-attachments">
+                    <!-- TODO ALL logic -->
+
+                    <div
+                        class="section-attachments"
+                        v-if="card.attachment.computerAttachment"
+                    >
                         <!--TODO  למצוא אייקון מתאים -->
                         <span></span>
                         <h3>Attachments</h3>

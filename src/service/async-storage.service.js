@@ -9,7 +9,7 @@ const groups = [
     {
         _id: 'b101',
         title: 'Robot dev proj',
-        description:'',
+        description: '',
         createdAt: 1589983468418,
         createdBy: {
             _id: 'u101',
@@ -17,7 +17,10 @@ const groups = [
             imgUrl: 'http://some-img',
             mail: 'abi@mail.com',
         },
-        style: {backgroundImage: "url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367176/chris-karidis-nnzkZNYWHaU-unsplash_1_ralbng.jpg)" },
+        style: {
+            backgroundImage:
+                'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367176/chris-karidis-nnzkZNYWHaU-unsplash_1_ralbng.jpg)',
+        },
         labels: [
             {
                 id: 'l101',

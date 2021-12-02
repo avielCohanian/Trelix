@@ -1,8 +1,8 @@
-.nav-board{
+.nav-board {
     display: flex;
     height: 60px;
     justify-content: space-between;
-    li{
+    li {
         border-radius: 3px;
         display: flex;
         align-items: center;
@@ -10,22 +10,33 @@
         height: 30px;
         padding: 0 12px;
         background-color: #ffffff91;
-        
     }
-    .left{
+    .left {
         color: white;
         display: flex;
         gap: 5px;
     }
-    .right{
+    .right {
         color: white;
         display: flex;
         gap: 5px;
         padding: 0px 12px;
     }
-    .avatar-logo{
-      background-color: rgba(65, 105, 225, 0);
-    
+    li.avatar-logo {
+        
+        background-color: rgba(65, 105, 225, 0);
     }
-
+    span {
+        font-size: 16px;
+    }
+    .icon {
+        display: flex;
+        gap: 5px;
+    }
+    .divider {
+        border-left: 1px solid #ffffff3d;
+        float: left;
+        height: 16px;
+        margin: 8px 8px 12px 4px;
+    }
 }
