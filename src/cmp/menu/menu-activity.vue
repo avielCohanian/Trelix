@@ -1,44 +1,47 @@
 <template>
-<section>
-<div class="activity">
-<span class="material-icons-outlined">format_list_bulleted </span>
-<h3> Activity </h3>
-  <avatar  :size=70 :src="`${activity.img}`" ></avatar>
- <h2>{{activity.fullname}} </h2> <span>{{this.activity.event.do}} in: {{this.activity.event.in.board}} </span>
 
- <br>
- <span> {{ activity.time | moment('from') }}</span>
-</div>
-
-</section>
+        <section  class="container-activitys-cmp">
+           <div class="activitys-cmp">
+                 <div class="header-activity ">
+                   <span class="material-icons-outlined logo-activity ">format_list_bulleted </span>
+                   <h3> Activity </h3>
+                   <div class="counter-activitis flex-center"> <h3> {{board.activities.length}} </h3> </div>
+                </div>
+               <ul v-for=" activity in board.activities " :key="activity.id">
+                  <li class="activity-card">
+                <div class=" headerMsg">
+                   <div >
+                   <avatar :size=32 :src="`${activity.byMember.imgUrl}`" ></avatar>
+                   </div>
+                   <h2 class="name"> {{activity.byMember.fullname}} <span class="desc-activity">{{activity.txt}}  in {{activity.card.title}}</span> </h2>  
+                </div>
+                <span class="time-ago"> {{ activity.createdAt | moment('from') }}</span>
+                  </li>
+               </ul> 
+         </div>
+        </section>
 </template>
 // added 
 // joined
 // moved
 // attached
+// pointer
 
 <script>
 import Avatar from 'vue-avatar'
 
 export default {
-        props:{
-                activitys:{
-                        type:Array
-                }
-        },
-     data(){
-       return{
-               activity:{time:Date.now() -1000000, fullname:'MOSHE ZOHAR',event:{do:'added',in:{board:'fsg',id:'c102'}},
-                       img:'https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg'}
-       }
-     },
-     components:{
-             Avatar
-     }
-
+   data(){
+      return {
+      }
+   },
+    props:{board:{type:Object}},
+     components:{Avatar},
+     
 }
 </script>
 
 <style>
+
 
 </style>

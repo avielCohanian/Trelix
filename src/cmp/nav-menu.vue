@@ -8,7 +8,8 @@
         <h3  @click="closeMenu" class=" close-menu material-icons-outlined">close </h3>
         </li>
         <hr>
-        <div>
+        <div class="container-main">
+
         <li class="menu-about" @click="changeCmp('aboutBoard')">
             <h2>
          <font-awesome-icon class="logo" :icon="[ 'fab', 'trello' ]" />
@@ -31,11 +32,10 @@
         <li class="menu-nore" @click="changeCmp('moreMenu')"> 
         <h2> More </h2>
         </li>
+        <menu-activity :board="getBoard" />
         </div>
     </ul>
-        <component  :is="getComponent" @closeMenu="closeMenu" @changeCmp="changeCmp" :board="getBoard" @changeBcg="changeBcg"> </component>
-        <hr>
-        <menu-activity />
+        <component :is="getComponent" @closeMenu="closeMenu" @changeCmp="changeCmp" :board="getBoard" @changeBcg="changeBcg"> </component>
     </section>
 </template>
 
@@ -51,7 +51,15 @@ export default {
     data() {
         return {
             showCmp:null,
-            bcgColor:null
+            bcgColor:null,
+            board: this.getBoard
+            // [
+            //            {time:Date.now() -10000000, fullname:'MOSHE ZOHAR',event:{do:'added',in:{board:'fsg',id:'c102'}},
+            //            img:'https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg'}
+            //     ,{time:Date.now() -10000000, fullname:'MOSHE ZOHAR',event:{do:'added',in:{board:'fsg',id:'c102'}},
+            //            img:'https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg'}
+            //    ]
+               //todo get acrivitis from board
             // board: this.getBoard
         }
     },
@@ -81,7 +89,8 @@ export default {
        }
       ,
         getBoard(){
-            this.bcgColor =this.$store.getters.getBoard.style
+            this.bcgColor = this.$store.getters.getBoard.style
+            console.log(this.$store.getters.getBoard);
             return this.$store.getters.getBoard
         },
         openCmp(){

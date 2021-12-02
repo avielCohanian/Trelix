@@ -156,26 +156,64 @@ const groups = [
                 style: {},
             },
         ],
-        activities: [
-            {
+        activities: [{
                 id: 'a101',
                 txt: 'Changed Color',
-                createdAt: 154514,
+                createdAt: Date.now() -100000000,
                 byMember: {
                     _id: 'u101',
-                    fullname: 'Abi Abambi',
-                    imgUrl: 'http://some-img',
+                    fullname: 'Yael oushky',
+                    imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
                 },
                 card: {
                     id: 'c101',
                     title: 'Replace Logo',
                 },
             },
+
+            {
+                id: 'a102',
+                txt: 'Changed Background Color',
+                createdAt: Date.now() -1000000,
+                byMember: {
+                    _id: 'u102',
+                    fullname: 'Aviel Cohanian',
+                    imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466703/user/Aviel_xnwzxj.jpg',
+                },
+                card: {
+                    id: 'c101',
+                    title: 'Replace Logo',
+                },
+            },
+            {
+                id: 'a103',
+                txt: 'Add Card',
+                createdAt: Date.now() -100000,
+                byMember: {
+                    _id: 'u103',
+                    fullname: 'Eli Granat',
+                    imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/eli_rsut8n.png',
+                },
+                card: {
+                    id: 'c101',
+                    title: 'Replace Logo',
+                },
+            }
         ],
     },
 ];
 
-_save('boards', groups);
+// {time:Date.now() -10000000, fullname:'MOSHE ZOHAR',
+//             event:{do:'added',in:{board:'fsg',id:'c102'}},
+            
+//             img:'https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg'}
+            
+            
+//             ,{time:Date.now() -10000000, fullname:'MOSHE ZOHAR',event:{do:'added',in:{board:'fsg',id:'c102'}},
+//             img:'https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg'}
+            
+
+// _save('boards', groups);
 
 function query(entityType) {
     var entities = JSON.parse(localStorage.getItem(entityType));

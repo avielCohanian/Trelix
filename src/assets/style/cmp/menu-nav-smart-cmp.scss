@@ -16,6 +16,10 @@
         display: flex;
         .avatar{
             margin: 10px;
+            object-fit: contain;
+            width: 100%;
+            height: 100%;
+           
 
         }
         font-weight: 600;
@@ -35,8 +39,10 @@
 
    
         header {
+          
             display: flex;
             align-items: center;
+            margin-left: 5px;
             h3 {
                 margin: 0;
                 min-height: 18px;
@@ -62,6 +68,7 @@
             .edit-btn:hover {
                 background-color: #091e4214;
             }
+         
         }
         .description-container {
             p {
@@ -120,9 +127,9 @@
             }
             .colors ,.photos{
             background-size: cover;
-                width: 44%;
+                width: 143px;
                 height: 96px;
-                border-radius: 1rem;
+                border-radius: 8px;
                 margin: 0 8px ;
             }
             .custom{
@@ -146,16 +153,16 @@
             
         }
         .card-color {
-            width: 44%;
+            width: 143px;
             height: 96px;
-            border-radius: 1rem;
+            border-radius: 8px;
             margin: 8px ;
         }
         .card-img {
             background-size: cover;
-            width: 44%;
+            width: 143px;
             height: 96px;
-            border-radius: 1rem;
+            border-radius: 8px;
             margin:  8px ;
         }
         

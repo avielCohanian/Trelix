@@ -69,6 +69,7 @@ methods:{
           this.$emit('closeMenu')
         },
         back(){
+          console.log(this.openOpt);
           const cmp = this.openOpt ? 'changeBackground' : null
          this.$emit('changeCmp', cmp)
         },
