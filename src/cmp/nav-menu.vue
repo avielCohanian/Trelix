@@ -1,8 +1,5 @@
 <template>
     <section class="nav-menu" :style="openCmp">
-        <!-- <i class="fab fa-trello"></i> -->
-
-
 
     <ul class="menu-list"  v-if="!showCmp">
         <li class="menu-header">

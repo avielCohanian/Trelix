@@ -32,7 +32,78 @@
         font-family: iconSolid;
         content: "\f036";
     } 
+
+   
+        header {
+            display: flex;
+            align-items: center;
+            h3 {
+                margin: 0;
+                min-height: 18px;
+                min-width: 40px;
+                font-size: rem(16px);
+                line-height: 20px;
+                font-weight: 600;
+                margin-block-start: 1em;
+                margin-block-end: 1em;
+            }
+            .edit-btn {
+                margin-left: 8px;
+                background-color: #091e420a;
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                padding: 6px 12px;
+                transition-duration: 85ms;
+                transition-property: background-color;
+            }
+            .edit-btn:hover {
+                background-color: #091e4214;
+            }
+        }
+        .description-container {
+            p {
+                cursor: pointer;
+                font-size: 14px;
+            }
+            .description-edit-btn {
+                margin-top: 8px;
+                .save {
+                    cursor: pointer;
+                    float: left;
+                    margin: 0 4px 0 0;
+                    background-color: #0079bf;
+                    border: none;
+                    box-shadow: none;
+                    color: #fff;
+                    border-radius: 3px;
+                    line-height: 20px;
+                    padding: 6px 12px;
+                    transition-duration: 85ms;
+                    transition-property: background-color;
+                }
+                .save:hover {
+                    background-color: #026aa7;
+                }
+                .close-btn {
+                    cursor: pointer;
+                    color: #42526e;
+                    height: 32px;
+                    line-height: 32px;
+                    width: 32px;
+                    font-size: rem(24px);
+                    background-color: #0000;
+                }
+            }
+        }
     }
+
+
+
+
+
     .cmp-background{
         
         ul{

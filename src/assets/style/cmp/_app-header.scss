@@ -44,12 +44,13 @@
             }
         }
     }
-
+.modal{
+    right: 0;
+}
     // background-image: url() ;
 }
 
 .modal {
-    right: 0;
     .avatar-user {
         display: flex;
         flex-direction: row;

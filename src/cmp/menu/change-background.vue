@@ -1,5 +1,12 @@
 <template>
 <section class="cmp-background">
+    <div class="menu-header background-header">
+                <h3 class="back-menu" @click="back"> 
+                <span  class="material-icons-outlined back">arrow_back_ios</span></h3>
+                <h2 class="menu-header-txt"> Change background </h2>
+                <h3  @click="closeMenu" class=" close-menu material-icons-outlined">close </h3>
+        </div>
+        <hr>
   <div class="bcg-main" v-if="!showCmp" >
     <div class="choice-bcg-up">
 
@@ -16,7 +23,7 @@
     </div>
   </div>
 
-  <component :is="getComponent" :imgs="imgs" @changeBcg="changeBcg"  :colors="colors" v-else></component>
+  <component @click="back" :is="getComponent" :imgs="imgs" @changeBcg="changeBcg"  :colors="colors" v-else></component>
 </section>
 </template>
 
@@ -57,7 +64,14 @@ methods:{
          coppyBoard.style =newBcg
          this.$store.dispatch({type:'updateBoard',board:coppyBoard})
          this.$emit('changeBcg')
-        }
+        },
+        closeMenu(){
+          this.$emit('closeMenu')
+        },
+        back(){
+          const cmp = this.openOpt ? 'changeBackground' : null
+         this.$emit('changeCmp', cmp)
+        },
 
    },
    computed:{
@@ -66,7 +80,7 @@ methods:{
            },
            getImg(){
              console.log(this.imgs.pic2);
-          return this.imgs.pic2
+              return this.imgs.pic2
        },
              },
 components:{
