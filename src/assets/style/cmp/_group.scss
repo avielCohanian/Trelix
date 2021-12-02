@@ -3,65 +3,73 @@
     margin: 0 4px;
     padding: 0 8px;
     width: 272px;
-    border-radius: 5px;
+    border-radius: 3px;
     // background-color: aqua;
     input {
         margin-bottom: 5px;
-        // box-shadow: 0 1px 0 #091e4240;
-        padding: 6px 8px 2px;
         position: relative;
         width: 256px;
-        // width: 256px;
         min-height: 20px;
+    }
+    .el-input__inner.edit-title{ 
+        width: 230px; 
+        font-size: 16px;
     }
     .opacity input {
         color: rgb(32, 32, 32);
         box-shadow: none;
         border: none;
-        background-color: #ffffff91;
-        // background-color: #ebecf0;
+        background-color: #ffffff91; // background-color: #ebecf0;
     }
     .btn-group {
         display: flex;
         flex-direction: column;
         margin-bottom: 6px;
-        // padding: 6px 8px 2px;
         textarea {
             resize: none;
             border: none;
             box-shadow: 0 1px 0 #091e4240;
             font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
                 Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             background-color: white;
         }
-    }
-    .bottom-btn {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 4px;
-        justify-content: space-between;
-
-        .btn-left {
+        .btn-add {
+            margin-bottom: 6px;
             display: flex;
-            align-items: center;
-            align-self: center;
-            justify-content: center;
-        }
-        i {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            p {
+                margin-inline-start: 5px;
+                color: gray;
+            }
+            .left {
+                // margin-left: 3px;
+                margin-bottom: 6px;
+                position: relative;
+                top: 6px;
+                align-items: center;
+            }
+            p.more{
+                padding-right: 3px;
+                padding-top: 10px;
+                font-size: 20px;
+            }
         }
     }
     header {
         align-items: center;
-        padding-top: 8px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-left: 2px;
+        padding-right: 2px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         p {
             font-size: 15px;
+        }
+        i {
+            font-size: 16px;
         }
     }
 }

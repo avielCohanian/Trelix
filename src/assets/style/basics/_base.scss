@@ -60,3 +60,14 @@ li {
     display: inline-block;
     margin: 0;
 }
+ul{
+    margin: 0;
+    padding: 0;
+}
+
+.el-textarea__inner{
+	resize: none;
+}
+#app{
+    position: relative;
+}

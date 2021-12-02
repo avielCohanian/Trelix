@@ -1,39 +1,52 @@
-.groups{
+.groups {
     display: inline-block;
     height: 100%;
     margin: 0 4px;
     vertical-align: top;
     white-space: nowrap;
-    
+
     border-radius: 3px;
     max-width: 100%;
     position: relative;
     white-space: normal;
     display: flex;
     flex-direction: row;
-
-    input{
+    button {
+        // height: 32px;
+        border: none;
+        background-color: #0079bf;
+    }
+    input {
         box-shadow: 0 1px 0 #091e4240;
-        padding: 6px 8px 2px;
         position: relative;
-        width: 256px;
         min-height: 20px;
+        // width: 272px;
         margin-bottom: 6px;
     }
-    .add-list{
-margin-inline-start:  4px;
+    .add-list {
+        margin-inline-start: 3px;
     }
-     .add-list-container{
+    .add-list-container {
         width: 272px;
         border-radius: 5px;
-        // padding: 0 4px;
-        margin: 0 4px;
-        padding: 4px 8px;
-    //    padding: 8px;
-        background-color:#ebecf0
+        padding: 4px 4px;
+        background-color: #ebecf0;
+        input{
+            width: 264px;
+            box-shadow: inset 0 0 0 2px #0079bf;
+        }
+        .btn-add{
+            display: flex;
+            gap: 5px;
+            // justify-content: center;
+            align-items: center;
+            span.grey{
+                color: gray;
+            }
+        }
     }
 }
-.opacity-more input{
+.opacity-more input {
     color: white;
     box-shadow: none;
     border: none;

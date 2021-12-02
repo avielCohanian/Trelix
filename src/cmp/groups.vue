@@ -20,11 +20,14 @@
                     v-model="newGroup.title"
                      @keyup.enter.native="addGroup"
                 ></el-input>
+<div class="btn-add"> 
+
 
                 <el-button type="primary" @click="addGroup">
                     Add list</el-button
                 >
-                <span class="material-icons-outlined" @click="toggleGroup">close</span>
+                <span class="material-icons-outlined grey" @click="toggleGroup">close</span>
+</div>
                 <!-- <i class="el-icon-close" @click="toggleGroup"></i> -->
             </label>
 </div>
@@ -44,7 +47,6 @@ export default {
     data() {
         return {
             isAddGroup: false,
-
             newGroup: boardService.getEmptyGroup(),
         };
     },
