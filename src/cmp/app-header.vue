@@ -2,31 +2,31 @@
     <section class="app-header">
         <nav>
             <div class="nav-list">
-                <i class="material-icons-outlined"> apps </i>
+                <i class="material-icons-outlined pointer"> apps </i>
                 <!-- <i class="el-icon-s-grid"></i> -->
 
-                <div class="logo">
+                <div class="logo pointer">
                     <font-awesome-icon :icon="['fab', 'trello']" /><strong>
                         Trelix</strong
                     >
                 </div>
                 <ul>
-                    <li>Workspace <i class="el-icon-arrow-down"></i></li>
-                    <li>Recent <i class="el-icon-arrow-down"></i></li>
-                    <li>Starred <i class="el-icon-arrow-down"></i></li>
-                    <li>Templates <i class="el-icon-arrow-down"></i></li>
+                    <li>Workspace <i class="el-icon-arrow-down pointer"></i></li>
+                    <li>Recent <i class="el-icon-arrow-down pointer"></i></li>
+                    <li>Starred <i class="el-icon-arrow-down pointer"></i></li>
+                    <li>Templates <i class="el-icon-arrow-down pointer"></i></li>
                     <li>Create</li>
                 </ul>
             </div>
             <div class="search">
                 <el-input placeholder="Search... "></el-input>
-                <div class="icon-header hover">
-                    <span class="material-icons-outlined"> info </span>
+                <div class="icon-header hover pointer" >
+                    <span class="material-icons-outlined" > info </span>
                 </div>
-                <div class="icon-header hover">
+                <div class="icon-header hover pointer">
                     <span class="material-icons-outlined"> notifications </span>
                 </div>
-                <div class="icon-header">
+                <div class="icon-header pointer pointer">
                     <avatar
                         @click.native="showProfile"
                         :size="35"

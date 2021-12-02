@@ -1,5 +1,5 @@
 <template>
-    <section class="nav-menu" :style="openCmp">
+    <section class="nav-menu" >
 
     <ul class="menu-list"  v-if="!showCmp">
         <li class="menu-header">
@@ -35,7 +35,9 @@
         <menu-activity :board="getBoard" />
         </div>
     </ul>
+    <transition name="slide-fade">
         <component :is="getComponent" @closeMenu="closeMenu" @changeCmp="changeCmp" :board="getBoard" @changeBcg="changeBcg"> </component>
+    </transition>
     </section>
 </template>
 
@@ -93,12 +95,24 @@ export default {
             console.log(this.$store.getters.getBoard);
             return this.$store.getters.getBoard
         },
-        openCmp(){
-    // transform: translateX(100%);
-            return {transform: 'translateX(0%)'}
-        }
+    //     openCmp(){
+    // // transform: translateX(100%);
+    //         return {transform: 'translateX(0%)'}
+    //     }
     },
 };
 </script>
 
-<style></style>
+<style>
+.slide-fade-enter-active {
+  transition: all .6s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+</style>

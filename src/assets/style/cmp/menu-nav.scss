@@ -1,7 +1,14 @@
+.open-menu {
+    transform: translateX(0%);
+    transition: transform 0.7s;
+}
+.close-menu {
+    transform: translateX(100%);
+    transition: transform 0.7s;
+}
 .nav-menu {
     border-radius: 0.1rem;
-    transform: translateX(100%);
-    transition: all 1s;
+    // transition: all 1s;
     position: fixed;
     right: 0;
     top: 50px;
@@ -12,6 +19,8 @@
     font-weight: 600;
     // padding: 8px;
     padding: 0 7px;
+
+    
     .menu-header {
         height: rem(48px);
         display: flex;

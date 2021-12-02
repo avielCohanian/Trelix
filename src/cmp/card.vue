@@ -4,10 +4,10 @@
         <!-- <router-link :to="{name:'cardDetails'}">
     go to beteet world
     </router-link> -->
-        <header>
+        <header @mouseover="isHover = true" @mouseleave="isHover = false">
             <p>{{ card.title }}</p>
 
-            <p class="material-icons-outlined" @click="openEditor">create</p>
+            <p class="material-icons-outlined hover" @click="openEditor" :style="isShow">create</p>
             <!-- <i class="el-icon-edit" @click="openEditor"></i> -->
         </header>
         <div>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <main>
-            <div v-if="isOpenEditor" class="editor">
+            <div v-if="isOpenEditor" class="editor" >
                 <div class="edit-txt">
 
                 <el-input
@@ -58,10 +58,12 @@ export default {
     props: ['card'],
     data() {
         return {
+            isHover: false,
             isOpenEditor: false,
         };
     },
     methods: {
+       
         openEditor() {
             this.isOpenEditor = !this.isOpenEditor;
         },
@@ -69,6 +71,13 @@ export default {
             //TODO: card id
             const BoardId = this.$route.params.BoardId;
             this.$router.push(`/board/${BoardId}/c104`);
+        },
+    },
+    computed:{
+ isShow(){
+     console.log('aa');
+if(this.isHover) return {opacity: 1}
+else return {opacity: 0}
         },
     },
     components: {

@@ -2,53 +2,81 @@
     <section class="full">
         <section class="nav-board">
             <ul class="left">
-                <li>Board <i class="el-icon-arrow-down"></i></li>
+                <li>Board <i class="el-icon-arrow-down pointer"></i></li>
                 <li>Board Name</li>
-                <li class="el-icon-star-off"></li>
+                <li class="el-icon-star-off pointer"></li>
+                <span class="divider pointer"></span>
+                <li class="pointer">Trelix Workspace</li>
                 <span class="divider"></span>
-                <li>Trelix Workspace</li>
-                <span class="divider"></span>
-                <li class="icon"><span class="material-icons-outlined ">people</span>Workspace visible</li>
-                <span class="divider"></span>
-                <div class="icon-user">
-                <li v-for="member in getBoard.members" :key="member.id" class="avatar-logo" @click="showProfile">
-                    <avatar
-                        :size="35"
-                        :username="member.fullname"
-                        class="member icon-member"
-                    ></avatar>
+                <li class="icon pointer">
+                    <span class="material-icons-outlined">people</span>Workspace
+                    visible
                 </li>
+                <span class="divider"></span>
+                <div class="icon-user pointer">
+                    <li
+                        v-for="member in getBoard.members"
+                        :key="member.id"
+                        class="avatar-logo"
+                        @click="showProfile"
+                    >
+                        <avatar
+                            :size="35"
+                            :username="member.fullname"
+                            class="member icon-member"
+                        ></avatar>
+                    </li>
                 </div>
-                <li class="icon"><span class="material-icons-outlined ">person_add</span>Invite</li>
+                <li class="icon">
+                    <span class="material-icons-outlined">person_add</span
+                    >Invite
+                </li>
             </ul>
             <div class="modal" v-if="isShowProfile">
-                  <div class="title">
-                    <i class="el-icon-close" @click="isShowProfile = !isShowProfile"></i>
+                <div class="title">
+                    <i
+                        class="el-icon-close"
+                        @click="isShowProfile = !isShowProfile"
+                    ></i>
                     <i>Account</i>
                 </div>
                 <hr />
-                <div class="avatar-user"> 
+                <div class="avatar-user">
+                    <avatar
+                        :size="32"
+                        username="member.username"
+                        class="member"
+                    ></avatar>
+                    <div
+                        class="user-details"
+                        v-for="member in getBoard.members"
+                        :key="member.id"
+                    >
+                        <div>{{ member.fullname }}</div>
 
-                <avatar  :size="32 "  username="member.username" class="member" ></avatar>
-                <div class="user-details" v-for="member in getBoard.members" :key="member.id">
-               <div>{{member.fullname}}</div>
-               
-               <div>{{member.mail}}</div>
+                        <div>{{ member.mail }}</div>
+                    </div>
                 </div>
-                </div>
-               <div>Activity</div>
-               <hr>
-               <div>Log out</div>
-                
-        </div>
+                <div>Activity</div>
+                <hr />
+                <div>Log out</div>
+            </div>
             <ul class="right">
-                <li class="icon"><span class="material-icons-outlined ">flash_on</span>Automation</li>
-               <span class="divider"></span>
-                <li class="icon"><span class="material-icons-outlined">filter_list</span>filter</li>
-                <li class="el-icon-more icon" @click="toggleMenu">Show menu</li>
+                <li class="icon pointer">
+                    <span class="material-icons-outlined">flash_on</span
+                    >Automation
+                </li>
+                <span class="divider"></span>
+                <li class="icon pointer">
+                    <span class="material-icons-outlined">filter_list</span
+                    >filter
+                </li>
+                <li class="el-icon-more icon pointer" @click="toggleMenu">
+                    Show menu
+                </li>
             </ul>
         </section>
-        <nav-menu @closeMenu="toggleMenu" v-if="showMenu" />
+        <nav-menu @closeMenu="toggleMenu" :class="isShowMenu" />
     </section>
 </template>
 
@@ -65,17 +93,22 @@ export default {
             showMenu: false,
         };
     },
-    computed: {},
+    computed: {
+        isShowMenu() {
+            return this.showMenu ? 'open-menu' : 'close-menu';
+        },
+    },
     methods: {
         showProfile() {
             console.log('clickk');
             this.isShowProfile = !this.isShowProfile;
         },
         toggleMenu() {
+            console.log('CLOSE ELI');
             this.showMenu = !this.showMenu;
         },
-
     },
+
     mounted() {},
     components: {
         avatar,
