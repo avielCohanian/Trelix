@@ -10,7 +10,7 @@
                 <span class="divider"></span>
                 <li class="icon"><span class="material-icons-outlined ">people</span>Workspace visible</li>
                 <span class="divider"></span>
-                <li v-for="member in getBoard.members" :key="member.id" class="avatar-logo" >
+                <li v-for="member in getBoard.members" :key="member.id" class="avatar-logo" @click="showProfile">
                     <avatar
                         :size="35"
                         :username="member.fullname"
@@ -19,6 +19,26 @@
                 </li>
                 <li class="icon"><span class="material-icons-outlined ">person_add</span>Invite</li>
             </ul>
+            <div class="modal" v-if="isShowProfile">
+                  <div class="title">
+                    <i class="el-icon-close" @click="isShowProfile = !isShowProfile"></i>
+                    <i>Account</i>
+                </div>
+                <hr />
+                <div class="avatar-user"> 
+
+                <avatar  :size="35 "  username="member.username" class="member" ></avatar>
+                <div class="user-details" v-for="member in getBoard.members" :key="member.id">
+               <div>{{member.fullname}}</div>
+               
+               <div>{{member.mail}}</div>
+                </div>
+                </div>
+               <div>Activity</div>
+               <hr>
+               <div>Log out</div>
+                
+        </div>
             <ul class="right">
                 <li class="icon"><span class="material-icons-outlined ">flash_on</span>Automation</li>
                <span class="divider"></span>
@@ -52,6 +72,7 @@ export default {
         toggleMenu() {
             this.showMenu = !this.showMenu;
         },
+
     },
     mounted() {},
     components: {

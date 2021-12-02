@@ -31,18 +31,19 @@
                     <li @click="deleteGroup">Archive this list</li>
                 </ul>
             </div>
-            <!-- <Container
+            <Container
+            
                 @drop="onDrop"
                 :get-ghost-parent="getGhostParent"
                 :remove-on-drop-out="true"
                 @drop-ready="onDropReady"
-            > -->
-                <Draggable v-for="card in cardsToShow" :key="card.id">
+            >
+                <Draggable v-for="card in cardsToShow" :key="card.id" >
                     <div class="draggable-item">
                         <card @click="showEdit(card.id)" :card="card" />
                     </div>
                 </Draggable>
-            <!-- </Container> -->
+            </Container>
             <label for="addCard" @click="toggleCard" v-if="!isAddCard">
  
                 <el-input  class="opacity " name="addCard" placeholder="+ Add a card"></el-input>
