@@ -6,8 +6,27 @@
         content: "\f007";
         
     }
+    .about{
+        margin: 20px 10px;
+        span{
+            margin-left:10px ;
+        }
+    }
     .about-name{
         display: flex;
+        .avatar{
+            margin: 10px;
+
+        }
+        font-weight: 600;
+        h3{
+            margin-top: 0.1rem;
+        }
+
+    }
+    .details{
+        display: flex;
+        flex-direction: column;
     }
     .icon-description::before{
         font-family: iconSolid;
@@ -38,6 +57,18 @@
             .custom{
             }
         }
+        .cmp-labels{
+
+        }
+        .cmp-arcive{
+
+        }
+        .cmp-link{
+            
+        }
+        .cmp-activity{
+
+        }
         .plus::before{
             font-family: iconSolid;
             content: "\f067";
@@ -47,14 +78,14 @@
             width: 44%;
             height: 96px;
             border-radius: 1rem;
-            margin: 0 8px ;
+            margin: 8px ;
         }
         .card-img {
             background-size: cover;
             width: 44%;
             height: 96px;
             border-radius: 1rem;
-            margin: 0 8px ;
+            margin:  8px ;
         }
         
     }

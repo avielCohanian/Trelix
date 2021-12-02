@@ -5,6 +5,7 @@ import about from '../pages/about.vue';
 
 import cardDetails from '../pages/card-details.vue';
 import board from '../pages/board.vue';
+import drugGroup from '../cmp/drug-group.vue';
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ const routes = [
                 component: cardDetails,
             },
         ],
+    },
+    {
+        path: '/drug',
+        name: 'drugGroup',
+        component: drugGroup,
     },
 ];
 

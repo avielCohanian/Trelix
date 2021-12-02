@@ -1,91 +1,98 @@
 
 .nav-menu{
+    border-radius: 0.1rem;
+
     transform: translateX(100%);
-    transition:all 3s;
+    transition:all 1s;
     position: fixed;
     right: 0;
     top: 50px;
-    background-color: #f4f5f7;
+    background-color: #ebecf0;
     z-index: 1;
         width: 300px;
         height: 100%;
-        padding: 8px;
-        >* {
-            cursor: pointer;
-        }
-    .menu-list{
-        margin: 0;
-        padding: 0;
+        font-weight: 600;
+        // padding: 8px;
+        padding: 0 7px;
         .menu-header{
+            height: rem(48px);
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            font-family: Neue,sans-serif;
-            line-height: 20px;
-             margin: 14px 32px;
-             color: #172b4d;
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-
-            .back-menu::before{
-                font-family: iconSolid;
-                content: "\f053";
-                
-            }
+            // text-align: center;
+            color: #172b4d;
+       
             .menu-header-txt{
             font-size: 1rem;
-            }
-            .close-menu::after {
-                font-family: iconSolid;
-                content: "\f00d";
+            padding: 0 90px;
+            margin: 0;
             }
             .close-menu{
-                padding: 0 20px;
+            margin: 0;
+            font-size: rem(19px);
+            }
+            
+        }
+        .back{
+            font-size: rem(18px);
+        }
+        .about-header{
+            border-radius: 0.5rem;
+            .menu-header-txt{
+                padding: 0 50px;
+                margin: 0;   
+}
+        }
+        .background-header{
+            .menu-header-txt{
+                padding: 0 50px;
             }
         }
+        .menu-list{
+       
+        margin: 0;
+        padding: 0;
+       
+        
         .menu-about{
+            // margin-left: 6px;
             display: flex;
-            // flex-direction: column;
-            font-family: NotoSerifRegular;
-            h2{
-            font-family: NotoSerifBold;
+                cursor: pointer;
+                h2{
+                font-weight: 600;
         }
         &:hover{
-            background-color: rgba(132, 148, 148, 0.794);
+            background-color: rgba(175, 184, 184, 0.349);
         }
-        
-// NotoSerifBold
-// NotoSerifBoldItalic
-// NotoSerifItalic
-// NotoSerifRegular
             .logo{
                 margin: 0 10px;
             }
-
         }
-
         .menu-background{
             display: flex;
             align-items: center;
+            cursor: pointer;
+            // margin-left: 6px;
+
+
             .border-color{
-                width: 25px;
-                height: 25px;
+                width: 20px;
+                height: 20px;
                 background-color: aqua;
                 margin: 0 10px;
                 border-radius: 0.3rem;
                 background-size: cover;
             }
             h2{
-            font-family: NotoSerifBold;
+            // font-family: NotoSerifBold;
+            font-size: rem(14px) ;
+
             }
             &:hover{
-                background-color: rgba(147, 148, 148, 0.842);
+                background-color: rgba(175, 184, 184, 0.349);
+
             }
         }
-        
         .menu-stickers{
         h2{
             color: chocolate;
