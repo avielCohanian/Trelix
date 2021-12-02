@@ -1,11 +1,11 @@
 <template >
     <section class="cmp-about" > 
-         <li class="menu-header about-header">
+         <div class="menu-header about-header">
                 <h3 class="back-menu" @click="back"> 
                 <span  class="material-icons-outlined back">arrow_back_ios</span></h3>
                 <h2 class="menu-header-txt"> About this board </h2>
                 <h3  @click="closeMenu" class=" close-menu material-icons-outlined">close </h3>
-         </li>
+         </div>
          <hr>
          <h2 class="about"><span> Board admins </span></h2>
          <div class="about-name">
@@ -23,7 +23,7 @@
                         <div class="description-container">         
                              <p v-if="!editDescription" @click="openEditDescription">{{ copyBoard.description }}</p>
                              <div v-else class="description-edit"> 
-                                  <el-input  type="textarea" :rows="5" placeholder="Add a more detailed description..."
+                                  <el-input  type="textarea" :rows="5" placeholder="Add description..."
                                          ref="editInput" v-model="copyBoard.description">
                                   </el-input>
                                  <div class="description-edit-btn">
