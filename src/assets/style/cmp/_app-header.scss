@@ -1,12 +1,15 @@
 .app-header {
+    padding-inline-end: 10px;
+    padding-inline-start: 10px;
     color: white;
     background-color: rgba(0, 0, 0, 0.32);
-    // max-height: 50px;
-    // border: 1px solid black;
     width: 100%;
-    height: 5vh;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    height: 6vh;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     nav {
         display: flex;
         justify-content: space-between;
@@ -14,40 +17,54 @@
             font-size: 14px;
             display: flex;
             flex-direction: row;
-            align-items: baseline;
+            align-items: center;
             gap: 10px;
             .el-icon-s-grid,
             .logo {
                 font-size: 20px;
             }
             ul {
+                // margin-inline-end: 10px;
                 gap: 15px;
                 display: flex;
             }
         }
         .search {
-            margin-block-end: 1em;
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
-            // width: 450px;
-            // justify-content: space-between;
-            // min-width:470px;
+            margin: 0 ;
+            gap: 4px;
             i {
                 font-size: 20px;
             }
             input {
-                width: 250px;
+                // width: 250px;
+                height: 32px;
             }
-            .member {
-                width: 45px;
+            span{
+                font-size: 20px;
+                // heiht: 20px;
+            }
+            .icon-header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 50px;
+                height: 32px;
+                // height: 100%;
+            }
+            .icon-header.hover:hover {
+                width: 50px;
+                height: 32px;
+                border-radius: 3px;
+                background-color: lightgrey;
             }
         }
     }
-.modal{
-    right: 0;
-}
-    // background-image: url() ;
+    .modal {
+        right: 0;
+    }
 }
 
 .modal {

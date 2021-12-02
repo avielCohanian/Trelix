@@ -24,6 +24,10 @@
         margin: 0 0 4px;
         overflow: hidden;
     }
+    .editor{
+display: flex;
+// justify-content: space-between;
+    }
 }
 .screen {
     width: 100vw;

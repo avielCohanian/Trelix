@@ -3,20 +3,27 @@
         <div class="group">
             <header>
                 <template v-if="!isEditTitle">
-                <h3 @click="isEditTitle = !isEditTitle">{{ group.title }}</h3>
+                    <h3 @click="isEditTitle = !isEditTitle">
+                        {{ group.title }}
+                    </h3>
                 </template>
                 <template v-if="isEditTitle">
-                        <el-input
+                    <el-input
+                    class="edit-title"
                         size="mini"
                         v-model="groupToEdit.title"
-                        @keyup.enter.native="updateGroup "
-                        ></el-input>
+                        @keyup.enter.native="updateGroup"
+                    ></el-input>
                 </template>
                 <i class="el-icon-more" @click="openModal = !openModal"></i>
             </header>
             <div class="modal" v-if="openModal">
                 <div class="title">
-                <span class="material-icons-outlined"  @click=" openModal = !openModal">close</span>
+                    <span
+                        class="material-icons-outlined"
+                        @click="openModal = !openModal"
+                        >close</span
+                    >
                     <!-- <i
                         class="el-icon-close"
                         @click="openModal = !openModal"
@@ -32,41 +39,49 @@
                 </ul>
             </div>
             <Container
-            
                 @drop="onDrop"
                 :get-ghost-parent="getGhostParent"
                 :remove-on-drop-out="true"
                 @drop-ready="onDropReady"
             >
-                <Draggable v-for="card in cardsToShow" :key="card.id" >
+                <Draggable v-for="card in cardsToShow" :key="card.id">
                     <div class="draggable-item">
                         <card @click="showEdit(card.id)" :card="card" />
                     </div>
                 </Draggable>
             </Container>
             <label for="addCard" @click="toggleCard" v-if="!isAddCard">
- 
-                <el-input  class="opacity " name="addCard" placeholder="+ Add a card"></el-input>
+                <el-input
+                    class="opacity"
+                    name="addCard"
+                    placeholder="+ Add a card"
+                ></el-input>
             </label>
-            <label v-if="isAddCard" >
+            <label v-if="isAddCard">
                 <div class="btn-group">
                     <el-input
-                    type="textarea"
-                    :rows="3"
+                        type="textarea"
+                        :rows="3"
                         placeholder="Enter a title for this card... "
                         v-model="newCard.title"
-                        @keyup.enter.native="addCard">
-                    ></el-input>
-
-                    <div class="bottom-btn">
-<div class="btn-left">
-
-                    <el-button type="primary" @click="addCard">
-                        Add card</el-button
+                        @keyup.enter.native="addCard"
                     >
-                    <p class="material-icons-outlined" @click="toggleCard">close</p>
-</div>
-                      <i class="el-icon-more" ></i>
+                        ></el-input
+                    >
+
+                    <div class="btn-add">
+                        <div class="left">
+                            <el-button type="primary" @click="addCard">
+                                Add card</el-button
+                            >
+                            <p
+                                class="material-icons-outlined left"
+                                @click="toggleCard"
+                            >
+                                close
+                            </p>
+                        </div>
+                        <p class="el-icon-more more"></p>
                     </div>
                 </div>
             </label>
@@ -89,7 +104,7 @@ export default {
             isEditTitle: false,
             isAddCard: false,
             openModal: false,
-            groupToEdit : JSON.parse(JSON.stringify(this.group)) ,
+            groupToEdit: JSON.parse(JSON.stringify(this.group)),
             newCard: boardService.getEmptyCard(),
             cards: this.group.cards,
             items: generateItems(10, (i) => ({
@@ -105,10 +120,10 @@ export default {
         showEdit(cardId) {
             this.route.push(`/cardDetails/${cardId}`);
         },
-       async updateGroup(){
-           console.log(this.group);
-           this.isEditTitle = !this.isEditTitle
-                try {
+        async updateGroup() {
+            console.log(this.group);
+            this.isEditTitle = !this.isEditTitle;
+            try {
                 var res = await this.$store.dispatch({
                     type: 'updateGroup',
                     group: this.groupToEdit,
