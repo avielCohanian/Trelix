@@ -3,7 +3,7 @@
 
   <div class="bcg-choice" >
     <ul >
-      <li v-for="(img,idx) in imgs" :key="idx" :style="img" class="card-img" @click="changeBgc(img)">
+      <li v-for="(img,idx) in imgs" :key="idx" :style="img" class="card-img pointer" @click="changeBgc(img)">
       </li>
     </ul>
   </div>

@@ -1,10 +1,10 @@
 <template >
     <section class="cmp-about" > 
          <div class="menu-header about-header">
-                <h3 class="back-menu" @click="back"> 
+                <h3 class="back-menu pointer" @click="back"> 
                 <span  class="material-icons-outlined back">arrow_back_ios</span></h3>
                 <h2 class="menu-header-txt"> About this board </h2>
-                <h3  @click="closeMenu" class=" close-menu material-icons-outlined">close </h3>
+                <h3  @click="closeMenu" class=" close-menu material-icons-outlined pointer">close </h3>
          </div>
          <hr>
          <h2 class="about"><span> Board admins </span></h2>

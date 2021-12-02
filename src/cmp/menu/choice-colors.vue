@@ -2,7 +2,7 @@
 <section class="cmp-colors">
   <div class="bcg-choice" >
     <ul>
-      <li v-for="(color,idx) in colors" :key="idx" :style="color" class="card-color" @click="changeBgc(color)">
+      <li v-for="(color,idx) in colors" :key="idx" :style="color" class="card-color pointer" @click="changeBgc(color)">
       </li>
     </ul>
   </div>

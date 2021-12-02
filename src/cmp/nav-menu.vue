@@ -5,7 +5,7 @@
         <li class="menu-header">
         <h3 class="back-menu" @click="changeCmp(null)"></h3>
         <h2 class="menu-header-txt">Menu</h2>
-        <h3  @click="closeMenu" class=" close-menu material-icons-outlined">close </h3>
+        <h3  @click="closeMenu" class=" close-menu material-icons-outlined pointer">close </h3>
         </li>
         <hr>
         <div class="container-main">
@@ -25,6 +25,8 @@
         <h2> Change Background </h2>
         </li>
         <br>
+        <input id="id-short-url"  ref="focusInput" class="js-short-url" type="text" readonly="readonly" value="https://trello.com/b/SIlAFmuF">
+
         <!-- <li class="menu-stickers" @click="changeCmp('addStickers')">
         <h2> Stickers </h2>
         </li> -->
@@ -55,15 +57,12 @@ export default {
             showCmp:null,
             bcgColor:null,
             board: this.getBoard
-            // [
-            //            {time:Date.now() -10000000, fullname:'MOSHE ZOHAR',event:{do:'added',in:{board:'fsg',id:'c102'}},
-            //            img:'https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg'}
-            //     ,{time:Date.now() -10000000, fullname:'MOSHE ZOHAR',event:{do:'added',in:{board:'fsg',id:'c102'}},
-            //            img:'https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg'}
-            //    ]
-               //todo get acrivitis from board
-            // board: this.getBoard
         }
+    },
+    created(){
+        console.log(this.$refs);
+        
+        // .focusInput.focus()
     },
     methods: {
         changeCmp(cmp){
@@ -95,24 +94,11 @@ export default {
             console.log(this.$store.getters.getBoard);
             return this.$store.getters.getBoard
         },
-    //     openCmp(){
-    // // transform: translateX(100%);
-    //         return {transform: 'translateX(0%)'}
-    //     }
+   
     },
 };
 </script>
 
 <style>
-.slide-fade-enter-active {
-  transition: all .6s ease;
-}
-.slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
-}
+
 </style>

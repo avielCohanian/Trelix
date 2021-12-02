@@ -62,7 +62,18 @@
             height: 80vh;
             overflow: scroll;
             overflow-x: hidden;
-
+            &::-webkit-scrollbar {
+                width: 7px;
+            }
+            &::-webkit-scrollbar-track {
+                border-radius: 10px;
+                background: transparent;
+            }
+            &::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                background: rgba(0, 0, 0, 0.32);
+            }
+        
             .menu-about {
                 // margin-left: 6px;
                 display: flex;
