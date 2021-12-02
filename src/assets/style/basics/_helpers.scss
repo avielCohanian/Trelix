@@ -15,3 +15,15 @@
 .ratio-poster {
 	@include aspect-ratio(100, 150);
 }
+.pointer{
+	cursor: pointer;
+}
+.flex-center{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.flex{
+	display: flex;
+
+}

@@ -10,6 +10,7 @@
                 <span class="divider"></span>
                 <li class="icon"><span class="material-icons-outlined ">people</span>Workspace visible</li>
                 <span class="divider"></span>
+                <div class="icon-user">
                 <li v-for="member in getBoard.members" :key="member.id" class="avatar-logo" @click="showProfile">
                     <avatar
                         :size="35"
@@ -17,6 +18,7 @@
                         class="member icon-member"
                     ></avatar>
                 </li>
+                </div>
                 <li class="icon"><span class="material-icons-outlined ">person_add</span>Invite</li>
             </ul>
             <div class="modal" v-if="isShowProfile">
@@ -27,7 +29,7 @@
                 <hr />
                 <div class="avatar-user"> 
 
-                <avatar  :size="35 "  username="member.username" class="member" ></avatar>
+                <avatar  :size="32 "  username="member.username" class="member" ></avatar>
                 <div class="user-details" v-for="member in getBoard.members" :key="member.id">
                <div>{{member.fullname}}</div>
                

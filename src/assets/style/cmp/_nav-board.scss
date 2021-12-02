@@ -1,4 +1,6 @@
 .nav-board {
+    margin-inline-start: 10px;
+    margin-inline-end: 10px;
     display: flex;
     height: 60px;
     justify-content: space-between;
@@ -12,15 +14,20 @@
         background-color: #ffffff91;
     }
     .left {
+        padding-inline-start: 0;
         color: white;
         display: flex;
         gap: 5px;
+        .icon-user {
+            display: flex;
+            justify-content: center;
+            // align-items: center;
+        }
     }
     .right {
         color: white;
         display: flex;
         gap: 5px;
-        padding: 0px 12px;
     }
     li.avatar-logo {
         
@@ -37,6 +44,6 @@
         border-left: 1px solid #ffffff3d;
         float: left;
         height: 16px;
-        margin: 8px 8px 12px 4px;
+        margin: 8px;
     }
 }

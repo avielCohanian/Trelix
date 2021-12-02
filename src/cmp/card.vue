@@ -6,7 +6,7 @@
     </router-link> -->
         <header>
             <p>{{ card.title }}</p>
-         
+
             <p class="material-icons-outlined" @click="openEditor">create</p>
             <!-- <i class="el-icon-edit" @click="openEditor"></i> -->
         </header>
@@ -20,7 +20,31 @@
             </div>
         </div>
         <main>
-            <div v-if="isOpenEditor" class="editor"></div>
+            <div v-if="isOpenEditor" class="editor">
+                <div class="edit-txt">
+
+                <el-input
+                    type="textarea"
+                    :rows="5"
+                    v-model="card.title"
+                >
+                </el-input>
+                <el-button type="primary">Save</el-button>
+                </div >
+                <div class="chose-edit">
+                <ul>
+                    <li>Open card</li>
+                    <li>Edit labels</li>
+                    <li>Change members</li>
+                    <li>Change cover</li>
+                    <li>Move</li>
+                    <li>Copy</li>
+                    <li>Edit dates</li>
+                    <li>Archive</li>
+                </ul>
+
+                </div>
+            </div>
         </main>
     </section>
     <!-- </section> -->

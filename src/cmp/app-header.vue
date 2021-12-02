@@ -2,9 +2,14 @@
     <section class="app-header">
         <nav>
             <div class="nav-list">
-                <i class="el-icon-s-grid"></i>
-              
-                <div class="logo">   <font-awesome-icon :icon="[ 'fab', 'trello' ]" /><strong> Trelix</strong></div>
+                <i class="material-icons-outlined"> apps </i>
+                <!-- <i class="el-icon-s-grid"></i> -->
+
+                <div class="logo">
+                    <font-awesome-icon :icon="['fab', 'trello']" /><strong>
+                        Trelix</strong
+                    >
+                </div>
                 <ul>
                     <li>Workspace <i class="el-icon-arrow-down"></i></li>
                     <li>Recent <i class="el-icon-arrow-down"></i></li>
@@ -15,30 +20,46 @@
             </div>
             <div class="search">
                 <el-input placeholder="Search... "></el-input>
-                <i class="el-icon-info"></i>
-                <i class="el-icon-bell"></i>
-                <avatar  @click.native="showProfile" :size="35"  username="member.username" class="member" ></avatar>
+                <div class="icon-header hover">
+                    <span class="material-icons-outlined"> info </span>
+                </div>
+                <div class="icon-header hover">
+                    <span class="material-icons-outlined"> notifications </span>
+                </div>
+                <div class="icon-header">
+                    <avatar
+                        @click.native="showProfile"
+                        :size="35"
+                        username="member.username"
+                        class="member"
+                    ></avatar>
+                </div>
             </div>
         </nav>
         <div class="modal" v-if="isShowProfile">
-                  <div class="title">
-                    <i class="el-icon-close" @click="isShowProfile = !isShowProfile"></i>
-                    <i>Account</i>
-                </div>
-                <hr />
-                <div class="avatar-user"> 
-
-                <avatar  :size="35 "  username="member.username" class="member" ></avatar>
+            <div class="title">
+                <i
+                    class="el-icon-close"
+                    @click="isShowProfile = !isShowProfile"
+                ></i>
+                <i>Account</i>
+            </div>
+            <hr />
+            <div class="avatar-user">
+                <avatar
+                    :size="35"
+                    username="member.username"
+                    class="member"
+                ></avatar>
                 <div class="user-details">
-               <div>{{createdBy.fullname}}</div>
-               
-               <div>{{createdBy.mail}}</div>
+                    <div>{{ createdBy.fullname }}</div>
+
+                    <div>{{ createdBy.mail }}</div>
                 </div>
-                </div>
-               <div>Activity</div>
-               <hr>
-               <div>Log out</div>
-                
+            </div>
+            <div>Activity</div>
+            <hr />
+            <div>Log out</div>
         </div>
     </section>
 </template>
@@ -48,22 +69,20 @@ import avatar from 'vue-avatar';
 
 export default {
     name: 'appHeader',
-    props:['createdBy'],
-    data(){
-        return{
-            isShowProfile:false,
-
-        }
+    props: ['createdBy'],
+    data() {
+        return {
+            isShowProfile: false,
+        };
     },
     computed: {},
     methods: {
-        showProfile(){
+        showProfile() {
             console.log('clickk');
-            this.isShowProfile = ! this.isShowProfile
-        }
+            this.isShowProfile = !this.isShowProfile;
+        },
     },
-    mounted(){
-    },
+    mounted() {},
     components: {
         avatar,
     },
