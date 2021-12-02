@@ -1,169 +1,149 @@
-
-
-.cmp-about{
-    .about::before{
+.cmp-about {
+    .about::before {
         font-family: iconRegular;
-        content: "\f007";
-        
+        content: '\f007';
     }
-    .about{
+    .about {
         margin: 20px 10px;
-        span{
-            margin-left:10px ;
+        span {
+            margin-left: 10px;
         }
     }
-    .about-name{
+    .about-name {
         display: flex;
-        .avatar{
+        .avatar {
             margin: 10px;
             object-fit: contain;
             width: 100%;
             height: 100%;
-           
-
         }
         font-weight: 600;
-        h3{
+        h3 {
             margin-top: 0.1rem;
         }
-
     }
-    .details{
+    .details {
         display: flex;
         flex-direction: column;
     }
-    .icon-description::before{
+    .icon-description::before {
         font-family: iconSolid;
-        content: "\f036";
-    } 
+        content: '\f036';
+    }
 
-   
-        header {
-            display: flex;
-            align-items: center;
-            margin-left: 5px;
-            h3 {
-                margin: 0;
-                min-height: 18px;
-                min-width: 40px;
-                font-size: rem(16px);
-                line-height: 20px;
-                font-weight: 600;
-                margin-block-start: 1em;
-                margin-block-end: 1em;
-            }
-            .edit-btn {
-                margin-left: 8px;
-                background-color: #091e420a;
-                border: none;
+    header {
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+        h3 {
+            margin: 0;
+            min-height: 18px;
+            min-width: 40px;
+            font-size: rem(16px);
+            line-height: 20px;
+            font-weight: 600;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+        }
+        .edit-btn {
+            margin-left: 8px;
+            background-color: #091e420a;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            padding: 6px 12px;
+            transition-duration: 85ms;
+            transition-property: background-color;
+        }
+        .edit-btn:hover {
+            background-color: #091e4214;
+        }
+    }
+    .description-container {
+        p {
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .description-edit-btn {
+            margin-top: 8px;
+            .save {
                 cursor: pointer;
-                font-size: 14px;
-                font-weight: 400;
+                float: left;
+                margin: 0 4px 0 0;
+                background-color: #0079bf;
+                border: none;
+                box-shadow: none;
+                color: #fff;
+                border-radius: 3px;
                 line-height: 20px;
                 padding: 6px 12px;
                 transition-duration: 85ms;
                 transition-property: background-color;
             }
-            .edit-btn:hover {
-                background-color: #091e4214;
+            .save:hover {
+                background-color: #026aa7;
             }
-         
-        }
-        .description-container {
-            p {
+            .close-btn {
                 cursor: pointer;
-                font-size: 14px;
-            }
-            .description-edit-btn {
-                margin-top: 8px;
-                .save {
-                    cursor: pointer;
-                    float: left;
-                    margin: 0 4px 0 0;
-                    background-color: #0079bf;
-                    border: none;
-                    box-shadow: none;
-                    color: #fff;
-                    border-radius: 3px;
-                    line-height: 20px;
-                    padding: 6px 12px;
-                    transition-duration: 85ms;
-                    transition-property: background-color;
-                }
-                .save:hover {
-                    background-color: #026aa7;
-                }
-                .close-btn {
-                    cursor: pointer;
-                    color: #42526e;
-                    height: 32px;
-                    line-height: 32px;
-                    width: 32px;
-                    font-size: rem(24px);
-                    background-color: #0000;
-                }
+                color: #42526e;
+                height: 32px;
+                line-height: 32px;
+                width: 32px;
+                font-size: rem(24px);
+                background-color: #0000;
             }
         }
     }
-
-
-
-
-
-    .cmp-background{
-        
-        ul{
-            margin: 0;
-            padding: 0;
-        }
-        .bcg-main{
-            .choice-bcg-up{
-                display: flex;
-                .colors{
-                    background-image: url(https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg);
-                    background-size: cover;
-                }
-            }
-            .colors ,.photos{
-            background-size: cover;
-                width: 143px;
-                height: 96px;
-                border-radius: 8px;
-                margin: 0 8px ;
-            }
-            .custom{
+}
+.cmp-background {
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+    .bcg-main {
+        .choice-bcg-up {
+            display: flex;
+            .colors {
+                background-image: url(https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg);
+                background-size: cover;
             }
         }
-        .cmp-labels{
-
-        }
-        .cmp-arcive{
-
-        }
-        .cmp-link{
-            
-        }
-        .cmp-activity{
-
-        }
-        .plus::before{
-            font-family: iconSolid;
-            content: "\f067";
-            
-        }
-        .card-color {
-            width: 143px;
-            height: 96px;
-            border-radius: 8px;
-            margin: 8px ;
-        }
-        .card-img {
+        .colors,
+        .photos {
             background-size: cover;
             width: 143px;
             height: 96px;
             border-radius: 8px;
-            margin:  8px ;
+            margin: 0 8px;
         }
-        
+        .custom {
+        }
     }
- 
+    .cmp-labels {
+    }
+    .cmp-arcive {
+    }
+    .cmp-link {
+    }
+    .cmp-activity {
+    }
+    .plus::before {
+        font-family: iconSolid;
+        content: '\f067';
+    }
+    .card-color {
+        width: 143px;
+        height: 96px;
+        border-radius: 8px;
+        margin: 8px;
+    }
+    .card-img {
+        background-size: cover;
+        width: 143px;
+        height: 96px;
+        border-radius: 8px;
+        margin: 8px;
+    }
+}

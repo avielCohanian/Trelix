@@ -2,11 +2,10 @@
     <section class="card-edit">
         <div class="sidebar">
             <div class="join-member" v-if="card.members.length">
-                <h3>Add to card</h3>
+                <h3>Suggested</h3>
 
                 <a class="join-btn btn" @click="dynamicCmp('join')">
-                    <!-- <span class="el-icon-user"></span> למצוא את האייקון המתאים-->
-                    Join</a
+                    <span class="el-icon-user icon"></span> Join</a
                 >
             </div>
             <h3>Add to card</h3>

@@ -1,10 +1,5 @@
 .card-edit {
-    // margin: rem(20px);
     min-height: 100%;
-    margin-top: rem(50px);
-    // margin-left: rem(70px);
-    // display: flex;
-    // flex-direction: column;
 
     h3 {
         font-weight: normal;
@@ -12,13 +7,25 @@
         line-height: 20px;
         color: $clr6;
         font-size: 12px;
-        text-transform: uppercase;
-        margin: 0 0 8px;
-        margin-bottom: rem(10px);
+        margin-bottom: rem(8px);
     }
     .icon {
         font-size: rem(15px);
     }
+    .svg {
+        // background-color: lightcoral;
+        display: block;
+
+        line-height: 24px;
+        font-size: rem(24px);
+    }
+    .icon {
+        display: block;
+        line-height: 32px;
+        font-size: 16px;
+        margin: 0 6px 0 -6px;
+    }
+
     .btn {
         // outline: none;
         border: none;
@@ -36,7 +43,7 @@
         max-width: 300px;
         box-shadow: none;
         &:hover {
-            background-color: #091e4214;
+            background-color: $clr8;
             border: none;
             box-shadow: none;
         }
@@ -47,5 +54,40 @@
         flex-direction: column;
     }
     .dynamic-cmp {
+        position: absolute;
+        z-index: 50;
+        background: #fff;
+        border-radius: 3px;
+        box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+        top: 0;
+        left: 0;
+        width: 305px;
+        header {
+            height: 40px;
+            margin-bottom: 8px;
+            position: relative;
+            text-align: center;
+            h2 {
+                border-bottom: 1px solid #091e4221;
+                box-sizing: border-box;
+                color: $clr6;
+                display: block;
+                line-height: 40px;
+                margin: 0 12px;
+                overflow: hidden;
+                padding: 0 32px;
+                position: relative;
+                text-overflow: ellipsis;
+                font-size: rem(14px);
+                font-weight: 400;
+            }
+            a {
+                color: #6b778c;
+                padding: 10px 12px 10px 8px;
+                position: absolute;
+                right: 0;
+                top: 10%;
+            }
+        }
     }
 }

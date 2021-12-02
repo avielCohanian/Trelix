@@ -2,21 +2,22 @@
     <article class="checklist">
         <span></span>
         <!--TODO  למצוא אייקון מתאים -->
+        <i class="el-icon-circle-check check-icon icon"></i>
+
         <header class="checklist-header">
-            <i class="el-icon-circle-check check-icon icon"></i>
             <h3>{{ checklist.title }}</h3>
-
-            <a
-                v-if="countTodosDone(checklist.id)"
-                @click="toggleCheckedItem(checklist.id)"
-                >Hide checked items</a
+            <a class="delete-checklist" @click="deleteChecklist(checklist.id)"
+                >Delete</a
             >
-
-            <a @click="toggleCheckedItem(checklist.id)"
-                >Show checked items({{ countTodosDone(checklist.id) }})</a
-            >
-            <a @click="deleteChecklist(checklist.id)">Delete</a>
         </header>
+        <a
+            v-if="countTodosDone(checklist.id)"
+            @click="toggleCheckedItem(checklist.id)"
+            >Hide checked items</a
+        >
+        <a @click="toggleCheckedItem(checklist.id)"
+            >Show checked items({{ countTodosDone(checklist.id) }})</a
+        >
         <!-- :class="{ done: progress === 100 }" -->
         <el-progress :percentage="50"></el-progress>
 

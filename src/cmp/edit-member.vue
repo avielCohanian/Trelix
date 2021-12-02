@@ -1,9 +1,11 @@
 <template>
     <section class="edit-member">
-        <el-input
+        <input
+            class="search"
+            type="text"
             placeholder="Search members"
             v-model="filterMember"
-        ></el-input>
+        />
         <h3 class="member-title">Board members</h3>
         <ul>
             <li
