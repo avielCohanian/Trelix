@@ -2,7 +2,7 @@
     <section class="app-header">
         <nav>
             <div class="nav-list">
-                <i class="material-icons-outlined pointer"> apps </i>
+                <i class="material-icons-outlined pointer grid"> apps </i>
                 <!-- <i class="el-icon-s-grid"></i> -->
 
                 <div class="logo pointer">

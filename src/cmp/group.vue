@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="group-container">
         <div class="group">
             <header>
                 <template v-if="!isEditTitle">
@@ -44,11 +44,16 @@
                 :remove-on-drop-out="true"
                 @drop-ready="onDropReady"
             >
+            <div class="card-container">
+                <div class="card-scroll">
+
                 <Draggable v-for="card in cardsToShow" :key="card.id">
                     <div class="draggable-item">
                         <card @click="showEdit(card.id)" :card="card" />
                     </div>
                 </Draggable>
+                </div>
+            </div>
             </Container>
             <label for="addCard" @click="toggleCard" v-if="!isAddCard">
                 <el-input

@@ -1,11 +1,11 @@
 <template>
     <section class="full">
-        <section class="nav-board">
+        <section class="nav-board"> 
             <ul class="left">
-                <li>Board <i class="el-icon-arrow-down pointer"></i></li>
-                <li>Board Name</li>
+                <li class="pointer">Board <i class="el-icon-arrow-down "></i></li>
+                <li class="pointer">Board Name</li>
                 <li class="el-icon-star-off pointer"></li>
-                <span class="divider pointer"></span>
+                <span class="divider "></span>
                 <li class="pointer">Trelix Workspace</li>
                 <span class="divider"></span>
                 <li class="icon pointer">
@@ -27,7 +27,7 @@
                         ></avatar>
                     </li>
                 </div>
-                <li class="icon">
+                <li class="icon pointer">
                     <span class="material-icons-outlined">person_add</span
                     >Invite
                 </li>

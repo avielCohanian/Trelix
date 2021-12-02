@@ -7,7 +7,7 @@
         <header @mouseover="isHover = true" @mouseleave="isHover = false">
             <p>{{ card.title }}</p>
 
-            <p class="material-icons-outlined hover" @click="openEditor" :style="isShow">create</p>
+            <p class="material-icons-outlined hover" @click.stop="openEditor" :style="isShow">create</p>
             <!-- <i class="el-icon-edit" @click="openEditor"></i> -->
         </header>
         <div>
@@ -21,6 +21,12 @@
         </div>
         <main>
             <div v-if="isOpenEditor" class="editor" >
+                <p
+                                class="material-icons-outlined btn-x"
+                                
+                            >
+                                close
+                            </p>
                 <div class="edit-txt">
 
                 <el-input

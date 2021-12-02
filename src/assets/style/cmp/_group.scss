@@ -1,3 +1,5 @@
+.group-container{
+
 .group {
     
     background-color: #ebecf0;
@@ -5,6 +7,8 @@
     padding: 0 8px;
     width: 272px;
     border-radius: 3px;
+
+    
     // background-color: aqua;
     input {
         margin-bottom: 5px;
@@ -78,7 +82,7 @@
 .add-list {
     width: 272px;
 }
-
+}
 .modal {
     color: rgb(58, 58, 58);
     box-shadow: 0 1px 0 #091e4240;

@@ -20,13 +20,27 @@
             align-items: center;
             gap: 10px;
             .el-icon-s-grid,
-            .logo {
+          
+            .logo , .grid{
+                border-radius: 3px;
+                padding: 8px;
                 font-size: 20px;
             }
             ul {
                 // margin-inline-end: 10px;
-                gap: 15px;
+                gap: 10px;
                 display: flex;
+            }
+            li{
+                border-radius: 3px;
+                // padding: 6px 10px 6px 12px;
+                padding: 10px;
+            }
+            li:hover{
+                background-color: #ffffff91;
+            }
+            .logo:hover , .grid:hover{
+                background-color: #ffffff91;
             }
         }
         .search {

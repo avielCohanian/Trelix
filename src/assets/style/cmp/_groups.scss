@@ -11,6 +11,18 @@
     white-space: normal;
     display: flex;
     flex-direction: row;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.32);
+    }
     button {
         // height: 32px;
         border: none;
