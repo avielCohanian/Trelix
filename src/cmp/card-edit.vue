@@ -1,10 +1,10 @@
 <template>
     <section class="card-edit">
         <div class="sidebar">
-            <div v-if="card.members.length">
+            <div class="join-member" v-if="card.members.length">
                 <h3>Add to card</h3>
 
-                <a class="btn" @click="dynamicCmp('join')">
+                <a class="join-btn btn" @click="dynamicCmp('join')">
                     <!-- <span class="el-icon-user"></span> למצוא את האייקון המתאים-->
                     Join</a
                 >
@@ -12,7 +12,7 @@
             <h3>Add to card</h3>
             <div class="edit-btn">
                 <a class="btn" @click="dynamicCmp('members')">
-                    <span class="el-icon-user"></span>
+                    <span class="el-icon-user icon"></span>
                     Members</a
                 >
 
@@ -26,7 +26,7 @@
                 >
 
                 <a class="btn" @click="dynamicCmp('dates')">
-                    <span class="el-icon-time"></span>
+                    <span class="el-icon-time icon"></span>
                     Dates</a
                 >
 

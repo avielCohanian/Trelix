@@ -2,7 +2,7 @@
     width: 100vw;
     height: 100vh;
     position: fixed;
-    z-index: 2;
+    z-index: 10;
     top: 0;
     background-color: rgba(0, 0, 0, 0.64);
     overflow-y: auto;
@@ -18,18 +18,18 @@
         background: rgba(0, 0, 0, 0.32);
     }
     .card-details {
+        // z-index: 999;
         position: absolute;
-        z-index: 999;
         background-color: #f4f5f7;
         left: 50%;
         top: 0;
         transform: translate(-50%, 0%);
         padding: rem(20px);
-        margin-top: rem(80px);
+        margin-top: rem(48px);
         margin-bottom: rem(60px);
         font-size: rem(14px);
+        width: 770px;
         color: #172b4d;
-        width: 700px;
         .icon {
             margin-right: rem(10px);
             font-size: rem(20px);
@@ -37,10 +37,10 @@
         .heder {
             .back-btn {
                 position: absolute;
+                cursor: pointer;
                 top: 0;
                 right: 0;
                 margin: rem(7px);
-                cursor: pointer;
                 width: 50px;
                 height: 50px;
                 border-radius: 50%;
@@ -58,16 +58,39 @@
             }
         }
         .details {
+            position: relative;
             display: flex;
             .main-details {
+                float: left;
                 margin: rem(20px);
                 min-height: 100%;
-                width: 90%;
+                width: 552px;
+                margin-left: 50px;
+
+                .icon {
+                    height: 32px;
+                    line-height: 32px;
+                    width: 32px;
+                    font-size: 24px;
+                }
+
+                // width: 90%;
                 .secund-header {
+                    position: relative;
                     display: flex;
                     align-items: center;
                     margin-bottom: rem(10px);
-                    width: 100%;
+                    font-size: rem(20px);
+                    font-weight: 600;
+                    line-height: 24px;
+
+                    .svg {
+                        display: block;
+                        left: -40px;
+                        top: 0px;
+                        position: absolute;
+                    }
+                    // width: 100%;
                     //TODO w100%
                     h2 {
                         margin: 0;
@@ -75,16 +98,209 @@
                         cursor: pointer;
                         font-size: rem(20px);
                     }
-                    .title {
-                        margin-left: rem(20px);
-                        color: #5e6c84;
-                        margin-bottom: rem(30px);
+                }
+                .title {
+                    color: $clr6;
+                    margin-bottom: rem(30px);
+                }
+
+                .header-optional {
+                    position: relative;
+                    display: flex;
+
+                    & > * {
+                        margin: 0 18px 8px 0;
+                    }
+                    h3 {
+                        color: $clr6;
+                        font-size: rem(12px);
+                        font-weight: 600;
+                        margin: 0 8px 4px 0;
+                    }
+                    ul {
+                        padding-inline-start: 0;
+                    }
+
+                    & > * {
+                        position: relative;
+                        float: left;
+                        margin: 0 8px 8px 0;
+                        max-width: 100%;
+                    }
+                    .members {
+                        .member-container {
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                            cursor: pointer;
+                            .plus-btn {
+                                // display: block;
+                                font-size: 16px;
+                                height: 16px;
+                                line-height: 16px;
+                                padding: 19px;
+                                width: 16px;
+                                transition-duration: 85ms;
+                                transition-property: background-color;
+                                .plus {
+                                    left: 50%;
+                                    top: 50%;
+                                    transform: translate(-43%, -50%);
+                                }
+                            }
+                            .plus-btn:hover {
+                                background-color: #091e4214;
+                            }
+                            .member:hover {
+                                background-color: #c1c7d0;
+                            }
+                        }
+                    }
+                    .labels {
+                        .labels-container {
+                            display: flex;
+
+                            .label,
+                            .plus-btn {
+                                border-radius: 3px;
+                                box-sizing: border-box;
+                                display: block;
+                                float: left;
+                                font-weight: 600;
+                                height: 35px;
+                                line-height: 35px;
+                                margin: 0 4px 4px 0;
+                                min-width: 40px;
+                                padding: 0 12px;
+                                width: auto;
+                                cursor: pointer;
+                                transition-duration: 85ms;
+                                transition-property: background-color;
+                            }
+                            .label:hover {
+                                opacity: 0.8;
+                            }
+                            .plus-btn:hover {
+                                background-color: #091e4214;
+                            }
+                        }
+                    }
+                    .dueDate {
+                        .dueDate-container {
+                            display: flex;
+                            align-items: center;
+                            flex-direction: row;
+                            margin-block-start: 1em;
+                            .el-checkbox__inner {
+                                height: 16px;
+                                width: 16px;
+                                margin: auto 4px auto 0;
+                            }
+                            .date-dedline-container {
+                                line-height: 20px;
+                                font-weight: 400;
+                                box-sizing: border-box;
+
+                                align-items: center;
+                                justify-content: center;
+                                border-radius: 3px px;
+                                cursor: pointer;
+                                padding: 6px 12px;
+                                text-decoration: none;
+                                background-color: #091e420a;
+                                transition-duration: 85ms;
+                                transition-property: background-color;
+                            }
+                            .date-dedline-container:hover {
+                                background-color: #091e4214;
+                            }
+                        }
+                    }
+                }
+                .description {
+                    position: relative;
+                    // align-items: center;
+                    // display: flex;
+                    min-height: 32px;
+                    .icon {
+                        display: block;
+                        left: -40px;
+                        top: 8px;
+                        position: absolute;
+                    }
+                    header {
+                        display: flex;
+                        align-items: center;
+                        h3 {
+                            margin: 0;
+                            min-height: 18px;
+                            min-width: 40px;
+                            font-size: rem(16px);
+                            line-height: 20px;
+                            font-weight: 600;
+                            margin-block-start: 1em;
+                            margin-block-end: 1em;
+                        }
+                        .edit-btn {
+                            margin-left: 8px;
+                            background-color: #091e420a;
+                            border: none;
+                            cursor: pointer;
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            padding: 6px 12px;
+                            transition-duration: 85ms;
+                            transition-property: background-color;
+                        }
+                        .edit-btn:hover {
+                            background-color: #091e4214;
+                        }
+                    }
+                    .description-container {
+                        p {
+                            cursor: pointer;
+                            font-size: 14px;
+                        }
+                        .description-edit-btn {
+                            margin-top: 8px;
+                            .save {
+                                cursor: pointer;
+                                float: left;
+                                margin: 0 4px 0 0;
+                                background-color: #0079bf;
+                                border: none;
+                                box-shadow: none;
+                                color: #fff;
+                                border-radius: 3px;
+                                line-height: 20px;
+                                padding: 6px 12px;
+                                transition-duration: 85ms;
+                                transition-property: background-color;
+                            }
+                            .save:hover {
+                                background-color: #026aa7;
+                            }
+                            .close-btn {
+                                cursor: pointer;
+                                color: #42526e;
+                                height: 32px;
+                                line-height: 32px;
+                                width: 32px;
+                                font-size: rem(24px);
+                                background-color: #0000;
+                            }
+                        }
                     }
                 }
             }
 
             .card-edit {
-                width: 295px;
+                // width: 270px;
+                float: right;
+                overflow: hidden;
+                padding: 0 0px 8px 8px;
+                width: calc(100% - 550px);
                 // background-color: lightcoral;
             }
         }

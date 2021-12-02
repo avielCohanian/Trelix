@@ -1,15 +1,16 @@
 .card-edit {
-    margin: rem(20px);
+    // margin: rem(20px);
     min-height: 100%;
     margin-top: rem(50px);
-    margin-left: rem(70px);
-    display: flex;
-    flex-direction: column;
+    // margin-left: rem(70px);
+    // display: flex;
+    // flex-direction: column;
+
     h3 {
         font-weight: normal;
         font-weight: 600;
         line-height: 20px;
-        color: #5e6c84;
+        color: $clr6;
         font-size: 12px;
         text-transform: uppercase;
         margin: 0 0 8px;
@@ -19,20 +20,29 @@
         font-size: rem(15px);
     }
     .btn {
-        outline: none;
-        cursor: pointer;
+        // outline: none;
         border: none;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
         border-radius: rem(3px);
-        height: rem(30px);
+        height: rem(32px);
         margin-bottom: rem(8px);
         color: $clr2;
         transition: 0.3s;
-        background-color: #e7e9eb;
+        background-color: #091e420a;
+        // display:block;
+        padding: 6px 12px;
+        max-width: 300px;
+        box-shadow: none;
         &:hover {
-            background-color: #d0d2d4;
+            background-color: #091e4214;
+            border: none;
+            box-shadow: none;
         }
     }
-    .edit-btn {
+    .edit-btn,
+    .join-member {
         display: flex;
         flex-direction: column;
     }

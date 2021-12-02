@@ -12,9 +12,18 @@ export const boardService = {
     getColors,
     getImgs,
     deleteGroup,
+    getLabelByCard,
 };
 
 const BOARD_KEY = 'boards';
+
+async function query() {
+    try {
+        return await storageService.query(BOARD_KEY);
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 function getById(id) {
     return query().then((boards) => {
@@ -29,6 +38,30 @@ function getGroupById(board, groupId) {
         return group.id === groupId;
     });
     return Promise.resolve(res);
+}
+async function getLabelByCard(boardId, card) {
+    try {
+        let board = await query();
+        console.log(board);
+        console.log(boardId);
+        board = board.find((board) => board._id === boardId);
+        let carrLabels = [];
+        board.labels.forEach((label) => {
+            if (
+                card.labelIds.some((labelId) => {
+                    if (labelId.lId === label.id) {
+                        label.idDone = labelId.isDone;
+                        return true;
+                    }
+                })
+            ) {
+                carrLabels.push(label);
+            }
+        });
+        return carrLabels;
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 function addCard(board, groupIdx, newCard) {
@@ -85,9 +118,6 @@ function getEmptyGroup() {
     };
 }
 
-function query() {
-    return storageService.query(BOARD_KEY);
-}
 function updatedBoard(board) {
     return storageService.put(BOARD_KEY, board);
 }

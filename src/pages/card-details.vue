@@ -5,12 +5,15 @@
                 <a @click="closeDetails" class="back-btn">
                     <a class="close-btn el-icon-close"></a>
                 </a>
-                <font-awesome-icon class="icon" :icon="['fab', 'trello']" />
             </header>
 
             <div class="details">
                 <div class="main-details" v-if="headerShow">
                     <header class="secund-header">
+                        <font-awesome-icon
+                            class="svg"
+                            :icon="['fab', 'trello']"
+                        />
                         <!-- <span></span> למצוא אייקון מתאים -->
                         <h2 v-if="!isOpenTitle" @click.stop="toggleTitle()">
                             {{ card.title }}
@@ -26,90 +29,129 @@
                     <p class="title">
                         in list <a>{{ currGroup.title }}</a>
                     </p>
-
-                    <div
-                        class="members"
-                        v-if="card.members || card.members.length"
-                    >
-                        <ul>
+                    <div class="header-optional">
+                        <div
+                            class="members"
+                            v-if="card.members && card.members.length"
+                        >
                             <h3>Members</h3>
-                            <li
-                                v-for="member in card.members"
-                                :key="member._id"
-                            >
-                                <avatar
-                                    v-if="member.imgUrl"
-                                    :src="member.imgUrl"
-                                    class="member"
-                                ></avatar>
-                                <avatar
-                                    v-else
-                                    :username="member.fullname"
-                                    class="member"
-                                ></avatar>
-                                <a class="el-icon-plus"></a>
+                            <ul class="member-container">
+                                <li
+                                    v-for="member in card.members"
+                                    :key="member._id"
+                                >
+                                    <avatar
+                                        v-if="member.imgUrl"
+                                        :src="member.imgUrl"
+                                        :size="35"
+                                        class="member"
+                                    ></avatar>
+                                    <avatar
+                                        v-else
+                                        :username="member.fullname"
+                                        :size="35"
+                                        class="member"
+                                    ></avatar>
+                                </li>
+                                <a class="plus-btn">
+                                    <span class="el-icon-plus plus"></span>
+                                </a>
                                 <!-- <a @click="">+</a> -->
                                 <!--TODO  למצוא אייקון מתאים -->
-                            </li>
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
 
-                    <div class="labels">
-                        <ul>
+                        <div class="labels">
                             <h3>Labels</h3>
-                            <li v-for="label in card.labelIds" :key="label">
-                                {{ getLabel(label) }}
-                            </li>
-                            <a class="el-icon-plus"></a>
-                            <!-- <a @click="">+</a> -->
-                            <!--TODO  למצוא אייקון מתאים -->
-                        </ul>
-                    </div>
+                            <ul class="labels-container">
+                                <li v-for="label in labels" :key="label.id">
+                                    <span
+                                        class="label"
+                                        :style="{
+                                            backgroundColor: label.color,
+                                        }"
+                                    >
+                                        {{ label.title }}</span
+                                    >
+                                </li>
+                                <!-- <a @click="">+</a> -->
+                                <a class="plus-btn">
+                                    <span class="el-icon-plus plus"></span>
+                                </a>
+                            </ul>
+                        </div>
 
-                    <div class="due-date">
-                        <h3>Due date</h3>
-                        <el-checkbox
-                            @click="dateDone"
-                            v-model="checked"
-                        ></el-checkbox>
-                        <!-- TODO איך יודעים אם בוצע או לא -->
-                        <a @click="openDate">
-                            <div class="date-dedline"></div>
-                            ></a
-                        >
-                        <!--TODO  למצוא אייקון מתאים -->
-                    </div>
-
-                    <div class="description-container">
-                        <i class="el-icon-s-unfold icon"></i>
-                        <h3>description</h3>
-                        <a v-if="editDescription" @click="openEditDescription"
-                            >Edit</a
-                        >
-                        <p v-if="editDescription" @click="openEditDescription">
-                            card.description
-                        </p>
-                        <div class="description-edit">
-                            <el-input
-                                type="textarea"
-                                :rows="5"
-                                placeholder="Add a more detailed description..."
-                                v-model="description"
-                            >
-                            </el-input>
-                            <div class="description-edit-btn">
-                                <el-button
-                                    type="primary"
-                                    @click="saveDescription"
-                                    >Save</el-button
+                        <div class="dueDate" v-if="card.dueDate">
+                            <h3>Due date</h3>
+                            <div class="dueDate-container">
+                                <el-checkbox
+                                    class="checkBox"
+                                    @click="dateDone"
+                                    v-model="checked"
+                                ></el-checkbox>
+                                <!-- TODO איך יודעים אם בוצע או לא -->
+                                <a
+                                    @click="openDate"
+                                    class="date-dedline-container"
                                 >
-                                <a></a>
+                                    {{ card.dueDate | moment('MMMM ') }}
+                                    {{ dueDateDay }}
+                                    at
+                                    {{ card.dueDate | moment(' h:mm: A') }}
+                                    <span class="el-icon-arrow-down"></span>
+                                </a>
+                                <!--TODO  למצוא אייקון מתאים -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <i class="el-icon-s-unfold icon"></i>
+                        <header>
+                            <h3>Description</h3>
+                            <a
+                                class="edit-btn"
+                                v-if="!editDescription"
+                                @click="openEditDescription"
+                                >Edit</a
+                            >
+                        </header>
+                        <div class="description-container">
+                            <!-- ref="editInput" -->
+                            <p
+                                v-if="!editDescription"
+                                @click="openEditDescription"
+                            >
+                                {{ card.description }}
+                            </p>
+                            <div v-else class="description-edit">
+                                <el-input
+                                    type="textarea"
+                                    :rows="5"
+                                    placeholder="Add a more detailed description..."
+                                    ref="editInput"
+                                    v-model="description"
+                                >
+                                </el-input>
+
+                                <div class="description-edit-btn">
+                                    <a
+                                        class="close-btn el-icon-close"
+                                        @click="closeDescription"
+                                    ></a>
+
+                                    <a class="save" @click="saveDescription"
+                                        >Save</a
+                                    >
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="trelix-attachments" v-if="card.attachments">
-                        <!--TODO  לקחת מאלי אייקון של טריילו -->
+                        <font-awesome-icon
+                            class="svg"
+                            :icon="['fab', 'trello']"
+                        />
                         <h3>Trello attachments</h3>
                         <div class="attachments-list">
                             <article
@@ -207,6 +249,9 @@ import checkList from '../cmp/checklist-details.vue';
 import activityLog from '../cmp/activity-log.vue';
 
 import avatar from 'vue-avatar';
+import moment from 'moment';
+
+import { boardService } from '../service/board.service.js';
 
 export default {
     name: 'cardDetails',
@@ -218,6 +263,7 @@ export default {
             description: '',
             editDescription: false,
             isOpenTitle: false,
+            labels: [],
         };
     },
     methods: {
@@ -251,10 +297,23 @@ export default {
             // TODO: back board page
             // this.$router.push('')
         },
-        getLabel(labelId) {
+        async getLabel() {
             // console.log('TODO');
             // TODO: connect service and return label by ID
-            //    return S.getLabelById(labelId)
+            //    let currLabel = await storageService.getLabelById();
+            // console.log(labelId);
+            let { boardId } = this.$route.params;
+            boardId = 'b101';
+            try {
+                let labels = await boardService.getLabelByCard(
+                    boardId,
+                    this.card
+                );
+                console.log(labels);
+                return labels;
+            } catch (err) {
+                console.log(err);
+            }
         },
         dateDone() {
             this.checked = !this.checked;
@@ -264,10 +323,16 @@ export default {
             // TODO: open cmpDynamic in datesMode
         },
         openEditDescription() {
+            // this.selectInInput();
+
             this.editDescription = !this.editDescription;
+        },
+        closeDescription() {
+            this.editDescription = false;
         },
         saveDescription() {
             this.card.description = this.description;
+            this.editDescription = false;
         },
         attachmentLink(attachmentIdx) {
             console.log('TODO');
@@ -325,6 +390,10 @@ export default {
                 console.log(err);
             }
         },
+        selectInInput() {
+            console.log(this.$refs);
+            this.$refs.input.focusInput();
+        },
     },
     computed: {
         headerShow() {
@@ -342,7 +411,13 @@ export default {
             // TODO: if we have bcg to the card
             // return this.card.bcg;
         },
+        dueDateDay() {
+            let t = this.card.dueDate;
+            return new Date(t).getUTCDay() + 1;
+        },
     },
+    mounted() {},
+
     components: {
         cardEdit,
         checkList,
@@ -357,6 +432,7 @@ export default {
             title: 'Group 1',
         };
         this.description = this.card.description;
+        this.labels = await this.getLabel();
     },
 };
 </script>

@@ -107,6 +107,10 @@ const groups = [
                                 },
                             },
                         ],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
                         checklists: [
                             {
                                 id: 'YEhmF',
@@ -128,7 +132,10 @@ const groups = [
                                 imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
                             },
                         ],
-                        labelIds: ['l101', 'l102'],
+                        labelIds: [
+                            { lId: 'l101', isDone: 'false' },
+                            { lId: 'l102', isDone: 'true' },
+                        ],
                         createdAt: 1590999730348,
                         dueDate: 16156215211,
                         byMember: {
@@ -168,7 +175,8 @@ const groups = [
 
 function query(entityType) {
     var entities = JSON.parse(localStorage.getItem(entityType));
-    if (!entities && !entities.length) {
+    if (!entities || !entities.length) {
+        _save('boards', groups);
         return Promise.resolve(groups);
     }
     return Promise.resolve(entities);
