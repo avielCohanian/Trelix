@@ -1,119 +1,146 @@
 <template>
-    <section class="full">
-        <section class="nav-board"> 
-            <ul class="left">
-                <li class="pointer">Board <i class="el-icon-arrow-down "></i></li>
-                <li class="pointer">Board Name</li>
-                <li class="el-icon-star-off pointer"></li>
-                <span class="divider "></span>
-                <li class="pointer">Trelix Workspace</li>
-                <span class="divider"></span>
-                <li class="icon pointer">
-                    <span class="material-icons-outlined">people</span>Workspace
-                    visible
-                </li>
-                <span class="divider"></span>
-                <div class="icon-user pointer">
-                    <li
-                        v-for="member in getBoard.members"
-                        :key="member.id"
-                        class="avatar-logo"
-                        @click="showProfile"
-                    >
-                        <avatar
-                            :size="35"
-                            :username="member.fullname"
-                            class="member icon-member"
-                        ></avatar>
-                    </li>
-                </div>
-                <li class="icon pointer">
-                    <span class="material-icons-outlined">person_add</span
-                    >Invite
-                </li>
-            </ul>
-            <div class="modal" v-if="isShowProfile">
-                <div class="title">
-                    <i
-                        class="el-icon-close"
-                        @click="isShowProfile = !isShowProfile"
-                    ></i>
-                    <i>Account</i>
-                </div>
-                <hr />
-                <div class="avatar-user">
-                    <avatar
-                        :size="32"
-                        username="member.username"
-                        class="member"
-                    ></avatar>
-                    <div
-                        class="user-details"
-                        v-for="member in getBoard.members"
-                        :key="member.id"
-                    >
-                        <div>{{ member.fullname }}</div>
+  <section class="full">
+    <section class="nav-board">
+      <ul class="left">
+        <li class="pointer">Board <i class="el-icon-arrow-down"></i></li>
+        <li class="pointer">Board Name</li>
+        <li class="el-icon-star-off pointer"></li>
+        <span class="divider"></span>
+        <li class="pointer">Trelix Workspace</li>
+        <span class="divider"></span>
+        <li class="icon pointer">
+          <span class="material-icons-outlined">people</span>Workspace visible
+        </li>
+        <span class="divider"></span>
+        <div class="icon-user pointer">
+          <li
+            v-for="member in getBoard.members"
+            :key="member.id"
+            class="avatar-logo"
+            @click="showProfile(member)"
+          >
+            <avatar
+              v-if="member.imgUrl"
+              :src="member.imgUrl"
+              :size="35"
+              :username="member.fullname"
+              class="member icon-member"
+            ></avatar>
+            <avatar
+              v-else
+              :size="35"
+              :username="member.fullname"
+              class="member icon-member"
+            ></avatar>
+          </li>
+        </div>
+        <li class="icon pointer">
+          <span class="material-icons-outlined">person_add</span>Invite
+        </li>
+      </ul>
+      <div class="modal" v-if="isShowProfile">
+        <div class="title">
+          <i class="el-icon-close" @click="isShowProfile = !isShowProfile"></i>
+          <!-- <i>Account</i> -->
+        </div>
+        <!-- <hr /> -->
+        <!-- <div class="avatar-user "> -->
+            <!-- <div class="flex-center"> -->
 
-                        <div>{{ member.mail }}</div>
-                    </div>
-                </div>
-                <div>Activity</div>
-                <hr />
-                <div>Log out</div>
+          <div class="user-details ">
+              <div>
+
+          <avatar
+            v-if="currMember.imgUrl"
+            :src="currMember.imgUrl"
+            :size="50"
+            username="currMember.username"
+            class="member"
+          ></avatar>
+          <avatar
+            v-else
+            :size="50"
+            username="currMember.username"
+            class="member"
+          ></avatar>
+              </div>
+            <div class="name">
+              <strong>{{ currMember.fullname }}</strong>
+            <div>{{ currMember.mail }}</div>
             </div>
-            <ul class="right">
-                <li class="icon pointer">
-                    <span class="material-icons-outlined">flash_on</span
-                    >Automation
-                </li>
-                <span class="divider"></span>
-                <li class="icon pointer">
-                    <span class="material-icons-outlined">filter_list</span
-                    >filter
-                </li>
-                <li class="el-icon-more icon pointer" @click="toggleMenu">
-                    Show menu
-                </li>
-            </ul>
-        </section>
-        <nav-menu @closeMenu="toggleMenu" :isShow="showMenu" :class="isShowMenu" />
+            </div>
+
+            <div class="choice ">
+              <div class="btn-choice">Change permissions... (Normal)</div>
+              <div class="btn-choice">view member's board activity</div>
+              <div class="btn-choice" @click="removeMember">Remove from board...</div>
+            </div>
+          <!-- </div> -->
+        </div>
+      <!-- </div> -->
+      <ul class="right">
+        <li class="icon pointer">
+          <span class="material-icons-outlined">flash_on</span>Automation
+        </li>
+        <span class="divider"></span>
+        <li class="icon pointer">
+          <span class="material-icons-outlined">filter_list</span>Filter
+        </li>
+        <li class="el-icon-more icon pointer" @click="toggleMenu">Show menu</li>
+      </ul>
     </section>
+    <nav-menu @closeMenu="toggleMenu" :isShow="showMenu" :class="isShowMenu" />
+  </section>
 </template>
 
 <script>
-import avatar from 'vue-avatar';
-import navMenu from '../cmp/nav-menu.vue';
+import avatar from "vue-avatar";
+import navMenu from "../cmp/nav-menu.vue";
 
 export default {
-    name: 'navBoard',
-    props: ['getBoard'],
-    data() {
-        return {
-            isShowProfile: false,
-            showMenu: false,
-        };
+  name: "navBoard",
+  props: ["getBoard"],
+  data() {
+    return {
+      isShowProfile: false,
+      showMenu: false,
+      currMember: null,
+    };
+  },
+  computed: {
+    isShowMenu() {
+      return this.showMenu ? "open-menu" : "close-menu";
     },
-    computed: {
-        isShowMenu() {
-            return this.showMenu ? 'open-menu' : 'close-menu';
+  },
+  methods: {
+       async removeMember() {
+            try {
+                var res = await this.$store.dispatch({
+                    type: 'removeMember',
+                    member: this.currMember,
+                });
+                console.log(res);
+                    if(res) return this.isShowProfile = false
+            } catch (err) {
+                console.log(err);
+            }
         },
+     
+    showProfile(member) {
+      console.log("clickk");
+      this.isShowProfile = !this.isShowProfile;
+      this.currMember = member;
     },
-    methods: {
-        showProfile() {
-            console.log('clickk');
-            this.isShowProfile = !this.isShowProfile;
-        },
-        toggleMenu() {
-            this.showMenu = !this.showMenu;
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+    },
+  },
 
-        },
-    },
-
-    mounted() {},
-    components: {
-        avatar,
-        navMenu,
-    },
+  mounted() {},
+  components: {
+    avatar,
+    navMenu,
+  },
 };
 </script>
 

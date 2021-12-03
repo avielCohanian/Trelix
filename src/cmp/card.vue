@@ -4,7 +4,7 @@
         <!-- <router-link :to="{name:'cardDetails'}">
     go to beteet world
     </router-link> -->
-        <header @mouseover="isHover = true" @mouseleave="isHover = false">
+        <header @mouseover="isHover = true" @mouseleave="isHover = false" class="single">
             <p>{{ card.title }}</p>
 
             <p
@@ -35,6 +35,7 @@
                         type="textarea"
                         :rows="5"
                         v-model="cardToUpdate.title"
+                        @keyup.enter.native="updateCard"
                     >
                     </el-input>
                     <el-button type="primary" @click="updateCard"
@@ -78,7 +79,7 @@
                             </span>
                             Edit dates
                         </li>
-                        <li>
+                        <li @click="deleteCard">
                             <span class="material-icons-outlined">
                                 move_to_inbox </span
                             >Archive
@@ -132,6 +133,18 @@ export default {
         },
         closeModel() {
             this.component.currCmp = null;
+        },
+         async deleteCard() {
+            try {
+                var res = await this.$store.dispatch({
+                    type: 'deleteCard',
+                    card: this.card,
+                });
+                console.log(res);
+                    if(res) return this.openEditor();
+            } catch (err) {
+                console.log(err);
+            }
         },
         async updateCard() {
             console.log(this.cardToUpdate);

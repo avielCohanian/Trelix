@@ -1,9 +1,10 @@
 .card-container {
-    max-height: 70vh;
+    max-height: 72vh;
     // overflow: scroll;
     overflow-x: hidden;
     &::-webkit-scrollbar {
         width: 5px;
+        background: #e2e4e9
     }
     &::-webkit-scrollbar-track {
         border-radius: 10px;
@@ -11,7 +12,8 @@
     }
     &::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background: rgba(0, 0, 0, 0.32);
+        background: #c6cbd4;
+        // background: rgba(0, 0, 0, 0.32);
     }
 }
 
@@ -31,13 +33,16 @@
     // z-index: 10;
     // z-index: 1;
     padding: 6px 8px 2px;
-    .hover {
-        padding: 6px;
+    &:hover{
+     background-color: #f3f3f33d;   
     }
-    .hover:hover {
-        background-color: #ebecf0;
-        border-radius: 3px;
-        padding: 6px;
+    .hover {
+        padding: 7px;
+        &:hover {
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            padding: 7px;
+        }
     }
     header {
         word-wrap: break-word;
@@ -48,6 +53,11 @@
         justify-content: space-between;
         margin: 0 0 4px;
         overflow: hidden;
+        p{
+            padding: 0;
+            margin: 0;
+        }
+        
     }
     .editor {
         background-color: #0009;

@@ -12,10 +12,11 @@ const groups = [
         description: '',
         createdAt: 1589983468418,
         createdBy: {
-            _id: 'u101',
-            fullname: 'Abi Abambi',
-            imgUrl: 'http://some-img',
-            mail: 'abi@mail.com',
+            _id: 'u104',
+            username: 'Yael Oushky',
+            mail:'YaelOushky@gmail.com',
+            fullname: 'Yael oushky',
+            imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
         },
         style: {
             backgroundImage:
@@ -65,15 +66,26 @@ const groups = [
         ],
 
         members: [
-            {
-                _id: 'u101',
-                fullname: 'Tal Tarablus',
-                imgUrl: 'https://www.google.com',
-            },
+           
             {
                 _id: 'u102',
-                fullname: 'Yael Oushky',
-                imgUrl: 'https://www.google.com',
+                mail:'AvielCohanian@gmail.com',
+                fullname: 'Aviel Cohanian',
+                imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466703/user/Aviel_xnwzxj.jpg',
+            },
+            {
+                _id: 'u103',
+                username: 'hunter',
+                mail:'EliGranat@gmail.com',
+                fullname: 'Eli Granat',
+                imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/eli_rsut8n.png',
+            },
+            {
+                _id: 'u104',
+                username: 'oushky',
+                mail:'YaelOushky@gmail.com',
+                fullname: 'Yael oushky',
+                imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
             },
         ],
         groups: [
