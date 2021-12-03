@@ -38,11 +38,7 @@
                   <div class="img-upload">
                      <label class="clickable" v-if="!isLoading">
                         <div class="plus"></div>
-                        <input
-                           type="file"
-                           id="uploadImg"
-                           @change="onUploadImg"/>
-                           hidden
+                        <input type="file" id="uploadImg" change="onUploadImg" hidden/>
                      </label>
                      <img v-else :src="require('@/assets/loader.gif')" alt="" />
                   </div>
