@@ -1,8 +1,9 @@
 <template >
     <section class="cmp-about" > 
          <div class="menu-header about-header">
-                <h3 class="back-menu pointer" @click="back"> 
-                <span  class="material-icons-outlined back">arrow_back_ios</span></h3>
+                <h3 class="back-menu pointer material-icons-outlined back" @click="back"> 
+                  arrow_back_ios
+                </h3>
                 <h2 class="menu-header-txt"> About this board </h2>
                 <h3  @click="closeMenu" class=" close-menu material-icons-outlined pointer">close </h3>
          </div>
@@ -23,7 +24,8 @@
                         <div class="description-container">         
                              <p v-if="!editDescription" @click="openEditDescription">{{ copyBoard.description }}</p>
                              <div v-else class="description-edit"> 
-                                  <el-input  type="textarea" :rows="5" placeholder="Add description..."
+                                  <el-input  type="textarea" :rows="5" 
+                                  placeholder="It’s your board’s time to shine! Let people know what this board is used for and what they can expect to see."
                                          ref="editInput" v-model="copyBoard.description">
                                   </el-input>
                                  <div class="description-edit-btn">
@@ -69,7 +71,7 @@ created(){
             this.editDescription = false;
         },
         saveDescription() {
-            this.card.description = this.description;
+          this.$store.dispatch({type: 'updateBoard', board: this.copyBoard })
             this.editDescription = false;
         },
 }

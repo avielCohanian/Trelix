@@ -24,27 +24,26 @@
             <div class="border-color" :style="bcgColor"> </div>
         <h2> Change Background </h2>
         </li>
-        <br>
+       
+
+
+        <!-- <li class="menu-stickers" @click="changeCmp('addStickers')">
+        <h2> Stickers </h2>
+        </li> -->
+
+        <li class="menu-label pointer" @click="changeCmp('labelMenu')"> 
+        <h2> <span class="el-icon-price-tag icon"></span> Labels </h2>
+        </li>
+
+
         <div class="input-link">
         <label for="" >
         <h3> Link to this board </h3>
         <el-input :value="getUrl" ref="input"></el-input>
         <p> <span class="material-icons-outlined">public</span> 
             Anyone on the internet (including Google) can see this board. Only board members can edit. </p>
-        
         </label>
         </div>
-        <!-- <input type="text" ref="input"> -->
-
-        
-        
-        <!-- <li class="menu-stickers" @click="changeCmp('addStickers')">
-        <h2> Stickers </h2>
-        </li> -->
-        <br>
-        <li class="menu-nore" @click="changeCmp('moreMenu')"> 
-        <h2> More </h2>
-        </li>
         <menu-activity :board="getBoard" />
         </div>
     </ul>
@@ -57,7 +56,7 @@
 <script>
 import aboutBoard from '../cmp/menu/about-board.vue'
 import changeBackground from '../cmp/menu/change-background.vue'
-import moreMenu from '../cmp/menu/more.vue'
+import labelMenu from '../cmp/menu/label-menu.vue'
 import addStickers from '../cmp/menu/stickers.vue'
 import menuActivity from '../cmp/menu/menu-activity.vue'
 
@@ -101,7 +100,7 @@ export default {
     components: {
         aboutBoard,
         changeBackground,
-        moreMenu,
+        labelMenu,
         addStickers,
         menuActivity
     },

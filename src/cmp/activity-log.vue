@@ -1,12 +1,12 @@
 <template>
     <section class="activity-log">
+        <font-awesome-icon icon="tasks" class="svg" />
         <header>
             <span class="activity-header">
-                <font-awesome-icon icon="tasks" class="icon" />
                 <h3>Activity</h3>
             </span>
             <span class="activity-header-btn">
-                <el-button @click="showActivity">Show details</el-button>
+                <a @click="showActivity">Show details</a>
             </span>
         </header>
     </section>

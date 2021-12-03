@@ -1,6 +1,6 @@
 .checklist {
     position: relative;
-
+    margin-bottom: 24px;
     .checklist-header {
         .show {
             display: flex;
@@ -17,20 +17,27 @@
                 margin-block-start: 1em;
                 margin-block-end: 1em;
             }
-            .delete-checklist {
-                align-items: center;
-                background-color: $clr10;
-                border-radius: 3px;
-                color: $clr7;
-                cursor: pointer;
-                font-weight: 400;
-                line-height: 20px;
-                padding: 6px 12px;
-                transition-duration: 85ms;
-                transition-property: background-color;
-            }
-            .delete-checklist:hover {
-                background-color: $clr8;
+            .todos-btn {
+                .delete-checklist,
+                .checked-item {
+                    align-items: center;
+                    background-color: $clr10;
+                    border-radius: 3px;
+                    color: $clr7;
+                    cursor: pointer;
+                    font-weight: 400;
+                    line-height: 20px;
+                    padding: 6px 12px;
+                    transition-duration: 85ms;
+                    transition-property: background-color;
+                }
+                .checked-item {
+                    margin-right: 10px;
+                }
+                .delete-checklist:hover,
+                .checked-item:hover {
+                    background-color: $clr8;
+                }
             }
         }
     }
@@ -87,6 +94,9 @@
                 font-size: 14px;
                 font-weight: 400;
                 line-height: 20px;
+            }
+            .checkbox {
+                width: 100%;
             }
         }
         li:hover {

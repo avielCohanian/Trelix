@@ -1,4 +1,5 @@
 .cmp-about {
+    padding: 0px 6px 12px 12px;
     .about::before {
         font-family: iconRegular;
         content: '\f007';
@@ -34,7 +35,9 @@
     header {
         display: flex;
         align-items: center;
-        margin-left: 5px;
+        // margin-left: 5px;
+        // margin: 0 0 4px 6px;
+        padding: 8px 0;
         h3 {
             margin: 0;
             min-height: 18px;
@@ -61,10 +64,23 @@
             background-color: #091e4214;
         }
     }
+    
     .description-container {
+        textarea{
+            margin: 0 0 4px;
+            padding: 8px 12px;
+            font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+            resize: none;
+            background: #fff;
+            color: #172b4d;
+            font-size: 14px;
+             font-weight: 400;
+        }
         p {
             cursor: pointer;
             font-size: 14px;
+            margin-top: 8px;
+            margin-left:  4px;
         }
         .description-edit-btn {
             margin-top: 8px;

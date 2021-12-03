@@ -1,8 +1,9 @@
 <template>
 <section class="cmp-background">
     <div class="menu-header background-header">
-                <h3 class="back-menu pointer" @click="back"> 
-                <span  class="material-icons-outlined back">arrow_back_ios</span></h3>
+               <h3 class="back-menu pointer material-icons-outlined back" @click="back"> 
+                  arrow_back_ios
+                </h3>
                 <h2 class="menu-header-txt"> Change background </h2>
                 <h3  @click="closeMenu" class="close-menu material-icons-outlined pointer">close </h3>
         </div>
