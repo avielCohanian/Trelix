@@ -91,9 +91,14 @@ export const boardStore = {
                 console.log(err);
             }
         },
+        
         async updateCard({ commit, getters }, { card }) {
+            console.log('card',card);
             const board = getters.getBoard;
+            console.log('board', board);
+            commit({type:'cardById', cardId: card.id})
             const groupId = getters.currGroup.id;
+            console.log('groupId', groupId);
             try {
                 const updateBoard = await boardService.saveCard(
                     board,
