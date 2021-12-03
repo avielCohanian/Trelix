@@ -5,7 +5,7 @@
     display: flex;
     height: 60px;
     justify-content: space-between;
-    li {
+    li:not(.avatar-logo) {
         border-radius: 3px;
         display: flex;
         align-items: center;
@@ -14,7 +14,7 @@
         padding: 0 12px;
         background-color: #ffffff91;
     }
-    li:hover{
+    li:hover {
         background-color: #ffffffa9;
     }
     .left {
@@ -34,7 +34,7 @@
         gap: 5px;
     }
     li.avatar-logo {
-        
+        margin-inline-end: 2px;
         background-color: rgba(65, 105, 225, 0);
     }
     span {
@@ -49,5 +49,44 @@
         float: left;
         height: 16px;
         margin: 8px;
+    }
+    .modal {
+        top: 100px;
+        left: 400px;
+        .title{
+            font-size: 18px;
+        }
+        // background-color: #091e4212;
+        .name {
+            display: flex;
+            flex-direction: column;
+            margin-inline-start: 18px;
+            font-size: 16px;
+            gap:15px;
+        }
+        .user-details {
+            flex-direction: row;
+        }
+    }
+    .choice {
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        .btn-choice {
+            cursor: pointer;
+            // margin-top: 10px;
+            // margin-bottom: 10px;
+            padding: 14px;
+            border-radius: 3px;
+            // padding-top: 14px;
+            // padding-bottom: 14px;
+            // padding-bottom: 4px;
+            &:hover {
+                background-color: gainsboro;
+            }
+        }
     }
 }

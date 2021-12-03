@@ -164,7 +164,18 @@ export const boardStore = {
                 const groupId = getters.currGroup.id;
                 var savedBoard = await boardService.deleteCard(board,groupId, card.id);
                 console.log(savedBoard);
-                commit({ type: 'setBoard', savedBoard });
+                commit({ type: 'setBoard', board: savedBoard});
+                return savedBoard;
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        async removeMember({ commit, getters }, { member }) {
+            try {
+                const board =  JSON.parse(JSON.stringify(getters.getBoard))
+                var savedBoard = await boardService.deleteMember(board, member.id);
+                console.log(savedBoard);
+                commit({ type: 'setBoard',board: savedBoard });
                 return savedBoard;
             } catch (err) {
                 console.log(err);

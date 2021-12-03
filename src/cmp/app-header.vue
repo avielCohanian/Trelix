@@ -27,12 +27,22 @@
                     <span class="material-icons-outlined"> notifications </span>
                 </div>
                 <div class="icon-header pointer pointer">
-                    <avatar
-                        @click.native="showProfile"
-                        :size="35"
-                        username="member.username"
-                        class="member"
-                    ></avatar>
+                    
+                     <avatar
+                      @click.native="showProfile"
+              v-if="createdBy.imgUrl"
+              :src="createdBy.imgUrl"
+              :size="35"
+              :username="createdBy.fullname"
+              class="member "
+            ></avatar>
+            <avatar
+              v-else
+              :size="35"
+               @click.native="showProfile"
+              :username="createdBy.fullname"
+              class="member "
+            ></avatar>
                 </div>
             </div>
         </nav>
@@ -46,20 +56,33 @@
             </div>
             <hr />
             <div class="avatar-user">
-                <avatar
-                    :size="35"
+                         <avatar
+              v-if="createdBy.imgUrl"
+              :src="createdBy.imgUrl"
+              :size="40"
+              :username="createdBy.fullname"
+              class="member "
+            ></avatar>
+            <avatar
+              v-else
+              :size="40"
+              :username="createdBy.fullname"
+              class="member "
+            ></avatar>
+                <!-- <avatar
+                    :size="40"
                     username="member.username"
                     class="member"
-                ></avatar>
+                ></avatar> -->
                 <div class="user-details">
-                    <div>{{ createdBy.fullname }}</div>
+                    <div ><strong>{{ createdBy.fullname }}</strong></div>
 
-                    <div>{{ createdBy.mail }}</div>
+                    <div class="fade">{{ createdBy.mail }}</div>
                 </div>
             </div>
-            <div>Activity</div>
+            <div class="active">Activity</div>
             <hr />
-            <div>Log out</div>
+            <div class="active">Log out</div>
         </div>
     </section>
 </template>

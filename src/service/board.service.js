@@ -14,7 +14,8 @@ export const boardService = {
     deleteGroup,
     getLabelByCard,
     saveGroup,
-    deleteCard
+    deleteCard,
+    deleteMember
 };
 
 const BOARD_KEY = 'boards';
@@ -105,6 +106,12 @@ function deleteGroup(board, groupId) {
     //    var group = getGroupById(board,groupId)
     let idx = board.groups.findIndex((group) => group.id === groupId);
     board.groups.splice(idx, 1);
+    return storageService.put(BOARD_KEY, board);
+}
+function deleteMember(board, memberId) {
+    //    var group = getGroupById(board,groupId)
+    let idx = board.members.findIndex((member) => member.id === memberId);
+    board.members.splice(idx, 1);
     return storageService.put(BOARD_KEY, board);
 }
 function deleteCard(board, groupId,cardId) {

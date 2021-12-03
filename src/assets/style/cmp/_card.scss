@@ -1,9 +1,10 @@
 .card-container {
-    max-height: 70vh;
+    max-height: 72vh;
     // overflow: scroll;
     overflow-x: hidden;
     &::-webkit-scrollbar {
         width: 5px;
+        background: #e2e4e9
     }
     &::-webkit-scrollbar-track {
         border-radius: 10px;
@@ -11,7 +12,8 @@
     }
     &::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background: rgba(0, 0, 0, 0.32);
+        background: #c6cbd4;
+        // background: rgba(0, 0, 0, 0.32);
     }
 }
 

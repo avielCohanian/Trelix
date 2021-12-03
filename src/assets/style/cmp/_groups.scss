@@ -1,6 +1,7 @@
 .groups {
+    height: 85vh;
     display: inline-block;
-    height: 100%;
+    // height: 100%;
     margin: 0 4px;
     vertical-align: top;
     white-space: nowrap;
@@ -13,7 +14,8 @@
     flex-direction: row;
     overflow-x: auto;
     &::-webkit-scrollbar {
-        width: 10px;
+        width: 7px;
+        // background: #e2e4e9
     }
     &::-webkit-scrollbar-track {
         border-radius: 10px;
@@ -21,7 +23,8 @@
     }
     &::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background: rgba(0, 0, 0, 0.32);
+        // background: rgba(0, 0, 0, 0.32);
+        background: #c6cbd44b;
     }
     button {
         // height: 32px;

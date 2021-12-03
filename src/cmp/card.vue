@@ -35,7 +35,7 @@
                         type="textarea"
                         :rows="5"
                         v-model="cardToUpdate.title"
-                        @keyup.enter.native="openEditor"
+                        @keyup.enter.native="updateCard"
                     >
                     </el-input>
                     <el-button type="primary" @click="updateCard"
