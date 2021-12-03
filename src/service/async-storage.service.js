@@ -21,6 +21,11 @@ const groups = [
             backgroundImage:
                 'url(https://res.cloudinary.com/dshrwhc75/image/upload/v1638367176/chris-karidis-nnzkZNYWHaU-unsplash_1_ralbng.jpg)',
         },
+        styleCustom:[
+           
+        ]
+           
+    ,
         labels: [
             {
                 id: 'l101',
@@ -239,15 +244,6 @@ const groups = [
         ],
     },
 ];
-
-// {time:Date.now() -10000000, fullname:'MOSHE ZOHAR',
-//             event:{do:'added',in:{board:'fsg',id:'c102'}},
-
-//             img:'https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg'}
-
-//             ,{time:Date.now() -10000000, fullname:'MOSHE ZOHAR',event:{do:'added',in:{board:'fsg',id:'c102'}},
-//             img:'https://res.cloudinary.com/dshrwhc75/image/upload/v1638367919/luca-micheli-r9RW20TrQ0Y-unsplash_jnpfxx.jpg'}
-
 // _save('boards', groups);
 
 function query(entityType) {

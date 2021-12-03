@@ -82,6 +82,7 @@ export default {
         },
         closeMenu(){
             this.$emit('closeMenu')
+            this.showCmp = null
         },
         changeBcg(newColor){
             this.bcgColor =newColor

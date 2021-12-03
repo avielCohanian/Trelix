@@ -64,23 +64,24 @@
             background-color: #091e4214;
         }
     }
-    
+
     .description-container {
-        textarea{
+        textarea {
             margin: 0 0 4px;
             padding: 8px 12px;
-            font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+                Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
             resize: none;
             background: #fff;
             color: #172b4d;
             font-size: 14px;
-             font-weight: 400;
+            font-weight: 400;
         }
         p {
             cursor: pointer;
             font-size: 14px;
             margin-top: 8px;
-            margin-left:  4px;
+            margin-left: 4px;
         }
         .description-edit-btn {
             margin-top: 8px;
@@ -160,6 +161,41 @@
         width: 143px;
         height: 96px;
         border-radius: 8px;
-        margin: 8px;
+        margin: 4px;
+    }
+
+    .img-upload .plus {
+        font-size: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ebecf0;
+        cursor: pointer;
+        background-size: cover;
+        width: 143px;
+        height: 96px;
+        border-radius: 8px;
+    }
+    .list-custom ul {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .card-photo {
+        background-size: cover;
+        width: 143px;
+        height: 96px;
+        border-radius: 8px;
+        margin: 0 8px 8px;
+        cursor: pointer;
+    }
+    .bcg-choice-container {
+        height: 40vh;
+        height: 80vh;
+        overflow: scroll;
+        overflow-x: hidden;
+
+        .container-imgs {
+            height: fit-content;
+        }
     }
 }

@@ -1,98 +1,146 @@
 <template>
-<section class="cmp-background">
-    <div class="menu-header background-header">
-               <h3 class="back-menu pointer material-icons-outlined back" @click="back"> 
-                  arrow_back_ios
-                </h3>
-                <h2 class="menu-header-txt"> Change background </h2>
-                <h3  @click="closeMenu" class="close-menu material-icons-outlined pointer">close </h3>
-        </div>
-        <hr>
-  <div class="bcg-main" v-if="!showCmp" >
-    <div class="choice-bcg-up">
-
-    <div class="photos pointer" :style="getImg" @click="changeCmp('choicePhotos')" >
-    </div>
-    <div class="colors pointer" @click="changeCmp('choiceColors')">
-      
-    </div>
-    </div>
-    <hr>
-    <h2 class="custom"> Custom </h2>
-    <div>
-      <h3 class="plus"></h3>
-    </div>
-  </div>
-    <transition name="slide-fade" v-else>  
-          <component @click="back" :is="getComponent" :imgs="imgs" @changeBcg="changeBcg"  :colors="colors" ></component>
-    </transition>
-</section>
+   <section class="cmp-background">
+      <div class="menu-header background-header">
+         <h3
+            class="back-menu pointer material-icons-outlined back"
+            @click="back">
+            arrow_back_ios
+         </h3>
+         <h2 class="menu-header-txt">Change background</h2>
+         <h3
+            @click="closeMenu"
+            class="close-menu material-icons-outlined pointer" >
+            close
+         </h3>
+      </div>
+      <hr />
+      <div class="bcg-main" v-if="!showCmp">
+         <div class="choice-bcg-up">
+            <div>
+               <div
+                  class="photos pointer"
+                  :style="getImg"
+                  @click="changeCmp('choicePhotos')"></div>
+               <h2>Photos</h2>
+            </div>
+            <div>
+               <div
+                  class="colors pointer"
+                  @click="changeCmp('choiceColors')"></div>
+               <h2>Colors</h2>
+            </div>
+         </div>
+         <hr />
+         <h2 class="custom">Custom</h2>
+         <div class="list-custom">
+            <ul>
+               <li class="card-photo">
+                  <div class="img-upload">
+                     <label class="clickable" v-if="!isLoading">
+                        <div class="plus"></div>
+                        <input
+                           type="file"
+                           id="uploadImg"
+                           @change="onUploadImg"/>
+                           hidden
+                     </label>
+                     <img v-else :src="require('@/assets/loader.gif')" alt="" />
+                  </div>
+               </li>
+               <li
+                  v-for="(img, idx) in board.styleCustom"
+                  :key="idx"
+                  :style="img"
+                  class="card-photo"
+                  @click="changeBcg(img)"
+               ></li>
+            </ul>
+         </div>
+      </div>
+      <transition name="slide-fade" v-else>
+         <component
+            @click="back"
+            :is="getComponent"
+            @changeBcg="changeBcg"
+            :colors="colors"
+         ></component>
+      </transition>
+   </section>
 </template>
 
 <script>
-  import choicePhotos from '../menu/choice-photos.vue'
-  import choiceColors from '../menu/choice-colors.vue'
- export default {
-  props:{
-    board:{
-      type:Object
-    }
-  },
-  data(){
-    return{
-      showCmp:null,
-      openOpt:null,
-        colors:{},
-        imgs:{}
-}
-},
-created(){
-  this.loadImgAndColors()
-},
-methods:{
-  loadImgAndColors(){
-    this.colors= this.$store.getters.getColors
-    this.imgs=this.$store.getters.getImgs
-  },
-  Openchoice(choice){
-    this.openOpt=choice
-  },
-     changeCmp(cmp){
-            this.showCmp = cmp
-            this.openOpt =null
-        },
-        changeBcg(newBcg){
-         const coppyBoard= JSON.parse(JSON.stringify(this.board))
-         coppyBoard.style =newBcg
-         this.$store.dispatch({type:'updateBoard',board:coppyBoard})
-         this.$emit('changeBcg')
-        },
-        closeMenu(){
-          this.$emit('closeMenu')
-        },
-        back(){
-          console.log(this.openOpt);
-          const cmp = this.openOpt ? 'changeBackground' : null
-         this.$emit('changeCmp', cmp)
-        },
-
+import choicePhotos from "../menu/choice-photos.vue";
+import choiceColors from "../menu/choice-colors.vue";
+import { uploadImg } from "../../service/img.service.js";
+export default {
+   props: {
+      board: {
+         type: Object,
+      },
    },
-   computed:{
-     getComponent(){
-       return this.showCmp
-           },
-           getImg(){
-             console.log(this.imgs.pic2);
-              return this.imgs.pic2
-       },
-             },
-components:{
-  choicePhotos,
-  choiceColors
-}
-}
+   data() {
+      return {
+         showCmp: null,
+         colors: {},
+         imgs: {},
+         isLoading: false,
+      };
+   },
+   created() {
+      this.loadImgAndColors();
+   },
+   methods: {
+      async onUploadImg(ev) {
+         const copyBoard = JSON.parse(JSON.stringify(this.board));
+         this.isLoading = true;
+         let res = await uploadImg(ev);
+         copyBoard.styleCustom.push({ backgroundImage: `url(${res.url})` });
+         this.$store.dispatch({ type: "updateBoard", board: copyBoard });
+         this.isLoading = false;
+      },
+      loadImgAndColors() {
+         this.colors = this.$store.getters.getColors;
+         this.imgs = this.$store.getters.getImgs;
+      },
+      changeCmp(cmp) {
+         this.showCmp = cmp;
+      },
+      changeBcg(newBcg) {
+         const copyBoard = JSON.parse(JSON.stringify(this.board));
+         copyBoard.style = newBcg;
+         this.$store.dispatch({ type: "updateBoard", board: copyBoard });
+         this.$emit("changeBcg");
+      },
+      closeMenu() {
+         this.$emit("closeMenu");
+      },
+      back() {
+         if (this.showCmp) this.showCmp = null;
+         else this.$emit("changeCmp", null);
+      },
+   },
+   computed: {
+      getComponent() {
+         return this.showCmp;
+      },
+
+      getImg() {
+         console.log(JSON.stringify(this.board.style));
+         if (JSON.stringify(this.board.style).includes("backgroundImage"))
+            return this.board.style;
+         else
+            return {
+               backgroundImage:
+                  "url(https://res.cloudinary.com/trelix-casep21/image/upload/v1638548106/yu-chin-tsai-piTEABtlR1Q-unsplash_etyuas.jpg)",
+            };
+      },
+   },
+   components: {
+      choicePhotos,
+      choiceColors,
+   },
+};
 </script>
 
 <style>
-
 </style>
