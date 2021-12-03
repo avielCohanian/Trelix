@@ -4,7 +4,7 @@
     color: white;
     background-color: rgba(0, 0, 0, 0.32);
     width: 100%;
-    height: 6vh;
+    height: 46px;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -53,8 +53,11 @@
                 font-size: 20px;
             }
             input {
+                color: white;
+                border-color:  rgba(220, 220, 220, 0.246);
                 // width: 250px;
                 height: 32px;
+                background-color: rgba(220, 220, 220, 0.246);
             }
             span{
                 font-size: 20px;
@@ -120,4 +123,6 @@
             background-color: rgba(173, 173, 173, 0.445);
         }
     }
+    
+      
 }

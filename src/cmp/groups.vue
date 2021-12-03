@@ -13,6 +13,7 @@
                     v-model="newGroup.title"
                 ></el-input>
             </label>
+             <transition name="fade">
 <div class="add-list-container" v-if="isAddGroup">
 
             <label  >
@@ -32,6 +33,7 @@
                 <!-- <i class="el-icon-close" @click="toggleGroup"></i> -->
             </label>
 </div>
+</transition>
         </div>
     </section>
 </template>

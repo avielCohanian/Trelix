@@ -40,8 +40,13 @@
     }
     .add-list {
         margin-inline-start: 3px;
+        
+        
+        
     }
     .add-list-container {
+    //     transform: translateY(0%);
+    // transition: transform 0.7s;
         width: 272px;
         border-radius: 5px;
         padding: 4px 4px;
@@ -59,6 +64,23 @@
                 color: gray;
             }
         }
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 1s;
+          }
+          .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+            opacity: 0;
+          }
+        // .slide-fade-enter-active {
+        //     transition: all .3s ease;
+        //   }
+        //   .slide-fade-leave-active {
+        //     transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        //   }
+        //   .slide-fade-enter, .slide-fade-leave-to
+        //   /* .slide-fade-leave-active below version 2.1.8 */ {
+        //     transform: translateY(10px);
+        //     opacity: 0;
+        //   }
     }
 }
 .opacity-more input {
