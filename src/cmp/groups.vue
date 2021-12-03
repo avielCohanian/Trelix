@@ -6,6 +6,7 @@
         <div class="add-list">
             <label for="add" @click="toggleGroup" v-if="!isAddGroup">
                 <el-input
+                :style="{width:'272px'}"
                 class="opacity-more "
                     name="add"
                     placeholder="+ Add a list"
