@@ -176,5 +176,47 @@
                 }
             }
         }
+
+        .input-link label{
+            margin-left: 42px;
+            margin-right: 10px;
+            color: #5e6c84;
+            display: block;
+            line-height: 16px;
+             h3{
+                margin-bottom: 4px;
+                margin-top: 12px;
+            }
+             
+            input{
+                background-color: #fafbfc;
+                border: none;
+                border-radius: 3px;
+                box-shadow: inset 0 0 0 2px #ebecf0;
+                box-sizing: border-box;
+                display: block;
+                line-height: 20px;
+                margin-bottom: 12px;
+                outline: none;
+                padding: 8px 12px;
+                transition-duration: 85ms;
+                transition-property: background-color,border-color,box-shadow;
+                transition-timing-function: ease;
+                &:hover{
+                    box-shadow: inset 0 0 0 2px #dfe1e6;
+                }
+            }
+            p{
+                margin: 0 0 8px;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                .material-icons-outlined{
+                    color: rgb(54, 206, 54);
+                    font-size: 14px;
+                 }
+            
+            }
+        }
     }
 }

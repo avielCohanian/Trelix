@@ -25,8 +25,19 @@
         <h2> Change Background </h2>
         </li>
         <br>
-        <input id="id-short-url"  ref="focusInput" class="js-short-url" type="text" readonly="readonly" value="https://trello.com/b/SIlAFmuF">
+        <div class="input-link">
+        <label for="" >
+        <h3> Link to this board </h3>
+        <el-input :value="getUrl" ref="input"></el-input>
+        <p> <span class="material-icons-outlined">public</span> 
+            Anyone on the internet (including Google) can see this board. Only board members can edit. </p>
+        
+        </label>
+        </div>
+        <!-- <input type="text" ref="input"> -->
 
+        
+        
         <!-- <li class="menu-stickers" @click="changeCmp('addStickers')">
         <h2> Stickers </h2>
         </li> -->
@@ -52,6 +63,9 @@ import menuActivity from '../cmp/menu/menu-activity.vue'
 
 export default {
     name: 'smart-cmp-menu',
+    props:{
+        isShow:{type : Boolean}
+    },
     data() {
         return {
             showCmp:null,
@@ -59,10 +73,9 @@ export default {
             board: this.getBoard
         }
     },
+
     created(){
-        console.log(this.$refs);
-        
-        // .focusInput.focus()
+       
     },
     methods: {
         changeCmp(cmp){
@@ -73,9 +86,17 @@ export default {
         },
         changeBcg(newColor){
             this.bcgColor =newColor
-        }
-      
-       
+        },
+    },
+    mounted(){
+        console.log(this.$refs);
+            
+             
+            // console.log(this.$refs.input)
+            console.log('hi');
+        // this.getUrl()
+        
+        // .focusInput.focus()
     },
     components: {
         aboutBoard,
@@ -84,21 +105,30 @@ export default {
         addStickers,
         menuActivity
     },
+    watch:{
+        isShow(){
+            if (this.isShow) {
+                this.$refs.input.select()
+            }
+        }
+    },
     computed: {
        getComponent(){
            return this.showCmp
-       }
-      ,
+       },
         getBoard(){
             this.bcgColor = this.$store.getters.getBoard.style
-            console.log(this.$store.getters.getBoard);
             return this.$store.getters.getBoard
         },
+         getUrl(){
+            return `http://localhost:8080/#/board/${this.$route.params.boardId}`
+        }
    
     },
 };
 </script>
 
 <style>
-
+    
+    
 </style>

@@ -76,7 +76,7 @@
                 </li>
             </ul>
         </section>
-        <nav-menu @closeMenu="toggleMenu" :class="isShowMenu" />
+        <nav-menu @closeMenu="toggleMenu" :isShow="showMenu" :class="isShowMenu" />
     </section>
 </template>
 
@@ -104,8 +104,8 @@ export default {
             this.isShowProfile = !this.isShowProfile;
         },
         toggleMenu() {
-            console.log('CLOSE ELI');
             this.showMenu = !this.showMenu;
+
         },
     },
 
