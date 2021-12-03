@@ -2,19 +2,27 @@
     <section class="group-container">
         <div class="group">
             <header>
-                <template v-if="!isEditTitle">
-                    <h3 @click="isEditTitle = !isEditTitle">
+                <!-- <template v-if="!isEditTitle"> -->
+                    <!-- <h3 @click="isEditTitle = !isEditTitle">
                         {{ group.title }}
-                    </h3>
-                </template>
-                <template v-if="isEditTitle">
+                    </h3> -->
                     <el-input
+                    class="edit-title"
+                        size="mini"
+                        :class="{ focus: isEditTitle }"
+                        v-model="groupToEdit.title"
+                        @keyup.enter.native="updateGroup"
+                  @blur="updateGroup"
+                    ></el-input>
+                <!-- </template> -->
+                <!-- <template v-if="isEditTitle"> -->
+                    <!-- <el-input
                     class="edit-title"
                         size="mini"
                         v-model="groupToEdit.title"
                         @keyup.enter.native="updateGroup"
-                    ></el-input>
-                </template>
+                    ></el-input> -->
+                <!-- </template> -->
                 <i class="el-icon-more" @click="openModal = !openModal"></i>
             </header>
             <div class="modal" v-if="openModal">

@@ -157,5 +157,18 @@ export const boardStore = {
                 console.log(err);
             }
         },
+        async deleteCard({ commit, getters }, { card }) {
+            try {
+                const board =  JSON.parse(JSON.stringify(getters.getBoard))
+                commit({type:'cardById', cardId: card.id})
+                const groupId = getters.currGroup.id;
+                var savedBoard = await boardService.deleteCard(board,groupId, card.id);
+                console.log(savedBoard);
+                commit({ type: 'setBoard', savedBoard });
+                return savedBoard;
+            } catch (err) {
+                console.log(err);
+            }
+        },
     },
 };
