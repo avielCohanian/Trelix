@@ -10,16 +10,14 @@
                 <div class="secund-header">
                     <font-awesome-icon class="svg" :icon="['fab', 'trello']" />
                     <!-- <span></span> למצוא אייקון מתאים -->
-                    <div
-                        class="secund-header-input"
-                        :class="{ focus: isOpenTitle }"
-                        @click="toggleTitle"
-                    >
-                        <el-input
+                    <div class="secund-header-input" @click="toggleTitle">
+                        <input
+                            type="text"
+                            :class="{ focus: isOpenTitle }"
                             v-model="card.title"
                             @keyup.enter="saveTitle"
                             @blur="saveTitle"
-                        ></el-input>
+                        />
                     </div>
                     <!--TODO @click in a dynamicCmp -->
                 </div>
