@@ -1,0 +1,13 @@
+.activity-log {
+    position: relative;
+    margin-bottom: 24px;
+    .svg {
+        top: 7px;
+    }
+    header {
+        display: flex;
+        min-height: 32px;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

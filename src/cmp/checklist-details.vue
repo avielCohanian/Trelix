@@ -6,11 +6,27 @@
         <header class="checklist-header">
             <div class="show" v-if="true">
                 <h3>{{ checklist.title }}</h3>
-                <a
-                    class="delete-checklist"
-                    @click="deleteChecklist(checklist.id)"
-                    >Delete</a
-                >
+                <div class="todos-btn">
+                    <a
+                        class="checked-item"
+                        v-if="countTodosDone(checklist.id)"
+                        @click="toggleCheckedItem(checklist.id)"
+                        >Hide checked items</a
+                    >
+                    <a
+                        v-else
+                        class="checked-item"
+                        @click="toggleCheckedItem(checklist.id)"
+                        >Show checked items({{
+                            countTodosDone(checklist.id)
+                        }})</a
+                    >
+                    <a
+                        class="delete-checklist"
+                        @click="deleteChecklist(checklist.id)"
+                        >Delete</a
+                    >
+                </div>
             </div>
 
             <div v-else class="description-edit">
@@ -30,14 +46,6 @@
                 </div>
             </div>
         </header>
-        <a
-            v-if="countTodosDone(checklist.id)"
-            @click="toggleCheckedItem(checklist.id)"
-            >Hide checked items</a
-        >
-        <a @click="toggleCheckedItem(checklist.id)"
-            >Show checked items({{ countTodosDone(checklist.id) }})</a
-        >
         <!-- :class="{ done: progress === 100 }" -->
         <el-progress :percentage="80"></el-progress>
 
@@ -68,18 +76,20 @@ export default {
     },
     data() {
         return {
-            isAddTodo: false,
-            isOpenChangeName: false,
-            isOpenChangeText: false,
             checklistName: this.checklist.name,
             newTodo: { text: '', isDone: false },
-            todoText: '',
-            currTodoId: '',
             editChecklist: false,
         };
     },
     methods: {
         countTodosDone(checklistId) {
+            console.log(this.checklist);
+            let list = this.checklist;
+            let doneCount = list.todos.reduce((acc, todo) => {
+                return todo.isDone ? acc + 1 : acc;
+            }, 0);
+            console.log(doneCount);
+            return doneCount;
             // TODO: return count todos is done
         },
         toggleCheckedItem(checklistId) {
