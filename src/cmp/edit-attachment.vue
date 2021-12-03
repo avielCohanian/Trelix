@@ -1,25 +1,34 @@
 <template>
-    <div class="attachment">
-        <label>
-            computer
-            <input type="file" hidden />
-        </label>
-        <hr />
-        <label @click="dynamicCmp"> trelix </label>
+    <div class="edit-attachment">
+        <ul class="list">
+            <li>
+                <label class="attachment">
+                    Computer
+                    <input type="file" hidden />
+                </label>
+            </li>
+            <li>
+                <label class="attachment" @click="dynamicCmp"> Trelix </label>
+            </li>
+        </ul>
         <hr />
 
         <form @submit.prevent="aa">
-            <label>Attach a link</label>
-            <el-input
+            <label class="link">Attach a link</label>
+            <input
+                type="text"
                 placeholder="Paste any link here..."
                 v-model="link"
-            ></el-input>
-            <label v-if="link"
+            />
+
+            <label v-if="link" class="optional-link"
                 >Link name(optional)
-                <el-input v-model="linkName"></el-input>
+                <input type="text" v-model="linkName" />
             </label>
+
             <button hidden></button>
         </form>
+        <a class="attach-btn">Attach</a>
         <hr />
     </div>
 </template>

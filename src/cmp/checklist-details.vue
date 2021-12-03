@@ -1,14 +1,34 @@
 <template>
     <article class="checklist">
         <span></span>
-        <!--TODO  למצוא אייקון מתאים -->
-        <i class="el-icon-circle-check check-icon icon"></i>
+        <span class="material-icons-outlined icon"> check_box </span>
 
         <header class="checklist-header">
-            <h3>{{ checklist.title }}</h3>
-            <a class="delete-checklist" @click="deleteChecklist(checklist.id)"
-                >Delete</a
-            >
+            <div class="show" v-if="true">
+                <h3>{{ checklist.title }}</h3>
+                <a
+                    class="delete-checklist"
+                    @click="deleteChecklist(checklist.id)"
+                    >Delete</a
+                >
+            </div>
+
+            <div v-else class="description-edit">
+                <input
+                    type="textarea"
+                    ref="editInput"
+                    v-model="checklist.title"
+                />
+
+                <div class="description-edit-btn">
+                    <a
+                        class="close-btn el-icon-close"
+                        @click="closeChecklist"
+                    ></a>
+
+                    <a class="save" @click="saveChecklist">Save</a>
+                </div>
+            </div>
         </header>
         <a
             v-if="countTodosDone(checklist.id)"
@@ -19,18 +39,19 @@
             >Show checked items({{ countTodosDone(checklist.id) }})</a
         >
         <!-- :class="{ done: progress === 100 }" -->
-        <el-progress :percentage="50"></el-progress>
+        <el-progress :percentage="80"></el-progress>
 
-        <div class="todos" v-for="todo in checklist.todos" :key="todo.id">
-            <div>
-                <el-checkbox v-model="todo.isDone"></el-checkbox>
-                <!-- @change="updateTodo(todo)" -->
-                <div class="checklist-todo">
-                    {{ todo.txt }}
-                </div>
-            </div>
-            <el-button @click="addTodo">Add an item</el-button>
-        </div>
+        <ul class="todos" v-for="todo in checklist.todos" :key="todo.id">
+            <li>
+                <el-checkbox class="checkbox" v-model="todo.isDone">
+                    <!-- @change="updateTodo(todo)" -->
+                    <div class="checklist-todo">
+                        {{ todo.txt }}
+                    </div>
+                </el-checkbox>
+            </li>
+        </ul>
+        <a class="item-btn" @click="addTodo">Add an item</a>
 
         <!-- </div> -->
     </article>
@@ -54,6 +75,7 @@ export default {
             newTodo: { text: '', isDone: false },
             todoText: '',
             currTodoId: '',
+            editChecklist: false,
         };
     },
     methods: {
@@ -65,6 +87,13 @@ export default {
         },
         addTodo() {
             // TODO: open input and add todo
+        },
+        closeChecklist() {
+            this.editChecklist = false;
+        },
+        saveChecklist() {
+            // TODO emit to save
+            this.editChecklist = false;
         },
     },
 };

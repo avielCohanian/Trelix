@@ -19,7 +19,7 @@
     }
     .card-details {
         // z-index: 999;
-        height: 100%;
+        min-height: 100%;
         position: absolute;
         background-color: #f4f5f7;
         left: 50%;
@@ -53,16 +53,16 @@
                 display: flex;
                 align-items: center;
                 min-height: 32px;
-                margin: 12px 40px 8px 56px;
+                margin: 12px 40px 8px 60px;
                 .secund-header-input {
                     width: 100%;
+                    margin-top: 13px;
                     // margin-top: 4px;
-                    .el-input__inner {
-                        overflow: hidden;
-                        overflow-wrap: break-word;
-                        height: 33px;
+                    input {
+                        width: 100%;
 
-                        background: #0000;
+                        height: 33px;
+                        background-color: #0000;
                         border-radius: 3px;
                         box-shadow: none;
                         font-size: 20px;
@@ -73,18 +73,18 @@
                         padding: 4px 8px;
                         resize: none;
                         border: none;
-                    }
-                    .focus {
-                        background-color: #fff;
-                        box-shadow: inset 0 0 0 2px #0079bf;
-                        border: 1px solid #0079bf;
+                        &.focus {
+                            background-color: #fff;
+                            box-shadow: inset 0 0 0 2px #0079bf;
+                            border: 1px solid #0079bf;
+                        }
                     }
                 }
             }
             .title {
                 color: $clr6;
                 margin-bottom: rem(30px);
-                margin: 0 0 8px 56px;
+                margin: 0 0 8px 60px;
                 a {
                     cursor: pointer;
                     text-decoration: underline;
@@ -97,8 +97,8 @@
             .svg {
                 // background-color: lightcoral;
                 display: block;
-                left: -40px;
-                top: 2px;
+                left: -36px;
+                top: 12px;
                 position: absolute;
                 height: 1em;
                 line-height: 24px;
@@ -121,10 +121,11 @@
             display: flex;
             .main-details {
                 float: left;
-                margin: rem(20px);
+                // margin: rem(20px);
+                margin: 30px 20px 20px 60px;
                 min-height: 100%;
                 width: 552px;
-                margin-left: 50px;
+                // margin-left: 50px;
                 // padding-left: 16px;
 
                 .header-optional {
@@ -234,7 +235,7 @@
                                 cursor: pointer;
                                 padding: 6px 12px;
                                 text-decoration: none;
-                                background-color: #091e420a;
+                                background-color: $clr10;
                                 transition-duration: 0.85ms;
                                 transition-property: background-color;
                             }
@@ -265,7 +266,7 @@
                         }
                         .edit-btn {
                             margin-left: 8px;
-                            background-color: #091e420a;
+                            background-color: $clr10;
                             border: none;
                             cursor: pointer;
                             font-size: 14px;
@@ -379,7 +380,7 @@
         // }
         .main-details {
             a {
-                background-color: #091e420a;
+                background-color: $clr10;
             }
             .members {
                 a {

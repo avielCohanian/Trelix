@@ -37,7 +37,7 @@
         margin-bottom: rem(8px);
         color: $clr2;
         transition: 0.3s;
-        background-color: #091e420a;
+        background-color: $clr10;
         // display:block;
         padding: 6px 12px;
         max-width: 300px;
@@ -82,6 +82,7 @@
                 font-weight: 400;
             }
             a {
+                cursor: pointer;
                 color: #6b778c;
                 padding: 10px 12px 10px 8px;
                 position: absolute;

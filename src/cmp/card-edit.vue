@@ -29,18 +29,12 @@
                 >
 
                 <a class="btn" @click="dynamicCmp('attachment')">
-                    <!-- <span class="el-icon-user"></span> למצוא את האייקון המתאים -->
-                    Attachment</a
+                    <span class="el-icon-paperclip icon"></span> Attachment</a
                 >
 
                 <a class="btn" @click="dynamicCmp('cover')">
                     <!-- <span class="el-icon-user"></span> למצוא את האייקון המתאים -->
                     Cover</a
-                >
-
-                <a class="btn" @click="dynamicCmp('customFields')">
-                    <!-- <span class="el-icon-user"></span> למצוא את האייקון המתאים -->
-                    Custom Fields</a
                 >
             </div>
         </div>
@@ -85,7 +79,8 @@ export default {
     methods: {
         dynamicCmp(cmp) {
             console.log(cmp);
-            this.component.name = cmp;
+            if (cmp === 'attachment') this.component.name = 'attach from...';
+            else this.component.name = cmp;
             this.component.currCmp = `card-${cmp}`;
         },
         closeModel() {
