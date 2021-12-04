@@ -50,11 +50,13 @@
         .el-icon-paperclip {
             transform: rotate(180deg);
         }
-        .material-icons-outlined {
-            transform: rotate(180deg);
-        }
-        .material-icons-outlined {
+        .label-icon {
             transform: rotate(0deg);
+        }
+        .cover-icon {
+            .material-icons-outlined {
+                transform: rotate(180deg);
+            }
         }
     }
     .edit-btn,

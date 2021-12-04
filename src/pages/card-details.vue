@@ -3,7 +3,7 @@
         <article class="card-details" @click.stop>
             <div
                 class="color-header"
-                v-if="card.style.bgColor"
+                v-if="card.style && card.style.bgColor"
                 :style="{ backgroundColor: card.style.bgColor }"
             ></div>
             <header class="header">

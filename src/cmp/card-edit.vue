@@ -15,7 +15,8 @@
                 >
 
                 <a class="btn" @click="dynamicCmp('labels')" title="Labels">
-                    <span class="el-icon-price-tag icon"></span> Labels</a
+                    <span class="el-icon-price-tag label-icon icon"></span>
+                    Labels</a
                 >
 
                 <a
@@ -45,8 +46,10 @@
                 >
 
                 <a class="btn" @click="dynamicCmp('cover')" title="Cover">
-                    <span class="material-icons-outlined icon">
-                        web_asset
+                    <span class="cover-icon">
+                        <span class="material-icons-outlined icon">
+                            web_asset
+                        </span>
                     </span>
                     Cover</a
                 >
