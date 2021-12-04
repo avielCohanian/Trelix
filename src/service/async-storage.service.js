@@ -94,6 +94,7 @@ const boards = [
                         id: 'c107',
                         title: 'Creat git repository',
                         description: 'backend',
+                        
                     },
                     {
                         id: 'c108',
