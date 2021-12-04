@@ -1,6 +1,7 @@
 .groups {
+    display: -webkit-inline-box;
     height: 85vh;
-    display: inline-block;
+    // display: inline-block;
     // height: 100%;
     margin: 0 4px;
     vertical-align: top;
@@ -10,7 +11,7 @@
     max-width: 100%;
     position: relative;
     white-space: normal;
-    display: flex;
+    // display: flex;
     flex-direction: row;
     overflow-x: auto;
     &::-webkit-scrollbar {

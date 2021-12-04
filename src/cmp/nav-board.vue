@@ -66,7 +66,7 @@
               </div>
             <div class="name">
               <strong>{{ currMember.fullname }}</strong>
-            <div>{{ currMember.mail }}</div>
+            <div class="mail">{{ currMember.mail }}</div>
             </div>
             </div>
 

@@ -26,6 +26,10 @@
                 padding: 8px;
                 font-size: 20px;
             }
+            .img-logo{
+                width: 17px;
+                height: 15px;
+            }
             ul {
                 // margin-inline-end: 10px;
                 gap: 10px;
@@ -86,6 +90,40 @@
     }
 }
 
+.modal.menu{
+    position: fixed;
+    width: 304px;
+    will-change: top, left;
+    top: 48px;
+    left: 4px;
+    .title{
+        margin-inline-start: 26%;
+    }
+    .bcg-blue{
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        box-shadow: rgb(9 30 66 / 25%) 0px 1px 1px, rgb(9 30 66 / 13%) 0px 0px 1px 1px;
+        background-color: rgb(0, 82, 204);
+        overflow: hidden;
+img{
+    width: 20px;
+    height: 20px;
+}
+    }
+    .center{
+        gap: 15px;
+        display: flex;
+        align-items: center;
+        padding: 7px 8px;
+        // justify-content: center;
+    }
+}
 .modal {
     .title{
         margin-top: 12px;
@@ -125,5 +163,5 @@
         }
     }
     
-      
+ 
 }
