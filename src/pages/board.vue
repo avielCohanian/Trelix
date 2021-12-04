@@ -20,15 +20,26 @@ export default {
         return {};
     },
     created() {
-        // const boardId = this.$params.boardId;
-        this.$store.dispatch({ type: 'loadImgsAndColor' });
+        console.log(this.$params);
+        const boardId = this.$route.params.boardId;
+        this.loadBoard(boardId)
+        this.$store.dispatch({ type: 'addColors' });
     },
-    methods: {},
+    methods: {
+        async loadBoard(boardId){
+        try {
+           var res = await this.$store.dispatch({ type: 'loadBoard', boardId })
+        } catch (err) {
+            console.log(err);
+        }
+}
+    },
     computed: {
         getBoard() {
             return this.$store.getters.getBoard;
         },
     },
+    
 };
 </script>
 

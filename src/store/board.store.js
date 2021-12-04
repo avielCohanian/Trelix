@@ -4,7 +4,6 @@ import { boardService } from '../service/board.service.js';
 export const boardStore = {
     state: {
         colors: {},
-        imgs: {},
         currBoard: null,
         currCard: null,
         currGroup: null,
@@ -52,16 +51,14 @@ export const boardStore = {
         deleteGroup(state, { savedBoard }) {
             state.currBoard = savedBoard;
         },
-        addImgsAndColor(state, { imgs, colors }) {
-            state.imgs = imgs;
+        addColors(state, {  colors }) {
             state.colors = colors;
         },
     },
     actions: {
-        loadImgsAndColor({ commit }) {
+        addColors({ commit }) {
             commit({
-                type: 'addImgsAndColor',
-                imgs: boardService.getImgs(),
+                type: 'addColors',
                 colors: boardService.getColors(),
             });
         },

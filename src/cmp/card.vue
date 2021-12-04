@@ -2,29 +2,24 @@
   <section
     class="card"
     @click="openDetails(card.id)"
-    :style="{background : ' rgb(255, 255, 255)'}"
-  >
+    :style="{ background: ' rgb(255, 255, 255)' }">
     <!-- :style="{ background: card.style.bgColor }" -->
     <header
       @mouseover="isHover = true"
       @mouseleave="isHover = false"
-      class="single"
-    >
+      class="single">
       <p>{{ card.title }}</p>
       <div class="hover">
-        <p
-          class="material-icons-outlined"
-          @click.stop="openEditor"
-          :style="isShow"
-        >
-          create
-        </p>
+        <p class="material-icons-outlined" @click.stop="openEditor" :style="isShow">create</p>
       </div>
     </header>
+
+    <!-- img -->
     <div class="cover-img-container">
       <img v-if="card.cover" class="cover-img" :src="card.cover" />
     </div>
 
+    <!-- labels -->
     <!-- <div v-if="card.labels.length > 0" class="labels">
           <span
             v-for="label in card.labels"
@@ -39,37 +34,57 @@
             </transition>
           </span>
         </div> -->
-    <!-- <span
-      v-if="card.description"
+
+    <!-- dueDate -->
+    <span
+      v-if="card.dueDate"
       class="el-icon-s-unfold icon description"
-    ></span> -->
+    ></span>
+
+    <!-- dueDate -->
     <!-- <div
       class="due-date"
       v-if="card.dueDate"
-      :class="{ 'over-due': card.dueDate <= Date.now() }"
-    >
-      <span class="due-date-icon el-icon-time"></span> -->
-      <!-- <span v-if="card.dueDate">{{ card.dueDate | dueDate }}</span> -->
-    <!-- </div> -->
+      :class="{ 'over-due': card.dueDate <= Date.now() }">
+      <span class="due-date-icon el-icon-time"></span> 
+    <span v-if="card.dueDate">{{ card.dueDate | dueDate }}</span>
+    </div> -->
 
+    <!-- checklist -->
     <!-- <div
       class="checklist"
       v-if="card.checklists.length > 0"
-      :class="{ 'done-todos': isTodosDone }"
-    >
+      :class="{ 'done-todos': isTodosDone }">
       <span class="checklist-icon el-icon-document-checked"></span>
       <span>{{ doneTodosAmount }}</span>
       <span>/</span>
       <span>{{ todosAmount }}</span>
-    </div> -->
+    </div>
 
+    <!-- comments -->
+    <!-- <span v-if="card.comment.length < 0"> <i class="el-icon-chat-round"></i>{{card.comment.length}}</span> -->
+
+    <!-- isdone -->
     <!-- <span v-if="card.status.isDone" class="el-icon-check icon isDone"></span> -->
-            <div class="members" v-if="card.members">
-          <div v-for="member in card.members" :key="member._id">
-            <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="35" class="member-img" />
-            <avatar v-else :username="member.username"  :size="35" class="member" ></avatar>
-          </div>
-        </div>
+
+    <!-- members -->
+    <div class="members" v-if="card.members">
+      <div v-for="member in card.members" :key="member._id">
+        <avatar
+          v-if="member.imgUrl"
+          :src="member.imgUrl"
+          :size="35"
+          class="member-img"
+        />
+        <avatar
+          v-else
+          :username="member.username"
+          :size="35"
+          class="member"
+        ></avatar>
+      </div>
+    </div>
+
 
     <div></div>
     <main>
@@ -133,7 +148,6 @@
       </div>
     </main>
   </section>
-  <!-- </section> -->
 </template>
 
 <script>
@@ -209,15 +223,15 @@ export default {
     },
     doneTodosAmount() {
       let doneTodos = 0;
-      this.task.checklists.forEach(checklist => {
-        doneTodos += checklist.todos.filter(todo => todo.isDone).length;
+      this.task.checklists.forEach((checklist) => {
+        doneTodos += checklist.todos.filter((todo) => todo.isDone).length;
       });
 
       return doneTodos;
     },
     todosAmount() {
       let todos = 0;
-      this.task.checklists.forEach(checklist => {
+      this.task.checklists.forEach((checklist) => {
         todos += checklist.todos.length;
       });
 
@@ -225,7 +239,7 @@ export default {
     },
     isTodosDone() {
       return this.doneTodosAmount === this.todosAmount;
-    }
+    },
   },
   components: {
     avatar,
