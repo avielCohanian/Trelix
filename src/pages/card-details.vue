@@ -27,8 +27,8 @@
             </header>
 
             <div class="details">
-                <div class="main-details" v-if="headerShow">
-                    <div class="header-optional">
+                <div class="main-details">
+                    <div class="header-optional" v-if="headerShow">
                         <div
                             class="members"
                             v-if="card.members && card.members.length"
@@ -60,7 +60,7 @@
                             </ul>
                         </div>
 
-                        <div class="labels">
+                        <div class="labels" v-if="card.labelIds">
                             <h3>Labels</h3>
                             <ul class="labels-container">
                                 <li v-for="label in labels" :key="label.id">
@@ -116,14 +116,16 @@
                             >
                         </header>
                         <div class="description-container">
-                            <!-- ref="editInput" -->
                             <p
-                                v-if="!editDescription"
+                                v-show="!editDescription"
                                 @click="openEditDescription"
                             >
                                 {{ card.description }}
                             </p>
-                            <div v-else class="description-edit">
+                            <div
+                                v-show="editDescription"
+                                class="description-edit"
+                            >
                                 <el-input
                                     type="textarea"
                                     :rows="5"
@@ -149,8 +151,11 @@
                     <!-- TODO ALL logic -->
                     <div
                         class="trelix-attachments"
-                        v-if="card.attachment.trelixAttachments"
+                        v-if="
+                            card.attachment && card.attachment.trelixAttachments
+                        "
                     >
+                        v-if="card.attachment.trelixAttachments"
                         <font-awesome-icon
                             class="svg"
                             :icon="['fab', 'trello']"
@@ -174,7 +179,10 @@
                     <!-- TODO ALL logic -->
                     <div
                         class="section-attachments"
-                        v-if="card.attachment.computerAttachment"
+                        v-if="
+                            card.attachment &&
+                            card.attachment.computerAttachment
+                        "
                     >
                         <!--TODO  למצוא אייקון מתאים -->
                         <span></span>
@@ -233,14 +241,14 @@
                         <a @click="openAttachment">Add an item </a>
                     </div>
 
-                    <div class="checklists-container">
+                    <div class="checklists-container" v-if="card.checklists">
                         <check-list
                             v-for="checklist in card.checklists"
                             :key="checklist.id"
                             :checklist="checklist"
                         ></check-list>
                     </div>
-                    <div class="activity-container">
+                    <div class="activity-container" v-if="card.activity">
                         <activity-log></activity-log>
                     </div>
                 </div>
@@ -403,8 +411,8 @@ export default {
     computed: {
         headerShow() {
             return (
-                this.card.members.length ||
-                this.card.labelIds.length ||
+                (this.card.members && this.card.members.length) ||
+                (this.card.labelIds && this.card.labelIds.length) ||
                 this.card.dueDate
             );
         },
@@ -421,9 +429,16 @@ export default {
             return new Date(t).getUTCDay() + 1;
         },
     },
+    watch: {
+        editDescription() {
+            if (this.editDescription) {
+                console.log(this.$refs.editInput.$el);
+                this.$refs.editInput.focus();
+            }
+        },
+    },
     mounted() {
         // this.selectInInput();
-        // this.$refs.editInput.focus();
     },
 
     components: {
@@ -440,7 +455,9 @@ export default {
             title: 'Group 1',
         };
         this.description = this.card.description;
-        this.labels = await this.getLabel();
+        if (this.card.labelIds) {
+            this.labels = await this.getLabel();
+        }
     },
 };
 </script>
