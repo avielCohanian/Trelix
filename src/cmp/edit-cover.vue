@@ -1,0 +1,84 @@
+<template>
+    <section class="edit-cover">
+        <div class="size">
+            <h4>Size</h4>
+        </div>
+        <div class="colors">
+            <h4>Colors</h4>
+            <ul>
+                <li v-for="color in colors" :key="color">
+                    <div
+                        class="color-btn"
+                        :style="{ backgroundColor: color }"
+                        @click="changeBgc(color)"
+                    ></div>
+                </li>
+            </ul>
+        </div>
+        <div class="attachment">
+            <h4>Attachment</h4>
+            <div class="btn-container">
+                <a class="btn"> Upload a cover image</a>
+            </div>
+        </div>
+        <div class="unsplash">
+            <h4>Unsplash</h4>
+            <ul v-if="imgs.length">
+                <li
+                    v-for="(img, idx) in imgs"
+                    :key="idx"
+                    :style="img.small"
+                    class="unsplash-card-img"
+                    @click="changeBgc(img.full)"
+                >
+                    <!-- <a> {{ img.description }}</a> -->
+                </li>
+            </ul>
+            <div class="btn-container">
+                <a class="btn">Search for photos</a>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script>
+import { utilService } from '../service/util.service.js';
+import { imgService } from '../service/img.service.js';
+
+export default {
+    name: 'cover',
+    data() {
+        return {
+            colors: [
+                '#7BC86C',
+                '#F5DD29',
+                '#FFAF3F',
+                '#EF7564',
+                '#CD8DE5',
+                '#5BA4CF',
+                '#29CCE5',
+                '#6DECA9',
+                '#FF8ED4',
+                '#172B4D',
+            ],
+            search: 'Wallpapers',
+            imgs: [],
+        };
+    },
+    created() {
+        this.searchBy();
+        this.debounce = utilService.debounce(this.searchBy, 1500);
+    },
+    methods: {
+        changeBgc(newBcg) {
+            this.$emit('changeBcg', newBcg);
+        },
+        async searchBy() {
+            const imgs = await imgService.getImgs(this.search);
+            this.imgs = imgs.splice(0, 6);
+        },
+    },
+};
+</script>
+
+<style></style>

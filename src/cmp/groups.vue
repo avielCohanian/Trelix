@@ -1,6 +1,6 @@
 <template>
   <section class="groups">
-    <draggable  class="list-group groups" :list="getGroups" @change="onDrug" >
+    <draggable  class="list-group flex" :list="getGroups" @change="onDrug" >
     <div v-for="group in getGroups" :key="group.id">
     <!-- <draggable  class="list-group" :list="group" @change="onDrug"> -->
       <group :group="group" @updateGroup="loadGroups" />
@@ -76,6 +76,7 @@ export default {
       this.isAddGroup = !this.isAddGroup;
     },
     async addGroup() {
+      if(!this.newGroup.title) return
       try {
         var res = await this.$store.dispatch({
           type: "addGroup",

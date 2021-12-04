@@ -65,6 +65,7 @@
           <label v-if="isAddCard">
             <div class="btn-group">
               <el-input
+             
                 type="textarea"
                 :rows="3"
                 placeholder="Enter a title for this card... "
@@ -141,6 +142,7 @@ export default {
   created(){
     },
   methods: {
+
     //draggable
     //  add: function() {
     //   this.list.push({ name: "Juan" });
@@ -172,8 +174,10 @@ export default {
       container.scrollTop = container.scrollHeight;
     },
     toggleCard() {
+      console.log(this.$refs);
       this.scroll();
       this.isAddCard = !this.isAddCard;
+      
     },
     showEdit(cardId) {
       this.route.push(`/cardDetails/${cardId}`);
@@ -183,6 +187,8 @@ export default {
       this.updateGroup(this.group)
     },
     async addCard() {
+      
+      if(!this.newCard.title)return
       try {
         var res = await this.$store.dispatch({
           type: "addCard",
@@ -236,11 +242,19 @@ export default {
   },
   watch:{
         isEditTitle(){
+          console.log(this.$refs.input);
             if (this.isEditTitle) {
                 this.$refs.input.select()
+                
             }
-        }
+            else  this.$refs.input.focus()
+        },
+//         isAddCard(){
+//           console.log(this.$refs);
+//  this.$refs.inputAdd.select()
+//         }
     },
+   
 };
 </script>
 

@@ -46,6 +46,7 @@
             <component
                 :is="component.currCmp"
                 :card="card"
+                @changeBcg="changeBcg"
                 @dynamicCmp="dynamicCmp"
             >
             </component>
@@ -58,6 +59,7 @@ import member from './edit-member.vue';
 import label from './edit-label.vue';
 import attachment from './edit-attachment.vue';
 import trelix from './edit-trelix.vue';
+import cover from './edit-cover.vue';
 
 export default {
     name: 'cardEdit',
@@ -91,12 +93,20 @@ export default {
             console.log('todo ', userId);
             this.userJoin = true;
         },
+        changeBcg(color) {
+            console.log(color);
+            let card = JSON.parse(JSON.stringify(this.card));
+            card.style.bgColor = color;
+            this.$emit('updateCard', card);
+            this.$store.dispatch({ type: 'updateCard', card });
+        },
     },
     components: {
         'card-attachment': attachment,
         'card-trelix': trelix,
         'card-members': member,
         'card-labels': label,
+        'card-cover': cover,
     },
 
     computed: {

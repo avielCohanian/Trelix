@@ -36,6 +36,12 @@
     &:hover{
      background-color: #f3f3f33d;   
     }
+    .members{
+        margin-top: rem(10px);
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 3px;
+    }
     .hover {
         display: flex;
         justify-content: center;
@@ -67,7 +73,7 @@
     .editor {
         background-color: #0009;
         bottom: 0;
-        color: #fff;
+        // color: #fff;
         left: 0;
         position: fixed;
         right: 0;
@@ -154,8 +160,9 @@
         background: #fff;
         border-radius: 3px;
         box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
-        top: 0;
-        left: 0;
+        
+        top: 255px;
+        left: 573px;
         width: 305px;
         header {
             height: 40px;
