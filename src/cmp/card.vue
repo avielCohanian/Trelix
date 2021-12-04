@@ -1,34 +1,20 @@
 <template>
-  <!-- <section class="screen" @click="openEditor" v-if="openEditor"> -->
   <section class="card" @click="openDetails(card.id)">
-    <!-- <router-link :to="{name:'cardDetails'}">
-    go to beteet world
-    </router-link> -->
     <header
       @mouseover="isHover = true"
       @mouseleave="isHover = false"
-      class="single"
-    >
+      class="single">
       <p>{{ card.title }}</p>
       <div class="hover">
         <p
-          class="material-icons-outlined "
+          class="material-icons-outlined"
           @click.stop="openEditor"
           :style="isShow">
           create
         </p>
       </div>
-      <!-- <i class="el-icon-edit" @click="openEditor"></i> -->
     </header>
-    <div>
-      <!-- <div class="icons"> -->
-      <!-- <avatar
-                    username="member.username"
-                    class="avatar"
-                    :size="30"
-                ></avatar> -->
-      <!-- </div> -->
-    </div>
+    <div></div>
     <main>
       <div v-if="isOpenEditor" class="editor" @click.stop>
         <p class="material-icons-outlined btn-x" @click="openEditor">close</p>

@@ -50,7 +50,7 @@ export const boardStore = {
                     state.currGroup = group;
             });
         },
-        deleteGroup(board, { savedBoard }) {
+        deleteGroup(state, { savedBoard }) {
             state.currBoard = savedBoard;
         },
         addImgsAndColor(state, { imgs, colors }) {
@@ -114,6 +114,7 @@ export const boardStore = {
         async updateGroup({ commit, getters }, { group }) {
             console.log(group);
             const board =  JSON.parse(JSON.stringify(getters.getBoard))
+            console.log(board);
             try {
                 const updateBoard = await boardService.saveGroup(
                     board,
@@ -148,7 +149,8 @@ export const boardStore = {
         },
         async deleteGroup({ commit, getters }, { groupId }) {
             try {
-                const board = getters.getBoard;
+                const board =  JSON.parse(JSON.stringify(getters.getBoard))
+                console.log(board);
                 var savedBoard = await boardService.deleteGroup(board, groupId);
                 console.log(savedBoard);
                 commit({ type: 'deleteGroup', savedBoard });
