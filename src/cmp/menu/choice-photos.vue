@@ -2,13 +2,15 @@
     <section class="cmp-img">
         <div class="bcg-choice" >
             <el-input placeholder="Search Background" v-model="search" @input="debounce" ></el-input>
-          <div class="bcg-choice-container">
-            <ul v-if="imgs.length" class="container-imgs">
+        <!-- <div class="scroll-container"> -->
+          <!-- <div class="container-scroll-main"> -->
+            <ul v-if="imgs.length" >
               <li v-for="(img,idx) in imgs" :key="idx" :style="img.small" class="card-img pointer" @click="changeBgc(img.full)">
               </li>
             </ul>
           </div>
-        </div>
+            <!-- </div> -->
+        <!-- </div> -->
     </section>
 </template>
 
@@ -41,3 +43,6 @@ export default {
     }, 
 }
 </script>
+<style>
+  
+</style>

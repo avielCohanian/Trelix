@@ -11,31 +11,34 @@
         <div class="container-main">
 
         <li class="menu-about" @click="changeCmp('aboutBoard')">
-            <h2>
-         <font-awesome-icon class="logo" :icon="[ 'fab', 'trello' ]" />
-            </h2>
-         <div>
+            <div class="logo-menu flex">
+                <font-awesome-icon class="logo" :icon="[ 'fab', 'trello' ]" />
+            </div>
+         <div class="details">
         <h2> About this board </h2>
         <p> Add a description to your board </p>
          </div>
+        </li> 
+        <li class="menu-background " @click="changeCmp('changeBackground')">
+            <div class="logo-menu">
+
+            <div class="border-color " :style="bcgColor"> </div>
+            </div>
+        <div class="details">
+            <h2> Change Background </h2>
+            </div> 
         </li>
-
-        <li class="menu-background" @click="changeCmp('changeBackground')">
-            <div class="border-color" :style="bcgColor"> </div>
-        <h2> Change Background </h2>
-        </li>
-       
-
-
         <!-- <li class="menu-stickers" @click="changeCmp('addStickers')">
         <h2> Stickers </h2>
         </li> -->
 
-        <li class="menu-label pointer" @click="changeCmp('labelMenu')"> 
-        <h2> <span class="el-icon-price-tag icon"></span> Labels </h2>
+        <li class="menu-label pointer " @click="changeCmp('labelMenu')"> 
+            <span class="el-icon-price-tag icon logo-menu"></span>
+            <div class="details">
+
+        <h2>  Labels </h2>
+            </div>
         </li>
-
-
         <div class="input-link">
         <label for="" >
         <h3> Link to this board </h3>
@@ -129,6 +132,5 @@ export default {
 </script>
 
 <style>
-    
-    
+
 </style>

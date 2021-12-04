@@ -1,7 +1,10 @@
 <template>
-   <section class="cmp-colors">
-      <div class="bcg-choice">
-         <ul>
+
+
+   <section class="cmp-colors ">
+    <!-- <div class="scroll-container"> -->
+      <div class="bcg-choice ">
+         <ul class="">
             <li
                v-for="(color, idx) in colors"
                :key="idx"
@@ -11,6 +14,7 @@
             ></li>
          </ul>
       </div>
+   <!-- </div> -->
    </section>
 </template>
 

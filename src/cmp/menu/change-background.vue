@@ -14,20 +14,27 @@
          </h3>
       </div>
       <hr />
-      <div class="bcg-main" v-if="!showCmp">
+
+
+   <div class="scroll-container">
+      <div class="bcg-main container-scroll-main" v-if="!showCmp">
          <div class="choice-bcg-up">
             <div>
                <div
                   class="photos pointer"
                   :style="getImg"
                   @click="changeCmp('choicePhotos')"></div>
+              <div class="background-menu">
                <h2>Photos</h2>
+              </div>
             </div>
             <div>
                <div
                   class="colors pointer"
                   @click="changeCmp('choiceColors')"></div>
+         <div class="background-menu">   
                <h2>Colors</h2>
+            </div>
             </div>
          </div>
          <hr />
@@ -38,18 +45,16 @@
                   <div class="img-upload">
                      <label class="clickable" v-if="!isLoading">
                         <div class="plus"></div>
-                        <input type="file" id="uploadImg" change="onUploadImg" hidden/>
+                        <input type="file" id="uploadImg" @change="onUploadImg"  hidden/>
                      </label>
                      <img v-else :src="require('@/assets/loader.gif')" alt="" />
                   </div>
                </li>
-               <li
-                  v-for="(img, idx) in board.styleCustom"
+                 <li v-for="(img, idx) in board.styleCustom"
                   :key="idx"
                   :style="img"
                   class="card-photo"
-                  @click="changeBcg(img)"
-               ></li>
+                  @click="changeBcg(img)"></li>
             </ul>
          </div>
       </div>
@@ -61,6 +66,8 @@
             :colors="colors"
          ></component>
       </transition>
+   </div>  
+
    </section>
 </template>
 

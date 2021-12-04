@@ -8,7 +8,6 @@
 }
 .nav-menu {
     border-radius: 0.1rem;
-    // transition: all 1s;
     position: fixed;
     right: 0;
     top: 48px;
@@ -17,7 +16,6 @@
     width: 340px;
     height: 100%;
     font-weight: 600;
-    // padding: 8px;
     padding: 0 7px;
 
     .menu-header {
@@ -26,12 +24,10 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        // text-align: center;
         color: #172b4d;
 
         .menu-header-txt {
             font-size: 1rem;
-            // padding: 0 90px;
             margin: 0;
         }
         .close-menu {
@@ -103,6 +99,19 @@
                     margin: 0 10px;
                 }
             }
+
+            .menu-label, .menu-about  {
+                display: flex;
+                   align-items: center;
+                   /* justify-content: center; */
+           }
+               .logo-menu{
+                   /* margin-left: 10px ; */
+                   width: 40px;
+                
+               }
+       
+
             .menu-background {
                 display: flex;
                 align-items: center;
@@ -121,6 +130,7 @@
                 h2 {
                     // font-family: NotoSerifBold;
                     font-size: rem(14px);
+                    margin-left: 0 ;
                 }
                 &:hover {
                     background-color: rgba(175, 184, 184, 0.349);
@@ -136,7 +146,7 @@
                 font-weight: 600;
                 line-height: 20px;
                 width: 100%;
-                padding: 9px 8px;
+                height: 40px;
                 h2 {
                     font-size: 14px;
                     margin: 0;
@@ -144,12 +154,20 @@
                 span {
                     font-size: 20px;
                     padding: 0 2px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
                 &:hover {
                     background-color: rgba(175, 184, 184, 0.349);
                 }
             }
+        
+        
         }
+
+
+
         .activitys-cmp {
             h3 {
                 font-weight: 700;
