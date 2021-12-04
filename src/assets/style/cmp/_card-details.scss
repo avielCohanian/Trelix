@@ -31,6 +31,12 @@
         width: 770px;
         color: $clr7;
 
+        .color-header {
+            background-origin: content-box;
+            background-position: left center;
+            height: 116px;
+        }
+
         .header {
             position: relative;
             .close-btn {

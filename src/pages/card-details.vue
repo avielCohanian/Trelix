@@ -1,6 +1,11 @@
 <template>
     <section class="screen" v-if="card" @click="closeDetails">
         <article class="card-details" @click.stop>
+            <div
+                class="color-header"
+                v-if="card.style.bgColor"
+                :style="{ backgroundColor: card.style.bgColor }"
+            ></div>
             <header class="header">
                 <a
                     class="back-btn close-btn el-icon-close"
@@ -252,7 +257,11 @@
                         <activity-log></activity-log>
                     </div>
                 </div>
-                <card-edit class="card-edit" :card="card"></card-edit>
+                <card-edit
+                    class="card-edit"
+                    :card="card"
+                    @updateCard="updateCard"
+                ></card-edit>
             </div>
         </article>
     </section>
@@ -386,10 +395,12 @@ export default {
         },
         async updateCard() {
             try {
+                console.log(this.card);
                 await this.$store.dispatch({
                     type: 'updateCard',
                     card: JSON.parse(JSON.stringify(this.card)),
                 });
+                await this.loadCard();
             } catch (err) {
                 console.log(err);
             }

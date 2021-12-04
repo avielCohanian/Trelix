@@ -32,6 +32,7 @@ function filterImgs(imgs) {
         return {
             full: { backgroundImage: `url(${item.urls.full})` },
             small: { backgroundImage: `url(${item.urls.small})` },
+            description: item.description,
         };
     });
     return newImgs;
