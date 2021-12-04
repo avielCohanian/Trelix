@@ -1,5 +1,5 @@
 <template>
-   <section class="nav-boards">
+   <section class="nav-boards ">
         <div class="boards">
             <div> <font-awesome-icon class="logo" :icon="[ 'fab', 'trello' ]" /> </div>
             <h2> Boards </h2>
@@ -26,20 +26,35 @@ export default {
         height: 90vh;
         width: 272px;
         min-width: 272px;
-        background-color: burlywood;
         position: sticky;
         top: 0px;
+        display: flex;
+        justify-content: center;
     }
     .boards{
-        width: 100%;
         display: flex;
         align-items: center;
+        height: 32px;
+        width: 240px;
+       
+        border-radius: 3px;
+        padding: 4px;
         /* justify-content: center; */
     }
     .boards .logo{
         width: 16px;
         height: 16px;
     }
+    .selected{
+        background-color: #E4F0F6;
+        color: #0079BF;
+    }
+    .boards:hover{
+
+        background-color: rgba(9, 30, 66, 0.08);
+    color: #091e42;
+    }
+    
       
         /* box-shadow: inset 0 0 0 2px #0079bf; */
         /* menu */

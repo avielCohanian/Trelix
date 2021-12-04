@@ -9,6 +9,7 @@
             <div v-for="board in boards" :key="board._id">
                 <div class="card-board  flex pointer" :style="board.style" @click="openBoard(board._id)">
                       <h3 class="card-title "> {{board.title}} </h3>
+                      <h3 class="selected-fevorit"></h3>
                 </div>
             </div>
           </div>
@@ -59,9 +60,15 @@ export default {
     background-repeat: no-repeat;
     }
     .card-title{
-      width: 100%;
+      /* width: 100%; */
+      height: 18px;
+      border-radius: 3px;
 
 
     }
+     .card-title h3{
+       padding: 8px;
+
+     } 
 
 </style>

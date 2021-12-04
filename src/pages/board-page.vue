@@ -43,7 +43,7 @@ export default {
 
 <style>
     .board-page{
-        padding-top: 50px;
+        padding-top: 80px;
         width: 100vw;
         height: 100vh;
         background-color:#fafbfc;
