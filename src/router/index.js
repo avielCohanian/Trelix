@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import home from '../pages/home.vue';
 import about from '../pages/about.vue';
+import boards from '../pages/board-page.vue';
 
 import cardDetails from '../pages/card-details.vue';
 import board from '../pages/board.vue';
@@ -20,6 +21,12 @@ const routes = [
         name: 'about',
         component: about,
     },
+    {
+        path: '/:boardId/boards',
+        name: 'boards',
+        component: boards,
+    },
+
     {
         path: '/board/:boardId',
         name: 'board',

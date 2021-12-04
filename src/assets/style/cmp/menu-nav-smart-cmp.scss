@@ -118,10 +118,19 @@
     ul {
         margin: 0;
         padding: 0;
+     justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap; 
+        gap: 4px;
+        margin-top: 6px
     }
     .bcg-main {
+        
         .choice-bcg-up {
             display: flex;
+            align-items: center;
+            justify-content: center;
             .colors {
                 background-image: url(https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg);
                 background-size: cover;
@@ -130,10 +139,10 @@
         .colors,
         .photos {
             background-size: cover;
-            width: 143px;
+            width: 152px;
             height: 96px;
             border-radius: 8px;
-            margin: 0 8px;
+            margin:  4px;
         }
         .background-menu{
             // display: flex;
@@ -159,14 +168,14 @@
         content: '\f067';
     }
     .card-color {
-        width: 137px;
+        width: 158px;
         height: 96px;
         border-radius: 8px;
-        margin: 8px;
+        margin-top: 6px;
     }
     .card-img {
         background-size: cover;
-        width: 143px;
+        width: 148px;
         height: 96px;
         border-radius: 8px;
         margin: 4px;
@@ -180,20 +189,21 @@
         background-color: #ebecf0;
         cursor: pointer;
         background-size: cover;
-        width: 137px;
+        width: 153px;
         height: 96px;
         border-radius: 8px;
     }
     .list-custom ul {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-around;
     }
     .card-photo {
         background-size: cover;
-        width: 137px;
+        width: 153px;
         height: 96px;
         border-radius: 8px;
-        margin: 0 8px 8px;
+        // margin: 0 8px 8px;
         cursor: pointer;
     }
     .scroll-container {

@@ -81,7 +81,6 @@
                 cursor: pointer;
                 border-radius: 3px;
                 width: 100%;
-
                 h2 {
                     font-weight: 600;
                     font-size: 14px;
@@ -96,21 +95,24 @@
                     background-color: rgba(175, 184, 184, 0.349);
                 }
                 .logo {
-                    margin: 0 10px;
+                    width: 20px;
+                    height: 20px;
+                    margin-bottom: 10px;
                 }
             }
-
-            .menu-label, .menu-about  {
+            .menu-label,
+            .menu-about {
                 display: flex;
-                   align-items: center;
-                   /* justify-content: center; */
-           }
-               .logo-menu{
-                   /* margin-left: 10px ; */
-                   width: 40px;
-                
-               }
-       
+                align-items: center;
+            }
+            .logo-menu {
+                height: 40px;
+                width: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+            }
 
             .menu-background {
                 display: flex;
@@ -130,7 +132,7 @@
                 h2 {
                     // font-family: NotoSerifBold;
                     font-size: rem(14px);
-                    margin-left: 0 ;
+                    margin-left: 0;
                 }
                 &:hover {
                     background-color: rgba(175, 184, 184, 0.349);
@@ -162,11 +164,7 @@
                     background-color: rgba(175, 184, 184, 0.349);
                 }
             }
-        
-        
         }
-
-
 
         .activitys-cmp {
             h3 {

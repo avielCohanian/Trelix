@@ -12,7 +12,8 @@
 
         <li class="menu-about" @click="changeCmp('aboutBoard')">
             <div class="logo-menu flex">
-                <font-awesome-icon class="logo" :icon="[ 'fab', 'trello' ]" />
+                <div class="logo"> <font-awesome-icon class="logo" :icon="[ 'fab', 'trello' ]" /></div>
+                
             </div>
          <div class="details">
         <h2> About this board </h2>

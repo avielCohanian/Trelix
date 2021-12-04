@@ -58,14 +58,14 @@
             </ul>
          </div>
       </div>
-      <transition name="slide-fade" v-else>
+      <!-- <transition name="slide-fade" v-else> -->
          <component
             @click="back"
             :is="getComponent"
             @changeBcg="changeBcg"
             :colors="colors"
          ></component>
-      </transition>
+      <!-- </transition> -->
    </div>  
 
    </section>
