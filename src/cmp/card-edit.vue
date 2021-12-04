@@ -9,30 +9,38 @@
             </div>
             <h3>Add to card</h3>
             <div class="edit-btn">
-                <a class="btn" @click="dynamicCmp('members')">
+                <a class="btn" @click="dynamicCmp('members')" title="Members">
                     <span class="el-icon-user icon"></span>
                     Members</a
                 >
 
-                <a class="btn" @click="dynamicCmp('labels')">
+                <a class="btn" @click="dynamicCmp('labels')" title="Labels">
                     <span class="el-icon-price-tag icon"></span> Labels</a
                 >
 
-                <a class="btn" @click="dynamicCmp('checklist')">
+                <a
+                    class="btn"
+                    @click="dynamicCmp('checklist')"
+                    title="Checklist"
+                >
                     <span class="el-icon-document-checked icon"> </span>
                     Checklist</a
                 >
 
-                <a class="btn" @click="dynamicCmp('dates')">
+                <a class="btn" @click="dynamicCmp('dates')" title="Dates">
                     <span class="el-icon-time icon"></span>
                     Dates</a
                 >
 
-                <a class="btn" @click="dynamicCmp('attachment')">
+                <a
+                    class="btn"
+                    @click="dynamicCmp('attachment')"
+                    title="Attachment"
+                >
                     <span class="el-icon-paperclip icon"></span> Attachment</a
                 >
 
-                <a class="btn" @click="dynamicCmp('cover')">
+                <a class="btn" @click="dynamicCmp('cover')" title="Cover">
                     <!-- <span class="el-icon-user"></span> למצוא את האייקון המתאים -->
                     Cover</a
                 >

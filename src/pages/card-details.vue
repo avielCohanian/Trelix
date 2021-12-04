@@ -333,7 +333,6 @@ export default {
                     boardId,
                     this.card
                 );
-                console.log(labels);
                 return labels;
             } catch (err) {
                 console.log(err);
