@@ -16,7 +16,7 @@ export const boardService = {
     saveGroup,
     deleteCard,
     deleteMember,
-    saveGroups
+    saveGroups,
 };
 
 const BOARD_KEY = 'boards';
@@ -101,7 +101,7 @@ function saveGroup(board, group) {
     return storageService.put(BOARD_KEY, board);
 }
 function saveGroups(board, groups) {
-    board.groups=groups
+    board.groups = groups;
     return storageService.put(BOARD_KEY, board);
 }
 
@@ -117,9 +117,11 @@ function deleteMember(board, memberId) {
     board.members.splice(idx, 1);
     return storageService.put(BOARD_KEY, board);
 }
-function deleteCard(board, groupId,cardId) {
+function deleteCard(board, groupId, cardId) {
     let groupIdx = board.groups.findIndex((group) => group.id === groupId);
-    let cardIdx = board.groups[groupIdx].cards.findIndex((card) => card.id === cardId);
+    let cardIdx = board.groups[groupIdx].cards.findIndex(
+        (card) => card.id === cardId
+    );
     board.groups[groupIdx].cards.splice(cardIdx, 1);
     return storageService.put(BOARD_KEY, board);
 }
@@ -134,6 +136,36 @@ function addGroup(board, newGroup) {
 function getEmptyCard() {
     return {
         title: '',
+        attachment: {},
+        checklists: [
+            {
+                title: '',
+                todos: [
+                    {
+                        txt: '',
+                        isDone: false,
+                    },
+                ],
+            },
+        ],
+        description: '',
+        comments: [{
+            id: '',
+            txt: '',
+            createdAt: Date.now,
+            byMember: {
+            },
+        },],
+        attachment: {
+            trelixAttachments: null,
+            computerAttachment: null,
+        },
+        members:[],
+        labelIds:[],
+        createdAt: Date.now,
+        dueDate:null,
+        byMember:{},
+        style:{}
     };
 }
 
