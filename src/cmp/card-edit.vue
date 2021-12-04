@@ -23,7 +23,11 @@
                     @click="dynamicCmp('checklist')"
                     title="Checklist"
                 >
-                    <span class="el-icon-document-checked icon"> </span>
+                    <span class="material-icons-outlined icon">
+                        check_box
+                    </span>
+
+                    <!-- <span class="el-icon-document-checked icon"> </span> -->
                     Checklist</a
                 >
 
@@ -41,7 +45,9 @@
                 >
 
                 <a class="btn" @click="dynamicCmp('cover')" title="Cover">
-                    <!-- <span class="el-icon-user"></span> למצוא את האייקון המתאים -->
+                    <span class="material-icons-outlined icon">
+                        web_asset
+                    </span>
                     Cover</a
                 >
             </div>

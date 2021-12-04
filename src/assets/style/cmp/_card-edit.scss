@@ -47,6 +47,15 @@
             border: none;
             box-shadow: none;
         }
+        .el-icon-paperclip {
+            transform: rotate(180deg);
+        }
+        .material-icons-outlined {
+            transform: rotate(180deg);
+        }
+        .material-icons-outlined {
+            transform: rotate(0deg);
+        }
     }
     .edit-btn,
     .join-member {

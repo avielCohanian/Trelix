@@ -14,24 +14,33 @@
                 :key="label.id"
                 @click="updateLabels(label)"
             >
-                <!-- boxShadow: ` -8px 0 ${label.color}`, -->
-                <span
-                    class="label"
-                    :style="{
-                        backgroundColor: label.color,
-                    }"
-                    @mouseover="label.hover = true"
-                    @mouseleave="label.hover = false"
-                >
-                    <span>
-                        <span class="label-title" v-if="label.title"
-                            >{{ label.title }}
+                <div class="label-box">
+                    <span
+                        class="label-hover"
+                        :style="{
+                            backgroundColor: label.color,
+                        }"
+                    ></span>
+                    <!-- boxShadow: ` -8px 0 ${label.color}`, -->
+                    <span
+                        class="label"
+                        :style="{
+                            backgroundColor: label.color,
+                        }"
+                        @mouseover="label.hover = true"
+                        @mouseleave="label.hover = false"
+                    >
+                        <span>
+                            <span class="label-title" v-if="label.title"
+                                >{{ label.title }}
+                            </span>
                         </span>
+                        <!-- v-if="isSelectedLabel(labelColor)" -->
+                        <!-- v-show="label.isDone" -->
+                        <span class="check-title el-icon-check check"></span>
                     </span>
-                    <!-- v-if="isSelectedLabel(labelColor)" -->
-                    <!-- v-show="label.isDone" -->
-                    <span class="check-title el-icon-check check"></span>
-                </span>
+                </div>
+
                 <span class="material-icons-outlined icon"> edit </span>
             </li>
         </ul>

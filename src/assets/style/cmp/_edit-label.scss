@@ -20,34 +20,48 @@
             position: relative;
             width: 272px;
             height: 32px;
-            .label {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+            .label-box {
                 position: relative;
-                margin-left: 4px;
-                color: #fff;
-                width: 236px;
-                min-height: 32px;
+                display: flex;
+                .label {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    position: relative;
+                    margin-left: -3px;
+                    color: #fff;
+                    width: 236px;
+                    min-height: 32px;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    padding: 6px 12px;
+                    transition: padding 85ms, margin 85ms, box-shadow 85ms;
+                }
 
-                border-radius: 3px;
-                cursor: pointer;
-                padding: 6px 12px;
-                transition: padding 85ms, margin 85ms, box-shadow 85ms;
+                .label-hover {
+                    width: 14px;
+                    border-radius: 3px;
+                    opacity: 0;
+                }
             }
-            .label:hover {
-                box-shadow: -8px 0 #97a0af;
-                box-shadow: -8px 0;
+            .label-box:hover {
+                .label-hover {
+                    opacity: 1;
+                    filter: brightness(80%);
+                }
             }
+
             .icon {
                 position: absolute;
                 right: 0;
                 border-radius: 3px;
-                padding: 6px;
+                padding: 0px 0px 6px 8px;
                 margin: 0 auto;
                 cursor: pointer;
                 height: 32px;
                 width: 32px;
+                top: 0;
+                right: -13px;
             }
             .icon:hover {
                 background-color: #091e4214;
