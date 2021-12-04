@@ -3,6 +3,7 @@
     <div class="group">
       <header> 
         <el-input
+        ref="input"
           class="edit-title"
           size="mini"
           :class="{ focus: isEditTitle }"
@@ -233,6 +234,13 @@ export default {
     return this.group.cards
     },
   },
+  watch:{
+        isEditTitle(){
+            if (this.isEditTitle) {
+                this.$refs.input.select()
+            }
+        }
+    },
 };
 </script>
 
