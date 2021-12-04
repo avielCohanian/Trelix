@@ -118,7 +118,7 @@
     ul {
         margin: 0;
         padding: 0;
-     justify-content: space-between;
+        // justify-content: space-between;
     align-items: center;
     display: flex;
     flex-wrap: wrap; 
@@ -168,10 +168,10 @@
         content: '\f067';
     }
     .card-color {
-        width: 158px;
+        width: 153px;
         height: 96px;
         border-radius: 8px;
-        margin-top: 6px;
+        margin-top: 4px;
     }
     .card-img {
         background-size: cover;
@@ -192,6 +192,8 @@
         width: 153px;
         height: 96px;
         border-radius: 8px;
+        position: absolute;
+        left: 10px;
     }
     .list-custom ul {
         display: flex;
