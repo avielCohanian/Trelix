@@ -89,14 +89,11 @@ export const boardStore = {
                 console.log(err);
             }
         },
-        
+
         async updateCard({ commit, getters }, { card }) {
-            console.log('card',card);
             const board = getters.getBoard;
-            console.log('board', board);
-            commit({type:'cardById', cardId: card.id})
+            commit({ type: 'cardById', cardId: card.id });
             const groupId = getters.currGroup.id;
-            console.log('groupId', groupId);
             try {
                 const updateBoard = await boardService.saveCard(
                     board,
@@ -111,13 +108,10 @@ export const boardStore = {
         },
         async updateGroup({ commit, getters }, { group }) {
             console.log(group);
-            const board =  JSON.parse(JSON.stringify(getters.getBoard))
+            const board = JSON.parse(JSON.stringify(getters.getBoard));
             console.log(board);
             try {
-                const updateBoard = await boardService.saveGroup(
-                    board,
-                    group,
-                );
+                const updateBoard = await boardService.saveGroup(board, group);
                 commit({ type: 'setBoard', board: updateBoard });
                 return updateBoard;
             } catch (err) {
@@ -125,11 +119,11 @@ export const boardStore = {
             }
         },
         async updateGroups({ commit, getters }, { groups }) {
-            const board =  JSON.parse(JSON.stringify(getters.getBoard))
+            const board = JSON.parse(JSON.stringify(getters.getBoard));
             try {
                 const updateBoard = await boardService.saveGroups(
                     board,
-                    groups,
+                    groups
                 );
                 commit({ type: 'setBoard', board: updateBoard });
                 return updateBoard;
@@ -158,7 +152,7 @@ export const boardStore = {
         },
         async deleteGroup({ commit, getters }, { groupId }) {
             try {
-                const board =  JSON.parse(JSON.stringify(getters.getBoard))
+                const board = JSON.parse(JSON.stringify(getters.getBoard));
                 var savedBoard = await boardService.deleteGroup(board, groupId);
                 commit({ type: 'deleteGroup', savedBoard });
                 return savedBoard;
@@ -168,12 +162,16 @@ export const boardStore = {
         },
         async deleteCard({ commit, getters }, { card }) {
             try {
-                const board =  JSON.parse(JSON.stringify(getters.getBoard))
-                commit({type:'cardById', cardId: card.id})
+                const board = JSON.parse(JSON.stringify(getters.getBoard));
+                commit({ type: 'cardById', cardId: card.id });
                 const groupId = getters.currGroup.id;
-                var savedBoard = await boardService.deleteCard(board,groupId, card.id);
+                var savedBoard = await boardService.deleteCard(
+                    board,
+                    groupId,
+                    card.id
+                );
                 console.log(savedBoard);
-                commit({ type: 'setBoard', board: savedBoard});
+                commit({ type: 'setBoard', board: savedBoard });
                 return savedBoard;
             } catch (err) {
                 console.log(err);
@@ -181,10 +179,13 @@ export const boardStore = {
         },
         async removeMember({ commit, getters }, { member }) {
             try {
-                const board =  JSON.parse(JSON.stringify(getters.getBoard))
-                var savedBoard = await boardService.deleteMember(board, member.id);
+                const board = JSON.parse(JSON.stringify(getters.getBoard));
+                var savedBoard = await boardService.deleteMember(
+                    board,
+                    member.id
+                );
                 console.log(savedBoard);
-                commit({ type: 'setBoard',board: savedBoard });
+                commit({ type: 'setBoard', board: savedBoard });
                 return savedBoard;
             } catch (err) {
                 console.log(err);

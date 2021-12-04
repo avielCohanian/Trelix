@@ -47,6 +47,12 @@ import { imgService } from '../service/img.service.js';
 
 export default {
     name: 'cover',
+    props: {
+        card: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
             colors: [

@@ -2,8 +2,9 @@
   <section
     class="card"
     @click="openDetails(card.id)"
-    :style="{ background: card.style.bgColor }"
+    :style="{background : ' rgb(255, 255, 255)'}"
   >
+    <!-- :style="{ background: card.style.bgColor }" -->
     <header
       @mouseover="isHover = true"
       @mouseleave="isHover = false"
