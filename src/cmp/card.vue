@@ -61,7 +61,7 @@
       <span>{{ todosAmount }}</span>
     </div>
 
-    <!-- comments -->
+     <!-- comments  -->
     <!-- <span v-if="card.comment.length < 0"> <i class="el-icon-chat-round"></i>{{card.comment.length}}</span> -->
 
     <!-- isdone -->
@@ -212,8 +212,9 @@ export default {
     },
     openDetails(cardId) {
       //TODO: card id
-      const BoardId = this.$route.params.BoardId;
-      this.$router.push(`/board/${BoardId}/${cardId}`);
+      console.log( this.$route.params);
+      const boardId = this.$route.params.boardId;
+      this.$router.push(`/board/${boardId}/${cardId}`);
     },
   },
   computed: {

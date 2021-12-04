@@ -151,25 +151,9 @@ function getEmptyCard() {
     return {
         title: '',
         attachment: {},
-        checklists: [
-            {
-                title: '',
-                todos: [
-                    {
-                        txt: '',
-                        isDone: false,
-                    },
-                ],
-            },
-        ],
+        checklists: [],
         description: '',
-        comments: [{
-            id: '',
-            txt: '',
-            createdAt: Date.now,
-            byMember: {
-            },
-        },],
+        comments: [],
         attachment: {
             trelixAttachments: null,
             computerAttachment: null,

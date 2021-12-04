@@ -93,13 +93,56 @@ const boards = [
                     {
                         id: 'c107',
                         title: 'Creat git repository',
+                        attachment: {},
+                        checklists: [],
                         description: 'backend',
-                        
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
+                    },
+                    {
+                        id: 'c123',
+                        title: 'Upload to heroku',
+                        description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                     {
                         id: 'c108',
                         title: 'Upload to heroku',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                 ],
             },
@@ -109,9 +152,40 @@ const boards = [
                 title: 'In progress',
                 cards: [
                     {
+                        id: 'c1046',
+                        title: 'PWA push notification',
+                        description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
+                    },
+                    {
                         id: 'c103',
                         title: 'PWA push notification',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                     {
                         id: 'c104',
@@ -292,11 +366,37 @@ const boards = [
                         id: 'c110',
                         title: 'Dynamic side maun',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                     {
                         id: 'c111',
                         title: 'Fix hover on card preview',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                 ],
             },
@@ -309,11 +409,37 @@ const boards = [
                         id: 'c112',
                         title: 'Dynamic cmp',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                     {
                         id: 'c113',
                         title: 'User service to small',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                 ],
             },
@@ -383,7 +509,7 @@ const boards = [
     },
     {
         _id: 'b102',
-        title: 'Sprint 4 B',
+        title: 'Sprint 4b',
         description: '',
         createdAt: 1589983468418,
         createdBy: {
@@ -468,12 +594,56 @@ const boards = [
                     {
                         id: 'c107',
                         title: 'Creat git repository',
+                        attachment: {},
+                        checklists: [],
                         description: 'backend',
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                     {
-                        id: 'c108',
+                        id: 'c197',
                         title: 'Upload to heroku',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
+                    },
+                    {
+                        id: 'c198',
+                        title: 'Upload to heroku',
+                        description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                 ],
             },
@@ -483,12 +653,43 @@ const boards = [
                 title: 'In progress',
                 cards: [
                     {
+                        id: 'c764',
+                        title: 'PWA push notification',
+                        description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
+                    },
+                    {
                         id: 'c103',
                         title: 'PWA push notification',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                     {
-                        id: 'c104',
+                        id: 'c176',
                         title: 'Dashboard',
                         description: 'description',
                         comments: [
@@ -666,11 +867,37 @@ const boards = [
                         id: 'c110',
                         title: 'Dynamic side maun',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                     {
                         id: 'c111',
                         title: 'Fix hover on card preview',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                 ],
             },
@@ -683,11 +910,37 @@ const boards = [
                         id: 'c112',
                         title: 'Dynamic cmp',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                     {
                         id: 'c113',
                         title: 'User service to small',
                         description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members:[],
+                        labelIds:[],
+                        createdAt: Date.now,
+                        dueDate:null,
+                        byMember:{},
+                        style:{}
                     },
                 ],
             },
@@ -755,6 +1008,13 @@ const boards = [
             },
         ],
     },
+
+
+   
+
+
+
+    
 ];
 // _save('boards', groups);
 
