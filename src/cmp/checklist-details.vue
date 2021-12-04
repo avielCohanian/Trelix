@@ -1,6 +1,5 @@
 <template>
     <article class="checklist">
-        <span></span>
         <span class="material-icons-outlined icon"> check_box </span>
 
         <header class="checklist-header">
@@ -47,20 +46,18 @@
             </div>
         </header>
         <!-- :class="{ done: progress === 100 }" -->
-        <el-progress :percentage="80"></el-progress>
+        <el-progress :percentage="statistic"></el-progress>
 
         <ul class="todos" v-for="todo in checklist.todos" :key="todo.id">
+            <el-checkbox class="checkbox" v-model="todo.isDone"> </el-checkbox>
             <li>
-                <el-checkbox class="checkbox" v-model="todo.isDone">
-                    <!-- @change="updateTodo(todo)" -->
-                    <div class="checklist-todo">
-                        {{ todo.txt }}
-                    </div>
-                </el-checkbox>
+                <!-- @change="updateTodo(todo)" -->
+                <div class="checklist-todo">
+                    {{ todo.txt }}
+                </div>
             </li>
         </ul>
         <a class="item-btn" @click="addTodo">Add an item</a>
-
         <!-- </div> -->
     </article>
 </template>
@@ -104,6 +101,16 @@ export default {
         saveChecklist() {
             // TODO emit to save
             this.editChecklist = false;
+        },
+    },
+    computed: {
+        statistic() {
+            console.log(this.checklist.todos);
+            let done = this.checklist.todos.reduce((acc, todo) => {
+                console.log(todo.isDone);
+                return todo.isDone ? ++acc : acc;
+            }, 0);
+            return (done / this.checklist.todos.length) * 100;
         },
     },
 };
