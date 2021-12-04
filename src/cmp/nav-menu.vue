@@ -91,16 +91,6 @@ export default {
             this.bcgColor =newColor
         },
     },
-    mounted(){
-        console.log(this.$refs);
-            
-             
-            // console.log(this.$refs.input)
-            console.log('hi');
-        // this.getUrl()
-        
-        // .focusInput.focus()
-    },
     components: {
         aboutBoard,
         changeBackground,

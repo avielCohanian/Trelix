@@ -102,7 +102,6 @@ export default {
   },
   methods: {
     dynamicCmp(cmp) {
-      console.log(cmp);
       this.component.name = cmp;
       this.component.currCmp = `card-${cmp}`;
     },
@@ -115,21 +114,20 @@ export default {
           type: "deleteCard",
           card: this.card,
         });
-        console.log(res);
+        this.$emit('updateGroup')
         if (res) return this.openEditor();
       } catch (err) {
         console.log(err);
       }
     },
     async updateCard() {
-      console.log(this.cardToUpdate);
       try {
         var res = await this.$store.dispatch({
           type: "updateCard",
           card: this.cardToUpdate,
         });
+        this.$emit('updateGroup')
         if (res) this.openEditor();
-        console.log(res);
       } catch (err) {
         console.log(err);
       }
@@ -145,7 +143,6 @@ export default {
   },
   computed: {
     isShow() {
-      console.log("aa");
       if (this.isHover) return { opacity: 1 };
       else return { opacity: 0 };
     },

@@ -1,15 +1,14 @@
 <template>
   <section class="group-container">
     <div class="group">
-      <header>
+      <header> 
         <el-input
           class="edit-title"
           size="mini"
           :class="{ focus: isEditTitle }"
-          v-model="groupToEdit.title"
-          @keyup.enter.native="updateGroup"
-          @click.native="updateGroup"
-          @blur="updateGroup"
+          v-model="group.title"
+          @keyup.enter.native="editTitle"
+          @click.native="editTitle"
         ></el-input>
         <i class="el-icon-more" @click="openModal = !openModal"></i>
       </header>
@@ -56,11 +55,11 @@
         </div>
       </div>
       <div class="card-container">
-        <div class="card-scroll">
+
+        <draggable  class="card-scroll list-group" :list="cardsToShow" @change="onDrug" group="people">
           <div v-for="card in cardsToShow" :key="card.id">
-            <div>
-              <card @click="showEdit(card.id)" :card="card" />
-            </div>
+              <card @click="showEdit(card.id)" @updateGroup="loadGroup" :card="card" />
+           <div class="col-3" :value="card" :title="card.title" ></div>
           </div>
           <label v-if="isAddCard">
             <div class="btn-group">
@@ -85,7 +84,8 @@
               </div>
             </div>
           </label>
-        </div>
+        </draggable >
+
       </div>
       <label
         class="add-card"
@@ -104,18 +104,19 @@
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import member from "./edit-member.vue";
 import label from "./edit-label.vue";
 import { boardService } from "../service/board.service";
-// import { Container, Draggable } from "vue-smooth-dnd";
-// import { applyDrag, generateItems } from "../service/util.service.js";
 import card from "./card.vue";
 
 export default {
+  //  display: "Two Lists",
+  // order: 1,
+  //draggable
   components: {
     card,
-    // Container,
-    // Draggable,
+    draggable,
     "card-members": member,
     "card-labels": label,
   },
@@ -123,7 +124,7 @@ export default {
   name: "group",
   data() {
     return {
-      // card: boardService.getCardById(),
+      title:"xhr",
       isModalAdd: false,
       isEditTitle: false,
       isAddCard: false,
@@ -132,18 +133,26 @@ export default {
         currCmp: null,
         name: "",
       },
-      groupToEdit: JSON.parse(JSON.stringify(this.group)),
+      // groupToEdit:{},
       newCard: boardService.getEmptyCard(),
-      cards: this.group.cards,
-      // items: generateItems(10, (i) => ({
-      //   id: i,
-      //   data: "Draggable " + i,
-      // })),
     };
   },
+  created(){
+    },
   methods: {
+    //draggable
+    //  add: function() {
+    //   this.list.push({ name: "Juan" });
+    // },
+    // replace: function() {
+    //   this.list = [{ name: "Edgard" }];
+    // },
+    // clone: function(el) {
+    //   return {
+    //     name: el.name + " cloned"
+    //   };
+    // },
     dynamicCmp(cmp) {
-      console.log(cmp);
       this.component.name = cmp;
       this.component.currCmp = `card-${cmp}`;
     },
@@ -168,29 +177,19 @@ export default {
     showEdit(cardId) {
       this.route.push(`/cardDetails/${cardId}`);
     },
-    async updateGroup() {
-      console.log(this.group);
+    editTitle(){
       this.isEditTitle = !this.isEditTitle;
-      try {
-        var res = await this.$store.dispatch({
-          type: "updateGroup",
-          group: this.groupToEdit,
-        });
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
+      this.updateGroup(this.group)
     },
     async addCard() {
       try {
-        console.log(this.newCard);
         var res = await this.$store.dispatch({
           type: "addCard",
           newCard: this.newCard,
           groupId: this.group.id,
         });
         this.newCard = boardService.getEmptyCard();
-        console.log(res);
+        this.loadGroup()
       } catch (err) {
         console.log(err);
       }
@@ -201,18 +200,37 @@ export default {
           type: "deleteGroup",
           groupId: this.group.id,
         });
-        console.log(res);
+        this.loadGroup()
       } catch (err) {
         console.log(err);
       }
     },
+        async updateGroup() {
+          try {
+            var res = await this.$store.dispatch({
+              type: "updateGroup",
+              group: this.group,
+            });
+        this.loadGroup()
+          } catch (err) {
+            console.log(err);
+          }
+        },
+        loadGroup(){
+          this.$emit('updateGroup')
+        },
+      onDrug(evt) {
+      window.console.log(evt);
+       this.updateGroup()
+    }
+    
   },
   computed: {
     getEmptyCard() {
       return this.newCard;
     },
     cardsToShow() {
-      return this.group.cards;
+    return this.group.cards
     },
   },
 };

@@ -1,8 +1,12 @@
 <template>
   <section class="groups">
+    <draggable  class="list-group groups" :list="getGroups" @change="onDrug" >
     <div v-for="group in getGroups" :key="group.id">
-      <group :group="group" />
+    <!-- <draggable  class="list-group" :list="group" @change="onDrug"> -->
+      <group :group="group" @updateGroup="loadGroups" />
+  <!-- </draggable > -->
     </div>
+  </draggable >
     <div class="add-list">
       <label for="add" @click="toggleGroup" v-if="!isAddGroup">
         <el-input
@@ -35,42 +39,74 @@
 <script>
 import { boardService } from "../service/board.service";
 import group from "../cmp/group.vue";
-
+import draggable from "vuedraggable";
 export default {
   name: "groups",
   components: {
-    group,
+    group,    
+    draggable,
   },
   data() {
     return {
       isAddGroup: false,
       newGroup: boardService.getEmptyGroup(),
+      groups:[]
     };
   },
-  created() {},
+  created() {
+    this.loadGroups()
+    },
   methods: {
+    //draggable
+    //  add: function() {
+    //   this.list.push({ name: "Juan" });
+    // },
+    // replace: function() {
+    //   this.list = [{ name: "Edgard" }];
+    // },
+    // clone: function(el) {
+    //   return {
+    //     name: el.name + " cloned"
+    //   };
+    // },
+    loadGroups(){
+      this.groups = JSON.parse(JSON.stringify(this.$store.getters.getBoard.groups))
+    },
     toggleGroup() {
       this.isAddGroup = !this.isAddGroup;
     },
-
     async addGroup() {
       try {
-        console.log(this.newGroup);
         var res = await this.$store.dispatch({
           type: "addGroup",
           newGroup: this.newGroup,
         });
         this.newGroup = boardService.getEmptyGroup();
-        console.log(res);
+        this.loadGroups()
       } catch (err) {
         console.log(err);
       }
     },
+    async updateGroups() {
+      try {
+        var res = await this.$store.dispatch({
+          type: "updateGroups",
+          groups: this.groups,
+        });
+         this.loadGroups()
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    onDrug(evt) {
+        console.log(evt);
+      window.console.log(evt);
+        this.updateGroups()
+    }
   },
   computed: {
     getGroups() {
-      console.log(this.$store.getters.getBoard);
-      return this.$store.getters.getBoard.groups;
+      return this.groups
     },
   },
 };

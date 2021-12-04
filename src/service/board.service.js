@@ -15,7 +15,8 @@ export const boardService = {
     getLabelByCard,
     saveGroup,
     deleteCard,
-    deleteMember
+    deleteMember,
+    saveGroups
 };
 
 const BOARD_KEY = 'boards';
@@ -96,9 +97,11 @@ function saveGroup(board, group) {
     let groupIdx = board.groups.findIndex((group1) => {
         return group1.id === group.id;
     });
-    console.log(groupIdx);
-    console.log(board.groups);
     board.groups.splice(groupIdx, 1, group);
+    return storageService.put(BOARD_KEY, board);
+}
+function saveGroups(board, groups) {
+    board.groups=groups
     return storageService.put(BOARD_KEY, board);
 }
 
@@ -115,18 +118,8 @@ function deleteMember(board, memberId) {
     return storageService.put(BOARD_KEY, board);
 }
 function deleteCard(board, groupId,cardId) {
-    // let cardIx = board.groups[groupIdx].cards.findIndex((card) => {
-    //     return card.id === cardId;
-    // });
-    // board.groups[groupIdx].cards.splice(cardIx, 1);
-    // return storageService.put(BOARD_KEY, board);
-
-
-
     let groupIdx = board.groups.findIndex((group) => group.id === groupId);
-    console.log(groupIdx,'groupIdx');
     let cardIdx = board.groups[groupIdx].cards.findIndex((card) => card.id === cardId);
-    console.log(cardIdx,'cardIdx');
     board.groups[groupIdx].cards.splice(cardIdx, 1);
     return storageService.put(BOARD_KEY, board);
 }

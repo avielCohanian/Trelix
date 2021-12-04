@@ -33,7 +33,6 @@ export const boardStore = {
     },
     mutations: {
         setBoard(state, { board }) {
-            console.log(board);
             state.currBoard = board;
         },
 
@@ -69,7 +68,6 @@ export const boardStore = {
         async loadBoard({ commit }, { boardId }) {
             try {
                 const board = await boardService.getById(boardId);
-                // console.log(board);
                 commit({ type: 'setBoard', board });
                 return board;
             } catch (err) {
@@ -126,6 +124,19 @@ export const boardStore = {
                 console.log(err);
             }
         },
+        async updateGroups({ commit, getters }, { groups }) {
+            const board =  JSON.parse(JSON.stringify(getters.getBoard))
+            try {
+                const updateBoard = await boardService.saveGroups(
+                    board,
+                    groups,
+                );
+                commit({ type: 'setBoard', board: updateBoard });
+                return updateBoard;
+            } catch (err) {
+                console.log(err);
+            }
+        },
 
         async updateBoard({ commit }, { board }) {
             try {
@@ -136,11 +147,9 @@ export const boardStore = {
             }
         },
         async addGroup({ commit, getters }, { newGroup }) {
-            console.log(newGroup);
             try {
                 const board = getters.getBoard;
                 var savedBoard = await boardService.addGroup(board, newGroup);
-                console.log(savedBoard);
                 commit({ type: 'setBoard', board: savedBoard });
                 return savedBoard;
             } catch (err) {
@@ -150,9 +159,7 @@ export const boardStore = {
         async deleteGroup({ commit, getters }, { groupId }) {
             try {
                 const board =  JSON.parse(JSON.stringify(getters.getBoard))
-                console.log(board);
                 var savedBoard = await boardService.deleteGroup(board, groupId);
-                console.log(savedBoard);
                 commit({ type: 'deleteGroup', savedBoard });
                 return savedBoard;
             } catch (err) {
