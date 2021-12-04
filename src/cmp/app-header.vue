@@ -2,11 +2,16 @@
     <section class="app-header">
         <nav>
             <div class="nav-list">
-                <i class="material-icons-outlined pointer grid"> apps </i>
+                <i class="material-icons-outlined pointer grid" @click="openMenu"> apps </i>
                 <!-- <i class="el-icon-s-grid"></i> -->
 
-                <div class="logo pointer">
-                    <font-awesome-icon :icon="['fab', 'trello']" /><strong>
+                <div class="logo pointer" @mouseover="isHover = true"
+      @mouseleave="isHover = false">
+                    <img v-if="isHover" src="https://res.cloudinary.com/trelix-casep21/image/upload/v1638632845/ezgif.com-gif-maker_ro1ned.gif" class="img-logo" >
+                    <img v-if="!isHover" src="https://res.cloudinary.com/trelix-casep21/image/upload/v1638632838/ezgif.com-gif-maker_1_hbqgql.gif" class="img-logo" >
+                    
+                    <!-- <font-awesome-icon v-if="!isHover" :icon="['fab', 'trello']" /> -->
+                    <strong>
                         Trelix</strong
                     >
                 </div>
@@ -84,6 +89,25 @@
             <hr />
             <div class="active">Log out</div>
         </div>
+
+        <div class="modal menu" v-if="isOpenMenu">
+            <div class="title">
+                <i
+                    class="el-icon-close "
+                    @click="openMenu"
+                ></i>
+                <i>More from Atlassian</i>
+            </div>
+            <hr />
+            <div class="center active">
+
+            <div class="bcg-blue">
+                <img src="https://res.cloudinary.com/trelix-casep21/image/upload/v1638632838/ezgif.com-gif-maker_1_hbqgql.gif" >
+            </div>
+            <div >Trelix</div>
+            </div>
+           
+        </div>
     </section>
 </template>
 
@@ -95,11 +119,16 @@ export default {
     props: ['createdBy'],
     data() {
         return {
+             isHover: false,
             isShowProfile: false,
+            isOpenMenu: false
         };
     },
     computed: {},
     methods: {
+        openMenu(){
+        this.isOpenMenu = !this.isOpenMenu
+        },
         showProfile() {
             console.log('clickk');
             this.isShowProfile = !this.isShowProfile;
