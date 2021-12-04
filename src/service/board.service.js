@@ -177,6 +177,55 @@ function getEmptyGroup() {
     };
 }
 
+function getEmptyBoard(){
+    return{
+        title:'',
+        description: '',
+        createdAt: '',
+        style: {},
+        styleCustom: [],
+        labels: [
+            {
+                id: 'l101',
+                title: 'Done',
+                color: '#eb5a46',
+            },
+            {
+                id: 'l102',
+                title: '',
+                color: '#0079bf',
+            },
+            {
+                id: 'l103',
+                title: '',
+                color: '#61bd4f',
+            },
+            {
+                id: 'l104',
+                title: '',
+                color: '#f2d600',
+            },
+            {
+                id: 'l105',
+                title: '',
+                color: '#ff9f1a',
+            },
+            {
+                id: 'l106',
+                title: '',
+                color: '#c377e0',
+            },
+            {
+                id: 'l1017',
+                title: '',
+                color: '#0098b7',
+            },
+        ],
+        members:[],
+        activities:[],
+    }
+}
+
 function updatedBoard(board) {
     return storageService.put(BOARD_KEY, board);
 }
