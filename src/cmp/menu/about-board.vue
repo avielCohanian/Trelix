@@ -28,7 +28,7 @@
       </div>
       <div class="description">
          <header>
-            <h2 class="icon-description">Description</h2>
+            <div><h2><span class="icon-description"></span> Description </h2> </div>
             <a
                class="edit-btn"
                v-if="!editDescription"

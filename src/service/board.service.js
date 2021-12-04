@@ -17,9 +17,24 @@ export const boardService = {
     deleteCard,
     deleteMember,
     saveGroups,
+    getBoardsForDisplay
 };
 
 const BOARD_KEY = 'boards';
+async function getBoardsForDisplay(){
+    console.log('hi');
+    try{
+        const boards = await query()
+        const boardsToShow = boards.map( board =>{
+            return {_id:board._id, title: board.title , style:board.style}
+        })
+        return Promise.resolve(boardsToShow)
+    } catch(err){
+        throw err 
+    }
+
+
+}
 
 async function query() {
     try {

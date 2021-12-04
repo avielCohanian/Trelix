@@ -28,6 +28,7 @@
         flex-direction: column;
     }
     .icon-description::before {
+        margin-right:2px ;
         font-family: iconSolid;
         content: '\f036';
     }

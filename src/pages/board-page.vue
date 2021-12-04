@@ -1,7 +1,7 @@
 <template>
     <section class="board-page">
             <nav-boards />
-            <main-boards />
+            <main-boards :boards="boards"/>
 
 
 
@@ -11,12 +11,32 @@
 <script>
 import navBoards from '../cmp/nav-boards.vue';
 import mainBoards from '../cmp/main-boards.vue';
+import {boardService} from '../service/board.service.js';
 
 export default {
     name: 'boardPage',
+    data(){
+        return{
+            boards:[]
+        }
+    },
     components:{
         navBoards,
         mainBoards
+    },
+    created() {
+      this.loadBoards()
+    },
+    methods:{
+       async loadBoards(){
+           try{
+              const boards = await boardService.getBoardsForDisplay()
+              this.boards = boards
+              console.log(boards);
+           }catch(err){
+               throw err
+           }
+        }
     }
 };
 </script>
@@ -26,7 +46,7 @@ export default {
         padding-top: 50px;
         width: 100vw;
         height: 100vh;
-        background-color:blueviolet;
+        background-color:#fafbfc;
         display: flex;
     /* align-items: flex-start;
     display: flex;
