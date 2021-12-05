@@ -156,17 +156,11 @@ export default {
         'card-cover': cover,
     },
 
-    computed: {
-        // display() {
-        //     if (this.userJoin) return 'display : none';
-        //     else return 'display : block';
-        // },
-    },
+    computed: {},
     watch: {
-        propCmp() {
-            console.log(this.cmp);
-            if (this.cmp) {
-                this.dynamicCmp(this.cmp);
+        cmp(cmpName) {
+            if (cmpName) {
+                this.dynamicCmp(cmpName);
             }
         },
     },

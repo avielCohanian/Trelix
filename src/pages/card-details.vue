@@ -24,7 +24,7 @@
             </div>
             <header class="header">
                 <a
-                    v-if="!card.style && !card.style.bgColor"
+                    v-if="!card.style.bgColor"
                     class="back-btn close-btn el-icon-close"
                     @click="closeDetails"
                 >
@@ -335,7 +335,7 @@ export default {
             const { boardId } = this.$route.params;
             // this.$router.push(`/board/${boardId}`);
             // TODO: board id
-            this.$router.push(`/board/b101`);
+            this.$router.push(`/board/${boardId}`);
             // TODO: back board page
             // this.$router.push('')
         },
@@ -432,11 +432,12 @@ export default {
         },
         dynamicCmp(cmp) {
             this.cmp = cmp;
+            // this.cmp = null;
         },
     },
     computed: {
         dynamicCmpToShow() {
-            this.cmp;
+            return this.cmp;
         },
         headerShow() {
             return (
