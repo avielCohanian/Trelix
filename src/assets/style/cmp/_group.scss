@@ -1,122 +1,148 @@
-.group-container{
-
-.group {
-    // position: absolute;
-    background-color: #ebecf0;
-    margin: 0 4px;
-    padding: 0px 8px 5px 8px;
-    width: 272px;
-    border-radius: 3px;
-// .add-card{
-// position: absolute;
-// bottom: 0;
-// }
-   
-    // background-color: aqua;
-    input {
-        margin-bottom: 5px;
-        position: relative;
-        width: 256px;
-        min-height: 20px;
-    }
-   
-    .edit-title input{
-        width: 100%;
-        background-color: #0000;
+.group-container {
+    .group {
+        // position: absolute;
+        background-color: #ebecf0;
+        margin: 0 4px;
+        padding: 0px 8px 5px 8px;
+        width: 272px;
         border-radius: 3px;
-        box-shadow: none;
-        border: none;
-        font-size: 15px;
-        padding: 5px 8px 5px 0px
+        // .add-card{
+        // position: absolute;
+        // bottom: 0;
+        // }
 
-    }
-    .focus{
-        width: 90%;
-    background-color: #fff;
-    box-shadow: inset 0 0 0 1px #0079bf;
-    border: 0.6px solid #0079bf;
-    border-radius: 4px;
-    padding: 0;
-    margin: 0;
-    }
-    .el-input__inner.edit-title{ 
-        // padding: 0;
-        margin: 0;
-
-        // padding-top: 1px;
-        // padding-bottom: 1px;
-        width: 90%; 
-        font-size: 16px;
-    }
-    .opacity input {
-        
-        color: rgb(32, 32, 32);
-        box-shadow: none;
-        border: none;
-        background-color: #ffffff91; // background-color: #ebecf0;
-    }
-    .btn-group {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 6px;
-        textarea {
-            resize: none;
-            border: none;
-            box-shadow: 0 1px 0 #091e4240;
-            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-                Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
-            margin-bottom: 4px;
-            background-color: white;
+        // background-color: aqua;
+        input {
+            margin-bottom: 5px;
+            position: relative;
+            width: 256px;
+            min-height: 20px;
+            // background-color: #ffffff91;
         }
-        .btn-add {
-            // margin-bottom: 6px;
+        p.add-card-btn {
             display: flex;
-            justify-content: space-between;
-            p {
-                margin-inline-start: 5px;
-                color: gray;
-            }
-            .left {
-                // margin-left: 3px;
-                margin-bottom: 6px;
-                position: relative;
-                top: 6px;
-                align-items: center;
-            }
-            p.more{
-                padding-right: 3px;
-                padding-top: 10px;
-                font-size: 20px;
+            align-items: center;
+            margin-bottom: 5px;
+            position: relative;
+            width: 256px;
+            min-height: 20px;
+            padding: 5px 8px 5px 5px;
+            font-size: 14px;
+            span {
+                font-size: 18px;
             }
         }
-    }
-    header.single{
-        height: 20px;
 
-    }
-    header {
-        height: 40px;
-        align-items: center;
-        // padding-top: 3px;
-        // padding-bottom: 3px;
-        padding-left: 2px;
-        padding-right: 2px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        // margin-bottom: 6px;
-        
-        p {
+        .edit-title input {
+            width: 100%;
+            background-color: #0000;
+            border-radius: 3px;
+            box-shadow: none;
+            border: none;
             font-size: 15px;
+            padding: 5px 8px 5px 7px;
+            font-weight: 600;
         }
-        i {
+        .focus {
+            width: 90%;
+            background-color: #fff;
+            box-shadow: inset 0 0 0 1px #0079bf;
+            border: 0.6px solid #0079bf;
+            border-radius: 4px;
+            padding: 0;
+            margin: 0;
+        }
+        .el-input__inner.edit-title {
+            // padding: 0;
+            margin: 0;
+
+            // padding-top: 1px;
+            // padding-bottom: 1px;
+            width: 90%;
             font-size: 16px;
         }
+        .opacity input {
+            color: rgb(32, 32, 32);
+            box-shadow: none;
+            border: none;
+            background-color: #ffffff91; // background-color: #ebecf0;
+        }
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 6px;
+            textarea {
+                resize: none;
+                border: none;
+                box-shadow: 0 1px 0 #091e4240;
+                font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+                    Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+                margin-bottom: 4px;
+                background-color: white;
+            }
+            .btn-add {
+                // margin-bottom: 6px;
+                display: flex;
+                justify-content: space-between;
+                p {
+                    margin-inline-start: 5px;
+                    color: gray;
+                }
+                .left {
+                    // margin-left: 3px;
+                    margin-bottom: 6px;
+                    position: relative;
+                    top: 6px;
+                    align-items: center;
+                }
+                p.more {
+                    margin: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    // padding-right: 3px;
+                    // padding-top: 10px;
+                    font-size: 20px;
+                }
+            }
+        }
+        header.single {
+            height: 20px;
+        }
+        header {
+            height: 40px;
+            align-items: center;
+            // padding-top: 3px;
+            // padding-bottom: 3px;
+            padding-left: 2px;
+            padding-right: 2px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            // margin-bottom: 6px;
+
+            p {
+                font-size: 15px;
+            }
+            i {
+                
+                color: #6b778c;
+                float: left;
+                padding: 6px;
+                font-size: 14px;
+                border-radius: 3px;
+                &:hover{
+                    background-color: #ffffff91;
+                
+                
+    
+                }
+            }
+        }
     }
-}
-.add-list {
-    width: 272px;
-}
+    .add-list {
+        width: 272px;
+    }
 }
 .modal {
     color: rgba(58, 58, 58, 0.719);
@@ -129,7 +155,7 @@
     z-index: 20;
     overflow-x: hidden;
     overflow-y: auto;
-font-size: 14px;
+    font-size: 14px;
 
     ul {
         padding: 0;
@@ -143,7 +169,7 @@ font-size: 14px;
             margin: 0 -12px;
             padding: 12px 12px;
             position: relative;
-            &:hover{
+            &:hover {
                 border-radius: 3px;
                 background-color: rgba(173, 173, 173, 0.445);
             }
@@ -193,14 +219,14 @@ font-size: 14px;
             }
             a {
                 cursor: pointer;
-                color: #6B778C;
+                color: #6b778c;
                 padding: 10px 12px 10px 8px;
                 position: absolute;
                 right: 0;
                 top: 10%;
             }
         }
-}
+    }
 }
 .group-container .group .edit-title input {
     margin: 0;
