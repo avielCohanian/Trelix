@@ -37,8 +37,8 @@
      background-color: #f3f3f33d;   
     }
     ul.labels-container {
-    
              position: relative;
+             
          span.label {
              border-radius: 4px;
             display: block;
@@ -53,16 +53,28 @@
              padding: 0;
              text-shadow: none;
              width: auto;
+             &.label-text {
+                background-color: red;
+                height: 16px;
+                line-height: 16px;
+                max-width: 198px;
+                padding: 0 8px;
+                // line-height: 16px;
+                //  height: rem(22px);
+             }
+            }
+            
              .label-title {
-                 font-size: 0.8rem;
+                height: 16px;
+                line-height: 16px;
+                max-width: 198px;
+                padding: 0 8px;
+                //  font-size: 0.8rem;
                  // color: $clr1;
                  font-weight: bold;
-                 padding: rem(5px);
+                //  padding: rem(5px);
              }
-         }
-         .label-text {
-             height: rem(22px);
-         }
+         
         }
     .members{
         margin-top: 0;

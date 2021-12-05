@@ -1,12 +1,12 @@
 <template>
   <section class="groups">
-    <draggable  class="list-group flex" :list="getGroups" @change="onDrug" >
-    <div v-for="group in getGroups" :key="group.id">
-    <!-- <draggable  class="list-group" :list="group" @change="onDrug"> -->
-      <group :group="group" @updateGroup="loadGroups" />
-  <!-- </draggable > -->
-    </div>
-  </draggable >
+    <draggable class="list-group flex" :list="getGroups" @change="onDrug">
+      <div v-for="group in groups" :key="group.id">
+        <!-- <draggable  class="list-group" :list="group" @change="onDrug"> -->
+        <group :group="group" @updateGroup="loadGroups" />
+        <!-- </draggable > -->
+      </div>
+    </draggable>
     <div class="add-list">
       <label for="add" @click="toggleGroup" v-if="!isAddGroup">
         <el-input
@@ -17,21 +17,21 @@
           v-model="newGroup.title"
         ></el-input>
       </label>
-        <div class="add-list-container" v-if="isAddGroup">
-          <label>
-            <el-input
-              placeholder="Enter list title..."
-              v-model="newGroup.title"
-              @keyup.enter.native="addGroup"
-            ></el-input>
-            <div class="btn-add">
-              <el-button type="primary" @click="addGroup"> Add list</el-button>
-              <span class="material-icons-outlined grey" @click="toggleGroup"
-                >close</span
-              >
-            </div>
-          </label>
-        </div>
+      <div class="add-list-container" v-if="isAddGroup">
+        <label>
+          <el-input
+            placeholder="Enter list title..."
+            v-model="newGroup.title"
+            @keyup.enter.native="addGroup"
+          ></el-input>
+          <div class="btn-add">
+            <el-button type="primary" @click="addGroup"> Add list</el-button>
+            <span class="material-icons-outlined grey" @click="toggleGroup"
+              >close</span
+            >
+          </div>
+        </label>
+      </div>
     </div>
   </section>
 </template>
@@ -43,19 +43,19 @@ import draggable from "vuedraggable";
 export default {
   name: "groups",
   components: {
-    group,    
+    group,
     draggable,
   },
   data() {
     return {
       isAddGroup: false,
       newGroup: boardService.getEmptyGroup(),
-      groups:[]
+      groups: [],
     };
   },
   created() {
-    this.loadGroups()
-    },
+    this.loadGroups();
+  },
   methods: {
     //draggable
     //  add: function() {
@@ -69,62 +69,65 @@ export default {
     //     name: el.name + " cloned"
     //   };
     // },
-    loadGroups(){
-      this.groups =[]
-  console.log( this.groups);
-      this.groups = JSON.parse(JSON.stringify(this.$store.getters.getBoard.groups))
-  console.log( this.groups);
-   },
+    loadGroups() {
+      this.groups = [];
+      console.log(this.groups);
+      this.groups = JSON.parse(
+        JSON.stringify(this.$store.getters.getBoard.groups)
+      );
+      console.log(this.groups);
+    },
     toggleGroup() {
       this.isAddGroup = !this.isAddGroup;
     },
     async addGroup() {
-      if(!this.newGroup.title) return
+      if (!this.newGroup.title) return;
       try {
-        var res = await this.$store.dispatch({
+        await this.$store.dispatch({
           type: "addGroup",
           newGroup: this.newGroup,
         });
         this.newGroup = boardService.getEmptyGroup();
-        this.loadGroups()
+        this.loadGroups();
       } catch (err) {
         console.log(err);
       }
     },
     async updateGroups() {
       try {
-        var res = await this.$store.dispatch({
+         await this.$store.dispatch({
           type: "updateGroups",
           groups: this.groups,
         });
-         this.loadGroups()
+        this.loadGroups();
       } catch (err) {
         console.log(err);
       }
     },
     onDrug(evt) {
-        console.log(evt);
+      console.log(evt);
       window.console.log(evt);
-        this.updateGroups()
-    }
+      this.updateGroups();
+    },
   },
   computed: {
     getGroups() {
-      return this.groups
+      return this.groups;
     },
-    
   },
-  watch:{
-'$store.getters.getBoard'(){
-  console.log('watch');
-   this.loadGroups()
-   
-},
-// 'groups'(){
-//   console.log('watch');
-//    this.loadGroups()
-// }
-  }
+  watch: {
+    "$store.getters.getBoard"(board) {
+      console.log("watch");
+      console.log("board:", board);
+      //  this.loadGroups()
+      this.groups = board.groups;
+      console.log('this.groups',this.groups);
+    },
+    // 'groups'(){
+    //   console.log('watch');
+    //    this.loadGroups()
+    // }
+  },
 };
 </script>
 

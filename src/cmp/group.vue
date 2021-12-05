@@ -57,9 +57,9 @@
       </div>
       <div class="card-container">
 
-        <draggable  class="card-scroll list-group" :list="group.cards" @change="onDrug" group="people">
+        <draggable v-if="group.cards" class="card-scroll list-group" :list="group.cards" @change="onDrug" group="people">
           <div v-for="card in group.cards" :key="card.id">
-              <card @click="showEdit(card.id)" @updateGroup="loadGroup" :card="card" />
+              <card  :card="card"  @click.native="showEdit(card.id)" @updateGroup="loadGroup"/>
            <div class="col-3" :value="card" :title="card.title" ></div>
           </div>
           <label v-if="isAddCard">
@@ -140,6 +140,7 @@ export default {
     };
   },
   created(){
+    console.log('group in group.vue:',this.group);
     },
   methods: {
 
@@ -190,7 +191,7 @@ export default {
       
       if(!this.newCard.title)return
       try {
-        var res = await this.$store.dispatch({
+         await this.$store.dispatch({
           type: "addCard",
           newCard: this.newCard,
           groupId: this.group.id,
@@ -203,7 +204,7 @@ export default {
     },
     async deleteGroup() {
       try {
-        var res = await this.$store.dispatch({
+         await this.$store.dispatch({
           type: "deleteGroup",
           // groupId: this.group.id,
         });
@@ -214,7 +215,7 @@ export default {
     },
         async updateGroup() {
           try {
-            var res = await this.$store.dispatch({
+           await this.$store.dispatch({
               type: "updateGroup",
               group: this.group,
             });
@@ -248,9 +249,9 @@ export default {
             }
             else  this.$refs.input.focus()
         },
-group(val){
-  this.group = val
-}
+// group(val){
+//   this.group = val
+// }
     },
    
 };
