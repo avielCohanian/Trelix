@@ -2,6 +2,12 @@
     <section class="edit-cover">
         <div class="size">
             <h4>Size</h4>
+            <a
+                class="removeCaver"
+                v-if="card.style.bgColor"
+                @click="changeBgc(null)"
+                >Remove cover</a
+            >
         </div>
         <div class="colors">
             <h4>Colors</h4>
@@ -52,8 +58,8 @@
 </template>
 
 <script>
-import { utilService } from '../service/util.service.js';
-import { imgService } from '../service/img.service.js';
+import { utilService } from '../../service/util.service.js';
+import { imgService } from '../../service/img.service.js';
 
 export default {
     name: 'cover',

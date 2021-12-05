@@ -6,6 +6,24 @@
         h4 {
             margin-top: 0;
         }
+        .removeCaver {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 4px 0 0;
+            width: 100%;
+            line-height: 20px;
+            padding: 6px 12px;
+            background-color: $clr10;
+            cursor: pointer;
+            font-weight: 400;
+            text-align: center;
+            color: #172b4d;
+            font-size: 14px;
+            &:hover {
+                background-color: #091e4214;
+            }
+        }
     }
 
     h4 {

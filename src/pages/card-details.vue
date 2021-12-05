@@ -3,8 +3,8 @@
         <article class="card-details" @click.stop>
             <div
                 class="color-header"
-                v-if="card.style && card.style.bgColor"
-                :style="{ backgroundColor: card.style.bgColor }"
+                v-if="card.style && (card.style.bgColor || card.style.bgUrl)"
+                :style="bgColor"
             >
                 <span class="cover-back-btn">
                     <a
@@ -178,10 +178,10 @@
                     <div
                         class="trelix-attachments"
                         v-if="
-                            card.attachment && card.attachment.trelixAttachments
+                            card.attachment.trelixAttachments &&
+                            card.attachment.trelixAttachments.length
                         "
                     >
-                        v-if="card.attachment.trelixAttachments"
                         <font-awesome-icon
                             class="svg"
                             :icon="['fab', 'trello']"
@@ -206,65 +206,113 @@
                     <div
                         class="section-attachments"
                         v-if="
-                            card.attachment &&
-                            card.attachment.computerAttachment
+                            card.attachment.computerAttachment &&
+                            card.attachment.computerAttachment.length
                         "
                     >
-                        <!--TODO  למצוא אייקון מתאים -->
-                        <span></span>
+                        <span class="el-icon-paperclip icon"></span>
                         <h3>Attachments</h3>
                         <div class="attachment-list">
                             <!-- <div > -->
                             <a
-                                v-for="att in cardAttachments"
-                                :key="att.link"
+                                v-for="(att, idx) in cardAttachments"
+                                :key="idx"
                                 class="attachment-link"
-                                :href="att.link"
                             >
-                                <img v-if="att.img" src="att.img" alt="" />
-                                <img v-else src="" alt="" />
+                                <!-- :href="att.link" -->
+                                <div class="img">
+                                    <img :src="att.url" alt="" />
+                                    <!-- <img v-else src="" alt="" /> -->
+                                </div>
                                 <!--TODO  תמונת לינק קבועה-->
-                                <p class="attachment-option">
-                                    <span
-                                        >{{ att.name || att.link || att.img }}
-                                    </span>
-                                    <!--TODO  למצוא אייקון מתאים   external-link-alt-->
-                                    <span>
-                                        <span
-                                            >Added
-                                            {{ att.upAt | moment('from') }}
-                                            <span v-if="dayLeft(att.upAt)">
-                                                at {{ getTime(att.upAt) }}</span
+                                <div class="attachment-option-container">
+                                    <p class="attachment-option">
+                                        <span class="link">
+                                            {{ att.name }}
+                                            <span
+                                                class="el-icon-top-right"
+                                            ></span>
+                                        </span>
+                                        <span class="title-option">
+                                            <span>
+                                                <span
+                                                    >Added
+                                                    {{
+                                                        att.upAt
+                                                            | moment('from')
+                                                    }}
+                                                    <span
+                                                        v-if="dayLeft(att.upAt)"
+                                                    >
+                                                        at
+                                                        {{
+                                                            getTime(att.upAt)
+                                                        }}</span
+                                                    >
+                                                </span>
+                                                -
+                                            </span>
+
+                                            <a
+                                                class="title-option-btn"
+                                                @click.stop="
+                                                    addLinkToActivity(att.link)
+                                                "
+                                                >Comment</a
+                                            >
+                                            -
+                                            <a
+                                                class="title-option-btn"
+                                                @click.stop="
+                                                    dynamicCmp(
+                                                        'removeEditAttachment'
+                                                    )
+                                                "
+                                                >Remove</a
+                                            >
+                                            -
+                                            <a
+                                                class="title-option-btn"
+                                                @click.stop="
+                                                    dynamicCmp('editAttachment')
+                                                "
+                                                >Edit</a
                                             >
                                         </span>
-                                        -
-                                    </span>
-                                    <a @click.stop="addLinkToActivity(att.link)"
-                                        >Comment</a
-                                    >
-                                    -
-                                    <a @click.stop="removeMsg">Remove</a>
-                                    -
-                                    <a @click.stop="editName(att.name)">Edit</a>
-                                </p>
-                                <a
-                                    v-show="att.img"
-                                    v-if="isCover"
-                                    @makeCover.stop="makeCover(att.img)"
-                                    >Make cover</a
-                                >
-                                <a
-                                    v-else
-                                    v-show="att.img"
-                                    @makeCover.stop="makeCover(att.img)"
-                                    >Remove cover</a
-                                >
+                                        <span class="cover">
+                                            <span
+                                                class="material-icons-outlined"
+                                            >
+                                                web_asset
+                                            </span>
+                                            <a>Make cover</a>
+                                        </span>
+                                    </p>
+
+                                    <div v-if="!att.url" class="cover3">
+                                        <!-- <span class="material-icons-outlined">
+                                            web_asset
+                                        </span> -->
+                                        <!-- v-show="att.img"
+                                            v-if="isCover"
+                                            @makeCover.stop="makeCover(att.img)" -->
+                                        <a>Make cover</a>
+                                        <!-- v-else
+                                            v-show="att.img"
+                                            @makeCover.stop="makeCover(att.img)" -->
+                                        <!-- <a>Remove cover</a> -->
+                                    </div>
+                                </div>
                             </a>
 
                             <!-- </div> -->
                         </div>
 
-                        <a @click="openAttachment">Add an item </a>
+                        <a
+                            class="add-item"
+                            @click="dynamicCmp('editAttachment')"
+                            >Add an item
+                        </a>
                     </div>
 
                     <div class="checklists-container" v-if="card.checklists">
@@ -327,6 +375,7 @@ export default {
                 });
                 const card = JSON.parse(JSON.stringify(currCard));
                 this.card = card;
+                console.log(card.attachment);
                 if (this.card.labelIds) {
                     this.labels = await this.getLabel();
                 }
@@ -458,8 +507,9 @@ export default {
             );
         },
         cardAttachments() {
+            let computerAttachment = this.card.attachment.computerAttachment;
             // TODO: return only 3 attachment
-            return this.card.attachments;
+            return computerAttachment;
         },
         isCover() {
             // TODO: if we have bcg to the card
@@ -468,6 +518,17 @@ export default {
         dueDateDay() {
             let t = this.card.dueDate;
             return new Date(t).getUTCDay() + 1;
+        },
+        bgColor() {
+            console.log(this.card.style);
+            if (this.card.style.bgColor) {
+                return { backgroundColor: `${this.card.style.bgColor}` };
+            } else if (this.card.style.bgUrl) {
+                console.log(this.card.style.bgUrl.backgroundImage);
+                return {
+                    backgroundImage: `${this.card.style.bgUrl.backgroundImage}`,
+                };
+            }
         },
     },
     watch: {

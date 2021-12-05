@@ -98,8 +98,8 @@ const boards = [
                         description: 'backend',
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -116,8 +116,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -134,8 +134,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -159,8 +159,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -177,8 +177,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -204,8 +204,8 @@ const boards = [
                             },
                         ],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         checklists: [
                             {
@@ -288,8 +288,8 @@ const boards = [
                             },
                         ],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         checklists: [
                             {
@@ -364,8 +364,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -382,8 +382,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -407,8 +407,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -425,8 +425,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -593,8 +593,8 @@ const boards = [
                         description: 'backend',
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -611,8 +611,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -629,8 +629,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -654,8 +654,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -672,8 +672,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -699,8 +699,8 @@ const boards = [
                             },
                         ],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         checklists: [
                             {
@@ -783,8 +783,8 @@ const boards = [
                             },
                         ],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         checklists: [
                             {
@@ -859,8 +859,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -877,8 +877,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -902,8 +902,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],
@@ -920,8 +920,8 @@ const boards = [
                         checklists: [],
                         comments: [],
                         attachment: {
-                            trelixAttachments: null,
-                            computerAttachment: null,
+                            trelixAttachments: [],
+                            computerAttachment: [],
                         },
                         members: [],
                         labelIds: [],

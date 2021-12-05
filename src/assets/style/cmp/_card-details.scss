@@ -36,6 +36,7 @@
             background-origin: content-box;
             background-position: left center;
             height: 116px;
+            background-size: cover;
             .cover-btn {
                 position: absolute;
                 background-color: #00000014;
@@ -88,8 +89,9 @@
                 }
                 .back-btn {
                     position: absolute;
-                    top: 10px;
-                    left: 10px;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
                 }
             }
         }
@@ -309,8 +311,6 @@
                 }
                 .description {
                     position: relative;
-                    // align-items: center;
-                    // display: flex;
                     min-height: 32px;
                     margin-bottom: 24px;
                     header {
@@ -431,15 +431,10 @@
                 // background-color: lightcoral;
             }
         }
-        // icon!!!
-        // btns
+
         .heder {
         }
 
-        // .back-btn {
-        //     position: absolute;
-        //     right: 0;
-        // }
         .main-details {
             a {
                 background-color: $clr10;
@@ -447,6 +442,148 @@
             .members {
                 a {
                     border-radius: 100%;
+                }
+            }
+            .section-attachments {
+                clear: both;
+                margin-bottom: 24px;
+                position: relative;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                color: $clr7;
+                h3 {
+                    margin: 0 0 7px 0;
+                    padding: 8px 0;
+                    min-height: 18px;
+                    min-width: 40px;
+                    font-size: 16px;
+                    line-height: 20px;
+                    font-weight: 600;
+                    color: $clr7;
+                }
+                .el-icon-paperclip {
+                    top: 1px;
+                    left: -41px;
+                    transform: rotate(180deg);
+                }
+                .attachment-list {
+                    .attachment-link {
+                        position: relative;
+                        .img {
+                            height: 80px;
+                            position: absolute;
+                            background-color: #413b39;
+                            text-align: center;
+                            text-decoration: none;
+                            top: 50%;
+                            width: 112px;
+                            background-position: 50%;
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                            border-radius: 3px;
+                        }
+                        .attachment-option-container {
+                            display: flex;
+                            flex-direction: column;
+                            height: 80px;
+                            margin-bottom: 20px;
+                            .attachment-option {
+                                cursor: pointer;
+                                margin: 0;
+                                margin-bottom: 18px;
+                                min-height: 80px;
+                                padding: 8px 8px 8px 128px;
+                                font-size: 14px;
+                                font-weight: 400;
+                                line-height: 20px;
+                                color: #172b4d;
+
+                                .link {
+                                    word-wrap: break-word;
+                                    font-weight: 700;
+                                    cursor: pointer;
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    color: #172b4d;
+                                    display: block;
+                                    .el-icon-top-right {
+                                        color: $clr9;
+                                        font-size: 13px;
+                                        height: 20px;
+                                        line-height: 20px;
+                                        width: 20px;
+                                        font-style: normal;
+                                        font-weight: 700;
+                                    }
+                                }
+                                .title-option {
+                                    margin-bottom: 8px;
+                                    color: $clr6;
+                                    cursor: pointer;
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                    line-height: 20px;
+
+                                    .title-option-btn {
+                                        text-decoration: underline;
+                                        background-color: initial;
+                                        &:hover {
+                                            color: #172b4d;
+                                        }
+                                    }
+                                }
+                                .cover {
+                                    position: relative;
+                                    display: flex;
+                                    padding-left: 20px;
+                                    margin-top: 8px;
+                                    a {
+                                        background-color: initial;
+                                        text-decoration: underline;
+                                    }
+                                    .material-icons-outlined {
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        font-size: 16px;
+                                        height: 20px;
+                                        line-height: 20px;
+                                        width: 20px;
+                                        color: $clr9;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                    }
+                                    &:hover {
+                                        color: #172b4d;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &:hover {
+                        background-color: #091e420a;
+                    }
+                }
+                .add-item {
+                    align-items: center;
+                    background-color: #091e420a;
+                    border-radius: 3px;
+                    color: #172b4d;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 20px;
+                    padding: 6px 12px;
+                    margin: 8px 0;
+                    text-decoration: none;
+                    transition-duration: 85ms;
+                    transition-property: background-color, border-color,
+                        box-shadow;
+                    transition-timing-function: ease;
+                    &:hover {
+                        background-color: #091e4214;
+                    }
                 }
             }
         }

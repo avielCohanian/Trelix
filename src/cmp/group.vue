@@ -127,7 +127,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import member from './edit-member.vue';
+import member from './edit/edit-member.vue';
 import label from './edit-label.vue';
 import { boardService } from '../service/board.service';
 import card from './card.vue';

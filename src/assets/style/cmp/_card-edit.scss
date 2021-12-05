@@ -1,6 +1,5 @@
 .card-edit {
     min-height: 100%;
-
     h3 {
         font-weight: normal;
         font-weight: 600;
@@ -70,8 +69,8 @@
         background: #fff;
         border-radius: 3px;
         box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
-        top: 0;
-        left: 0;
+        top: -75px;
+        right: 0;
         width: 305px;
         header {
             height: 40px;
@@ -103,7 +102,7 @@
             }
         }
         .search {
-            margin: 4px px 0 12px;
+            margin: 4px 0 12px;
             width: 100%;
             background-color: #fafbfc;
             border: none;

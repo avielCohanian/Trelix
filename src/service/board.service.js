@@ -20,6 +20,7 @@ export const boardService = {
     getBoardsForDisplay,
     addCard,
     getGroupByCardId,
+    getEmptyChecklist,
 };
 
 const BOARD_KEY = 'boards';
@@ -196,6 +197,19 @@ function getEmptyGroup() {
         style: {},
         cards: [],
         title: '',
+    };
+}
+function getEmptyChecklist() {
+    return {
+        id: makeId(),
+        title: '',
+        todos: [
+            {
+                id: makeId(),
+                txt: '',
+                isDone: false,
+            },
+        ],
     };
 }
 

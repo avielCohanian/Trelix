@@ -72,7 +72,9 @@
                 @updateMember="updateMember"
                 @changeBcg="changeBcg"
                 @updateLabel="updateLabel"
+                @addChecklist="addChecklist"
                 @dynamicCmp="dynamicCmp"
+                @computerAttachment="computerAttachment"
             >
             </component>
         </div>
@@ -80,11 +82,14 @@
 </template>
 
 <script>
-import member from './edit-member.vue';
+import member from './edit/edit-member.vue';
 import label from './edit-label.vue';
-import attachment from './edit-attachment.vue';
-import trelix from './edit-trelix.vue';
-import cover from './edit-cover.vue';
+import attachment from './edit/edit-attachment.vue';
+import trelix from './edit/edit-trelix.vue';
+import cover from './edit/edit-cover.vue';
+import checklist from './edit/edit-checklist.vue';
+import editAttachment from './edit/edit-details-attachment.vue';
+import removeEditAttachment from './edit/remove-edit-details-attachment.vue';
 
 export default {
     name: 'cardEdit',
@@ -117,6 +122,8 @@ export default {
         dynamicCmp(cmp) {
             console.log(cmp);
             if (cmp === 'attachment') this.component.name = 'attach from...';
+            if (cmp === 'editAttachment')
+                this.component.name = 'Remove attachment?';
             else this.component.name = cmp;
             this.component.currCmp = `card-${cmp}`;
         },
@@ -130,8 +137,22 @@ export default {
         },
         changeBcg(color) {
             let card = JSON.parse(JSON.stringify(this.card));
-            if (card.style.bgColor === color) card.style.bgColor = null;
-            else card.style.bgColor = color;
+            if (typeof color === 'object') {
+                if (card.style.bgUrl === color) card.style.bgUrl = null;
+                else {
+                    card.style.bgUrl = color;
+                    card.style.bgColor = null;
+                }
+            } else if (typeof color === 'string') {
+                if (card.style.bgColor === color) card.style.bgColor = null;
+                else {
+                    card.style.bgColor = color;
+                    card.style.bgUrl = null;
+                }
+            } else {
+                card.style.bgColor = null;
+                card.style.bgUrl = null;
+            }
             this.$emit('updateCard', card);
             // this.$store.dispatch({ type: 'updateCard', card });
         },
@@ -160,6 +181,16 @@ export default {
             }
             this.$emit('updateCard', card);
         },
+        addChecklist(checklist) {
+            let card = JSON.parse(JSON.stringify(this.card));
+            card.checklists.push(checklist);
+            this.$emit('updateCard', card);
+        },
+        computerAttachment(img) {
+            let card = JSON.parse(JSON.stringify(this.card));
+            card.attachment.computerAttachment.push(img);
+            this.$emit('updateCard', card);
+        },
     },
     components: {
         'card-attachment': attachment,
@@ -167,6 +198,9 @@ export default {
         'card-members': member,
         'card-labels': label,
         'card-cover': cover,
+        'card-checklist': checklist,
+        'card-editAttachment': editAttachment,
+        'card-removeEditAttachment': removeEditAttachment,
     },
 
     computed: {
