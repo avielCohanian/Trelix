@@ -227,10 +227,10 @@
 <script>
 import { boardService } from "../service/board.service";
 import avatar from "vue-avatar";
-import member from "./edit-member.vue";
+import member from "./edit/edit-member.vue";
 import label from "./edit-label.vue";
-import attachment from "./edit-attachment.vue";
-import trelix from "./edit-trelix.vue";
+import attachment from "./edit/edit-attachment.vue";
+import trelix from "./edit/edit-trelix.vue";
 
 export default {
   name: "card",
