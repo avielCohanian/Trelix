@@ -32,7 +32,10 @@
                     </span>
                 </div>
 
-                <span class="check el-icon-check"></span>
+                <span
+                    class="check el-icon-check"
+                    v-if="cardMembers(member._id)"
+                ></span>
             </li>
         </ul>
     </section>
@@ -67,8 +70,13 @@ export default {
         },
     },
     methods: {
+        cardMembers(memberId) {
+            let currMembers = this.card.members;
+            return currMembers.some((member) => member._id === memberId);
+        },
         updateMember(member) {
-            console.log('TODO updateMember');
+            this.$emit('updateMember', member);
+
             // TODO
         },
     },

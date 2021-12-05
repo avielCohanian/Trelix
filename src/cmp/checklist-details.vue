@@ -47,10 +47,12 @@
         </header>
         <!-- :class="{ done: progress === 100 }" -->
         <el-progress :percentage="statistic"></el-progress>
+        <!-- :class="done" -->
 
-        <ul class="todos" v-for="todo in checklist.todos" :key="todo.id">
-            <el-checkbox class="checkbox" v-model="todo.isDone"> </el-checkbox>
-            <li>
+        <ul class="todos-container">
+            <li class="todos" v-for="todo in checklist.todos" :key="todo.id">
+                <el-checkbox class="checkbox" v-model="todo.isDone">
+                </el-checkbox>
                 <!-- @change="updateTodo(todo)" -->
                 <div class="checklist-todo">
                     {{ todo.txt }}

@@ -37,7 +37,12 @@
             :style="{
               backgroundColor: label.color,
             }"
+            :class="{'label-text' : isLabelText}"
+             @click.stop.prevent="toggleLabel"
           >
+           <span class="label-title" v-if="label.title && isLabelText">{{
+            label.title
+          }}</span>
           </span>
         </li>
       </ul>
@@ -179,7 +184,7 @@ import trelix from "./edit-trelix.vue";
 
 export default {
   name: "card",
-  props: ["card"],
+  props: {card:null},
   data() {
     return {
       labels: [],
@@ -193,10 +198,16 @@ export default {
       },
     };
   },
-  async created() {
-    if (this.card.labelIds) {
-      this.labels = await this.getLabel();
-    }
+  mounted(){
+    console.log('popopopo');
+  },
+ created() {
+   console.log('yael');
+    // console.log('card in card.vue',this.card);
+    
+    // if (this.card.labelIds) {
+    //   this.labels =  this.getLabel();
+    // }
   },
   methods: {
     async getLabel() {
@@ -204,10 +215,10 @@ export default {
       // TODO: connect service and return label by ID
       //    let currLabel = await storageService.getLabelById();
       // console.log(labelId);
-      let { boardId } = this.$route.params;
+      var { boardId } = this.$route.params;
       // boardId = 'b101';
       try {
-        let labels = await boardService.getLabelByCard(boardId, this.card);
+        let labels = await boardService.getLabelByCard(boardId, JSON.parse(JSON.stringify(this.card)) );
         return labels;
       } catch (err) {
         console.log(err);
@@ -286,9 +297,9 @@ export default {
     // }
   },
   watch: {
-    card(val) {
-      this.card = val;
-    },
+    // card(val) {
+    //   this.card = val;
+    // },
   },
   components: {
     avatar,
