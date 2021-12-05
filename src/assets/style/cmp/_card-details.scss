@@ -32,9 +32,61 @@
         color: $clr7;
 
         .color-header {
+            position: relative;
             background-origin: content-box;
             background-position: left center;
             height: 116px;
+            .cover-btn {
+                position: absolute;
+                background-color: #00000014;
+                cursor: pointer;
+                border-radius: 3px;
+                color: $clr7;
+                padding: 6px 12px 6px 26px;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+
+                bottom: 7px;
+                right: 8px;
+                &:hover {
+                    background-color: #00000029;
+                }
+
+                .material-icons-outlined {
+                    position: absolute;
+                    font-size: 16px;
+                    height: 20px;
+                    line-height: 20px;
+                    width: 20px;
+                    color: $clr9;
+                    top: 6px;
+                    left: 3px;
+                }
+            }
+            .cover-back-btn {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                right: 4px;
+                top: 0;
+                width: 40px;
+                height: 40px;
+                margin: 4px;
+                padding: 4px;
+                border-radius: 50%;
+                font-size: 20px;
+                line-height: 32px;
+                transition: background-color 85ms, color 85ms;
+                background-color: #00000014;
+                color: $clr9;
+                &:hover {
+                    background-color: #00000029;
+                    color: #42526e;
+                }
+            }
         }
 
         .header {

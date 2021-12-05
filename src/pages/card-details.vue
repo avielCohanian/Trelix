@@ -5,9 +5,26 @@
                 class="color-header"
                 v-if="card.style && card.style.bgColor"
                 :style="{ backgroundColor: card.style.bgColor }"
-            ></div>
+            >
+                <span class="cover-back-btn">
+                    <a
+                        class="back-btn close-btn el-icon-close"
+                        @click="closeDetails"
+                    >
+                    </a>
+                </span>
+                <a class="cover-btn" @click="dynamicCmp('cover')" title="Cover">
+                    <span class="cover-icon">
+                        <span class="material-icons-outlined icon">
+                            web_asset
+                        </span>
+                    </span>
+                    Cover</a
+                >
+            </div>
             <header class="header">
                 <a
+                    v-if="!card.style && !card.style.bgColor"
                     class="back-btn close-btn el-icon-close"
                     @click="closeDetails"
                 >
@@ -260,6 +277,7 @@
                 <card-edit
                     class="card-edit"
                     :card="card"
+                    :cmp="dynamicCmpToShow"
                     @updateCard="updateCard"
                 ></card-edit>
             </div>
@@ -288,6 +306,7 @@ export default {
             editDescription: false,
             isOpenTitle: false,
             labels: [],
+            cmp: null,
         };
     },
     methods: {
@@ -321,12 +340,7 @@ export default {
             // this.$router.push('')
         },
         async getLabel() {
-            // console.log('TODO');
-            // TODO: connect service and return label by ID
-            //    let currLabel = await storageService.getLabelById();
-            // console.log(labelId);
             let { boardId } = this.$route.params;
-            // boardId = 'b101';
             try {
                 let labels = await boardService.getLabelByCard(
                     boardId,
@@ -398,6 +412,7 @@ export default {
                     card,
                 });
                 await this.loadCard();
+                // this.$emit('updateCard')
             } catch (err) {
                 console.log(err);
             }
@@ -415,8 +430,14 @@ export default {
         selectInInput() {
             console.log(this.$refs);
         },
+        dynamicCmp(cmp) {
+            this.cmp = cmp;
+        },
     },
     computed: {
+        dynamicCmpToShow() {
+            this.cmp;
+        },
         headerShow() {
             return (
                 (this.card.members && this.card.members.length) ||
