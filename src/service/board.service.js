@@ -23,14 +23,28 @@ export const boardService = {
 };
 
 const BOARD_KEY = 'boards';
-async function getBoardsForDisplay() {
-    console.log('hi');
+
+
+async function getBoardsForDisplay(userLog) {
+
     try {
         const boards = await query();
-        const boardsToShow = boards.map((board) => {
-            return { _id: board._id, title: board.title, style: board.style };
-        });
-        return Promise.resolve(boardsToShow);
+        var boardsStar = userLog.boards.starBoard.reduce((acc,boardId) => {
+            const board = boards.find(board=>board._id === boardId)
+            if (board) {
+                 acc.push({ _id: board._id, title: board.title, style: board.style ,members: board.members}) 
+            }
+            return acc 
+        },[]);
+        var boardsUser = userLog.boards.boards.reduce((acc,boardId) => {
+            console.log(boardId);
+            const board = boards.find(board=>board._id === boardId)
+            if (board) {
+                acc.push( { _id: board._id, title: board.title, style: board.style ,members: board.members}) 
+            }
+            return acc 
+        } , [] );
+        return Promise.resolve({boards:boardsUser, boardsStar});
     } catch (err) {
         throw err;
     }

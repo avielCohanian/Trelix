@@ -997,11 +997,22 @@ const boards = [
         ],
     },
 ];
+const users = [  
+    {
+        "_id": "u101",
+        "fullname": "Abi Abambi",
+        "username": "abi@ababmi.com",
+        "password": "aBambi123",
+        "imgUrl": "http://some-img.jpg",
+        "boards": {boards:['b101','b103'] ,starBoard:['b102']}
+}
+]
 // _save('boards', groups);
 
 function query(entityType) {
     var entities = JSON.parse(localStorage.getItem(entityType));
     if (!entities || !entities.length) {
+        _save('users', users);
         _save('boards', boards);
         return Promise.resolve(boards);
     }

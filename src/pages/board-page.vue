@@ -1,10 +1,7 @@
 <template>
     <section class="board-page">
             <nav-boards />
-            <main-boards :boards="boards"/>
-
-
-
+            <main-boards :userBoards="getBoards" @changeFavorit="changeFavorit"/>
     </section>
 </template>
 
@@ -17,7 +14,8 @@ export default {
     name: 'boardPage',
     data(){
         return{
-            boards:[]
+            userConnect:{},
+            boards:{}
         }
     },
     components:{
@@ -25,17 +23,44 @@ export default {
         mainBoards
     },
     created() {
-      this.loadBoards()
+            this.$store.dispatch({type:'loadBoards'})
+            
+    //   this.loadUser()
     },
     methods:{
-       async loadBoards(){
+       async loadUser(){
            try{
-              const boards = await boardService.getBoardsForDisplay()
-              this.boards = boards
-              console.log(boards);
+            //   await this.$store.dispatch({type:'logIn',userName:'abi@ababmi.com'})
+            //   const userConnect = this.$store.getters.getUserConnect
+            //   this.userConnect =userConnect
+            //   this.$store.getters.getBoardsForDisplay
+            //   console.log( this.$store.getters.getBoardsForDisplay);
+            // const boards = await boardService.getBoardsForDisplay(this.userConnect)
+            //   this.boards = boards
            }catch(err){
                throw err
            }
+        },
+     
+       async changeFavorit(change){
+          await  this.$store.dispatch({ type:'changeFavorit',change}) 
+            this.$store.dispatch({type:'loadBoards'})
+
+            
+        }
+    },
+    computed:{
+        getBoards(){
+            console.log(this.$store.getters.getBoardsForDisplay);
+            return  this.$store.getters.getBoardsForDisplay
+        }
+    },
+    watch:{
+        '$store.getters.getUserConnect'(){
+            //   this.$store.dispatch({type:'loadBoards'})
+            // this.loadBoards()
+        // this. loadUser()
+            
         }
     }
 };

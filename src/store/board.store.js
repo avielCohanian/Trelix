@@ -7,10 +7,15 @@ export const boardStore = {
         currBoard: null,
         currCard: null,
         currGroup: null,
+        boardsForDisplay:null
         // watchedUser: null,
         // currUser: userService.getLoggedinUser(),
     },
     getters: {
+        getBoardsForDisplay(state){
+            console.log(state.boardsForDisplay);
+            return state.boardsForDisplay
+        },
         getBoard(state) {
             return state.currBoard;
         },
@@ -36,6 +41,10 @@ export const boardStore = {
     mutations: {
         setBoard(state, { board }) {
             state.currBoard = board;
+        },
+        setdBoards(state, { boards }) {
+            console.log(boards);
+            state.boardsForDisplay = boards;
         },
 
         setCardGroup(state, { card, group }) {
@@ -189,5 +198,19 @@ export const boardStore = {
             commit({ type: 'setCardGroup', card: currCard, group });
             return currCard;
         },
+        async loadBoards({commit,getters ,dispatch}){
+            try{
+                await dispatch({type:'logIn',userName:'abi@ababmi.com'})
+                console.log(getters.getUserConnect);
+
+                const boards = await boardService.getBoardsForDisplay(getters.getUserConnect)
+                console.log(boards);
+                commit({type:'setdBoards',boards})
+                // return boards
+            }catch(err){
+                throw err
+            }
+         }
+         ,
     },
 };
