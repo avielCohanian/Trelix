@@ -22,7 +22,7 @@ const boards = [
             backgroundImage:
                 'url(https://images.unsplash.com/photo-1451337516015-6b6e9a44a8a3?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNzk3MjJ8MHwxfHNlYXJjaHwzfHxXYWxscGFwZXJzfGVufDB8MHx8fDE2Mzg2NDIyNDI&ixlib=rb-1.2.1&q=85)',
         },
-        styleCustom: [],
+        styleCustom: '[]',
 
         labels: [
             {
@@ -171,7 +171,7 @@ const boards = [
                         dueDate: null,
                         byMember: {},
                         style: {
-                            isFull : true,
+                            isFull: true,
                             bgUrl: 'url(https://images.unsplash.com/photo-1451337516015-6b6e9a44a8a3?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNzk3MjJ8MHwxfHNlYXJjaHwzfHxXYWxscGFwZXJzfGVufDB8MHx8fDE2Mzg2NDIyNDI&ixlib=rb-1.2.1&q=85)',
                         },
                     },
@@ -192,7 +192,7 @@ const boards = [
                         dueDate: null,
                         byMember: {},
                         style: {
-                            isFull : true,
+                            isFull: true,
                             // bgColor: '#6DECA9',
                             // imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/eli_rsut8n.png',
                             bgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
@@ -215,7 +215,7 @@ const boards = [
                         dueDate: null,
                         byMember: {},
                         style: {
-                            isFull : false,
+                            isFull: false,
                             // bgColor: '#6DECA9',
                             // imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/eli_rsut8n.png',
                             bgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
@@ -302,7 +302,7 @@ const boards = [
                             imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
                         },
                         style: {
-                            isFull : false,
+                            isFull: false,
                             // bgColor: '#6DECA9',
                             // imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
                             bgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
@@ -378,11 +378,10 @@ const boards = [
                             imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
                         },
                         style: {
-                            isFull : false,
+                            isFull: false,
                             bgColor: '#6DECA9',
                         },
                     },
-                    
                 ],
             },
             {
@@ -1032,16 +1031,16 @@ const boards = [
         ],
     },
 ];
-const users = [  
+const users = [
     {
-        "_id": "u101",
-        "fullname": "Abi Abambi",
-        "username": "abi@ababmi.com",
-        "password": "aBambi123",
-        "imgUrl": "http://some-img.jpg",
-        "boards": {boards:['b101','b103'] ,starBoard:['b102']}
-}
-]
+        _id: 'u101',
+        fullname: 'Abi Abambi',
+        username: 'abi@ababmi.com',
+        password: 'aBambi123',
+        imgUrl: 'http://some-img.jpg',
+        boards: { boards: ['b101', 'b103'], starBoard: ['b102'] },
+    },
+];
 // _save('boards', groups);
 
 function query(entityType) {
