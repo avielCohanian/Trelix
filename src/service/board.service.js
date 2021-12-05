@@ -17,6 +17,7 @@ export const boardService = {
     deleteMember,
     saveGroups,
     getBoardsForDisplay,
+    addCard
 };
 
 const BOARD_KEY = 'boards';
@@ -79,9 +80,12 @@ async function getLabelByCard(boardId, card) {
     }
 }
 
-function addCard(board, groupIdx, newCard) {
+function addCard(board, groupId, newCard) {
     newCard.id = makeId();
-    board.groups[groupIdx].cards.push(newCard);
+    let groupIdx = board.groups.findIndex((group) => {
+        return group.id === groupId
+    });
+    board.groups[groupIdx].cards.push(newCard)
 
     return storageService.put(BOARD_KEY, board);
 }
@@ -98,6 +102,7 @@ function saveCard(board, card) {
     let groupIdx = board.groups.findIndex((group) => {
         return group.cards.some((c) => c.id === card.id);
     });
+    console.log(groupIdx);
     board = JSON.parse(JSON.stringify(board));
     card = card.id
         ? updateCard(board, groupIdx, card)
@@ -129,10 +134,12 @@ function deleteMember(board, memberId) {
     board.members.splice(idx, 1);
     return storageService.put(BOARD_KEY, board);
 }
-function deleteCard(board, groupId, cardId) {
+function deleteCard(board, cardId) {
+    console.log(cardId);
     let groupIdx = board.groups.findIndex((group) => {
-        return group.cards.some((c) => c.id === card.id);
+        return group.cards.some((c) => c.id === cardId);
     });
+    console.log(groupIdx);
     // let groupIdx = board.groups.findIndex((group) => group.id === groupId);
     let cardIdx = board.groups[groupIdx].cards.findIndex(
         (card) => card.id === cardId

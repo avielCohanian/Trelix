@@ -2,44 +2,63 @@
   <section
     class="card"
     @click="openDetails(card.id)"
-    :style="{ background: ' rgb(255, 255, 255)' }">
+    :style="{ background: ' rgb(255, 255, 255)' }"
+  >
     <!-- :style="{ background: card.style.bgColor }" -->
     <header
       @mouseover="isHover = true"
       @mouseleave="isHover = false"
-      class="single">
+      class="single"
+    >
       <p>{{ card.title }}</p>
       <div class="hover">
-        <p class="material-icons-outlined" @click.stop="openEditor" :style="isShow">create</p>
+        <p
+          class="material-icons-outlined"
+          @click.stop="openEditor"
+          :style="isShow"
+        >
+          create
+        </p>
       </div>
     </header>
 
     <!-- img -->
-    <div class="cover-img-container">
-      <img v-if="card.cover" class="cover-img" :src="card.cover" />
+    <div v-if="card.style && card.style.img" class="cover-img-container">
+      <img class="cover-img" :src="card.style.img" />
     </div>
 
-    <!-- labels -->
-    <!-- <div v-if="card.labels.length > 0" class="labels">
-          <span
-            v-for="label in card.labels"
-            :key="label.id"
-            :style="{backgroundColor:label.color}"
-            class="label"
-            :class="{'label-text' : isLabelText}"
-            @click.stop.prevent="toggleLabel"
-          >
-            <transition name="fade">
-              <span class="label-title" v-if="label.title && isLabelText">{{label.title}}</span>
-            </transition>
-          </span>
-        </div> -->
+    <!-- labels  -->
 
-    <!-- dueDate -->
-    <span
-      v-if="card.dueDate"
-      class="el-icon-s-unfold icon description"
-    ></span>
+    <div class="labels" v-if="card.labelIds">
+      <ul class="labels-container">
+        <li v-for="label in labels" :key="label.id">
+          <span
+            class="label"
+            :style="{
+              backgroundColor: label.color,
+            }"
+          >
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- <div v-if="card.labelIds" class="labels">
+      <span
+        v-for="label in labels"
+        :key="label.id"
+        :style="{ backgroundColor: label.color }"
+        class="label"
+        @click.stop.prevent="toggleLabel"
+      >
+          <span class="label-title" v-if="label.title && isLabelText">{{
+            label.title
+          }}</span>
+      </span>
+    </div> -->
+
+    <!-- description -->
+    <!-- <span v-if="card.description"  class="el-icon-s-unfold icon description"></span> -->
 
     <!-- dueDate -->
     <!-- <div
@@ -53,22 +72,24 @@
     <!-- checklist -->
     <!-- <div
       class="checklist"
-      v-if="card.checklists.length > 0"
+      v-if=" card.checklists && card.checklists.length > 0"
       :class="{ 'done-todos': isTodosDone }">
       <span class="checklist-icon el-icon-document-checked"></span>
       <span>{{ doneTodosAmount }}</span>
       <span>/</span>
       <span>{{ todosAmount }}</span>
-    </div>
+    </div>  -->
 
-     <!-- comments  -->
-    <!-- <span v-if="card.comment.length < 0"> <i class="el-icon-chat-round"></i>{{card.comment.length}}</span> -->
+    <!-- comments  -->
+    <!-- <span v-if="card.comment && card.comment.length < 0">
+      <i class="el-icon-chat-round"></i>{{ card.comment.length }}</span
+    > -->
 
     <!-- isdone -->
     <!-- <span v-if="card.status.isDone" class="el-icon-check icon isDone"></span> -->
 
     <!-- members -->
-    <div class="members" v-if="card.members">
+    <div class="members" v-if="card.members && card.members.length">
       <div v-for="member in card.members" :key="member._id">
         <avatar
           v-if="member.imgUrl"
@@ -85,8 +106,6 @@
       </div>
     </div>
 
-
-    <div></div>
     <main>
       <div v-if="isOpenEditor" class="editor" @click.stop>
         <p class="material-icons-outlined btn-x" @click="openEditor">close</p>
@@ -151,6 +170,7 @@
 </template>
 
 <script>
+import { boardService } from "../service/board.service";
 import avatar from "vue-avatar";
 import member from "./edit-member.vue";
 import label from "./edit-label.vue";
@@ -162,17 +182,37 @@ export default {
   props: ["card"],
   data() {
     return {
+      labels: [],
       isLabelText: false,
       isHover: false,
       isOpenEditor: false,
-      cardToUpdate: JSON.parse(JSON.stringify(this.card)),
+      cardToUpdate: this.card,
       component: {
         currCmp: null,
         name: "",
       },
     };
   },
+  async created() {
+    if (this.card.labelIds) {
+      this.labels = await this.getLabel();
+    }
+  },
   methods: {
+    async getLabel() {
+      // console.log('TODO');
+      // TODO: connect service and return label by ID
+      //    let currLabel = await storageService.getLabelById();
+      // console.log(labelId);
+      let { boardId } = this.$route.params;
+      // boardId = 'b101';
+      try {
+        let labels = await boardService.getLabelByCard(boardId, this.card);
+        return labels;
+      } catch (err) {
+        console.log(err);
+      }
+    },
     toggleLabel() {
       this.isLabelText = !this.isLabelText;
     },
@@ -212,7 +252,7 @@ export default {
     },
     openDetails(cardId) {
       //TODO: card id
-      console.log( this.$route.params);
+      console.log(this.$route.params);
       const boardId = this.$route.params.boardId;
       this.$router.push(`/board/${boardId}/${cardId}`);
     },
@@ -240,6 +280,14 @@ export default {
     },
     isTodosDone() {
       return this.doneTodosAmount === this.todosAmount;
+    },
+    // card(){
+    //   return this.cardToShow
+    // }
+  },
+  watch: {
+    card(val) {
+      this.card = val;
     },
   },
   components: {

@@ -70,8 +70,11 @@ export default {
     //   };
     // },
     loadGroups(){
+      this.groups =[]
+  console.log( this.groups);
       this.groups = JSON.parse(JSON.stringify(this.$store.getters.getBoard.groups))
-    },
+  console.log( this.groups);
+   },
     toggleGroup() {
       this.isAddGroup = !this.isAddGroup;
     },
@@ -109,7 +112,19 @@ export default {
     getGroups() {
       return this.groups
     },
+    
   },
+  watch:{
+'$store.getters.getBoard'(){
+  console.log('watch');
+   this.loadGroups()
+   
+},
+// 'groups'(){
+//   console.log('watch');
+//    this.loadGroups()
+// }
+  }
 };
 </script>
 

@@ -406,7 +406,7 @@ const boards = [
                 title: 'Bugs',
                 cards: [
                     {
-                        id: 'c112',
+                        id: 'c176',
                         title: 'Dynamic cmp',
                         description: 'backend',
                         attachment: {},

@@ -36,8 +36,36 @@
     &:hover{
      background-color: #f3f3f33d;   
     }
+    ul.labels-container {
+    
+             position: relative;
+         span.label {
+             border-radius: 4px;
+            display: block;
+             float: left;
+             font-size: 12px;
+             font-weight: 700;
+             height: 8px;
+             line-height: 100px;
+             margin: 0 4px 4px 0;
+             max-width: 40px;
+             min-width: 40px;
+             padding: 0;
+             text-shadow: none;
+             width: auto;
+             .label-title {
+                 font-size: 0.8rem;
+                 // color: $clr1;
+                 font-weight: bold;
+                 padding: rem(5px);
+             }
+         }
+         .label-text {
+             height: rem(22px);
+         }
+        }
     .members{
-        margin-top: rem(10px);
+        margin-top: 0;
         display: flex;
         justify-content: flex-end;
         margin-bottom: 3px;
@@ -54,6 +82,8 @@
             background-color: #f5f5f5;
             // padding: 7px;
         }
+        
+        
     }
     header {
         word-wrap: break-word;

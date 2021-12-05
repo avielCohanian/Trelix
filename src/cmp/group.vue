@@ -57,8 +57,8 @@
       </div>
       <div class="card-container">
 
-        <draggable  class="card-scroll list-group" :list="cardsToShow" @change="onDrug" group="people">
-          <div v-for="card in cardsToShow" :key="card.id">
+        <draggable  class="card-scroll list-group" :list="group.cards" @change="onDrug" group="people">
+          <div v-for="card in group.cards" :key="card.id">
               <card @click="showEdit(card.id)" @updateGroup="loadGroup" :card="card" />
            <div class="col-3" :value="card" :title="card.title" ></div>
           </div>
@@ -205,7 +205,7 @@ export default {
       try {
         var res = await this.$store.dispatch({
           type: "deleteGroup",
-          groupId: this.group.id,
+          // groupId: this.group.id,
         });
         this.loadGroup()
       } catch (err) {
@@ -236,23 +236,21 @@ export default {
     getEmptyCard() {
       return this.newCard;
     },
-    cardsToShow() {
-    return this.group.cards
-    },
+    // cardsToShow() {
+    // return this.group.cards
+    // },
   },
   watch:{
         isEditTitle(){
           console.log(this.$refs.input);
             if (this.isEditTitle) {
                 this.$refs.input.select()
-                
             }
             else  this.$refs.input.focus()
         },
-//         isAddCard(){
-//           console.log(this.$refs);
-//  this.$refs.inputAdd.select()
-//         }
+group(val){
+  this.group = val
+}
     },
    
 };

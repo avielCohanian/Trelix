@@ -65,8 +65,8 @@ export const boardStore = {
 
         async addCard({ commit, getters }, { newCard, groupId }) {
             try {
-                const board = getters.getBoard;
-                let updateBoard = await boardService.saveCard(
+                const board = JSON.parse(JSON.stringify(getters.getBoard));
+                let updateBoard = await boardService.addCard(
                     board,
                     groupId,
                     newCard
@@ -143,8 +143,10 @@ export const boardStore = {
             }
         },
         async deleteCard({ commit, getters }, { card }) {
+            console.log(card);
             try {
                 const board = JSON.parse(JSON.stringify(getters.getBoard));
+                console.log(board);
                 var savedBoard = await boardService.deleteCard(board, card.id);
                 console.log(savedBoard);
                 commit({ type: 'setBoard', board: savedBoard });
