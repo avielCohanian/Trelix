@@ -1,6 +1,6 @@
 .app-header {
     padding-inline-end: 10px;
-    padding-inline-start: 10px;
+    padding-inline-start: 2px;
     color: white;
     background-color: rgba(0, 0, 0, 0.32);
     width: 100%;
@@ -21,10 +21,29 @@
             gap: 10px;
             .el-icon-s-grid,
           
-            .logo , .grid{
+             .grid{
+                 width: 32px;
+                 height: 32px;
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
                 border-radius: 3px;
-                padding: 8px;
+                // padding: 8px;
                 font-size: 20px;
+                padding-bottom: 1px;
+            }
+            .logo{
+                border-radius: 3px;
+                // padding: 8px;
+                font-size: 20px;
+                padding-bottom: 1px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                height: 32px;
+                width: 87px;
+                padding: 0;
             }
             .img-logo{
                 width: 17px;
