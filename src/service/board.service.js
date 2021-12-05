@@ -1,6 +1,7 @@
 import { utilService } from './util.service.js';
 // import { upDownService } from '../../../main-services/upDown-service.js';
 import { storageService } from './async-storage.service.js';
+import loader from 'sass-loader';
 export const boardService = {
     getById,
     getGroupById,
@@ -17,7 +18,8 @@ export const boardService = {
     deleteMember,
     saveGroups,
     getBoardsForDisplay,
-    addCard
+    addCard,
+    getGroupByCardId,
 };
 
 const BOARD_KEY = 'boards';
@@ -56,6 +58,20 @@ function getGroupById(board, groupId) {
     });
     return Promise.resolve(res);
 }
+
+async function getGroupByCardId(boardId, cardId) {
+    try {
+        let board = await query();
+
+        board = board.find((board) => board._id === boardId);
+        let group = board.groups.find((group) => {
+            return group.cards.some((c) => c.id === cardId);
+        });
+        return group;
+    } catch (err) {
+        console.log(err);
+    }
+}
 async function getLabelByCard(boardId, card) {
     try {
         let board = await query();
@@ -83,9 +99,9 @@ async function getLabelByCard(boardId, card) {
 function addCard(board, groupId, newCard) {
     newCard.id = makeId();
     let groupIdx = board.groups.findIndex((group) => {
-        return group.id === groupId
+        return group.id === groupId;
     });
-    board.groups[groupIdx].cards.push(newCard)
+    board.groups[groupIdx].cards.push(newCard);
 
     return storageService.put(BOARD_KEY, board);
 }

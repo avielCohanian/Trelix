@@ -4,6 +4,7 @@
             <div class="join-member" v-if="!userJoin">
                 <h3>Suggested</h3>
                 <a class="join-btn btn" @click="join('userId')">
+                    <!-- v-if="meInCardMember(userId)" -->
                     <span class="el-icon-user icon"></span> Join</a
                 >
             </div>
@@ -68,6 +69,7 @@
             <component
                 :is="component.currCmp"
                 :card="card"
+                @updateMember="updateMember"
                 @changeBcg="changeBcg"
                 @updateLabel="updateLabel"
                 @dynamicCmp="dynamicCmp"
@@ -107,7 +109,6 @@ export default {
         };
     },
     created() {
-        console.log(this.cmp);
         if (this.cmp) {
             this.dynamicCmp(this.cmp);
         }
@@ -147,6 +148,18 @@ export default {
             }
             this.$emit('updateCard', card);
         },
+        updateMember(currMember) {
+            let card = JSON.parse(JSON.stringify(this.card));
+            if (card.members.some((member) => member._id === currMember._id)) {
+                const labelIdx = card.members.findIndex(
+                    (member) => member._id === currMember._id
+                );
+                card.members.splice(labelIdx, 1);
+            } else {
+                card.members.push(currMember);
+            }
+            this.$emit('updateCard', card);
+        },
     },
     components: {
         'card-attachment': attachment,
@@ -156,7 +169,11 @@ export default {
         'card-cover': cover,
     },
 
-    computed: {},
+    computed: {
+        meInCardMember(userId) {
+            this.card.members.some(member._id === userId);
+        },
+    },
     watch: {
         cmp(cmpName) {
             if (cmpName) {

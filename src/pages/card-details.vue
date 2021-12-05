@@ -13,7 +13,7 @@
                     >
                     </a>
                 </span>
-                <a class="cover-btn" @click="dynamicCmp('cover')" title="Cover">
+                <a class="cover-btn" @click="dynamicCmp('cover')">
                     <span class="cover-icon">
                         <span class="material-icons-outlined icon">
                             web_asset
@@ -29,7 +29,7 @@
                     @click="closeDetails"
                 >
                 </a>
-                <div class="secund-header">
+                <div class="secund-header" v-if="card.title">
                     <font-awesome-icon class="svg" :icon="['fab', 'trello']" />
                     <!-- <span></span> למצוא אייקון מתאים -->
                     <div class="secund-header-input" @click="toggleTitle">
@@ -43,7 +43,7 @@
                     </div>
                     <!--TODO @click in a dynamicCmp -->
                 </div>
-                <p class="title">
+                <p class="title" v-if="currGroup">
                     in list <a>{{ currGroup.title }}</a>
                 </p>
             </header>
@@ -74,10 +74,12 @@
                                         class="member"
                                     ></avatar>
                                 </li>
-                                <a class="plus-btn">
+                                <a
+                                    class="plus-btn"
+                                    @click="dynamicCmp('members')"
+                                >
                                     <span class="el-icon-plus plus"></span>
                                 </a>
-                                <!-- <a @click="">+</a> -->
                                 <!--TODO  למצוא אייקון מתאים -->
                             </ul>
                         </div>
@@ -95,8 +97,10 @@
                                         {{ label.title }}</span
                                     >
                                 </li>
-                                <!-- <a @click="">+</a> -->
-                                <a class="plus-btn">
+                                <a
+                                    class="plus-btn"
+                                    @click="dynamicCmp('labels')"
+                                >
                                     <span class="el-icon-plus plus"></span>
                                 </a>
                             </ul>
@@ -300,7 +304,7 @@ export default {
     data() {
         return {
             card: null,
-            currGroup: 'aaa',
+            currGroup: null,
             checked: false,
             description: '',
             editDescription: false,
@@ -326,6 +330,12 @@ export default {
                 if (this.card.labelIds) {
                     this.labels = await this.getLabel();
                 }
+                let { boardId } = this.$route.params;
+                this.currGroup = await boardService.getGroupByCardId(
+                    boardId,
+                    cardId
+                );
+                this.description = this.card.description;
             } catch (err) {
                 console.log(err);
             }
@@ -402,7 +412,6 @@ export default {
             // TODO: img in bcg
         },
         toggleTitle() {
-            console.log('lll');
             this.isOpenTitle = !this.isOpenTitle;
         },
         async updateCard(card) {
@@ -432,7 +441,9 @@ export default {
         },
         dynamicCmp(cmp) {
             this.cmp = cmp;
-            // this.cmp = null;
+            setTimeout(() => {
+                this.cmp = null;
+            }, 500);
         },
     },
     computed: {
@@ -479,12 +490,6 @@ export default {
     },
     async created() {
         await this.loadCard();
-        this.currGroup = {
-            style: {},
-            id: 'g101',
-            title: 'Group 1',
-        };
-        this.description = this.card.description;
     },
 };
 </script>
