@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <app-header  :createdBy="createdBy"/>
-        <router-view class="main-layout"></router-view>
+        <router-view class="main-layout" ></router-view>
 
         <!-- <router-view /> -->
     </div>
@@ -13,6 +13,7 @@ import appHeader from '../src/cmp/app-header';
 export default {
     data(){
         return{
+            loadUser:false,
 createdBy:{
             _id: 'u104',
             username: 'Yael Oushky',
@@ -23,11 +24,12 @@ createdBy:{
         }
     },
    async created(){
-        // try{
-        //    await this.loadBoard()
-        // }catch(err){
-        //     console.log(err);
-        // }
+        try{
+           await this.$store.dispatch({type:'logIn',userName:'abi@ababmi.com'})
+           this.loadUser= true
+        }catch(err){
+            console.log(err);
+        }
     },
     components: {
         appHeader,
@@ -39,6 +41,8 @@ createdBy:{
         // }
     },
     methods:{
+
+
 //    async loadBoard(boardId='b101'){
 //         try {
 //            var res = await this.$store.dispatch({ type: 'loadBoard', boardId })

@@ -86,7 +86,8 @@
         <li class="icon pointer">
           <span class="material-icons-outlined">filter_list</span>Filter
         </li>
-        <li class="el-icon-more icon pointer" @click="toggleMenu">Show menu</li>
+        <li class="icon pointer " @click="toggleMenu">
+          <span class="el-icon-more icon "></span> Show menu</li>
       </ul>
     </section>
     <nav-menu @closeMenu="toggleMenu" :isShow="showMenu" :class="isShowMenu" />

@@ -1,9 +1,11 @@
 .groups {
+    
     display: flex;
     height: 85vh;
     // display: inline-block;
     // height: 100%;
     margin: 0 4px;
+    margin-inline-start: 35px;
     vertical-align: top;
     white-space: nowrap;
 
@@ -27,6 +29,7 @@
         // background: rgba(0, 0, 0, 0.32);
         background: #c6cbd44b;
     }
+   
     button {
         // height: 32px;
         border: none;

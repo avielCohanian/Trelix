@@ -142,7 +142,10 @@ const boards = [
                         createdAt: Date.now,
                         dueDate: null,
                         byMember: {},
-                        style: {},
+                        style: {
+                            isFull: true,
+                            bcUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466703/user/Aviel_xnwzxj.jpg',
+                        },
                     },
                 ],
             },
@@ -167,7 +170,10 @@ const boards = [
                         createdAt: Date.now,
                         dueDate: null,
                         byMember: {},
-                        style: {},
+                        style: {
+                            isFull : true,
+                            bgUrl: 'url(https://images.unsplash.com/photo-1451337516015-6b6e9a44a8a3?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNzk3MjJ8MHwxfHNlYXJjaHwzfHxXYWxscGFwZXJzfGVufDB8MHx8fDE2Mzg2NDIyNDI&ixlib=rb-1.2.1&q=85)',
+                        },
                     },
                     {
                         id: 'c103',
@@ -185,7 +191,35 @@ const boards = [
                         createdAt: Date.now,
                         dueDate: null,
                         byMember: {},
-                        style: {},
+                        style: {
+                            isFull : true,
+                            // bgColor: '#6DECA9',
+                            // imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/eli_rsut8n.png',
+                            bgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
+                        },
+                    },
+                    {
+                        id: 'c193',
+                        title: 'PWA push notification',
+                        description: 'backend',
+                        attachment: {},
+                        checklists: [],
+                        comments: [],
+                        attachment: {
+                            trelixAttachments: null,
+                            computerAttachment: null,
+                        },
+                        members: [],
+                        labelIds: [],
+                        createdAt: Date.now,
+                        dueDate: null,
+                        byMember: {},
+                        style: {
+                            isFull : false,
+                            // bgColor: '#6DECA9',
+                            // imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/eli_rsut8n.png',
+                            bgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
+                        },
                     },
                     {
                         id: 'c104',
@@ -268,7 +302,10 @@ const boards = [
                             imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
                         },
                         style: {
-                            bgColor: '#6DECA9',
+                            isFull : false,
+                            // bgColor: '#6DECA9',
+                            // imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
+                            bgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
                         },
                     },
                     {
@@ -341,14 +378,11 @@ const boards = [
                             imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
                         },
                         style: {
+                            isFull : false,
                             bgColor: '#6DECA9',
                         },
                     },
-                    {
-                        id: 'c109',
-                        title: 'Sockets',
-                        description: 'backend',
-                    },
+                    
                 ],
             },
             {
@@ -763,6 +797,7 @@ const boards = [
                             imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
                         },
                         style: {
+                            isFull: false,
                             bgColor: '#6DECA9',
                         },
                     },
@@ -997,11 +1032,22 @@ const boards = [
         ],
     },
 ];
+const users = [  
+    {
+        "_id": "u101",
+        "fullname": "Abi Abambi",
+        "username": "abi@ababmi.com",
+        "password": "aBambi123",
+        "imgUrl": "http://some-img.jpg",
+        "boards": {boards:['b101','b103'] ,starBoard:['b102']}
+}
+]
 // _save('boards', groups);
 
 function query(entityType) {
     var entities = JSON.parse(localStorage.getItem(entityType));
     if (!entities || !entities.length) {
+        _save('users', users);
         _save('boards', boards);
         return Promise.resolve(boards);
     }
