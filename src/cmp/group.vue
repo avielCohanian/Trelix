@@ -117,19 +117,11 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import draggable from 'vuedraggable';
-import member from './edit/edit-member.vue';
-import label from './edit-label.vue';
-import { boardService } from '../service/board.service';
-import card from './card.vue';
-=======
 import draggable from "vuedraggable";
 import member from "./edit-member.vue";
 import label from "./edit-label.vue";
 import { boardService } from "../service/board.service";
 import card from "./card.vue";
->>>>>>> b54c40bff6f619804c1862b8addcaad9bfc8edaa
 
 export default {
   //  display: "Two Lists",
