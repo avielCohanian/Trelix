@@ -1,6 +1,6 @@
 <template>
   <section class="main-boards">
-        <div class="flex viewvd">
+        <div class="flex viewed">
           <div class="material-icons-outlined icon"> schedule </div>
           <h3 class=""> Recently viewed </h3>
         </div>
@@ -13,6 +13,10 @@
                 </div>
             </div>
           </div>
+        <!-- <div class="flex viewvd" >
+          <div class="startIcon"> <span class="material-icons-outlined">grade</span> </div>
+          <h3 class=""> Recently viewed </h3>
+        </div> -->
           <!-- <div class="board-container-favorit">
               <div class="card-board  flex pointer" :style="board.style" @click="openBoard(board._id)">
                       <h3 class="card-title "> {{board.title}} </h3>
@@ -61,7 +65,7 @@ export default {
         max-width:820px ;
         padding: 15px;
     }
-    .viewvd{
+    .viewed{
       width: 100%;
     }
     .icon{
@@ -97,6 +101,10 @@ export default {
      .selected-fevorit:hover{
        opacity: 1;
      }
+      .startIcon:before{
+       content: "\e966";
+     }
+    
      /* .hover :hover{
      } */
 

@@ -33,7 +33,6 @@
                             </span>
                         </span>
                         <span
-                            v-if="card"
                             v-show="cardLabel(label.id)"
                             class="check-title el-icon-check check"
                         ></span>
@@ -53,6 +52,7 @@ export default {
     props: {
         card: {
             type: Object,
+            required: true,
         },
     },
     data() {
@@ -63,20 +63,18 @@ export default {
     computed: {
         labelsToShow() {
             let labelToShow = this.$store.getters.boardLabels;
-            if (this.card) {
-                
             let currLabels = this.card.labelIds;
             labelToShow.forEach((label) => {
-                    let switchLabel = currLabels.find(
-                            (currLabel) => currLabel.id === label.id
+                let switchLabel = currLabels.find(
+                    (currLabel) => currLabel.id === label.id
                 );
                 if (switchLabel) {
-                        label = switchLabel;
+                    label = switchLabel;
                 }
             });
-            }
+
             if (this.filterLabels) {
-                    const regex = new RegExp(this.filterLabels, 'i');
+                const regex = new RegExp(this.filterLabels, 'i');
                 labelToShow = labelToShow.filter((label) =>
                     regex.test(label.title)
                 );

@@ -117,12 +117,13 @@
 }
 .cmp-background {
     ul {
-        margin: 0;
+        margin: 5px;
         padding: 0;
         // justify-content: space-between;
     align-items: center;
     display: flex;
     flex-wrap: wrap; 
+    justify-content: space-between;
         gap: 4px;
         margin-top: 6px
     }
@@ -169,14 +170,14 @@
         content: '\f067';
     }
     .card-color {
-        width: 153px;
+        width: 147px;
         height: 96px;
         border-radius: 8px;
-        margin-top: 4px;
+        margin-top: 4px ;
     }
     .card-img {
         background-size: cover;
-        width: 148px;
+        width: 143px;
         height: 96px;
         border-radius: 8px;
         margin: 4px;

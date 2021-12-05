@@ -14,11 +14,12 @@
          </h3>
       </div>
       <hr />
-      <label />
+      <edit-label />
    </section>
 </template>
 
 <script>
+import editLabel from '../edit-label.vue'
 export default {
    methods: {
       closeMenu() {
@@ -28,7 +29,9 @@ export default {
          this.$emit("changeCmp", null);
       },
    },
-   components: {},
+   components: {
+      editLabel
+   },
 };
 </script>
 

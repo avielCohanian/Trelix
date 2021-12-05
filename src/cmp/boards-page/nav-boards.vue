@@ -4,9 +4,9 @@
             <div> <font-awesome-icon class="logo" :icon="[ 'fab', 'trello' ]" /> </div>
             <h2> Boards </h2>
         </div>
-        <div class="template">
-            <div> </div>
-            <div>  </div>
+        <div class="template pointer ">
+            <h3 class="template-logo logo" > </h3>
+            <h2> Templates </h2>
         </div>
         <div class="home">
             <div> </div>
@@ -22,6 +22,13 @@ export default {
 </script>
 
 <style>
+  .nav-boards h3{
+         margin: 0;
+         margin-top: 5px;
+     }
+     .nav-boards h2{
+         font-size: 14px;
+     }
     .nav-boards{
         height: 90vh;
         width: 272px;
@@ -29,16 +36,17 @@ export default {
         position: sticky;
         top: 0px;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
     }
-    .boards{
+    .boards ,.template{
         display: flex;
         align-items: center;
         height: 32px;
         width: 240px;
-       
         border-radius: 3px;
-        padding: 4px;
+        padding: 4px 4px 4px 8px;
         /* justify-content: center; */
     }
     .boards .logo{
@@ -49,16 +57,25 @@ export default {
         background-color: #E4F0F6;
         color: #0079BF;
     }
-    .boards:hover{
-
-    background-color: rgba(9, 30, 66, 0.08);
+    .boards:hover,.template:hover{
+        background-color: rgba(9, 30, 66, 0.08);
     color: #091e42;
     }
-    
+    .template-logo::before{
+        content: '\e96d';
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+    }
+   
+   
+    /* .template{
+        width: ;
+        display: flex;
+    } */
       
         /* box-shadow: inset 0 0 0 2px #0079bf; */
         /* menu */
-        /* box-shadow: 0 12px 24px -6px #091e4240, 0 0 0 1px #091e4214; */
 /* border: 0 #324462;
     height: 1px;
     padding: 0;
