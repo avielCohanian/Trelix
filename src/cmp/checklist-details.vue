@@ -80,12 +80,10 @@ export default {
     },
     methods: {
         countTodosDone(checklistId) {
-            console.log(this.checklist);
             let list = this.checklist;
             let doneCount = list.todos.reduce((acc, todo) => {
                 return todo.isDone ? acc + 1 : acc;
             }, 0);
-            console.log(doneCount);
             return doneCount;
             // TODO: return count todos is done
         },
@@ -105,9 +103,7 @@ export default {
     },
     computed: {
         statistic() {
-            console.log(this.checklist.todos);
             let done = this.checklist.todos.reduce((acc, todo) => {
-                console.log(todo.isDone);
                 return todo.isDone ? ++acc : acc;
             }, 0);
             return (done / this.checklist.todos.length) * 100;

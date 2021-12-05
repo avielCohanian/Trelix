@@ -98,7 +98,7 @@
                                     @click="openDate"
                                     class="date-dedline-container"
                                 >
-                                    {{ card.dueDate | moment('MMMM ') }}
+                                    {{ card.dueDate | moment('MMM ') }}
                                     {{ dueDateDay }}
                                     at
                                     {{ card.dueDate | moment(' h:mm: A') }}
@@ -293,21 +293,20 @@ export default {
     methods: {
         async loadCard() {
             try {
-                let board = await this.$store.dispatch({
-                    type: 'loadBoard',
-                    boardId: 'b101',
-                });
+                // let board = await this.$store.dispatch({
+                //     type: 'loadBoard',
+                //     boardId: 'b101',
+                // });
                 const cardId = this.$route.params.cardId;
-                // const card = await boardService.getById(cardId);
-                this.$store.commit({
+                const currCard = await this.$store.dispatch({
                     type: 'cardById',
                     cardId,
                 });
-                const card = JSON.parse(
-                    JSON.stringify(this.$store.getters.currCard)
-                );
+                const card = JSON.parse(JSON.stringify(currCard));
                 this.card = card;
-                // this.newReview.aboutToyId = toy._id;
+                if (this.card.labelIds) {
+                    this.labels = await this.getLabel();
+                }
             } catch (err) {
                 console.log(err);
             }
@@ -327,7 +326,7 @@ export default {
             //    let currLabel = await storageService.getLabelById();
             // console.log(labelId);
             let { boardId } = this.$route.params;
-            boardId = 'b101';
+            // boardId = 'b101';
             try {
                 let labels = await boardService.getLabelByCard(
                     boardId,
@@ -392,12 +391,11 @@ export default {
             console.log('lll');
             this.isOpenTitle = !this.isOpenTitle;
         },
-        async updateCard() {
+        async updateCard(card) {
             try {
-                console.log(this.card);
                 await this.$store.dispatch({
                     type: 'updateCard',
-                    card: JSON.parse(JSON.stringify(this.card)),
+                    card,
                 });
                 await this.loadCard();
             } catch (err) {
@@ -465,9 +463,6 @@ export default {
             title: 'Group 1',
         };
         this.description = this.card.description;
-        if (this.card.labelIds) {
-            this.labels = await this.getLabel();
-        }
     },
 };
 </script>

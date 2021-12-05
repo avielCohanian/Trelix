@@ -52,7 +52,7 @@
                     border-radius: 3px;
                 }
                 .color-btn:hover {
-                    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #5ba4cf;
+                    filter: saturate(85%) brightness(85%);
                 }
             }
         }

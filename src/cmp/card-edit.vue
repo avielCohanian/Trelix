@@ -64,6 +64,7 @@
                 :is="component.currCmp"
                 :card="card"
                 @changeBcg="changeBcg"
+                @updateLabel="updateLabel"
                 @dynamicCmp="dynamicCmp"
             >
             </component>
@@ -111,11 +112,23 @@ export default {
             this.userJoin = true;
         },
         changeBcg(color) {
-            console.log(color);
             let card = JSON.parse(JSON.stringify(this.card));
             card.style.bgColor = color;
             this.$emit('updateCard', card);
-            this.$store.dispatch({ type: 'updateCard', card });
+            // this.$store.dispatch({ type: 'updateCard', card });
+        },
+        updateLabel(label) {
+            let card = JSON.parse(JSON.stringify(this.card));
+            if (card.labelIds.some((labelId) => labelId.lId === label.id)) {
+                const labelIdx = card.labelIds.findIndex(
+                    (labelId) => labelId.id === label.id
+                );
+                card.labelIds.splice(labelIdx, 1);
+            } else {
+                let currLabel = { lId: label.id, isDone: false };
+                card.labelIds.push(currLabel);
+            }
+            this.$emit('updateCard', card);
         },
     },
     components: {

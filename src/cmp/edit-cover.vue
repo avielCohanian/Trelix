@@ -8,6 +8,16 @@
             <ul>
                 <li v-for="color in colors" :key="color">
                     <div
+                        v-if="card.style.bgColor === color"
+                        class="color-btn"
+                        :style="{
+                            backgroundColor: color,
+                            boxShadow: '0 0 0 2px #ffffff, 0 0 0 4px #5ba4cf',
+                        }"
+                        @click="changeBgc(color)"
+                    ></div>
+                    <div
+                        v-else
                         class="color-btn"
                         :style="{ backgroundColor: color }"
                         @click="changeBgc(color)"
@@ -83,7 +93,11 @@ export default {
             const imgs = await imgService.getImgs(this.search);
             this.imgs = imgs.splice(0, 6);
         },
+        isSelect() {
+            return 'box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #5ba4cf';
+        },
     },
+    computed: {},
 };
 </script>
 

@@ -1,13 +1,9 @@
 <template>
-    <section class="edit-label">
-        <input
-            class="search"
-            type="text"
-            placeholder="Search labels..."
-            v-model="filterLabels"
-        />
+    <section class="edit-add-label">
+        <h3>Name</h3>
+        <input class="search" type="text" v-model="filterLabels" />
 
-        <h3 class="labels-title">Labels</h3>
+        <h3 class="labels-title">Select a color</h3>
         <ul>
             <li
                 v-for="label in labelsToShow"
@@ -21,6 +17,7 @@
                             backgroundColor: label.color,
                         }"
                     ></span>
+                    <!-- boxShadow: ` -8px 0 ${label.color}`, -->
                     <span
                         class="label"
                         :style="{
@@ -32,10 +29,9 @@
                                 >{{ label.title }}
                             </span>
                         </span>
-                        <span
-                            v-show="cardLabel(label.id)"
-                            class="check-title el-icon-check check"
-                        ></span>
+                        <!-- v-if="isSelectedLabel(labelColor)" -->
+                        <!-- v-show="label.isDone" -->
+                        <span class="check-title el-icon-check check"></span>
                     </span>
                 </div>
 
@@ -68,6 +64,9 @@ export default {
                 let switchLabel = currLabels.find(
                     (currLabel) => currLabel.id === label.id
                 );
+                if (!label.hover) {
+                    label.hover = false;
+                }
                 if (switchLabel) {
                     label = switchLabel;
                 }
@@ -80,15 +79,6 @@ export default {
                 );
             }
             return labelToShow;
-        },
-    },
-    methods: {
-        cardLabel(labelId) {
-            let currLabels = this.card.labelIds;
-            return currLabels.some((label) => label.lId === labelId);
-        },
-        updateLabels(label) {
-            this.$emit('updateLabel', label);
         },
     },
 };

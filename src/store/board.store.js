@@ -35,23 +35,14 @@ export const boardStore = {
             state.currBoard = board;
         },
 
-        cardById(state, { cardId }) {
-            state.currBoard.groups.forEach((group) => {
-                if (
-                    group.cards.some((card) => {
-                        if (card.id === cardId) {
-                            state.currCard = card;
-                            return card;
-                        }
-                    })
-                )
-                    state.currGroup = group;
-            });
+        setCardGroup(state, { card, group }) {
+            state.currCard = card;
+            state.currGroup = group;
         },
         deleteGroup(state, { savedBoard }) {
             state.currBoard = savedBoard;
         },
-        addColors(state, {  colors }) {
+        addColors(state, { colors }) {
             state.colors = colors;
         },
     },
@@ -89,14 +80,8 @@ export const boardStore = {
 
         async updateCard({ commit, getters }, { card }) {
             const board = getters.getBoard;
-            commit({ type: 'cardById', cardId: card.id });
-            const groupId = getters.currGroup.id;
             try {
-                const updateBoard = await boardService.saveCard(
-                    board,
-                    groupId,
-                    card
-                );
+                const updateBoard = await boardService.saveCard(board, card);
                 commit({ type: 'setBoard', board: updateBoard });
                 return updateBoard;
             } catch (err) {
@@ -160,13 +145,7 @@ export const boardStore = {
         async deleteCard({ commit, getters }, { card }) {
             try {
                 const board = JSON.parse(JSON.stringify(getters.getBoard));
-                commit({ type: 'cardById', cardId: card.id });
-                const groupId = getters.currGroup.id;
-                var savedBoard = await boardService.deleteCard(
-                    board,
-                    groupId,
-                    card.id
-                );
+                var savedBoard = await boardService.deleteCard(board, card.id);
                 console.log(savedBoard);
                 commit({ type: 'setBoard', board: savedBoard });
                 return savedBoard;
@@ -187,6 +166,23 @@ export const boardStore = {
             } catch (err) {
                 console.log(err);
             }
+        },
+        async cardById({ state, commit }, { cardId }) {
+            let currCard = null;
+            const group = state.currBoard.groups.find((group) => {
+                if (
+                    group.cards.some((card) => {
+                        if (card.id === cardId) {
+                            currCard = card;
+                            return card;
+                        }
+                    })
+                )
+                    return group;
+            });
+
+            commit({ type: 'setCardGroup', card: currCard, group });
+            return currCard;
         },
     },
 };

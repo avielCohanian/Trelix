@@ -16,23 +16,21 @@ export const boardService = {
     deleteCard,
     deleteMember,
     saveGroups,
-    getBoardsForDisplay
+    getBoardsForDisplay,
 };
 
 const BOARD_KEY = 'boards';
-async function getBoardsForDisplay(){
+async function getBoardsForDisplay() {
     console.log('hi');
-    try{
-        const boards = await query()
-        const boardsToShow = boards.map( board =>{
-            return {_id:board._id, title: board.title , style:board.style}
-        })
-        return Promise.resolve(boardsToShow)
-    } catch(err){
-        throw err 
+    try {
+        const boards = await query();
+        const boardsToShow = boards.map((board) => {
+            return { _id: board._id, title: board.title, style: board.style };
+        });
+        return Promise.resolve(boardsToShow);
+    } catch (err) {
+        throw err;
     }
-
-
 }
 
 async function query() {
@@ -96,9 +94,9 @@ function updateCard(board, groupIdx, cardToSave) {
     return storageService.put(BOARD_KEY, board);
 }
 
-function saveCard(board, groupId, card) {
+function saveCard(board, card) {
     let groupIdx = board.groups.findIndex((group) => {
-        return group.id === groupId;
+        return group.cards.some((c) => c.id === card.id);
     });
     board = JSON.parse(JSON.stringify(board));
     card = card.id
@@ -132,7 +130,10 @@ function deleteMember(board, memberId) {
     return storageService.put(BOARD_KEY, board);
 }
 function deleteCard(board, groupId, cardId) {
-    let groupIdx = board.groups.findIndex((group) => group.id === groupId);
+    let groupIdx = board.groups.findIndex((group) => {
+        return group.cards.some((c) => c.id === card.id);
+    });
+    // let groupIdx = board.groups.findIndex((group) => group.id === groupId);
     let cardIdx = board.groups[groupIdx].cards.findIndex(
         (card) => card.id === cardId
     );
@@ -158,12 +159,12 @@ function getEmptyCard() {
             trelixAttachments: null,
             computerAttachment: null,
         },
-        members:[],
-        labelIds:[],
+        members: [],
+        labelIds: [],
         createdAt: Date.now,
-        dueDate:null,
-        byMember:{},
-        style:{}
+        dueDate: null,
+        byMember: {},
+        style: {},
     };
 }
 
@@ -175,9 +176,9 @@ function getEmptyGroup() {
     };
 }
 
-function getEmptyBoard(){
-    return{
-        title:'',
+function getEmptyBoard() {
+    return {
+        title: '',
         description: '',
         createdAt: '',
         style: {},
@@ -219,9 +220,9 @@ function getEmptyBoard(){
                 color: '#0098b7',
             },
         ],
-        members:[],
-        activities:[],
-    }
+        members: [],
+        activities: [],
+    };
 }
 
 function updatedBoard(board) {
@@ -258,7 +259,6 @@ function getColors() {
     return colors;
 }
 
-
 const colors = {
     orange: { background: 'rgb(210, 144, 52)' },
     blue: { background: 'rgb(0, 121, 191)' },
@@ -270,4 +270,3 @@ const colors = {
     greenLight: { background: 'rgb(75, 191, 107)' },
     gray: { background: 'rgb(131, 140, 145)' },
 };
-

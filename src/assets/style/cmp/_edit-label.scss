@@ -64,8 +64,25 @@
                 right: -13px;
             }
             .icon:hover {
-                background-color: #091e4214;
+                background-color: $clr8;
             }
+        }
+    }
+    .add-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 20px;
+        margin-bottom: 8px;
+        padding: 6px 12px;
+        background-color: $clr10;
+        cursor: pointer;
+        font-weight: 400;
+        margin: 8px 4px 0 0;
+        text-align: center;
+        color: $clr7;
+        &:hover {
+            background-color: $clr8;
         }
     }
 }
