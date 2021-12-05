@@ -29,6 +29,9 @@ export const boardStore = {
         boardLabels(state) {
             return state.currBoard.labels;
         },
+        boardMembers(state) {
+            return state.currBoard.members;
+        },
     },
     mutations: {
         setBoard(state, { board }) {
