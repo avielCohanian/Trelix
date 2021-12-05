@@ -1,6 +1,6 @@
 <template>
    <section class="nav-boards ">
-        <div class="boards">
+        <div class="boards pointer selected">
             <div> <font-awesome-icon class="logo" :icon="[ 'fab', 'trello' ]" /> </div>
             <h2> Boards </h2>
         </div>
@@ -51,7 +51,7 @@ export default {
     }
     .boards:hover{
 
-        background-color: rgba(9, 30, 66, 0.08);
+    background-color: rgba(9, 30, 66, 0.08);
     color: #091e42;
     }
     

@@ -58,11 +58,11 @@
 </template>
 
 <script>
-import aboutBoard from '../cmp/menu/about-board.vue'
-import changeBackground from '../cmp/menu/change-background.vue'
-import labelMenu from '../cmp/menu/label-menu.vue'
-import addStickers from '../cmp/menu/stickers.vue'
-import menuActivity from '../cmp/menu/menu-activity.vue'
+import aboutBoard from './about-board.vue'
+import changeBackground from './change-background.vue'
+import labelMenu from './label-menu.vue'
+import addStickers from './stickers.vue'
+import menuActivity from './menu-activity.vue'
 
 export default {
     name: 'smart-cmp-menu',

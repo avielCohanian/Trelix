@@ -45,7 +45,12 @@
                     <span class="el-icon-paperclip icon"></span> Attachment</a
                 >
 
-                <a class="btn" @click="dynamicCmp('cover')" title="Cover">
+                <a
+                    class="btn"
+                    @click="dynamicCmp('cover')"
+                    title="Cover"
+                    v-if="!card.style.bgColor"
+                >
                     <span class="cover-icon">
                         <span class="material-icons-outlined icon">
                             web_asset
@@ -86,6 +91,10 @@ export default {
             type: Object,
             required: true,
         },
+        cmp: {
+            type: String,
+            // required: true,
+        },
     },
     data() {
         return {
@@ -93,8 +102,15 @@ export default {
                 currCmp: null,
                 name: '',
             },
+            propCmp: this.cmp,
             userJoin: false,
         };
+    },
+    created() {
+        console.log(this.cmp);
+        if (this.cmp) {
+            this.dynamicCmp(this.cmp);
+        }
     },
     methods: {
         dynamicCmp(cmp) {
@@ -113,7 +129,8 @@ export default {
         },
         changeBcg(color) {
             let card = JSON.parse(JSON.stringify(this.card));
-            card.style.bgColor = color;
+            if (card.style.bgColor === color) card.style.bgColor = null;
+            else card.style.bgColor = color;
             this.$emit('updateCard', card);
             // this.$store.dispatch({ type: 'updateCard', card });
         },
@@ -144,6 +161,14 @@ export default {
         //     if (this.userJoin) return 'display : none';
         //     else return 'display : block';
         // },
+    },
+    watch: {
+        propCmp() {
+            console.log(this.cmp);
+            if (this.cmp) {
+                this.dynamicCmp(this.cmp);
+            }
+        },
     },
 };
 </script>

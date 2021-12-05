@@ -55,7 +55,7 @@ export default {
     },
     computed: {
         membersToShow() {
-            let memberToShow = this.card.members;
+            let memberToShow = this.$store.getters.boardMembers;
             if (this.filterMember) {
                 console.log(memberToShow);
                 const regex = new RegExp(this.filterMember, 'i');
