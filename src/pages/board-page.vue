@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import navBoards from '../cmp/nav-boards.vue';
-import mainBoards from '../cmp/main-boards.vue';
+import navBoards from '../cmp/boards-page/nav-boards.vue';
+import mainBoards from '../cmp/boards-page/main-boards.vue';
 import {boardService} from '../service/board.service.js';
 
 export default {

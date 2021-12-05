@@ -95,7 +95,7 @@
 
 <script>
 import avatar from "vue-avatar";
-import navMenu from "../cmp/nav-menu.vue";
+import navMenu from "./menu/nav-menu.vue";
 
 export default {
   name: "navBoard",

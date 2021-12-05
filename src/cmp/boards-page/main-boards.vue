@@ -9,7 +9,7 @@
             <div v-for="board in boards" :key="board._id">
                 <div class="card-board  flex pointer" :style="board.style" @click="openBoard(board._id)">
                       <h3 class="card-title "> {{board.title}} </h3>
-                      <h3 class="selected-fevorit"></h3>
+                      <h3 class="selected-fevorit hover"  :style="isFevorit(board)"> <span class="material-icons-outlined">grade</span> </h3>
                 </div>
             </div>
           </div>
@@ -27,10 +27,25 @@ export default {
        props:{
         boards:{ type: Array }
     },
+    data(){
+        return{
+          userConnect:{boards:['b101','b103']}
+        }
+    },
     methods: {
       openBoard(id){
         console.log(id);
         this.$router.push(`/board/${id}`)
+      },
+      isFevorit(board){
+       return this.userConnect.boards.some(boardId=> board._id === boardId) ? {color:'rgb(184, 134, 11)'} : {color: '#f0ffff6e'}
+
+        
+         
+        
+
+          
+        
       }
     },
 
@@ -53,6 +68,7 @@ export default {
       margin-right: 5px;
     }
     .card-board{
+      position: relative;
       width: 194px;
       height: 96px;
       border-radius: 4px;
@@ -70,5 +86,18 @@ export default {
        padding: 8px;
 
      } 
+     .selected-fevorit{
+       position: absolute;
+       bottom: 0;
+       right: 0;
+       opacity: 0;
+       color: rgb(11, 184, 103);
+       /* display: none; */
+     }
+     .selected-fevorit:hover{
+       opacity: 1;
+     }
+     /* .hover :hover{
+     } */
 
 </style>
