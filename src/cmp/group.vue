@@ -60,20 +60,25 @@
             </div>
             <div class="card-container">
                 
+                    <!-- class="card-scroll list-group sortable-drag" -->
+                    <!-- class="card-ghost card-ghost-drop" -->
+                        <!-- :class="[isActive ? 'card-ghost' :  'sortable-drag' ,'item' , 'card-ghost-drop']" -->
+                    <!-- draggable=".item" -->
+                    <!-- animation: 150
+                    touchStartThreshold: 50 -->
                 <draggable
+                
                 v-if="group.cards"
                     v-model="group.cards"
                     group="card"
                     @start="drag = true"
                     @end="endDrug"
-                    class="card-scroll list-group sortable-drag"
-                    draggable=".item"
                     ghost-class="ghost"
+
                 >
                     <div
                         v-for="card in group.cards"
                         :key="card.id"
-                        class="sortable-drag item"
                     >
                         <card
                             :card="card"
@@ -291,4 +296,22 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.card-ghost {
+    width: 100%;
+    height: 100%;
+    background-color: brown;
+    transition: transform 0.15s ease;
+    transform: rotateZ(8deg);
+}
+
+.card-ghost-drop {
+    background-color: brown;
+
+    width: 100%;
+    height: 100%;
+    transition: transform 0.18s ease-in-out;
+    transform: rotateZ(0deg);
+}
+
+</style>
