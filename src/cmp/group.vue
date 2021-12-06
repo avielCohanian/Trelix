@@ -59,14 +59,22 @@
                 </div>
             </div>
             <div class="card-container">
+                
                 <draggable
-                    v-if="group.cards"
-                    class="card-scroll list-group"
-                    :list="group.cards"
-                    @change="onDrug"
-                    group="people"
+                v-if="group.cards"
+                    v-model="group.cards"
+                    group="card"
+                    @start="drag = true"
+                    @end="endDrug"
+                    class="card-scroll list-group sortable-drag"
+                    draggable=".item"
+                    ghost-class="ghost"
                 >
-                    <div v-for="card in group.cards" :key="card.id">
+                    <div
+                        v-for="card in group.cards"
+                        :key="card.id"
+                        class="sortable-drag item"
+                    >
                         <card
                             :card="card"
                             @click.native="showEdit(card.id)"
@@ -90,7 +98,11 @@
                             </el-input>
                             <div class="btn-add">
                                 <div class="left">
-                                    <el-button class="btn" type="primary" @click="addCard">
+                                    <el-button
+                                        class="btn"
+                                        type="primary"
+                                        @click="addCard"
+                                    >
                                         Add card</el-button
                                     >
                                     <p
@@ -159,26 +171,14 @@ export default {
                 currCmp: null,
                 name: '',
             },
-            // groupToEdit:{},
             newCard: boardService.getEmptyCard(),
         };
     },
-    created() {
-        // console.log('group in group.vue:', this.group);
-    },
     methods: {
-        //draggable
-        //  add: function() {
-        //   this.list.push({ name: "Juan" });
-        // },
-        // replace: function() {
-        //   this.list = [{ name: "Edgard" }];
-        // },
-        // clone: function(el) {
-        //   return {
-        //     name: el.name + " cloned"
-        //   };
-        // },
+        endDrug() {
+            this.$emit('updateGroupDrug');
+        },
+       
         dynamicCmp(cmp) {
             this.component.name = cmp;
             this.component.currCmp = `card-${cmp}`;
@@ -248,10 +248,27 @@ export default {
         loadGroup() {
             this.$emit('updateGroup');
         },
-        onDrug(evt) {
-            window.console.log(evt);
-            this.updateGroup();
-        },
+        // onDrug(evt) {
+        //     window.console.log(evt);
+        //     this.updateGroup();
+        // },
+        //     onEnd: function (/**Event*/evt) {
+        // 	var itemEl = evt.item;  // dragged HTMLElement
+        // 	evt.to;    // target list
+        // 	evt.from;  // previous list
+        // 	evt.oldIndex;  // element's old index within old parent
+        // 	evt.newIndex;  // element's new index within new parent
+        // 	evt.oldDraggableIndex; // element's old index within old parent, only counting draggable elements
+        // 	evt.newDraggableIndex; // element's new index within new parent, only counting draggable elements
+        // 	evt.clone // the clone element
+        // 	evt.pullMode;  // when item is in another sortable: `"clone"` if cloning, `true` if moving
+        //     // console.log('update',evt);
+        //     // console.log(this.group);
+        //     console.log(this.group);
+        //     // this.$emit('updateGroupDrug' ,JSON.parse(JSON.stringify(this.group)))
+        //         // this.updateGroup();
+
+        // },
     },
     computed: {
         getEmptyCard() {

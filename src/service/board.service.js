@@ -102,7 +102,6 @@ async function getBoardsForDisplay(userLog) {
             return acc;
         }, []);
         var boardsUser = userLog.boards.boards.reduce((acc, boardId) => {
-            console.log(boardId);
             const board = boards.find((board) => board._id === boardId);
             if (board) {
                 acc.push({
@@ -120,17 +119,12 @@ async function getBoardsForDisplay(userLog) {
     }
 }
 async function getById(id) {
-    console.log(id);
     try {
         const currBoard = await httpService.get(`board/${id}`);
         return Promise.resolve(currBoard);
     } catch (err) {
         console.log(err);
     }
-    // return query().then((boards) => {
-    //     let currBoards = boards.find((board) => board._id === id);
-    //     return Promise.resolve(currBoards);
-    // });
 }
 
 // Group
@@ -174,7 +168,6 @@ function getEmptyGroup() {
     };
 }
 function getGroupById(board, groupId) {
-    console.log(board);
     var res = board.groups.find((group) => {
         return group.id === groupId;
     });

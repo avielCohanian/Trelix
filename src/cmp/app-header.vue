@@ -142,7 +142,6 @@ export default {
     },
     computed: {
         styleHeader(){
-            console.log(this.$store.getters.getStyleHeader,'hiiiiii');
          return this.$store.getters.getStyleHeader
         }
     },
