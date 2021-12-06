@@ -7,16 +7,17 @@
                 <!-- </draggable > -->
             </div>
         </draggable>
-        <div class="add-list">
-            <label for="add" @click="toggleGroup" v-if="!isAddGroup">
-                <el-input
-                    :style="{ width: '272px' }"
-                    class="opacity-more"
-                    name="add"
-                    placeholder="+ Add a list"
-                    v-model="newGroup.title"
-                ></el-input>
-            </label>
+        <div class="add-list" >
+           
+            <div class="add-list-new" @click="toggleGroup" v-if="!isAddGroup">
+
+            <span class="material-icons-outlined icon">
+add
+</span>
+             <span class="txt-add">
+             Add a list
+             </span>
+            </div>
             <div class="add-list-container" v-if="isAddGroup">
                 <label>
                     <el-input
@@ -25,7 +26,7 @@
                         @keyup.enter.native="addGroup"
                     ></el-input>
                     <div class="btn-add">
-                        <el-button type="primary" @click="addGroup">
+                        <el-button type="primary" class="btn" @click="addGroup">
                             Add list</el-button
                         >
                         <span

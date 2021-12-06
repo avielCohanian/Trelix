@@ -42,27 +42,35 @@
                       <h3 class="selected-fevorit hover"  :style="isFevorit(board)"> <span class="startIcon"></span> </h3>
               </div>
             </div> -->
-             <div class="card-board  flex-center pointer create-new"  @click="openBoard">
+             <div class="card-board  flex-center pointer create-new"  @click="CreateBoard">
                       <h3 class="card-title "> Create new board </h3>
             </div>
           </div>
+        </div>
+        <div class="create-board" v-if="iScreateBoard" >
+          <create-board @closeCreate="CreateBoard" :bgcs="bgcs"/>
         </div>
 
   </section>
 </template>
 
 <script>
+import {boardService} from '../../service/board.service.js'
+import createBoard from './create-board.vue'
 export default {
        props:{
         userBoards:{ type: Object }
     },
     data(){
         return{
-          userConnect:{boards:['b101','b103'] ,starBoard:['b102']}
+          userConnect:{boards:['b101','b103'] ,starBoard:['b102']},
+          iScreateBoard:null,
+          bgcs:{}
         }
     },
     created(){
         console.log(this.userBoards);
+        this.getColors()
     },
     methods: {
       openBoard(id){
@@ -76,9 +84,20 @@ export default {
       },
       changeFavorit(idBoard,isFavorit){
         this.$emit('changeFavorit',{idBoard,isFavorit})
+      },
+      CreateBoard(){
+        this.iScreateBoard = !this.iScreateBoard
+      },
+      // closeCreate()
+      getColors(){
+         this.bgcs= boardService.getColors()
+
       }
     },
     computed:{
+    },
+    components:{
+      createBoard
     }
 
 }

@@ -28,6 +28,14 @@ export const userStore = {
                 throw err;
             }
         },
+        async updateUser({ commit }, { currUser }) {
+            try {
+                const updateUser = await userService.updateUser(currUser);
+                commit({ type: 'logIn', user:updateUser });
+            } catch (err) {
+                throw err;
+            }
+        },
         async changeFavorit({ commit, state, dispatch }, { change }) {
             try {
                 const copyDetails = JSON.parse(
