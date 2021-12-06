@@ -76,6 +76,7 @@ export default {
         // },
         loadGroups() {
             this.groups = [];
+
             this.groups = JSON.parse(
                 JSON.stringify(this.$store.getters.getBoard.groups)
             );

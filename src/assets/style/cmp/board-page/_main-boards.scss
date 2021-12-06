@@ -1,0 +1,192 @@
+.main-boards{
+    width: 85vw;
+        max-width: 902px;
+        padding: 15px;
+    h3{
+        font-weight: 700;
+        line-height: 24px;
+        display: flex;
+        span{
+            margin-right: 9px;
+        }
+    }
+    .viewed{
+        width: 100%;
+        
+    }
+    .icon{
+        margin-right: 5px;
+        margin-top: 10px;
+    }
+    .startIcon:before{
+        content: "\e966";
+        font-size: 24px;
+        font-weight: 500;
+    }
+    .boards-container{
+        gap: 10px;
+        flex-wrap: wrap;
+
+        .card-board{
+            position: relative;
+            width: 194px;
+            height: 96px;
+            border-radius: 4px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0 16px 32px 0;
+            
+            
+            .selected::before{
+                content: '\e967';
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                color: #f3d624;
+            }
+        }
+        h3.card-title {
+            padding-left: 8px;
+            color: #fff;
+            line-height: 20px;
+        }
+        
+        .card-title{
+            height: 18px;
+            border-radius: 3px;
+        }
+        .selected-fevorit{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            color: rgb(184, 181, 11);
+        }
+        
+        .selected-fevorit:hover{
+            opacity: 1;
+        }
+    } 
+    .personal-boards{
+        align-items: center;
+
+    }
+        .personal-logo{
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(#b22865, #cd5a91);
+            border-radius: 2px;
+            align-items: center;
+        }
+        .personal-logo h3{
+            margin: 0;
+            padding: 0;
+              padding-bottom: 4px;
+            }
+            .create-new{
+                background-color: #7c2c290a;
+                h3.card-title{
+                    color: #172b4d;
+                    font-weight: 400;
+                    
+                }
+            }
+
+    }
+
+
+
+    .create-new-board{
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        .screen-model{
+            height: 100vh;
+            width: 100vw;
+            background: rgba(0, 0, 0, 0.75);
+            position: relative;
+        }
+        .created-model{
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .board-title{
+            height: 96px;
+            width: 296px;
+            background-size: cover;
+            position: relative;
+            border-radius: 3px;
+            
+        }
+        .close-btn{
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+        .input-title{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(190, 202, 202, 0.157);
+            border: none;
+            color: rgba(255, 255, 255, 0.418);
+            box-shadow: none;
+            background: transparent ;
+            outline: none;
+            border-radius: 2px;
+            padding: 7px;
+
+        }
+        .input-title:hover{
+            background: rgba(190, 202, 202, 0.157); 
+        }
+        .input-title:focus{
+            background: rgba(190, 202, 202, 0.157); 
+        }
+        .input-title::placeholder{
+            color: rgba(255, 255, 255, 0.418);
+            font-weight: 700;
+            line-height: 24px;
+            border: none;
+            outline: none;
+            background: transparent ;
+            box-shadow: none;
+            box-sizing: border-box;
+        }
+        .ul{
+            margin: 0;
+            padding: 0;
+        }
+        .choice-bcg{
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .card-bcg{
+            width: 28px;
+            height: 28px;
+            border-radius: 2px;
+            background-size: cover;
+            margin-left: 4px;
+        }
+        .card-bcg-more{
+            background-color: rgb(245, 245, 245);
+        }
+        .btn-create {
+            box-shadow: none;
+            color: #a5adba;
+            border: none;
+            background-color: #F4F5F7;
+            margin-top: 8px;
+            border-radius: 3px;
+            height: 32px;
+            width: 105px;
+        }
+    }

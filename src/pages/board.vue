@@ -22,6 +22,7 @@ export default {
     created() {
         const boardId = this.$route.params.boardId;
         this.loadBoard(boardId);
+        
         this.$store.dispatch({ type: 'addColors' });
     },
     methods: {

@@ -30,12 +30,13 @@
 // @import 'cmp/app-footer';
 
 // components menu
-@import './cmp/menu-nav.scss';
-@import './cmp/menu-nav-smart-cmp.scss';
-// @import './cmp/menu/app-header';
-// @import './cmp/menu/app-header';
-// @import './cmp/menu/app-header';
-// @import './cmp/menu/app-header';
+@import './cmp/nav-menu/menu-nav.scss';
+@import './cmp/nav-menu/menu-nav-smart-cmp.scss';
+
+// boards-page
+@import './cmp/board-page/board-page.scss';
+@import './cmp/board-page/main-boards.scss';
+@import './cmp/board-page/nav-boards.scss';
 
 // details
 @import 'cmp/card-details';

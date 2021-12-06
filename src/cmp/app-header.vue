@@ -1,5 +1,5 @@
 <template>
-    <section class="app-header">
+    <section class="app-header" :style="styleHeader">
         <nav>
             <div class="nav-list">
                 <i
@@ -140,7 +140,15 @@ export default {
             isOpenMenu: false,
         };
     },
-    computed: {},
+    computed: {
+        styleHeader(){
+            console.log(this.$store.getters.getStyleHeader,'hiiiiii');
+         return this.$store.getters.getStyleHeader
+        }
+    },
+    created(){
+        this.headerStyle = this.$store.getters.getStyleHeader
+    },
     methods: {
         openMenu() {
             this.isOpenMenu = !this.isOpenMenu;
@@ -149,6 +157,12 @@ export default {
             this.isShowProfile = !this.isShowProfile;
         },
     },
+    // watch:{
+    //      '$store.getters.getStyleHeader'(){
+    //          this.headerStyle = this.$store.getters.getStyleHeader
+    //      }
+
+    // },
     mounted() {},
     components: {
         avatar,

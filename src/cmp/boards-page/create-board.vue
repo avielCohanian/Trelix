@@ -3,21 +3,21 @@
       <div class="screen-model" @click.stop="close">
 
     <div class="created-model " v-if="imgs && imgs.length > 0">
-        <div class="header-created flex">
+        <div class="header-created flex-center">
 
        <div class="board-title " :style="emptyBoard.style" @click.stop="" >
-           <input placeholder="Add Board Title" v-model="emptyBoard.title" @click.stop="" />
-           <div class="material-icons-outlined"> close</div>
+           <input class="input-title" placeholder="Add board title" v-model="emptyBoard.title" @click.stop="" />
+           <div class="material-icons-outlined pointer close-btn" @click.stop="close"> close</div>
        </div>
        <ul class="choice-bcg" @click.stop="">
-           <li class="card-bcg" v-for="(bgc) in getBgcImg" :style="bgc.small" :key="bgc.description" @click="changeBgc(bgc.full)"> </li>
-           <li class="card-bcg" v-for="(bgc , idx) in getBgcColor" :style="bgc" :key="idx"  @click="changeBgc(bgc)"> </li>
-           <li class="card-bcg card-bcg-more" > </li>
+           <li class="card-bcg pointer" v-for="(bgc) in getBgcImg" :style="bgc.small" :key="bgc.description" @click="changeBgc(bgc.full)"> </li>
+           <li class="card-bcg pointer" v-for="(bgc , idx) in getBgcColor" :style="bgc" :key="idx"  @click="changeBgc(bgc)"> </li>
+           <li class="card-bcg card-bcg-more pointer"></li>
        </ul>
 
     </div>
 
-       <el-button @click="addBoard" > Create board </el-button>
+       <button class="btn-create" :style="isTitle" @click="addBoard" > Create board </button>
 
      </div>
     </div>
@@ -47,6 +47,7 @@ export default {
             this.emptyBoard.style = bgc
         },
         async addBoard(){
+            if (!this.emptyBoard.title) return
             try{
                 const coppyUser =this.$store.getters.getUserConnect
                 const newBoard= await boardService.addBoard(this.emptyBoard ,coppyUser)
@@ -72,6 +73,9 @@ export default {
         }
     },
     computed:{
+        isTitle(){
+           return this.emptyBoard.title ?{cursor:'pointer'}:{cursor:'not-allowed'}
+        },
         getBgcColor(){
            return this.bgcs.slice(0,4)
         },
@@ -85,53 +89,7 @@ export default {
 </script>
 
 <style scope>
-    .create-new-board{
-        height: 100vh;
-        width: 100vw;
-        position: fixed;
-        top: 0;
-        left: 0;
-    }
-    .screen-model{
-         height: 100vh;
-        width: 100vw;
-     background: rgba(0, 0, 0, 0.75);
-    }
-    .board-title{
-        height: 96px;
-        width: 296px;
-         background-size: cover;
-
-    }
-
-
-
-
-    .ul{
-        margin: 0;
-        padding: 0;
-    }
-    .choice-bcg{
-        width: 100px;
-        height: 100px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        /* gap: 2px; */
-    }
-    .card-bcg{
-        width: 28px;
-        height: 28px;
-        border-radius: 2px;
-        background-size: cover;
-            margin-left: 4px;
-    }
-    .card-bcg-more{
-        background-color: rgb(245, 245, 245);
-    }
-
-
+  
 
     
 </style>

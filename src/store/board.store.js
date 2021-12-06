@@ -8,10 +8,15 @@ export const boardStore = {
         currCard: null,
         currGroup: null,
         boardsForDisplay: null,
+        styleHeader:null
         // watchedUser: null,
         // currUser: userService.getLoggedinUser(),
     },
     getters: {
+        getStyleHeader(state){
+           return  state.styleHeader
+        
+        },
         getBoardsForDisplay(state) {
             return state.boardsForDisplay;
         },
@@ -38,6 +43,9 @@ export const boardStore = {
         },
     },
     mutations: {
+        updateStyleHeader(state,{color}){
+                state.styleHeader=color
+        },
         setBoard(state, { board }) {
             state.currBoard = board;
         },
@@ -64,6 +72,8 @@ export const boardStore = {
             });
         },
         async loadBoard({ commit }, { boardId }) {
+            commit({type:'updateStyleHeader',color:{background: 'rgba(0, 0, 0, 0.32)'}})
+
             try {
                 const board = await boardService.getById(boardId);
                 commit({ type: 'setBoard', board });
@@ -197,11 +207,12 @@ export const boardStore = {
         async loadBoards({ commit, getters, dispatch }) {
             try {
                 await dispatch({ type: 'logIn', userName: 'abi@ababmi.com' });
-
+                
                 const boards = await boardService.getBoardsForDisplay(
                     getters.getUserConnect
-                );
+                    );
                 commit({ type: 'setdBoards', boards });
+
                 // return boards
             } catch (err) {
                 throw err;
