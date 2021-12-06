@@ -22,7 +22,7 @@
     >
       create
     </span>
-    <section :style="bgColorFull" class="card" @click="openDetails(card.id)" :class="{ 'img-cover': card.style && card.style.isFull && card.style.bgUrl }">
+    <section :style="bgColorFull" class="card" @click.stop.prevent="openDetails(card.id)" :class="{ 'img-cover': card.style && card.style.isFull && card.style.bgUrl }">
       <!-- :style="{ background: card.style.bgColor }" -->
 
       <div class="labels" v-if="card.labelIds && card.labelIds.length">
@@ -45,35 +45,25 @@
           </li>
         </ul>
       </div>
-      <header class="single">
-        <p>{{ card.title }}</p>
+      <header class="single" v-if="card.title">
+        <p :class="{ 'white': card.style && card.style.isFull && card.style.bgUrl }">{{ card.title }}</p>
       </header>
 
-      <!-- img -->
-      <!-- <div v-if="card.style && card.style.imgUrl" class="cover-img-container">
-      <img class="cover-img" :src="card.style.imgUrl" />
-    </div> -->
-
-      <!-- <div
-      v-if="card.style && card.style.bgcUrl"
-      class="cover-img-container-full"
-    >
-      <img class="cover-img" :src="card.style.bgcUrl" />
-    </div> -->
+   
 
       <!-- labels  -->
 
       <div
         class="icons"
-        v-if="
-          card.dueDate |
-            card.comments |
-            card.checklists |
-            card.attachment |
-            card.attachment |
-            card.checklists |
-            card.description
-        "
+         v-if="
+          card.dueDate ||
+            card.comments ||
+            card.checklists ||
+            card.attachment ||
+            card.checklists ||
+            card.description 
+            
+        " 
       >
         <!-- dueDate -->
         <div
@@ -99,8 +89,8 @@
             v-if="!showCheck"
             class="due-date-icon icon el-icon-time check"
           ></span>
-          <span v-if="card.dueDate">
-            {{ card.dueDate | moment("MMM ") }}
+          <span v-if="card.dueDate.date">
+            {{ card.dueDate.date | moment("MMM ") }}
             {{ dueDateDay }}</span
           >
         </div>
@@ -138,6 +128,7 @@
 
         <!-- isdone ?-->
         <!-- <span v-if="card.status.isDone" class="el-icon-check icon isDone"></span> -->
+        
       </div>
       <!-- members -->
       <div class="members" v-if="card.members && card.members.length > 0">
@@ -157,18 +148,19 @@
         </div>
       </div>
 
+    </section>
       <main>
-        <div v-if="isOpenEditor" class="editor" @click.stop.native="openEditor">
+        <div v-if="isOpenEditor" class="editor" @click="openEditor">
           <p
             class="material-icons-outlined btn-x"
             @click.stop.prevent="openEditor"
           >
             close
           </p>
-          <div class="edit-txt" @click.stop.prevent>
+          <div class="edit-txt" @click.stop>
             <el-input type="textarea" :rows="5" v-model="cardToUpdate.title">
             </el-input>
-            <el-button type="primary" @click.stop.prevent="openEditor"
+            <el-button type="primary" @click.stop="openEditor"
               >Save</el-button
             >
           </div>
@@ -181,7 +173,7 @@
               <li @click.stop="dynamicCmp('labels')">
                 <span class="material-icons-outlined"> sell </span>Edit labels
               </li>
-              <li @click.stop.prevent="dynamicCmp('members')">
+              <li @click.stop.prevent="dynamicCmp('members')" >
                 <span class="material-icons-outlined"> person_outline </span
                 >Change members
               </li>
@@ -205,21 +197,24 @@
               </li>
             </ul>
           </div>
-          <div class="dynamic-cmp" v-if="component.currCmp">
+          <div class="dynamic-cmp" v-if="component.currCmp"  @click.stop="">
             <header>
               <h2>{{ component.name }}</h2>
               <a @click.stop.prevent="closeModel" class="el-icon-close"> </a>
             </header>
             <component
+           
               :is="component.currCmp"
               :card="card"
               @dynamicCmp="dynamicCmp"
+               @updateMember="updateMember"
+                @changeBcg="changeBcg"
+                 @updateLabel="updateLabel"
             >
             </component>
           </div>
         </div>
       </main>
-    </section>
   </section>
 </template>
 
@@ -228,6 +223,7 @@ import { boardService } from "../service/board.service";
 import avatar from "vue-avatar";
 import member from "./edit/edit-member.vue";
 import label from "./edit-label.vue";
+import cover from './edit/edit-cover.vue';
 import attachment from "./edit/edit-attachment.vue";
 import trelix from "./edit/edit-trelix.vue";
 
@@ -252,11 +248,12 @@ export default {
   mounted() {},
   async created() {
     try {
+      
       if (this.card.labelIds) {
         this.labels = await this.getLabel();
       }
       if (this.card.style && this.card.style.isFull === false) {
-        if (this.card.style.bgUrl) return this.bgUrlHalf;
+        if (this.card.style.bgUrl) this.bgUrlHalf;
         else this.bgColorHalf;
       } else if (this.card.style && this.card.style.isFull) {
         this.bgColorFull;
@@ -288,9 +285,20 @@ export default {
       this.$emit("updateCard", card);
       // this.$store.dispatch({ type: 'updateCard', card });
     },
-
-    isDone() {
+// isDone(){
+//   this.isCardDone = !this.isCardDone;
+// },
+    async isDone() {
       this.isCardDone = !this.isCardDone;
+        try {
+        var res = await this.$store.dispatch({
+          type: "updateDuedate",
+          newDone : this.isCardDone,
+          card:  JSON.parse(JSON.stringify(this.card)) ,
+        });
+      } catch (err) {
+        console.log(err);
+      }
     },
     async getLabel() {
       let { boardId } = this.$route.params;
@@ -305,7 +313,14 @@ export default {
       this.isLabelText = !this.isLabelText;
     },
     dynamicCmp(cmp) {
-      this.component.name = cmp;
+      console.log(cmp);
+      if (cmp === 'attachment') this.component.name = 'attach from...';
+      if (cmp === 'coverSearch') this.component.name = 'photo search';
+      if (cmp === 'editAttachment') {
+        this.component.name = 'Remove attachment?';
+      } else {
+        this.component.name = cmp;
+      }
       this.component.currCmp = `card-${cmp}`;
     },
     closeModel() {
@@ -342,6 +357,27 @@ export default {
       //TODO: card id
       const boardId = this.$route.params.boardId;
       this.$router.push(`/board/${boardId}/${cardId}`);
+    },
+       updateLabel(label) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      if (card.labelIds.some((labelId) => labelId.lId === label.id)) {
+        const labelIdx = card.labelIds.findIndex((labelId) => labelId.id === label.id);
+        card.labelIds.splice(labelIdx, 1);
+      } else {
+        let currLabel = { lId: label.id, isDone: false };
+        card.labelIds.push(currLabel);
+      }
+      this.$emit('updateCard', card);
+    },
+    updateMember(currMember) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      if (card.members.some((member) => member._id === currMember._id)) {
+        const labelIdx = card.members.findIndex((member) => member._id === currMember._id);
+        card.members.splice(labelIdx, 1);
+      } else {
+        card.members.push(currMember);
+      }
+      this.$emit('updateCard', card);
     },
   },
   computed: {
@@ -386,7 +422,7 @@ export default {
     //     }
     // },
     dueDateDay() {
-      let t = this.card.dueDate;
+      let t = this.card.dueDate.date;
       return new Date(t).getUTCDay() + 1;
     },
     isShow() {
@@ -427,6 +463,7 @@ export default {
     "card-trelix": trelix,
     "card-members": member,
     "card-labels": label,
+     'card-cover': cover,
   },
 };
 </script>

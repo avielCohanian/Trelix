@@ -22,20 +22,24 @@
                     @click.native="editTitle"
                 ></input>
 </span> -->
-<li class="edit-title-container">
+        <li class="edit-title-container">
+          <el-input
+            ref="input"
+            class="edit-title"
+            size="mini"
+            :class="{ focus: isEditTitle }"
+            v-model="getBoard.title"
+            @keyup.enter.native="editTitle"
+            @click.native="editTitle"
+          ></el-input>
+        </li>
 
-           <el-input
-                    ref="input"
-                    class="edit-title"
-                    size="mini"
-                    :class="{ focus: isEditTitle }"
-                    v-model="getBoard.title"
-                    @keyup.enter.native="editTitle"
-                    @click.native="editTitle"
-                ></el-input>
-</li>
+        <li
+          class="el-icon-star-off pointer star"
+          @click="changeFavorite"
+          :class="{ 'star-on': isStarOn, 'star-false': !isStarOn }"
+        ></li>
 
-        <li class="el-icon-star-off pointer"></li>
         <span class="divider"></span>
         <li class="pointer">Trelix Workspace</li>
         <span class="divider"></span>
@@ -76,38 +80,39 @@
         </div>
         <!-- <hr /> -->
         <!-- <div class="avatar-user "> -->
-            <!-- <div class="flex-center"> -->
+        <!-- <div class="flex-center"> -->
 
-          <div class="user-details ">
-              <div>
-
-          <avatar
-            v-if="currMember.imgUrl"
-            :src="currMember.imgUrl"
-            :size="50"
-            username="currMember.username"
-            class="member"
-          ></avatar>
-          <avatar
-            v-else
-            :size="50"
-            username="currMember.username"
-            class="member"
-          ></avatar>
-              </div>
-            <div class="name">
-              <strong>{{ currMember.fullname }}</strong>
+        <div class="user-details">
+          <div>
+            <avatar
+              v-if="currMember.imgUrl"
+              :src="currMember.imgUrl"
+              :size="50"
+              username="currMember.username"
+              class="member"
+            ></avatar>
+            <avatar
+              v-else
+              :size="50"
+              username="currMember.username"
+              class="member"
+            ></avatar>
+          </div>
+          <div class="name">
+            <strong>{{ currMember.fullname }}</strong>
             <div class="mail">{{ currMember.mail }}</div>
-            </div>
-            </div>
-
-            <div class="choice ">
-              <div class="btn-choice">Change permissions... (Normal)</div>
-              <div class="btn-choice">view member's board activity</div>
-              <div class="btn-choice" @click="removeMember">Remove from board...</div>
-            </div>
-          <!-- </div> -->
+          </div>
         </div>
+
+        <div class="choice">
+          <div class="btn-choice">Change permissions... (Normal)</div>
+          <div class="btn-choice">view member's board activity</div>
+          <div class="btn-choice" @click="removeMember">
+            Remove from board...
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
       <!-- </div> -->
       <ul class="right">
         <li class="icon pointer">
@@ -117,8 +122,9 @@
         <li class="icon pointer">
           <span class="material-icons-outlined">filter_list</span>Filter
         </li>
-        <li class="icon pointer " @click="toggleMenu">
-          <span class="el-icon-more icon "></span> Show menu</li>
+        <li class="icon pointer" @click="toggleMenu">
+          <span class="el-icon-more icon"></span> Show menu
+        </li>
       </ul>
     </section>
     <nav-menu @closeMenu="toggleMenu" :isShow="showMenu" :class="isShowMenu" />
@@ -134,7 +140,8 @@ export default {
   props: ["getBoard"],
   data() {
     return {
-      isEditTitle:false,
+      isStarOn: false,
+      isEditTitle: false,
       isShowProfile: false,
       showMenu: false,
       currMember: null,
@@ -146,23 +153,27 @@ export default {
     },
   },
   methods: {
+    async changeFavorite(change = this.isStarOn) {
+      this.isStarOn = !this.isStarOn;
+      await this.$store.dispatch({ type: "changeFavorit", change });
+      this.$store.dispatch({ type: "loadBoards" });
+    },
     editTitle() {
-            this.isEditTitle = !this.isEditTitle;
-           
-        },
-       async removeMember() {
-            try {
-                var res = await this.$store.dispatch({
-                    type: 'removeMember',
-                    member: this.currMember,
-                });
-                console.log(res);
-                    if(res) return this.isShowProfile = false
-            } catch (err) {
-                console.log(err);
-            }
-        },
-     
+      this.isEditTitle = !this.isEditTitle;
+    },
+    async removeMember() {
+      try {
+        var res = await this.$store.dispatch({
+          type: "removeMember",
+          member: this.currMember,
+        });
+        console.log(res);
+        if (res) return (this.isShowProfile = false);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     showProfile(member) {
       console.log("clickk");
       this.isShowProfile = !this.isShowProfile;
@@ -172,16 +183,16 @@ export default {
       this.showMenu = !this.showMenu;
     },
   },
-watch: {
-        isEditTitle() {
-            if (this.isEditTitle) {
-                this.$refs.input.select();
-            } else this.$refs.input.focus();
-        },
-        // group(val){
-        //   this.group = val
-        // }
+  watch: {
+    isEditTitle() {
+      if (this.isEditTitle) {
+        this.$refs.input.select();
+      } else this.$refs.input.focus();
     },
+    // group(val){
+    //   this.group = val
+    // }
+  },
   mounted() {},
   components: {
     avatar,
