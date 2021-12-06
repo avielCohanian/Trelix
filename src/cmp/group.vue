@@ -90,7 +90,7 @@
                             </el-input>
                             <div class="btn-add">
                                 <div class="left">
-                                    <el-button type="primary" @click="addCard">
+                                    <el-button class="btn" type="primary" @click="addCard">
                                         Add card</el-button
                                     >
                                     <p

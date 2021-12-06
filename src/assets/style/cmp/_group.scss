@@ -28,6 +28,11 @@
             min-height: 20px;
             padding: 5px 8px 5px 5px;
             font-size: 14px;
+            border-radius: 3px;
+            &:hover{
+                background-color: #091e4214;
+                color: #172b4d;
+            }
             span {
                 font-size: 18px;
             }
@@ -81,19 +86,35 @@
                 background-color: white;
             }
             .btn-add {
-                // margin-bottom: 6px;
+                margin-top: 5px;
                 display: flex;
+                align-items: center;
                 justify-content: space-between;
+                .btn {
+                    height: 32px;
+                    width: 82px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
                 p {
                     margin-inline-start: 5px;
                     color: gray;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 0 ;
+                    padding: 0;
                 }
                 .left {
+                    display: flex;
                     // margin-left: 3px;
-                    margin-bottom: 6px;
-                    position: relative;
+                    // margin-bottom: 6px;
                     top: 6px;
+                    justify-content: center;
                     align-items: center;
+                    margin: 0 ;
+                    padding: 0;
                 }
                 p.more {
                     margin: 0;
@@ -103,6 +124,7 @@
                     // padding-right: 3px;
                     // padding-top: 10px;
                     font-size: 20px;
+                    // margin-bottom: -5px;
                 }
             }
         }
@@ -125,17 +147,13 @@
                 font-size: 15px;
             }
             i {
-                
                 color: #6b778c;
                 float: left;
                 padding: 6px;
                 font-size: 14px;
                 border-radius: 3px;
-                &:hover{
+                &:hover {
                     background-color: #ffffff91;
-                
-                
-    
                 }
             }
         }
