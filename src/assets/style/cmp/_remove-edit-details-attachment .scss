@@ -1,34 +1,35 @@
 .remove-edit-details-attachment {
-    width: 304px;
-    max-height: 517px;
-    background: #fff;
-    padding: 0 12px 12px;
+  width: 304px;
+  max-height: 517px;
+  background: #fff;
+  padding: 0 12px 12px;
+  border-radius: 3px;
+  p {
+    margin: 0 0 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: $clr7;
+  }
+  a.remove {
+    display: flex;
+    cursor: pointer;
+    background-color: #b04632;
     border-radius: 3px;
-    p {
-        margin: 0 0 8px;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 20px;
-        color: $clr7;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    justify-content: center;
+    line-height: 20px;
+    padding: 6px 12px;
+    margin: 8px 4px 0 0;
+    text-decoration: none;
+    transition-duration: 85ms;
+    transition-property: background-color, border-color, box-shadow;
+    transition-timing-function: ease;
+    &:hover {
+      background-color: #933b27;
+      color: #fff;
     }
-    .remove {
-        display: flex;
-        background-color: #b04632;
-        border-radius: 3px;
-        color: #fff;
-        font-size: 14px;
-        font-weight: 400;
-        justify-content: center;
-        line-height: 20px;
-        padding: 6px 12px;
-        margin: 8px 4px 0 0;
-        text-decoration: none;
-        transition-duration: 85ms;
-        transition-property: background-color, border-color, box-shadow;
-        transition-timing-function: ease;
-        &:hover {
-            background-color: #933b27;
-            color: #fff;
-        }
-    }
+  }
 }

@@ -1,6 +1,7 @@
 .checklist {
     position: relative;
     margin-bottom: 24px;
+
     .checklist-header {
         min-height: 100px;
         .show {
@@ -49,6 +50,7 @@
             font-weight: 400;
             line-height: 20px;
             color: #172b4d;
+            margin-top: 5px;
 
             .description-edit-input {
                 height: 54px;
@@ -162,6 +164,45 @@
                     box-shadow: inset 0 0 0 2px #dfe1e6;
                 }
             }
+            form {
+                padding-bottom: 9px;
+                width: 100%;
+                color: #172b4d;
+
+                input {
+                    display: flex;
+                    resize: none;
+                    height: 56px;
+                    border: none;
+                    background-color: #091e420a;
+                    border-color: #091e4221;
+                    box-shadow: inset 0 0 0 1px #091e4221;
+                    margin-bottom: 4px;
+                }
+                a.save {
+                    float: left;
+                    margin: 0 4px 0 0;
+                    background-color: #0079bf;
+                    color: #fff;
+                    border-radius: 3px;
+                    font-size: 14px;
+                    font-weight: 400;
+                    justify-content: center;
+                    line-height: 20px;
+                    padding: 6px 12px;
+                    transition-duration: 85ms;
+                    transition-property: background-color, border-color,
+                        box-shadow;
+                    transition-timing-function: ease;
+                    text-align: center;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #026aa7;
+
+                        color: #fff;
+                    }
+                }
+            }
             li {
                 .checklist-todo {
                     margin-left: -26px;
@@ -173,7 +214,6 @@
                 .checkbox {
                     width: 100%;
                 }
-                // }
             }
         }
     }
@@ -183,19 +223,72 @@
     .todos:hover {
         background-color: #091e420a;
     }
-    a.item-btn {
-        width: 100px;
+    a.back-btn {
+        color: #42526e;
         height: 32px;
-        padding: 6px 12px;
-        border-radius: 3px;
-        transition-duration: 85ms;
-        transition-property: background-color, border-color, box-shadow;
-        transition-timing-function: ease;
+        line-height: 32px;
+        width: 32px;
+        font-size: 24px;
+        font-weight: 400;
         cursor: pointer;
-        margin-top: 18px;
-        background-color: aqua;
+        background-color: initial;
+        margin-left: 3px;
     }
-    a.item-btn:hover {
-        background-color: #091e4214;
+    .add-item {
+        .item-btn {
+            width: 100px;
+            height: 32px;
+            padding: 6px 12px;
+            border-radius: 3px;
+            transition-duration: 85ms;
+            transition-property: background-color, border-color, box-shadow;
+            transition-timing-function: ease;
+            cursor: pointer;
+            margin-top: 18px;
+        }
+        .item-btn:hover {
+            background-color: #091e4214;
+        }
+
+        input {
+            height: 56px;
+            background-color: #fff;
+            box-shadow: inset 0 0 0 2px #0079bf;
+            color: $clr7;
+            cursor: text;
+            // resize: vertical;
+            width: 100%;
+            padding: 8px 12px 27px;
+            border: none;
+            margin: 4px 0 10px;
+            min-height: 32px;
+            border-radius: 3px;
+            line-height: 20px;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        a.add {
+            float: left;
+            margin: 0 4px 0 0;
+            background-color: #0079bf;
+            color: #fff;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 400;
+            justify-content: center;
+            line-height: 20px;
+            padding: 6px 12px;
+            transition-duration: 85ms;
+            transition-property: background-color, border-color, box-shadow;
+            transition-timing-function: ease;
+            text-align: center;
+            cursor: pointer;
+            &:hover {
+                background-color: #026aa7;
+
+                color: #fff;
+            }
+        }
     }
 }

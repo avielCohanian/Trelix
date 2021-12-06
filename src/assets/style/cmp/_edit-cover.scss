@@ -1,102 +1,126 @@
 .edit-cover {
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: 0 12px 12px;
-    .size {
-        h4 {
-            margin-top: 0;
-        }
-        .removeCaver {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 4px 0 0;
-            width: 100%;
-            line-height: 20px;
-            padding: 6px 12px;
-            background-color: $clr10;
-            cursor: pointer;
-            font-weight: 400;
-            text-align: center;
-            color: #172b4d;
-            font-size: 14px;
-            &:hover {
-                background-color: #091e4214;
-            }
-        }
-    }
-
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 12px 12px;
+  .size {
     h4 {
-        color: $clr6;
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 16px;
-        margin-bottom: 4px;
-        margin-top: 16px;
-        margin-bottom: 4px;
+      margin-top: 0;
     }
-    .btn-container {
-        display: flex;
-        .btn {
-            justify-content: center;
-            width: 100%;
-            padding: 6px 12px;
-            line-height: 20px;
-            background-color: $clr10;
-            cursor: pointer;
-            font-weight: 400;
-            text-align: center;
-            color: $clr7;
-        }
-        .btn:hover {
-            background-color: $clr8;
-        }
+    .removeCaver {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 4px 0 0;
+      width: 100%;
+      line-height: 20px;
+      padding: 6px 12px;
+      background-color: $clr10;
+      cursor: pointer;
+      font-weight: 400;
+      text-align: center;
+      color: #172b4d;
+      font-size: 14px;
+      &:hover {
+        background-color: #091e4214;
+      }
     }
-    .colors {
-        ul {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-            gap: 8px;
-            padding: 4px;
-            margin: 0 -4px;
-            li {
-                .color-btn {
-                    background-position: center;
-                    width: 50px;
-                    height: 32px;
-                    cursor: pointer;
-                    background-size: cover;
-                    margin: 0;
-                    border-radius: 3px;
-                }
-                .color-btn:hover {
-                    filter: saturate(85%) brightness(85%);
-                }
-            }
-        }
-    }
+  }
 
-    .unsplash {
-        ul {
-            display: grid;
-            gap: 8px;
-            padding: 4px;
-            margin: 0 -4px;
-            grid-template-columns: 1fr 1fr 1fr;
-            .unsplash-card-img {
-                position: relative;
-                border-radius: 3px;
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
-                height: 48px;
-                width: 88px;
-                padding: 6px 12px;
-                cursor: pointer;
-            }
-            .unsplash-card-img:hover {
-                filter: saturate(85%) brightness(85%);
-            }
-        }
+  h4 {
+    color: $clr6;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    margin-bottom: 4px;
+    margin-top: 16px;
+    margin-bottom: 4px;
+  }
+  .btn-container {
+    display: flex;
+    .btn {
+      justify-content: center;
+      width: 100%;
+      padding: 6px 12px;
+      line-height: 20px;
+      background-color: $clr10;
+      cursor: pointer;
+      font-weight: 400;
+      text-align: center;
+      color: $clr7;
     }
+    .btn:hover {
+      background-color: $clr8;
+    }
+  }
+  .colors {
+    ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      gap: 8px;
+      padding: 4px;
+      margin: 0 -4px;
+      li {
+        .color-btn {
+          background-position: center;
+          width: 50px;
+          height: 32px;
+          cursor: pointer;
+          background-size: cover;
+          margin: 0;
+          border-radius: 3px;
+        }
+        .color-btn:hover {
+          filter: saturate(85%) brightness(85%);
+        }
+      }
+    }
+  }
+  .attachment {
+    ul {
+      display: grid;
+      gap: 8px;
+      padding: 4px;
+      margin: 0 -4px;
+      grid-template-columns: 1fr 1fr 1fr;
+      li {
+        background-color: #413b39;
+        margin: 0;
+        border-radius: 3px;
+        height: 48px;
+        width: 88px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        box-shadow: none;
+        cursor: pointer;
+        &:hover {
+          filter: saturate(85%) brightness(85%);
+        }
+      }
+    }
+  }
+
+  .unsplash {
+    ul {
+      display: grid;
+      gap: 8px;
+      padding: 4px;
+      margin: 0 -4px;
+      grid-template-columns: 1fr 1fr 1fr;
+      .unsplash-card-img {
+        position: relative;
+        border-radius: 3px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 48px;
+        width: 88px;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+      .unsplash-card-img:hover {
+        filter: saturate(85%) brightness(85%);
+      }
+    }
+  }
 }
