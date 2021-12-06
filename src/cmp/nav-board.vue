@@ -3,7 +3,38 @@
     <section class="nav-board">
       <ul class="left">
         <li class="pointer">Board <i class="el-icon-arrow-down"></i></li>
-        <li class="pointer">Board Name</li>
+
+        <!-- <li class="pointer name-board" v-if="!isEditTitle">
+
+          <p @click="editTitle" >{{getBoard.title}}</p>
+          </li>
+          
+<span class="edit-title">
+
+          <input
+          v-if="isEditTitle"
+                    ref="input"
+                    class="edit-title-input"
+                   
+                    :class="{ focus: isEditTitle }"
+                    v-model="getBoard.title"
+                    @keyup.enter.native="editTitle"
+                    @click.native="editTitle"
+                ></input>
+</span> -->
+<li class="edit-title-container">
+
+           <el-input
+                    ref="input"
+                    class="edit-title"
+                    size="mini"
+                    :class="{ focus: isEditTitle }"
+                    v-model="getBoard.title"
+                    @keyup.enter.native="editTitle"
+                    @click.native="editTitle"
+                ></el-input>
+</li>
+
         <li class="el-icon-star-off pointer"></li>
         <span class="divider"></span>
         <li class="pointer">Trelix Workspace</li>
@@ -103,6 +134,7 @@ export default {
   props: ["getBoard"],
   data() {
     return {
+      isEditTitle:false,
       isShowProfile: false,
       showMenu: false,
       currMember: null,
@@ -114,6 +146,10 @@ export default {
     },
   },
   methods: {
+    editTitle() {
+            this.isEditTitle = !this.isEditTitle;
+           
+        },
        async removeMember() {
             try {
                 var res = await this.$store.dispatch({
@@ -136,7 +172,16 @@ export default {
       this.showMenu = !this.showMenu;
     },
   },
-
+watch: {
+        isEditTitle() {
+            if (this.isEditTitle) {
+                this.$refs.input.select();
+            } else this.$refs.input.focus();
+        },
+        // group(val){
+        //   this.group = val
+        // }
+    },
   mounted() {},
   components: {
     avatar,

@@ -41,10 +41,14 @@
         justify-content: flex-end;
         border-radius: 3px;
         background-color: #ffffff3a;
-        &:hover{
+        &:hover {
             background-color: #ffffff91;
         }
     }
+}
+section.card.img-cover {
+    background-size: cover;
+    min-height: 250px;
 }
 .card {
     background-color: #fff;
@@ -64,9 +68,9 @@
     padding: 6px 8px 2px;
 
     &:hover {
-        background-color: #f3f3f33d;
+        background-color: #f1f1f118;
     }
-
+   
     .icons {
         height: 28px;
         display: flex;
