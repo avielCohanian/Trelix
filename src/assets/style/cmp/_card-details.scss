@@ -635,6 +635,30 @@
             background-color: #091e4214;
           }
         }
+        .longAtt {
+          margin: 0 0 8px;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 20px;
+          color: $clr7;
+          a {
+            cursor: pointer;
+            border-radius: 3px;
+            color: #5e6c84;
+            display: block;
+            margin: -10px 0 15px;
+            padding: 6px 12px;
+            text-decoration: underline;
+            transition-duration: 85ms;
+            transition-property: background-color, border-color, box-shadow;
+            transition-timing-function: ease;
+            background-color: initial;
+            &:hover {
+              background-color: #091e4214;
+              color: #172b4d;
+            }
+          }
+        }
       }
     }
   }

@@ -6,6 +6,7 @@
           Computer
           <input type="file" @change="onUploadImg" hidden />
         </label>
+        {{ cmp }}
       </li>
       <li>
         <label class="attachment" @click="dynamicCmp"> Trelix </label>
@@ -34,6 +35,12 @@ import { uploadImg } from '../../service/img.service.js';
 
 export default {
   name: 'attachment',
+  props: {
+    cmp: {
+      type: Object,
+      // required: true,
+    },
+  },
   data() {
     return {
       att: {
@@ -61,7 +68,11 @@ export default {
     },
     saveLink() {
       (this.att.upAt = Date.now()), this.$emit('computerAttLink', this.att);
-      console.log(this.att);
+      (this.att = {
+        link: '',
+        name: '',
+      }),
+        console.log(this.att);
     },
   },
 };
