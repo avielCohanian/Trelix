@@ -18,8 +18,9 @@ export const uploadImg = (ev) => {
 export const imgService = {
     getImgs,
 };
-async function getImgs(searchBy) {
-    const url = `https://api.unsplash.com/search/photos?page=1&query=${searchBy}&orientation=landscape&client_id=Zgu8W39Fmue2y2khdV4U2EIAqj__wKs8Fk6oL6xn_bU`;
+async function getImgs(searchBy,size=12) {
+    const url = `https://api.unsplash.com/search/photos?page=1&per_page=${size}
+    &query=${searchBy}&orientation=landscape&client_id=Zgu8W39Fmue2y2khdV4U2EIAqj__wKs8Fk6oL6xn_bU`;
     try {
         const imgs = await axios.get(url);
         return Promise.resolve(filterImgs(imgs.data));

@@ -22,13 +22,48 @@ export const boardService = {
     deleteMember,
     addCard,
     getEmptyChecklist,
+    addBoard
     // saveGroups,
 };
+function _getEmptyActivity(){
+    return {
+        id: makeId(),
+        txt: '',
+        createdAt: Date.now(),
+        byMember: {},
+        card: {
+            id: '',
+            title: '',
+        },
+    }
 
+}
 const BOARD_KEY = 'boards';
+async function addBoard(newBoard,userConnect){
+    try{
+        newBoard.createdBy= userConnect
+        newBoard.createdAt = Date.now()
+        newBoard.members.push(userConnect)
 
+        let currBoard = await httpService.post(`board`, newBoard)
+        currBoard= currBoard.ops[0]
+        const activity =_getEmptyActivity()
+        activity.byMember = userConnect
+        activity.txt = 'add Board'
+        activity.card = { id:currBoard._id, title:currBoard.title }
+        currBoard.activities.push(activity)
+
+        let currNewBoard = _updateService(currBoard)
+
+        return currNewBoard
+
+    }catch(err){
+        throw err
+    }
+}
 async function _updateService(board) {
     try {
+
         let currBoard = await httpService.put(`board/${board._id}`, board);
         return currBoard;
     } catch (err) {
@@ -272,8 +307,12 @@ function getEmptyBoard() {
         title: '',
         description: '',
         createdAt: '',
-        style: {},
+        createdBy: '',
+        style: {backgroundImage:'url(https://images.unsplash.com/photo-1477346611705-65d1883cee1e?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNzk3MjJ8MHwxfHNlYXJjaHwxfHxXYWxscGFwZXJzfGVufDB8MHx8fDE2Mzg3ODM4NTg&ixlib=rb-1.2.1&q=85)'},
         styleCustom: [],
+        members: [],
+        activities: [],
+        groups:[],
         labels: [
             {
                 id: 'l101',
@@ -311,9 +350,8 @@ function getEmptyBoard() {
                 color: '#0098b7',
             },
         ],
-        members: [],
-        activities: [],
-    };
+        
+    }
 }
 
 function makeId(length = 5) {
@@ -329,14 +367,14 @@ function getColors() {
     return colors;
 }
 
-const colors = {
-    orange: { background: 'rgb(210, 144, 52)' },
-    blue: { background: 'rgb(0, 121, 191)' },
-    red: { background: 'rgb(176, 70, 50)' },
-    green: { background: 'rgb(81, 152, 57)' },
-    pink: { background: 'rgb(205, 90, 145)' },
-    purple: { background: 'rgb(137, 96, 158)' },
-    blueLight: { background: 'rgb(0, 174, 204)' },
-    greenLight: { background: 'rgb(75, 191, 107)' },
-    gray: { background: 'rgb(131, 140, 145)' },
-};
+const colors = [
+    { background: 'rgb(210, 144, 52)' },
+    { background: 'rgb(0, 121, 191)' },
+    { background: 'rgb(176, 70, 50)' },
+   { background: 'rgb(81, 152, 57)' },
+     { background: 'rgb(205, 90, 145)' },
+    { background: 'rgb(137, 96, 158)' },
+     { background: 'rgb(0, 174, 204)' },
+     { background: 'rgb(75, 191, 107)' },
+     { background: 'rgb(131, 140, 145)' }]
+

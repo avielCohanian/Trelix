@@ -8,7 +8,8 @@ const USER_KEY = 'users';
 
 export const userService = {
 	logIn,
-	changeFevorit
+	changeFevorit,
+	updateUser
 };
 async function logIn(userLog){
 	try{
@@ -17,6 +18,16 @@ async function logIn(userLog){
 	}catch(err){
 		throw err 
 	}
+}
+async function updateUser(user){
+	try{
+		const users =  await storageService.put(USER_KEY ,user);
+		return users
+	}catch(err){
+		throw err 
+	}
+
+
 }
 async function changeFevorit(copyDetails){
 	const { idBoard,isFavorit,userLog} =copyDetails
