@@ -84,6 +84,7 @@ function updatedBoard(board) {
   // return storageService.put(BOARD_KEY, board);
 }
 async function getBoardsForDisplay(userLog) {
+<<<<<<< HEAD
   try {
     const boards = await query();
     var boardsStar = userLog.boards.starBoard.reduce((acc, boardId) => {
@@ -128,6 +129,46 @@ async function getById(id) {
   //     let currBoards = boards.find((board) => board._id === id);
   //     return Promise.resolve(currBoards);
   // });
+=======
+    try {
+        const boards = await query();
+        var boardsStar = userLog.boards.starBoard.reduce((acc, boardId) => {
+            const board = boards.find((board) => board._id === boardId);
+            if (board) {
+                acc.push({
+                    _id: board._id,
+                    title: board.title,
+                    style: board.style,
+                    members: board.members,
+                });
+            }
+            return acc;
+        }, []);
+        var boardsUser = userLog.boards.boards.reduce((acc, boardId) => {
+            const board = boards.find((board) => board._id === boardId);
+            if (board) {
+                acc.push({
+                    _id: board._id,
+                    title: board.title,
+                    style: board.style,
+                    members: board.members,
+                });
+            }
+            return acc;
+        }, []);
+        return Promise.resolve({ boards: boardsUser, boardsStar });
+    } catch (err) {
+        throw err;
+    }
+}
+async function getById(id) {
+    try {
+        const currBoard = await httpService.get(`board/${id}`);
+        return Promise.resolve(currBoard);
+    } catch (err) {
+        console.log(err);
+    }
+>>>>>>> 79003a68f6a3c422f5ed99b787230d6fbb52425a
 }
 
 // Group
@@ -171,11 +212,18 @@ function getEmptyGroup() {
   };
 }
 function getGroupById(board, groupId) {
+<<<<<<< HEAD
   console.log(board);
   var res = board.groups.find((group) => {
     return group.id === groupId;
   });
   return Promise.resolve(res);
+=======
+    var res = board.groups.find((group) => {
+        return group.id === groupId;
+    });
+    return Promise.resolve(res);
+>>>>>>> 79003a68f6a3c422f5ed99b787230d6fbb52425a
 }
 
 // Card

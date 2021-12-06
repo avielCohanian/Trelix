@@ -1,22 +1,23 @@
 <template>
     <section class="groups">
-        <draggable class="list-group flex" :list="getGroups" @change="onDrug">
+        <draggable
+            class="list-group flex"
+            v-model="groups"
+            @change="onDrug"
+            @end="endDragg"
+        >
             <div v-for="group in groups" :key="group.id">
-                <!-- <draggable  class="list-group" :list="group" @change="onDrug"> -->
-                <group :group="group" @updateGroup="loadGroups" />
-                <!-- </draggable > -->
+                <group
+                    :group="group"
+                    @updateGroup="loadGroups"
+                    @updateGroupDrug="endDragg"
+                />
             </div>
         </draggable>
-        <div class="add-list" >
-           
+        <div class="add-list">
             <div class="add-list-new" @click="toggleGroup" v-if="!isAddGroup">
-
-            <span class="material-icons-outlined icon">
-add
-</span>
-             <span class="txt-add">
-             Add a list
-             </span>
+                <span class="material-icons-outlined icon"> add </span>
+                <span class="txt-add"> Add a list </span>
             </div>
             <div class="add-list-container" v-if="isAddGroup">
                 <label>
@@ -62,18 +63,13 @@ export default {
         this.loadGroups();
     },
     methods: {
-        //draggable
-        //  add: function() {
-        //   this.list.push({ name: "Juan" });
-        // },
-        // replace: function() {
-        //   this.list = [{ name: "Edgard" }];
-        // },
-        // clone: function(el) {
-        //   return {
-        //     name: el.name + " cloned"
-        //   };
-        // },
+        async endDragg() {
+            await this.$store.dispatch({
+                type: 'updateGroups',
+                groups: this.groups,
+            });
+            this.loadGroups();
+        },
         loadGroups() {
             this.groups = [];
 
@@ -109,9 +105,8 @@ export default {
             }
         },
         onDrug(evt) {
-            console.log(evt);
-            window.console.log(evt);
-            this.updateGroups();
+            // window.console.log(evt);
+            // this.updateGroups();
         },
     },
     computed: {
@@ -121,13 +116,8 @@ export default {
     },
     watch: {
         '$store.getters.getBoard'(board) {
-            //  this.loadGroups()
             this.groups = board.groups;
         },
-        // 'groups'(){
-        //   console.log('watch');
-        //    this.loadGroups()
-        // }
     },
 };
 </script>

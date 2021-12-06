@@ -100,7 +100,6 @@ export const boardStore = {
     async updateCard({ commit, getters }, { card }) {
       const board = getters.getBoard;
       try {
-        console.log(card);
         const updateBoard = await boardService.updateCard(board, card);
         commit({ type: 'setBoard', board: updateBoard });
         return updateBoard;
@@ -121,9 +120,7 @@ export const boardStore = {
     },
 
     async updateGroup({ commit, getters }, { group }) {
-      console.log(group);
       const board = JSON.parse(JSON.stringify(getters.getBoard));
-      console.log(board);
       try {
         const updateBoard = await boardService.saveGroup(board, group);
         commit({ type: 'setBoard', board: updateBoard });
@@ -136,10 +133,7 @@ export const boardStore = {
       const board = JSON.parse(JSON.stringify(getters.getBoard));
       board.groups = groups;
       try {
-        const updateBoard = await boardService.updatedBoard(
-          board
-          // groups
-        );
+        const updateBoard = await boardService.updatedBoard(board);
         commit({ type: 'setBoard', board: updateBoard });
         return updateBoard;
       } catch (err) {
