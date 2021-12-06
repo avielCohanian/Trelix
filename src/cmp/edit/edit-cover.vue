@@ -100,8 +100,9 @@ export default {
   },
   methods: {
     changeBgc(newBcg) {
-      console.log(newBcg);
-      this.$emit('changeBcg', newBcg);
+      let res = newBcg;
+      if (typeof newBcg === 'object') res = newBcg.backgroundImage;
+      this.$emit('changeBcg', res);
     },
     async searchBy() {
       const imgs = await imgService.getImgs(this.search);

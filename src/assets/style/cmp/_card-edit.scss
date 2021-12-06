@@ -49,9 +49,11 @@
     .el-icon-paperclip {
       transform: rotate(180deg);
     }
+    // .labels {
     .label-icon {
-      transform: rotate(0deg);
+      transform: rotate(225deg);
     }
+    // }
     .cover-icon {
       .material-icons-outlined {
         transform: rotate(180deg);
@@ -71,7 +73,9 @@
     box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
     top: 0px;
     right: 0;
+    will-change: top, left;
     width: 305px;
+    overflow: hidden;
     header {
       height: 40px;
       margin-bottom: 8px;

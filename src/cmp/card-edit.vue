@@ -62,7 +62,8 @@
         @updateLabel="updateLabel"
         @addChecklist="addChecklist"
         @dynamicCmp="dynamicCmp"
-        @computerAttachment="computerAttachment"
+        @computerAttImg="computerAttImg"
+        @computerAttLink="computerAttLink"
         @searchImgCmp="dynamicCmp"
       >
       </component>
@@ -73,7 +74,8 @@
         <h2>{{ minComponent.name }}</h2>
         <a @click="closeModel" class="el-icon-close"> </a>
       </header>
-      <component :is="minComponent.currCmp" :card="card"> </component>
+      <component :is="minComponent.currCmp" :card="card" @remove="removeAtt" @update="updateAtt">
+      </component>
     </div>
   </section>
 </template>
@@ -134,8 +136,9 @@ export default {
     },
     minDynamicCmp(cmp) {
       console.log(cmp);
-      if (cmp === 'editAttachment') {
+      if (cmp === 'removeEditAttachment') {
         this.minComponent.name = 'Remove attachment?';
+        console.log(this.minComponent.name);
       } else {
         this.minComponent.name = cmp;
       }
@@ -144,6 +147,7 @@ export default {
     closeModel() {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
+      this.$emit('closeModel');
     },
     join(userId) {
       //TODO
@@ -151,15 +155,19 @@ export default {
     },
     changeBcg(color) {
       let card = JSON.parse(JSON.stringify(this.card));
-      if (typeof color === 'object') {
-        if (card.style.bgUrl === color) card.style.bgUrl = null;
-        else {
-          card.style.bgUrl = color;
+      // if (typeof color === 'object') {
+      console.log(color);
+      console.log(card.style.bgUrl);
+      console.log(card.style.bgColor);
+      if (card.style.bgUrl !== color && color.length > 15) {
+        card.style.bgUrl = color;
+        card.style.bgColor = null;
+      } else if (card.style.bgColor !== color) {
+        if (color === card.style.bgColor || color === card.style.bgUrl) {
+          console.log(color, 'aa');
           card.style.bgColor = null;
-        }
-      } else if (typeof color === 'string') {
-        if (card.style.bgColor === color) card.style.bgColor = null;
-        else {
+          card.style.bgUrl = null;
+        } else {
           card.style.bgColor = color;
           card.style.bgUrl = null;
         }
@@ -169,7 +177,6 @@ export default {
       }
       this.closeModel();
       this.$emit('updateCard', card);
-      // this.$store.dispatch({ type: 'updateCard', card });
     },
     updateLabel(label) {
       let card = JSON.parse(JSON.stringify(this.card));
@@ -197,10 +204,27 @@ export default {
       card.checklists.push(checklist);
       this.$emit('updateCard', card);
     },
-    computerAttachment(imgUrl) {
+    computerAttImg(imgUrl) {
       let card = JSON.parse(JSON.stringify(this.card));
       card.attachment.computerAttachment.push(imgUrl);
       this.$emit('updateCard', card);
+    },
+    computerAttLink(link) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      card.attachment.computerAttachment.push(link);
+      this.$emit('updateCard', card);
+    },
+    removeAtt() {
+      this.$emit('removeAtt');
+      setTimeout(() => {
+        this.closeModel();
+      }, 500);
+    },
+    updateAtt(newVal) {
+      this.$emit('updateAtt', newVal);
+      setTimeout(() => {
+        this.closeModel();
+      }, 500);
     },
   },
   components: {
@@ -222,8 +246,13 @@ export default {
   },
   watch: {
     cmp(cmpName) {
+      console.log(cmpName);
       if (cmpName) {
-        cmpName === 'removeEditAttachment' ? this.minDynamicCmp(cmpName) : this.dynamicCmp(cmpName);
+        cmpName === 'removeEditAttachment'
+          ? this.minDynamicCmp(cmpName)
+          : cmpName === 'editAttachment'
+          ? this.minDynamicCmp(cmpName)
+          : this.dynamicCmp(cmpName);
       }
     },
   },

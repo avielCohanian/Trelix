@@ -3,7 +3,7 @@
     <article class="card-details" @click.stop>
       <div
         class="color-header"
-        v-if="card.style && (card.style.bgColor || card.style.bgUrl.backgroundImage)"
+        v-if="card.style && (card.style.bgColor || card.style.bgUrl)"
         :style="bgColor"
       >
         <span class="cover-back-btn">
@@ -149,7 +149,11 @@
             </div>
             <a @click="openAttachment">Add Trelix attachment</a>
           </div>
-
+          <!-- attachmentViewer -->
+          <!-- <div class="attachmentViewer" v-show="attachmentViewer">
+            <a class="close-btn el-icon-close"></a>
+            <div></div>
+          </div> -->
           <div
             class="section-attachments"
             v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length"
@@ -158,7 +162,16 @@
             <h3>Attachments</h3>
             <div class="attachment-list">
               <a v-for="(att, idx) in cardAttachments" :key="idx" class="attachment-link">
-                <div class="img" :style="{ backgroundImage: `url(${att.url})` }"></div>
+                <span>
+                  <div
+                    v-if="att.url"
+                    class="img"
+                    :style="{ backgroundImage: `url(${att.url})` }"
+                  ></div>
+                  <div v-else class="img-link">
+                    <span>LINK</span>
+                  </div>
+                </span>
                 <div class="attachment-option-container">
                   <p class="attachment-option">
                     <span class="link">
@@ -179,39 +192,27 @@
                         >Comment</a
                       >
                       -
-                      <a class="title-option-btn" @click.stop="dynamicCmp('removeEditAttachment')"
+                      <a
+                        class="title-option-btn"
+                        @click.stop="dynamicCmp('removeEditAttachment', idx)"
                         >Remove</a
                       >
                       -
-                      <a class="title-option-btn" @click.stop="dynamicCmp('editAttachment')"
+                      <a class="title-option-btn" @click.stop="dynamicCmp('editAttachment', idx)"
                         >Edit</a
                       >
                     </span>
-                    <span class="cover" @click.stop="makeCover(`url(${att.url})`)">
+                    <span v-if="att.url" class="cover" @click.stop="makeCover(`url(${att.url})`)">
                       <span class="material-icons-outlined"> web_asset </span>
                       <a v-if="!inCover(`url(${att.url})`)">Make cover</a>
                       <a v-else>Remove cover</a>
                     </span>
                   </p>
-
-                  <div v-if="!att.url" class="cover3">
-                    <!-- <span class="material-icons-outlined">
-                                            web_asset
-                                        </span> -->
-                    <!-- v-show="att.img"
-                                            v-if="isCover"
-                                            @makeCover.stop="makeCover(att.img)" -->
-                    <a>Make cover</a>
-                    <!-- v-else
-                                            v-show="att.img"
-                                            @makeCover.stop="makeCover(att.img)" -->
-                    <!-- <a>Remove cover</a> -->
-                  </div>
                 </div>
               </a>
             </div>
 
-            <a class="add-item" @click="dynamicCmp('editAttachment')">Add an item </a>
+            <a class="add-item" @click="dynamicCmp('attachment')">Add an attachment</a>
           </div>
 
           <div class="checklists-container" v-if="card.checklists">
@@ -231,6 +232,9 @@
           :card="card"
           :cmp="dynamicCmpToShow"
           @updateCard="updateCard"
+          @removeAtt="removeAtt"
+          @updateAtt="updateAtt"
+          @closeModel="closeModel"
         ></card-edit>
       </div>
     </article>
@@ -258,7 +262,8 @@ export default {
       editDescription: false,
       isOpenTitle: false,
       labels: [],
-      cmp: null,
+      cmp: { cmp: null, id: null },
+      attachmentViewer: false,
     };
   },
   methods: {
@@ -270,9 +275,8 @@ export default {
           cardId,
         });
         const card = JSON.parse(JSON.stringify(currCard));
-        if (!card.style.bgUrl) card.style.bgUrl = { backgroundImage: null };
+        // if (!card.style.bgUrl) card.style.bgUrl = { backgroundImage: null };
         this.card = card;
-        console.log(card);
         if (this.card.labelIds) {
           this.labels = await this.getLabel();
         }
@@ -320,14 +324,14 @@ export default {
     makeCover(imgUrl) {
       let card = JSON.parse(JSON.stringify(this.card));
       if (!this.inCover(imgUrl)) {
-        card.style.bgUrl = { backgroundImage: imgUrl };
+        card.style.bgUrl = imgUrl;
         card.style.bgColor = null;
-      } else card.style.bgUrl.backgroundImage = null;
+      } else card.style.bgUrl = null;
       this.updateCard(card);
     },
     inCover(imgUrl) {
-      if (!this.card.style.bgUrl) this.card.style.bgUrl = { backgroundImage: null };
-      return this.card.style.bgUrl.backgroundImage === imgUrl;
+      if (!this.card.style.bgUrl) this.card.style.bgUrl = null;
+      return this.card.style.bgUrl === imgUrl;
     },
     removeMsg(a) {
       console.log('TODO');
@@ -372,11 +376,17 @@ export default {
           type: 'updateCard',
           card,
         });
+        this.cmp.cmp = null;
+        this.cmp.id = null;
         await this.loadCard();
         // this.$emit('updateCard')
       } catch (err) {
         console.log(err);
       }
+    },
+    closeModel() {
+      this.cmp.cmp = null;
+      this.cmp.id = null;
     },
     async saveTitle() {
       let card = JSON.parse(JSON.stringify(this.card));
@@ -391,16 +401,33 @@ export default {
     selectInInput() {
       console.log(this.$refs);
     },
-    dynamicCmp(cmp) {
-      this.cmp = cmp;
-      setTimeout(() => {
-        this.cmp = null;
-      }, 500);
+    dynamicCmp(cmp, id = null) {
+      console.log(this.cmp.cmp);
+      console.log(cmp);
+      //   if (this.cmp.cmp === cmp) {
+      //     console.log('a');
+      //     this.cmp.cmp = null;
+      //     this.cmp.id = null;
+      //   }
+      this.cmp = { cmp, id };
+    },
+    removeAtt() {
+      let card = JSON.parse(JSON.stringify(this.card));
+      card.attachment.computerAttachment.splice(this.cmp.id, 1);
+      this.updateCard(card);
+    },
+    updateAtt(newVal) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      console.log(card.attachment.computerAttachment);
+      console.log(this.cmp);
+      card.attachment.computerAttachment[this.cmp.id].name = newVal;
+      this.updateCard(card);
+      console.log(newVal);
     },
   },
   computed: {
     dynamicCmpToShow() {
-      return this.cmp;
+      return this.cmp.cmp;
     },
     headerShow() {
       return (
@@ -428,7 +455,7 @@ export default {
       } else if (this.card.style.bgUrl) {
         console.log(this.card.style);
         return {
-          backgroundImage: this.card.style.bgUrl.backgroundImage,
+          backgroundImage: this.card.style.bgUrl,
         };
       }
     },

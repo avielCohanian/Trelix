@@ -15,16 +15,16 @@
 
     <form @submit.prevent="aa">
       <label class="link">Attach a link</label>
-      <input type="text" placeholder="Paste any link here..." v-model="link" />
+      <input type="text" placeholder="Paste any link here..." v-model="att.link" />
 
-      <label v-if="link" class="optional-link"
+      <label v-if="att.link" class="optional-link"
         >Link name(optional)
-        <input type="text" v-model="linkName" />
+        <input type="text" v-model="att.name" />
       </label>
 
       <button hidden></button>
     </form>
-    <a class="attach-btn">Attach</a>
+    <a class="attach-btn" @click="saveLink">Attach</a>
     <hr />
   </div>
 </template>
@@ -36,8 +36,10 @@ export default {
   name: 'attachment',
   data() {
     return {
-      link: '',
-      linkName: '',
+      att: {
+        link: '',
+        name: '',
+      },
       isLoading: false,
     };
   },
@@ -45,10 +47,7 @@ export default {
     dynamicCmp() {
       this.$emit('dynamicCmp', 'trelix');
     },
-    aa() {
-      console.log(this.link);
-      console.log(this.linkName);
-    },
+
     async onUploadImg(ev) {
       this.isLoading = true;
       let res = await uploadImg(ev);
@@ -57,8 +56,12 @@ export default {
         url: res.url,
         upAt: Date.now(),
       };
-      this.$emit('computerAttachment', attachment);
+      this.$emit('computerAttImg', attachment);
       this.isLoading = false;
+    },
+    saveLink() {
+      (this.att.upAt = Date.now()), this.$emit('computerAttLink', this.att);
+      console.log(this.att);
     },
   },
 };
