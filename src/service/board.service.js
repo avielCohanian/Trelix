@@ -22,7 +22,8 @@ export const boardService = {
     deleteMember,
     addCard,
     getEmptyChecklist,
-    addBoard
+    addBoard,
+    updateDuedate
     // saveGroups,
 };
 function _getEmptyActivity(){
@@ -286,6 +287,24 @@ function deleteCard(board, cardId) {
     board.groups[groupIdx].cards.splice(cardIdx, 1);
     // return storageService.put(BOARD_KEY, board);
     return _updateService(board);
+}
+
+async function updateDuedate(board,newDone, card){
+    card.dueDate.isDone = newDone
+    let groupIdx = board.groups.findIndex((group) => {
+        return group.cards.some((c) => c.id === card.id);
+    });
+    let cardIx = board.groups[groupIdx].cards.findIndex((card) => {
+        return card.id === card.id;
+    });
+    board = JSON.parse(JSON.stringify(board));
+    board.groups[groupIdx].cards.splice(cardIx, 1, card);
+    try {
+        // let currBoard = await httpService.put(`board/${board._id}`, board);
+        return _updateService(board);
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 function getEmptyChecklist() {

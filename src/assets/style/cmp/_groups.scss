@@ -57,11 +57,12 @@
     padding: 6px 8px;
     font-size: 14px;
     gap: 3px;
+    margin-inline-end: 5px;
     &:hover{
         background-color: #ffffff69;
     }
     span.icon{
-font-size: 12px;
+font-size: 16px;
     }
     
    }
@@ -73,6 +74,7 @@ font-size: 12px;
         border-radius: 5px;
         padding: 4px 4px;
         background-color: #ebecf0;
+        margin-inline-end: 5px;
         input{
             height: 36px;
             width: 264px;

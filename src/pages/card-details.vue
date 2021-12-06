@@ -270,7 +270,9 @@ export default {
           cardId,
         });
         const card = JSON.parse(JSON.stringify(currCard));
+        if (!card.style.bgUrl) card.style.bgUrl = { backgroundImage: null };
         this.card = card;
+        console.log(card);
         if (this.card.labelIds) {
           this.labels = await this.getLabel();
         }

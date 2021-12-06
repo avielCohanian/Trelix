@@ -70,9 +70,9 @@ section.card.img-cover {
     &:hover {
         background-color: #f1f1f118;
     }
-   
+
     .icons {
-        height: 28px;
+        max-height: 28px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -187,86 +187,89 @@ section.card.img-cover {
         p {
             padding: 0;
             margin: 0;
-        }
-    }
-    .editor {
-        background-color: #0009;
-        bottom: 0;
-        // color: #fff;
-        left: 0;
-        position: fixed;
-        right: 0;
-        top: 0;
-        z-index: 10;
-        .btn-x {
-            color: #fff9;
-            padding: 9px;
-            position: absolute;
-            right: 0;
-            top: 0;
-            font-size: 24px;
-            transition-duration: 0.15s;
-            &:hover {
-                transition-property: transform, color;
+            &.white {
                 color: white;
             }
         }
-        .edit-txt {
-            top: 168px;
-            left: 316px;
-            width: 256px;
-            position: absolute;
-
-            textarea {
-                font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-                    Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
-                box-shadow: 0 1px 0 #091e4240;
-                margin-bottom: 8px;
-                max-width: 300px;
-                min-height: 20px;
-                resize: none;
-                height: 90px;
-            }
-            button {
-                background-color: #0079bf;
-                padding-left: 24px;
-                padding-right: 24px;
-            }
+    }
+}
+.editor {
+    background-color: #0009;
+    bottom: 0;
+    // color: #fff;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    .btn-x {
+        color: #fff9;
+        padding: 9px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 24px;
+        transition-duration: 0.15s;
+        &:hover {
+            transition-property: transform, color;
+            color: white;
         }
-        .chose-edit {
-            margin-inline-start: 557px;
-            margin-block-start: 162px;
+    }
+    .edit-txt {
+        top: 168px;
+        left: 316px;
+        width: 256px;
+        position: absolute;
 
-            ul {
+        textarea {
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+                Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+            box-shadow: 0 1px 0 #091e4240;
+            margin-bottom: 8px;
+            max-width: 300px;
+            min-height: 20px;
+            resize: none;
+            height: 90px;
+        }
+        button {
+            background-color: #0079bf;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+    }
+    .chose-edit {
+        margin-inline-start: 557px;
+        margin-block-start: 162px;
+
+        ul {
+            margin: 0 0 4px 8px;
+            padding: 6px 12px 6px 8px;
+            opacity: 1;
+            transform: translateX(0);
+            li {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 14px;
+                gap: 7px;
+                // width: 110px;
+                height: 32px;
+                background: #0009;
+                border-radius: 3px;
+                clear: both;
+                color: #e6e6e6;
+                // display: block;
+                float: left;
                 margin: 0 0 4px 8px;
                 padding: 6px 12px 6px 8px;
-                opacity: 1;
-                transform: translateX(0);
-                li {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    font-size: 14px;
-                    gap: 7px;
-                    // width: 110px;
-                    height: 32px;
-                    background: #0009;
-                    border-radius: 3px;
-                    clear: both;
-                    color: #e6e6e6;
-                    // display: block;
-                    float: left;
-                    margin: 0 0 4px 8px;
-                    padding: 6px 12px 6px 8px;
-                    // text-decoration: none;
-                    // transition: transform 85ms ease-in,-webkit-transform 85ms ease-in;
-                    transition: transform 85ms ease-in;
-                    span {
-                        font-size: 15px;
-                    }
-                    &:hover {
-                        transform: translateX(7px);
-                    }
+                // text-decoration: none;
+                // transition: transform 85ms ease-in,-webkit-transform 85ms ease-in;
+                transition: transform 85ms ease-in;
+                span {
+                    font-size: 15px;
+                }
+                &:hover {
+                    transform: translateX(7px);
                 }
             }
         }

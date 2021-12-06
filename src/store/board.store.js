@@ -109,6 +109,18 @@ export const boardStore = {
                 console.log(err);
             }
         },
+
+        async updateDuedate({ commit, getters }, { newDone , card }) {
+            const board = JSON.parse(JSON.stringify(getters.getBoard)) 
+            try {
+                const updateBoard = await boardService.updateDuedate(board,newDone, card);
+                commit({ type: 'setBoard', board: updateBoard });
+                return updateBoard;
+            } catch (err) {
+                console.log(err);
+            }
+        },
+
         async updateGroup({ commit, getters }, { group }) {
             console.log(group);
             const board = JSON.parse(JSON.stringify(getters.getBoard));
