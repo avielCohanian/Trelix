@@ -40,7 +40,6 @@ export default {
     },
     methods: {
         saveChecklist() {
-            console.log(this.newChecklist);
             this.$emit('addChecklist', this.newChecklist);
         },
     },

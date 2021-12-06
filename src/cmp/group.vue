@@ -198,7 +198,6 @@ export default {
             container.scrollTop = container.scrollHeight;
         },
         toggleCard() {
-            console.log(this.$refs);
             this.scroll();
             this.isAddCard = !this.isAddCard;
         },
@@ -264,7 +263,6 @@ export default {
     },
     watch: {
         isEditTitle() {
-            console.log(this.$refs.input);
             if (this.isEditTitle) {
                 this.$refs.input.select();
             } else this.$refs.input.focus();

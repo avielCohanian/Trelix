@@ -120,7 +120,6 @@ export default {
     },
     methods: {
         dynamicCmp(cmp) {
-            console.log(cmp);
             if (cmp === 'attachment') this.component.name = 'attach from...';
             if (cmp === 'editAttachment')
                 this.component.name = 'Remove attachment?';
@@ -132,7 +131,6 @@ export default {
         },
         join(userId) {
             //TODO
-            console.log('todo ', userId);
             this.userJoin = true;
         },
         changeBcg(color) {

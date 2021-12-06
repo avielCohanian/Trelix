@@ -60,7 +60,6 @@ export default {
         membersToShow() {
             let memberToShow = this.$store.getters.boardMembers;
             if (this.filterMember) {
-                console.log(memberToShow);
                 const regex = new RegExp(this.filterMember, 'i');
                 memberToShow = this.card.members.filter((member) =>
                     regex.test(member.fullname)

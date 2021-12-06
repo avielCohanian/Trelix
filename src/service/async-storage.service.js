@@ -1038,7 +1038,10 @@ const users = [
         username: 'abi@ababmi.com',
         password: 'aBambi123',
         imgUrl: 'http://some-img.jpg',
-        boards: { boards: ['b101', 'b103'], starBoard: ['b102'] },
+        boards: {
+            boards: ['61ad4049ec9e776b609a7fd5', '61ad4481ec9e776b609a7fd6'],
+            starBoard: ['61ad4049ec9e776b609a7fd5'],
+        },
     },
 ];
 // _save('boards', groups);

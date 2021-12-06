@@ -53,10 +53,8 @@ export default {
     methods: {
         addMsg(msg) {
             this.msgs.push(msg);
-            console.log(this.msgs);
         },
         sendMsg() {
-            console.log('Sending', this.msg);
             socketService.emit('chat newMsg', this.msg);
             socketService.emit('stopTyping');
             // TODO: next line not needed after connecting to backend
@@ -68,14 +66,12 @@ export default {
             socketService.emit('chat topic', this.topic);
         },
         userTyping(user) {
-            console.log('typing...', user);
             this.typingUser = user + ':is typing...';
         },
         typing() {
             socketService.emit('user typing', this.user);
         },
         stopTyping() {
-            console.log('aaa');
             this.typingUser = '';
         },
     },

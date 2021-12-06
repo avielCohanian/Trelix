@@ -73,13 +73,11 @@ export default {
 
         async addGroup() {
             try {
-                console.log(this.newGroup);
                 var res = await this.$store.dispatch({
                     type: 'addGroup',
                     newGroup: this.newGroup,
                 });
                 this.newGroup = boardService.getEmptyGroup();
-                console.log(res);
             } catch (err) {
                 console.log(err);
             }

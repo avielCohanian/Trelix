@@ -375,7 +375,6 @@ export default {
                 });
                 const card = JSON.parse(JSON.stringify(currCard));
                 this.card = card;
-                console.log(card.attachment);
                 if (this.card.labelIds) {
                     this.labels = await this.getLabel();
                 }
@@ -465,6 +464,7 @@ export default {
         },
         async updateCard(card) {
             try {
+                if (!card) card = JSON.parse(JSON.stringify(this.card));
                 await this.$store.dispatch({
                     type: 'updateCard',
                     card,
@@ -520,11 +520,9 @@ export default {
             return new Date(t).getUTCDay() + 1;
         },
         bgColor() {
-            console.log(this.card.style);
             if (this.card.style.bgColor) {
                 return { backgroundColor: `${this.card.style.bgColor}` };
             } else if (this.card.style.bgUrl) {
-                console.log(this.card.style.bgUrl.backgroundImage);
                 return {
                     backgroundImage: `${this.card.style.bgUrl.backgroundImage}`,
                 };
@@ -534,7 +532,6 @@ export default {
     watch: {
         editDescription() {
             if (this.editDescription) {
-                console.log(this.$refs.editInput.$el);
                 this.$refs.editInput.focus();
             }
         },

@@ -7,14 +7,13 @@ export const boardStore = {
         currBoard: null,
         currCard: null,
         currGroup: null,
-        boardsForDisplay:null
+        boardsForDisplay: null,
         // watchedUser: null,
         // currUser: userService.getLoggedinUser(),
     },
     getters: {
-        getBoardsForDisplay(state){
-            console.log(state.boardsForDisplay);
-            return state.boardsForDisplay
+        getBoardsForDisplay(state) {
+            return state.boardsForDisplay;
         },
         getBoard(state) {
             return state.currBoard;
@@ -43,7 +42,6 @@ export const boardStore = {
             state.currBoard = board;
         },
         setdBoards(state, { boards }) {
-            console.log(boards);
             state.boardsForDisplay = boards;
         },
 
@@ -93,7 +91,8 @@ export const boardStore = {
         async updateCard({ commit, getters }, { card }) {
             const board = getters.getBoard;
             try {
-                const updateBoard = await boardService.saveCard(board, card);
+                console.log(card);
+                const updateBoard = await boardService.updateCard(board, card);
                 commit({ type: 'setBoard', board: updateBoard });
                 return updateBoard;
             } catch (err) {
@@ -114,10 +113,11 @@ export const boardStore = {
         },
         async updateGroups({ commit, getters }, { groups }) {
             const board = JSON.parse(JSON.stringify(getters.getBoard));
+            board.groups = groups;
             try {
-                const updateBoard = await boardService.saveGroups(
-                    board,
-                    groups
+                const updateBoard = await boardService.updatedBoard(
+                    board
+                    // groups
                 );
                 commit({ type: 'setBoard', board: updateBoard });
                 return updateBoard;
@@ -155,12 +155,9 @@ export const boardStore = {
             }
         },
         async deleteCard({ commit, getters }, { card }) {
-            console.log(card);
             try {
                 const board = JSON.parse(JSON.stringify(getters.getBoard));
-                console.log(board);
                 var savedBoard = await boardService.deleteCard(board, card.id);
-                console.log(savedBoard);
                 commit({ type: 'setBoard', board: savedBoard });
                 return savedBoard;
             } catch (err) {
@@ -174,7 +171,6 @@ export const boardStore = {
                     board,
                     member.id
                 );
-                console.log(savedBoard);
                 commit({ type: 'setBoard', board: savedBoard });
                 return savedBoard;
             } catch (err) {
@@ -198,19 +194,18 @@ export const boardStore = {
             commit({ type: 'setCardGroup', card: currCard, group });
             return currCard;
         },
-        async loadBoards({commit,getters ,dispatch}){
-            try{
-                await dispatch({type:'logIn',userName:'abi@ababmi.com'})
-                console.log(getters.getUserConnect);
+        async loadBoards({ commit, getters, dispatch }) {
+            try {
+                await dispatch({ type: 'logIn', userName: 'abi@ababmi.com' });
 
-                const boards = await boardService.getBoardsForDisplay(getters.getUserConnect)
-                console.log(boards);
-                commit({type:'setdBoards',boards})
+                const boards = await boardService.getBoardsForDisplay(
+                    getters.getUserConnect
+                );
+                commit({ type: 'setdBoards', boards });
                 // return boards
-            }catch(err){
-                throw err
+            } catch (err) {
+                throw err;
             }
-         }
-         ,
+        },
     },
 };

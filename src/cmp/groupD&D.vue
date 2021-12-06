@@ -90,7 +90,6 @@ export default {
         },
         async addCard() {
             try {
-                console.log(this.newCard);
                 var res = await this.$store.dispatch({
                     type: 'addCard',
                     newCard: this.newCard,

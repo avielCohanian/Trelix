@@ -1,71 +1,142 @@
 import { utilService } from './util.service.js';
 // import { upDownService } from '../../../main-services/upDown-service.js';
 import { storageService } from './async-storage.service.js';
+import { httpService } from './http.service.js';
 import loader from 'sass-loader';
 export const boardService = {
     getById,
-    getGroupById,
-    saveCard,
-    getEmptyCard,
     updatedBoard,
+    getBoardsForDisplay,
+    getEmptyBoard,
     getEmptyGroup,
+    getGroupById,
     addGroup,
-    getColors,
-    deleteGroup,
-    getLabelByCard,
     saveGroup,
+    getGroupByCardId,
+    deleteGroup,
+    updateCard,
+    getEmptyCard,
+    getColors,
+    getLabelByCard,
     deleteCard,
     deleteMember,
-    saveGroups,
-    getBoardsForDisplay,
     addCard,
-    getGroupByCardId,
     getEmptyChecklist,
+    // saveGroups,
 };
 
 const BOARD_KEY = 'boards';
 
-
-async function getBoardsForDisplay(userLog) {
-
+async function _updateService(board) {
     try {
-        const boards = await query();
-        var boardsStar = userLog.boards.starBoard.reduce((acc,boardId) => {
-            const board = boards.find(board=>board._id === boardId)
-            if (board) {
-                 acc.push({ _id: board._id, title: board.title, style: board.style ,members: board.members}) 
-            }
-            return acc 
-        },[]);
-        var boardsUser = userLog.boards.boards.reduce((acc,boardId) => {
-            console.log(boardId);
-            const board = boards.find(board=>board._id === boardId)
-            if (board) {
-                acc.push( { _id: board._id, title: board.title, style: board.style ,members: board.members}) 
-            }
-            return acc 
-        } , [] );
-        return Promise.resolve({boards:boardsUser, boardsStar});
-    } catch (err) {
-        throw err;
-    }
-}
-
-async function query() {
-    try {
-        return await storageService.query(BOARD_KEY);
+        let currBoard = await httpService.put(`board/${board._id}`, board);
+        return currBoard;
     } catch (err) {
         console.log(err);
     }
 }
 
-function getById(id) {
-    return query().then((boards) => {
-        let currBoards = boards.find((board) => board._id === id);
-        return Promise.resolve(currBoards);
-    });
+async function query() {
+    try {
+        // return await storageService.query(BOARD_KEY);
+        return httpService.get(`board`);
+    } catch (err) {
+        console.log(err);
+    }
 }
 
+// Board
+function updatedBoard(board) {
+    return _updateService(board);
+    // return storageService.put(BOARD_KEY, board);
+}
+async function getBoardsForDisplay(userLog) {
+    try {
+        const boards = await query();
+        var boardsStar = userLog.boards.starBoard.reduce((acc, boardId) => {
+            const board = boards.find((board) => board._id === boardId);
+            if (board) {
+                acc.push({
+                    _id: board._id,
+                    title: board.title,
+                    style: board.style,
+                    members: board.members,
+                });
+            }
+            return acc;
+        }, []);
+        var boardsUser = userLog.boards.boards.reduce((acc, boardId) => {
+            console.log(boardId);
+            const board = boards.find((board) => board._id === boardId);
+            if (board) {
+                acc.push({
+                    _id: board._id,
+                    title: board.title,
+                    style: board.style,
+                    members: board.members,
+                });
+            }
+            return acc;
+        }, []);
+        return Promise.resolve({ boards: boardsUser, boardsStar });
+    } catch (err) {
+        throw err;
+    }
+}
+async function getById(id) {
+    console.log(id);
+    try {
+        const currBoard = await httpService.get(`board/${id}`);
+        return Promise.resolve(currBoard);
+    } catch (err) {
+        console.log(err);
+    }
+    // return query().then((boards) => {
+    //     let currBoards = boards.find((board) => board._id === id);
+    //     return Promise.resolve(currBoards);
+    // });
+}
+
+// Group
+
+function addGroup(board, newGroup) {
+    board = JSON.parse(JSON.stringify(board));
+    newGroup.id = makeId();
+    board.groups.push(newGroup);
+
+    // return storageService.put(BOARD_KEY, board);
+    return _updateService(board);
+}
+
+function deleteGroup(board, groupId) {
+    //    var group = getGroupById(board,groupId)
+    let idx = board.groups.findIndex((group) => group.id === groupId);
+    board.groups.splice(idx, 1);
+    // return storageService.put(BOARD_KEY, board);
+    return _updateService(board);
+}
+
+function saveGroup(board, group) {
+    let groupIdx = board.groups.findIndex((group1) => {
+        return group1.id === group.id;
+    });
+    board.groups.splice(groupIdx, 1, group);
+    // return storageService.put(BOARD_KEY, board);
+    return _updateService(board);
+}
+
+// function saveGroups(board, groups) {
+//     board.groups = groups;
+//     // return storageService.put(BOARD_KEY, board);
+//     return _updateService(board);
+// }
+function getEmptyGroup() {
+    return {
+        style: {},
+        cards: [],
+        title: '',
+    };
+}
 function getGroupById(board, groupId) {
     console.log(board);
     var res = board.groups.find((group) => {
@@ -74,6 +145,57 @@ function getGroupById(board, groupId) {
     return Promise.resolve(res);
 }
 
+// Card
+
+function getEmptyCard() {
+    return {
+        title: '',
+        attachment: {},
+        checklists: [],
+        description: '',
+        comments: [],
+        attachment: {
+            trelixAttachments: null,
+            computerAttachment: null,
+        },
+        members: [],
+        labelIds: [],
+        createdAt: Date.now,
+        dueDate: null,
+        byMember: {},
+        style: {},
+    };
+}
+async function addCard(board, groupId, newCard) {
+    newCard.id = makeId();
+    let groupIdx = board.groups.findIndex((group) => {
+        return group.id === groupId;
+    });
+    board.groups[groupIdx].cards.push(newCard);
+
+    try {
+        // let currBoard = await httpService.put(`board/${board._id}`, board);
+        return _updateService(board);
+    } catch (err) {
+        console.log(err);
+    }
+}
+async function updateCard(board, cardToSave) {
+    let groupIdx = board.groups.findIndex((group) => {
+        return group.cards.some((c) => c.id === cardToSave.id);
+    });
+    let cardIx = board.groups[groupIdx].cards.findIndex((card) => {
+        return card.id === cardToSave.id;
+    });
+    board = JSON.parse(JSON.stringify(board));
+    board.groups[groupIdx].cards.splice(cardIx, 1, cardToSave);
+    try {
+        // let currBoard = await httpService.put(`board/${board._id}`, board);
+        return _updateService(board);
+    } catch (err) {
+        console.log(err);
+    }
+}
 async function getGroupByCardId(boardId, cardId) {
     try {
         let board = await query();
@@ -111,108 +233,26 @@ async function getLabelByCard(boardId, card) {
     }
 }
 
-function addCard(board, groupId, newCard) {
-    newCard.id = makeId();
-    let groupIdx = board.groups.findIndex((group) => {
-        return group.id === groupId;
-    });
-    board.groups[groupIdx].cards.push(newCard);
-
-    return storageService.put(BOARD_KEY, board);
-}
-
-function updateCard(board, groupIdx, cardToSave) {
-    let cardIx = board.groups[groupIdx].cards.findIndex((card) => {
-        return card.id === cardToSave.id;
-    });
-    board.groups[groupIdx].cards.splice(cardIx, 1, cardToSave);
-    return storageService.put(BOARD_KEY, board);
-}
-
-function saveCard(board, card) {
-    let groupIdx = board.groups.findIndex((group) => {
-        return group.cards.some((c) => c.id === card.id);
-    });
-    console.log(groupIdx);
-    board = JSON.parse(JSON.stringify(board));
-    card = card.id
-        ? updateCard(board, groupIdx, card)
-        : addCard(board, groupIdx, card);
-    return card;
-}
-
-function saveGroup(board, group) {
-    let groupIdx = board.groups.findIndex((group1) => {
-        return group1.id === group.id;
-    });
-    board.groups.splice(groupIdx, 1, group);
-    return storageService.put(BOARD_KEY, board);
-}
-function saveGroups(board, groups) {
-    board.groups = groups;
-    return storageService.put(BOARD_KEY, board);
-}
-
-function deleteGroup(board, groupId) {
-    //    var group = getGroupById(board,groupId)
-    let idx = board.groups.findIndex((group) => group.id === groupId);
-    board.groups.splice(idx, 1);
-    return storageService.put(BOARD_KEY, board);
-}
 function deleteMember(board, memberId) {
     //    var group = getGroupById(board,groupId)
     let idx = board.members.findIndex((member) => member.id === memberId);
     board.members.splice(idx, 1);
-    return storageService.put(BOARD_KEY, board);
+    // return storageService.put(BOARD_KEY, board);
+    return _updateService(board);
 }
 function deleteCard(board, cardId) {
-    console.log(cardId);
     let groupIdx = board.groups.findIndex((group) => {
         return group.cards.some((c) => c.id === cardId);
     });
-    console.log(groupIdx);
     // let groupIdx = board.groups.findIndex((group) => group.id === groupId);
     let cardIdx = board.groups[groupIdx].cards.findIndex(
         (card) => card.id === cardId
     );
     board.groups[groupIdx].cards.splice(cardIdx, 1);
-    return storageService.put(BOARD_KEY, board);
-}
-function addGroup(board, newGroup) {
-    board = JSON.parse(JSON.stringify(board));
-    newGroup.id = makeId();
-    board.groups.push(newGroup);
-
-    return storageService.put(BOARD_KEY, board);
+    // return storageService.put(BOARD_KEY, board);
+    return _updateService(board);
 }
 
-function getEmptyCard() {
-    return {
-        title: '',
-        attachment: {},
-        checklists: [],
-        description: '',
-        comments: [],
-        attachment: {
-            trelixAttachments: null,
-            computerAttachment: null,
-        },
-        members: [],
-        labelIds: [],
-        createdAt: Date.now,
-        dueDate: null,
-        byMember: {},
-        style: {},
-    };
-}
-
-function getEmptyGroup() {
-    return {
-        style: {},
-        cards: [],
-        title: '',
-    };
-}
 function getEmptyChecklist() {
     return {
         id: makeId(),
@@ -274,27 +314,6 @@ function getEmptyBoard() {
         members: [],
         activities: [],
     };
-}
-
-function updatedBoard(board) {
-    return storageService.put(BOARD_KEY, board);
-}
-function save(note) {
-    if (note.id) return storageService.put(BOARD_KEY, note);
-    else return storageService.post(BOARD_KEY, note);
-}
-
-function remove(noteId) {
-    return query().then((notes) => {
-        const idx = notes.findIndex((note) => note.id === noteId);
-        notes.splice(idx, 1);
-        utilService.saveToStorage(BOARD_KEY, notes);
-    });
-}
-
-function createNote(note) {
-    console.log(note);
-    return storageService.post(BOARD_KEY, note);
 }
 
 function makeId(length = 5) {
