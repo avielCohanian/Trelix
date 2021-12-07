@@ -257,6 +257,7 @@
           @closeModel="closeModel"
           @removeChecklist="removeChecklist"
           @updateChecklist="updateChecklist"
+          @deleteLabel="deleteLabel"
         ></card-edit>
       </div>
     </article>
@@ -462,6 +463,11 @@ export default {
       let card = JSON.parse(JSON.stringify(this.card));
 
       card.attachment.computerAttachment[this.cmp.id].name = newVal;
+      this.updateCard(card);
+    },
+    deleteLabel(labelId) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      card.labelIds.filter((l) => l.id !== labelId);
       this.updateCard(card);
     },
   },

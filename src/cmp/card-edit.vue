@@ -58,6 +58,7 @@
       <component
         :is="component.currCmp"
         :card="card"
+        :label="label"
         @updateMember="updateMember"
         @changeBcg="changeBcg"
         @updateLabel="updateLabel"
@@ -66,6 +67,11 @@
         @computerAttImg="computerAttImg"
         @computerAttLink="computerAttLink"
         @searchImgCmp="dynamicCmp"
+        @addLabel="addLabel"
+        @editLabel="editLabel"
+        @newLabel="newLabel"
+        @deleteLabel="deleteLabel"
+        @backLabel="dynamicCmp('labels')"
       >
       </component>
     </div>
@@ -85,6 +91,7 @@
 <script>
 import member from './edit/edit-member.vue';
 import label from './edit-label.vue';
+import addLabel from './edit/add-label.vue';
 import attachment from './edit/edit-attachment.vue';
 import trelix from './edit/edit-trelix.vue';
 import cover from './edit/edit-cover.vue';
@@ -121,6 +128,7 @@ export default {
         btnTxt: '',
         position: null,
       },
+      label: { type: '', currLabel: null },
       propCmp: this.cmp,
       userJoin: false,
     };
@@ -136,14 +144,14 @@ export default {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
       this.position = null;
-
+      console.log(cmp === 'addLabels' && this.label.type === 'edit');
       if (cmp === 'attachment') this.component.name = 'attach from...';
       if (cmp === 'coverSearch') this.component.name = 'photo search';
-      if (cmp === 'editAttachment') {
-        this.component.name = 'Remove attachment?';
-      } else {
-        this.component.name = cmp;
-      }
+      if (cmp === 'checklist') this.component.name = 'Add checklist';
+      cmp === 'editAttachment' ? (this.component.name = 'Remove attachment?') : (this.component.name = cmp);
+      if (cmp === 'addLabels' && this.label.type === 'edit') this.component.name = 'Change label';
+      if (cmp === 'addLabels' && this.label.type === 'add') this.component.name = 'Create label';
+
       // this.component.position = document.querySelector(`.${cmp}`).getBoundingClientRect();
       this.component.currCmp = `card-${cmp}`;
     },
@@ -252,12 +260,46 @@ export default {
         this.closeModel();
       }, 500);
     },
+    addLabel() {
+      this.label.type = 'add';
+      this.dynamicCmp('addLabels');
+    },
+    editLabel(labelId) {
+      let label = this.$store.getters.boardLabels;
+      label = label.find((l) => l.id === labelId);
+      this.label.currLabel = JSON.parse(JSON.stringify(label));
+
+      this.label.type = 'edit';
+      this.dynamicCmp('addLabels');
+    },
+    deleteLabel(labelId) {
+      this.$emit('deleteLabel', labelId);
+      setTimeout(() => {
+        this.closeModel();
+      }, 500);
+    },
+    async newLabel(newLabel) {
+      this.closeModel();
+      // this.updateLabel(label);
+      try {
+        await this.$store.dispatch({ type: 'addLabel', newLabel });
+        this.label.currLabel = null;
+
+        // let card = JSON.parse(JSON.stringify(this.card));
+        // let currLabel = { lId: newLabel.id, isDone: false };
+        // card.labelIds.push(currLabel);
+        // this.$emit('updateCard', card);
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
   components: {
     'card-attachment': attachment,
     'card-trelix': trelix,
     'card-members': member,
     'card-labels': label,
+    'card-addLabels': addLabel,
     'card-cover': cover,
     'card-checklist': checklist,
     'card-edit': edit,
@@ -276,8 +318,6 @@ export default {
 
       if (cmpName) {
         cmpName.type ? this.minDynamicCmp(cmpName) : this.dynamicCmp(cmpName.name);
-        // ? this.minDynamicCmp(cmpName)
-        // : this.dynamicCmp(cmpName.name);
       }
       deep: true;
     },

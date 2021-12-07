@@ -8,9 +8,7 @@
     ></div>
 
     <img :src="bgUrlHalf" v-if="card.style && card.style.isFull === false && card.style.bgUrl" />
-    <span class="material-icons-outlined edit" @click.stop="openEditor" :style="isShow">
-      create
-    </span>
+    <span class="material-icons-outlined edit" @click.stop="openEditor" :style="isShow"> create </span>
     <section
       :style="bgColorFull"
       class="card"
@@ -48,12 +46,7 @@
       <div
         class="icons"
         v-if="
-          card.dueDate ||
-          card.comments ||
-          card.checklists ||
-          card.attachment ||
-          card.checklists ||
-          card.description
+          card.dueDate || card.comments || card.checklists || card.attachment || card.checklists || card.description
         "
       >
         <!-- dueDate -->
@@ -65,12 +58,8 @@
           @click.stop="isDone"
           :class="{ 'done-card': isCardDone }"
         >
-          <span v-if="isCardDone && showCheck" class="material-icons-outlined icon">
-            check_box</span
-          >
-          <span v-if="showCheck && !isCardDone" class="material-icons-outlined icon check"
-            >crop_din</span
-          >
+          <span v-if="isCardDone && showCheck" class="material-icons-outlined icon"> check_box</span>
+          <span v-if="showCheck && !isCardDone" class="material-icons-outlined icon check">crop_din</span>
           <span v-if="!showCheck" class="due-date-icon icon el-icon-time check"></span>
           <span v-if="card.dueDate.date">
             {{ card.dueDate.date | moment('MMM ') }}
@@ -126,9 +115,7 @@
             <li @click.stop.prevent="openDetails(card.id)">
               <span class="material-icons-outlined"> branding_watermark </span>Open card
             </li>
-            <li @click.stop="dynamicCmp('labels')">
-              <span class="material-icons-outlined"> sell </span>Edit labels
-            </li>
+            <li @click.stop="dynamicCmp('labels')"><span class="material-icons-outlined"> sell </span>Edit labels</li>
             <li @click.stop.prevent="dynamicCmp('members')">
               <span class="material-icons-outlined"> person_outline </span>Change members
             </li>
@@ -379,7 +366,7 @@ export default {
     doneTodosAmount() {
       let doneTodos = 0;
       this.card.checklists.forEach((checklist) => {
-        if (checklist.todos) {
+        if (checklist.todos && checklist.todos.length) {
           doneTodos += checklist.todos.filter((todo) => todo.isDone).length;
         }
       });

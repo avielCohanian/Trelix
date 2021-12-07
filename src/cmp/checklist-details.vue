@@ -1,7 +1,6 @@
 <template>
   <article class="checklist">
     <span class="material-icons-outlined icon"> check_box </span>
-    {{ checklist.id }}
     <header class="checklist-header" :style="{ height: editMode }">
       <div class="show" v-if="!editTitleMode">
         <h3 @click="editTitle">
@@ -20,14 +19,7 @@
       </div>
 
       <div v-else class="description-edit">
-        <input
-          class="description-edit-input"
-          type="textarea"
-          ref="editInput"
-          v-model="copyList.title"
-          @blur="editTitle"
-          @keyup.enter="editTitle"
-        />
+        <input class="description-edit-input" type="textarea" ref="editInputTitle" v-model="copyList.title" />
 
         <div class="description-edit-btn">
           <a class="close-btn el-icon-close" @click="editTitle"></a>
@@ -38,21 +30,28 @@
     </header>
 
     <div class="progress-z">
-      <el-progress :percentage="statistic" :status="progress"></el-progress>
+      <el-progress :percentage="statistic" :status="progress"> </el-progress>
+      <span class="statistic">{{ statistic }}%</span>
     </div>
+
     <ul class="todos-container">
       <li class="todos" v-for="todo in todosToShow" :key="todo.id">
-        <el-checkbox class="checkbox" v-model="todo.isDone" @click.stop> </el-checkbox>
-        <!-- @click.self="x" -->
+        <span @click="updateStatistic(todo.id)">
+          <el-checkbox class="checkbox" v-model="todo.isDone"> </el-checkbox>
+        </span>
+
         <div class="todo-row" @click="editCurrentTodo(todo.id)">
-          <div v-if="todo.id !== editCurrentTodoMode && !updateTodoMode" class="checklist-todo">
+          <div v-show="todo.id !== editTodoTxt" class="checklist-todo">
             {{ todo.txt }}
           </div>
 
-          <div v-else class="edit-container">
-            <input type="textarea" v-model="editTodo.txt" />
-            <a class="save" @click="updateTodo">Add</a>
-            <span class="back-btn close-btn el-icon-close" @click="closeEditContainer"></span>
+          <div v-show="todo.id === editTodoTxt" class="edit-container">
+            <input type="textarea" v-model="editTodo" ref="editInputTodo" />
+            <a class="save" @click.stop="updateTodo">Add</a>
+            <span class="back-btn close-btn el-icon-close" @click.stop="closeEditContainer"></span>
+            <span class="more-btn">
+              <span class="el-icon-more"></span>
+            </span>
           </div>
         </div>
       </li>
@@ -62,7 +61,7 @@
       <a v-if="!editTodoMode" class="item-btn" @click="addTodo">Add an item</a>
 
       <form v-else @submit.prevent="addNewTodo">
-        <input type="textarea" placeholder="Add an item" v-model="newTodo.txt" />
+        <input type="textarea" placeholder="Add an item" v-model="newTodo.txt" ref="editInputNew" />
         <a class="add" @click="addNewTodo">Add</a>
         <span @click="closeTodoAdd" class="back-btn close-btn el-icon-close"></span>
       </form>
@@ -83,66 +82,55 @@ export default {
   },
   data() {
     return {
-      checklistName: this.checklist.name,
       newTodo: { txt: '', isDone: false },
-      todoToEdit: null,
       editTitleMode: false,
       copyList: null,
       longSow: true,
       editTodoMode: false,
 
-      updateTodoMode: false,
-      editTodo: null, //currTodo
-      editCurrentTodoMode: null, //todoId
+      updateTodoMode: null,
+      editTodo: null,
+      editTodoTxt: '',
     };
   },
   created() {
     this.copyList = JSON.parse(JSON.stringify(this.checklist));
   },
   methods: {
-    x(todoId) {
-      return todoId !== this.editCurrentTodoMode;
+    editCurrentTodo(todoId) {
+      this.editTodoMode = false;
+      this.editTodoTxt = todoId;
+      this.updateTodoMode = this.copyList.todos.find((todo) => (todo.id === todoId ? todo : null));
+      this.editTodo = this.updateTodoMode.txt;
     },
-    toggleCheckedItem() {
-      this.longSow = !this.longSow;
+
+    updateTodo() {
+      let todoIdx = this.copyList.todos.findIndex((t) => t.id === this.updateTodoMode.id);
+      this.updateTodoMode.txt = this.editTodo;
+      this.copyList.todos.splice(todoIdx, 1, this.updateTodoMode);
+      this.editTodoTxt = '';
+      this.saveChecklist();
     },
+
+    closeEditContainer() {
+      this.editTodoTxt = '';
+    },
+
     addTodo() {
       this.editTodoMode = true;
-    },
-    editCurrentTodo(todoId) {
-      this.editCurrentTodoMode = todoId;
-      this.updateTodoMode = true;
-      this.editTodo = this.copyList.todos.find((todo) => todo.id === todoId);
+      this.editTodoTxt = '';
     },
     closeTodoAdd() {
       this.editTodoMode = false;
     },
-    closeEditCurrentTodo() {
-      this.editTodoMode = null;
-      this.copyList.todos = null;
-      console.log(this.editTodoMode);
-    },
     addNewTodo() {
       this.closeTodoAdd();
-      // this.editCurrentTodoMode = false;
-      if (!this.newTodo.id) {
-        this.newTodo.id = utilService.makeId();
-        this.copyList.todos.push(this.newTodo);
-      } else {
-        let todoIdx = this.copyList.todos.findIndex((t) => (t.id = this.newTodo.id));
-        this.copyList.todos.splice(todoIdx, 1, this.newTodo);
-      }
+      this.newTodo.id = utilService.makeId();
+      this.copyList.todos.push(this.newTodo);
       this.newTodo = { txt: '', isDone: false };
       this.saveChecklist();
     },
-    updateTodo() {
-      // editTodo
-      let todoIdx = this.copyList.todos.findIndex((t) => (t.id = this.editTodo.id));
-      this.copyList.todos.splice(todoIdx, 1, this.editTodo);
-      // this.editTodo = null;
-      this.updateTodoMode = false;
-      this.saveChecklist();
-    },
+
     newTodoRest() {
       this.newTodo = { txt: '', isDone: false };
     },
@@ -150,7 +138,13 @@ export default {
       this.editTitle();
       this.saveChecklist();
     },
+    toggleCheckedItem() {
+      this.longSow = !this.longSow;
+    },
 
+    updateStatistic(todoId) {
+      // this.$emit('updateList', this.checklist);
+    },
     saveChecklist() {
       this.$emit('updateList', this.copyList);
     },
@@ -159,12 +153,6 @@ export default {
     },
     deleteChecklist() {
       this.$emit('deleteChecklist', this.checklist.id);
-    },
-    closeEditContainer() {
-      console.log(this.editCurrentTodoMode);
-      this.editCurrentTodoMode = null;
-      this.editTodo = null;
-      console.log(this.editCurrentTodoMode);
     },
   },
   computed: {
@@ -200,6 +188,31 @@ export default {
         return this.checklist.todos;
       }
       return this.checklist.todos.filter((t) => !t.isDone);
+    },
+  },
+  watch: {
+    editTitleMode() {
+      if (this.editTitleMode) {
+        setTimeout(() => {
+          this.$refs.editInputTitle.select();
+        }, 50);
+      }
+    },
+    editTodoMode() {
+      console.log(this.$refs);
+      if (this.editTodoMode) {
+        setTimeout(() => {
+          this.$refs.editInputNew.focus();
+        }, 50);
+      }
+    },
+    editInputNew() {
+      console.log(this.$refs);
+      if (this.editInputNew) {
+        setTimeout(() => {
+          this.$refs.editInputTodo.focus();
+        }, 50);
+      }
     },
   },
 };
