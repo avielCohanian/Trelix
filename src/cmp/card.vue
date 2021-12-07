@@ -379,7 +379,7 @@ export default {
     doneTodosAmount() {
       let doneTodos = 0;
       this.card.checklists.forEach((checklist) => {
-        if (checklist.todos) {
+        if (checklist.todos && checklist.todos.length) {
           doneTodos += checklist.todos.filter((todo) => todo.isDone).length;
         }
       });

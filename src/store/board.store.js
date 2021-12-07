@@ -208,8 +208,8 @@ export const boardStore = {
     },
     async loadBoards({ commit, getters, dispatch }) {
       try {
-        await dispatch({ type: 'logIn', userName: 'abi@ababmi.com' });
-
+        // await dispatch({ type: 'logIn', userName: 'abi@ababmi.com' });
+console.log(getters.getUserConnect);
         const boards = await boardService.getBoardsForDisplay(getters.getUserConnect);
         commit({ type: 'setdBoards', boards });
         // return boards

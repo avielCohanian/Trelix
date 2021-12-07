@@ -32,6 +32,7 @@ export default {
     },
     computed: {
         getBoards() {
+            console.log(this.$store.getters.getBoardsForDisplay);
             this.$store.commit({type:'updateStyleHeader',color:{background: ' #026AA7'}})
             return this.$store.getters.getBoardsForDisplay;
         },

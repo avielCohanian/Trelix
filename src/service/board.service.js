@@ -99,6 +99,7 @@ function updatedBoard(board) {
   // return storageService.put(BOARD_KEY, board);
 }
 async function getBoardsForDisplay(userLog) {
+  console.log(userLog);
   try {
     const boards = await query();
     var boardsStar = userLog.boards.starBoard.reduce((acc, boardId) => {
