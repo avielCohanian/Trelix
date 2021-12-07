@@ -69,17 +69,18 @@
 
 <script>
 export default {
-    name: 'login',
-    data() {
-        return {
-            isLogin: false,
-            userToSignUp: '',
-        };
-    },
-    created() {
-        this.userToSignUp = this.getEmptyUser();
-        this.$store.commit({ type: 'updateStyleHeader', style: false });
-    },
+  name: "login",
+  data() {
+    return {
+      isLogin: false,
+      userToSignUp: "",
+    };
+  },
+  created() {
+    this.userToSignUp = this.getEmptyUser();
+    this.$store.commit({ type: "updateStyleHeader", style: false });
+  },
+ 
     methods: {
         async signUp() {
             console.log(this.userToSignUp);
@@ -116,4 +117,3 @@ export default {
 };
 </script>
 
-<style scoped></style>
