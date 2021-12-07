@@ -77,6 +77,7 @@
 
                 >
                     <div
+                    class="for"
                         v-for="card in group.cards"
                         :key="card.id"
                     >

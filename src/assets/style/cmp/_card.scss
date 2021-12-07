@@ -1,7 +1,9 @@
 .card-container {
-    max-height: 72vh;
+    flex: 1;
+    // height: 100%;
     // overflow: scroll;
     overflow-x: hidden;
+    overflow-y: auto;
     &::-webkit-scrollbar {
         width: 5px;
         background: #e2e4e9;
@@ -15,6 +17,9 @@
         background: #c6cbd4;
         // background: rgba(0, 0, 0, 0.32);
     }
+    // .for{
+    // height: 100%;
+    // }
 }
 .card-preview {
     position: relative;
