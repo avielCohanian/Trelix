@@ -1,19 +1,11 @@
 .group-container {
-    height: 100%;
-    // overflow-x: hidden;
-    // overflow-y: auto;
     .group {
-        height: 100%;
         // position: absolute;
         background-color: #ebecf0;
         margin: 0 4px;
         padding: 0px 8px 5px 8px;
         width: 272px;
         border-radius: 3px;
-        // height: 100%;
-        display: flex;
-        flex-direction: column;
-        // overflow: hidden;
         // .add-card{
         // position: absolute;
         // bottom: 0;
@@ -258,3 +250,4 @@
 .group-container .group .edit-title input {
     margin: 0;
 }
+

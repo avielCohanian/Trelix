@@ -1,5 +1,5 @@
 <template>
-    <section class="app-header" :style="styleHeader">
+    <section class="app-header" :style="styleHeader" v-if="styleHeader">
         <nav>
             <div class="nav-list">
                 <i
