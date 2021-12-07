@@ -64,7 +64,7 @@ export default {
   methods: {
    async  signUp() {
       console.log(this.userToSignUp);
-      this.userToSignUp.username =this.userToSignUp.fullname 
+      this.userToSignUp.username = this.userToSignUp.fullname 
       try {
         var res = await this.$store.dispatch({
           type: "signUp",

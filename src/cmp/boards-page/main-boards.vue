@@ -63,13 +63,14 @@ export default {
     },
     created(){
         this.getColors()
+        // if (!this.userBoards) {
+        //   this.iScreateBoard = true
+          
+        // }
     },
     methods: {
       openBoard(id){
         this.$router.push(`/board/${id}`)
-      },
-      getBoards(){
-        boards.map
       },
       changeFavorit(idBoard,isFavorit){
         this.$emit('changeFavorit',{idBoard,isFavorit})

@@ -4,7 +4,7 @@ import { userService } from '../service/user-service.js';
 
 export const userStore = {
     state: {
-        currUser: null,
+        currUser: userService.getLoggedinUser(),
     },
     getters: {
         getUserConnect(state) {
@@ -13,7 +13,7 @@ export const userStore = {
     },
     mutations: {
         logIn(state, { currUser }) {
-            state.currUser = currUser;
+            state.currUser = currUser ||userService.getLoggedinUser();
             console.log(state.currUser);
         },
         signUp(state, { currUser }) {
@@ -28,6 +28,7 @@ export const userStore = {
     },
     actions: {
         async logIn({ commit }, { user }) {
+          console.log('user',user);
             try {
                 const currUser = await userService.logIn(user);
                 commit({ type: 'logIn', currUser });
@@ -64,9 +65,11 @@ export const userStore = {
             }
           },
         async updateUser({ commit }, { currUser }) {
+          console.log('updateUser ',currUser);
             try {
                 const updateUser = await userService.updateUser(currUser);
-                commit({ type: 'logIn', user:updateUser });
+                console.log('up',updateUser);
+                commit({ type: 'logIn', user: updateUser });
             } catch (err) {
                 throw err;
             }

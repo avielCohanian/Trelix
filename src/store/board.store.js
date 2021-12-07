@@ -207,8 +207,10 @@ export const boardStore = {
       try {
         // await dispatch({ type: 'logIn', userName: 'abi@ababmi.com' });
         console.log(getters.getUserConnect);
-        const boards = await boardService.getBoardsForDisplay(getters.getUserConnect);
-        commit({ type: 'setdBoards', boards });
+        if (getters.getUserConnect.boards.boards.length || getters.getUserConnect.boards.starBoard.length) {
+          const boards = await boardService.getBoardsForDisplay(getters.getUserConnect);
+          commit({ type: 'setdBoards', boards });
+        }
         // return boards
       } catch (err) {
         throw err;
