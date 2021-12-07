@@ -59,73 +59,73 @@
                 </div>
             </div>
             <div class="card-container">
-                
-                    <!-- class="card-scroll list-group sortable-drag" -->
-                    <!-- class="card-ghost card-ghost-drop" -->
-                        <!-- :class="[isActive ? 'card-ghost' :  'sortable-drag' ,'item' , 'card-ghost-drop']" -->
-                    <!-- draggable=".item" -->
-                    <!-- animation: 150
+                <!-- class="card-scroll list-group sortable-drag" -->
+                <!-- class="card-ghost card-ghost-drop" -->
+                <!-- :class="[isActive ? 'card-ghost' :  'sortable-drag' ,'item' , 'card-ghost-drop']" -->
+                <!-- draggable=".item" -->
+                <!-- animation: 150
                     touchStartThreshold: 50 -->
-                <draggable
-                
-                v-if="group.cards"
-                    v-model="group.cards"
-                    group="card"
-                    @start="drag = true"
-                    @end="endDrug"
-                    ghost-class="ghost"
 
+                <Container
+                    drag-handle-selector=".card"
+                    group-name="col"
+                    @drop="(e) => onCardDrop(group.id, e)"
+                    :get-child-payload="getCardPayload(group.id)"
+                    drag-class="card-ghost"
+                    :drop-placeholder="dropPlaceholderOptions"
                 >
-                    <div
-                    class="for"
+                    <Draggable
+                        class="for"
                         v-for="card in group.cards"
                         :key="card.id"
                     >
-                        <card
-                            :card="card"
-                            @click.native="showEdit(card.id)"
-                            @updateGroup="loadGroup"
-                        />
-                        <div
-                            class="col-3"
-                            :value="card"
-                            :title="card.title"
-                        ></div>
-                    </div>
-                    <label v-if="isAddCard">
-                        <div class="btn-group">
-                            <el-input
-                                type="textarea"
-                                :rows="3"
-                                placeholder="Enter a title for this card... "
-                                v-model="newCard.title"
-                                @keyup.enter.native="addCard"
-                            >
-                            </el-input>
-                            <div class="btn-add">
-                                <div class="left">
-                                    <el-button
-                                        class="btn"
-                                        type="primary"
-                                        @click="addCard"
-                                    >
-                                        Add card</el-button
-                                    >
-                                    <p
-                                        class="material-icons-outlined left"
-                                        @click="toggleCard"
-                                    >
-                                        close
-                                    </p>
-                                </div>
-                                <p
-                                    class="el-icon-more more"
-                                    @click="openModalAdd"
-                                ></p>
-                            </div>
+                        <div>
+                            <card
+                                :card="card"
+                                @click.native="showEdit(card.id)"
+                                @updateGroup="loadGroup"
+                            />
+                            <div
+                                class="col-3"
+                                :value="card"
+                                :title="card.title"
+                            ></div>
                         </div>
-                    </label>
-                </draggable>
+                    </Draggable>
+                </Container>
+                <label v-if="isAddCard">
+                    <div class="btn-group">
+                        <el-input
+                            type="textarea"
+                            :rows="3"
+                            placeholder="Enter a title for this card... "
+                            v-model="newCard.title"
+                            @keyup.enter.native="addCard"
+                        >
+                        </el-input>
+                        <div class="btn-add">
+                            <div class="left">
+                                <el-button
+                                    class="btn"
+                                    type="primary"
+                                    @click="addCard"
+                                >
+                                    Add card</el-button
+                                >
+                                <p
+                                    class="material-icons-outlined left"
+                                    @click="toggleCard"
+                                >
+                                    close
+                                </p>
+                            </div>
+                            <p
+                                class="el-icon-more more"
+                                @click="openModalAdd"
+                            ></p>
+                        </div>
+                    </div>
+                </label>
             </div>
             <label
                 class="add-card"
@@ -148,23 +148,23 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable';
 import member from './edit/edit-member.vue';
+import { applyDrag } from '../service/util.service.js';
+
 import label from './edit-label.vue';
 import { boardService } from '../service/board.service';
 import card from './card.vue';
+import { Container, Draggable } from 'vue-smooth-dnd';
 
 export default {
-    //  display: "Two Lists",
-    // order: 1,
-    //draggable
     components: {
         card,
-        draggable,
+        Draggable,
+        Container,
         'card-members': member,
         'card-labels': label,
     },
-    props: ['group'],
+    props: ['group', 'board'],
     name: 'group',
     data() {
         return {
@@ -177,14 +177,40 @@ export default {
                 currCmp: null,
                 name: '',
             },
+            dropPlaceholderOptions: {
+                className: 'drop-preview',
+                animationDuration: '150',
+                showOnTop: true,
+            },
+
             newCard: boardService.getEmptyCard(),
         };
     },
     methods: {
+        async onCardDrop(groupId, dropResult) {
+            if (
+                dropResult.removedIndex !== null ||
+                dropResult.addedIndex !== null
+            ) {
+                const board = Object.assign({}, this.board);
+                const group = board.groups.filter((_g) => _g.id === groupId)[0];
+                const groupIndex = board.groups.indexOf(group);
+                const newGroup = Object.assign({}, group);
+                newGroup.cards = applyDrag(newGroup.cards, dropResult);
+                board.groups.splice(groupIndex, 1, newGroup);
+                await this.$store.dispatch({ type: 'updateBoard', board });
+            }
+        },
+        getCardPayload(groupId) {
+            return (index) => {
+                return this.board.groups.filter((_g) => _g.id === groupId)[0]
+                    .cards[index];
+            };
+        },
         endDrug() {
             this.$emit('updateGroupDrug');
         },
-       
+
         dynamicCmp(cmp) {
             this.component.name = cmp;
             this.component.currCmp = `card-${cmp}`;
@@ -252,7 +278,7 @@ export default {
             }
         },
         loadGroup() {
-            this.$emit('updateGroup');
+            +this.$emit('updateGroup');
         },
         // onDrug(evt) {
         //     window.console.log(evt);
@@ -301,18 +327,21 @@ export default {
 .card-ghost {
     width: 100%;
     height: 100%;
-    background-color: brown;
+    /* background-color: brown; */
     transition: transform 0.15s ease;
     transform: rotateZ(8deg);
 }
+.drop-preview {
+    background-color: rgb(218, 218, 218);
+    border-radius: 3px;
+}
 
 .card-ghost-drop {
-    background-color: brown;
+    /* background-color: brown; */
 
     width: 100%;
     height: 100%;
     transition: transform 0.18s ease-in-out;
     transform: rotateZ(0deg);
 }
-
 </style>

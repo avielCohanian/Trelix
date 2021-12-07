@@ -4,33 +4,29 @@
             <el-input
                 placeholder="Search Background"
                 v-model="search"
-                @input="debounce"
+                @input="searchBy"
             ></el-input>
-            <!-- <div class="scroll-container"> -->
-            <!-- <div class="container-scroll-main"> -->
             <ul v-if="imgs.length">
                 <li
                     v-for="(img, idx) in imgs"
                     :key="idx"
                     :style="img.small"
                     class="card-img pointer"
-                    @click="changeBgc(img.full)"
+                    @click="$emit('changeBcg', img.full)"
                 ></li>
             </ul>
         </div>
-        <!-- </div> -->
-        <!-- </div> -->
     </section>
 </template>
 
 <script>
 import { utilService } from '../../service/util.service.js';
-import boardService from '../../service/board.service.js';
 import { imgService } from '../../service/img.service.js';
+
 export default {
     created() {
         this.searchBy();
-        this.debounce = utilService.debounce(this.searchBy, 1500);
+        this.searchBy = utilService.debounce(this.searchBy, 500);
     },
     data() {
         return {
@@ -43,11 +39,10 @@ export default {
             this.$emit('changeBcg', newBcg);
         },
         async searchBy() {
-            const imgs = await imgService.getImgs(this.search);
+            if (!this.search) return;
+            const imgs = await imgService.getImgs(this.search,100);
             this.imgs = imgs;
         },
-        debounce() {},
     },
 };
 </script>
-<style></style>

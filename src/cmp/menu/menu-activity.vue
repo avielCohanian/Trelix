@@ -15,8 +15,14 @@
                <div class="headerMsg">
                   <div>
                      <avatar
+                     v-if="activity.byMember &&activity.byMember.imgUrl"
                         :size="32"
                         :src="`${activity.byMember.imgUrl}`"
+                     ></avatar>
+                      <avatar
+                     v-else
+                        :size="32"
+                        :username="`${activity.byMember.fullname}`"
                      ></avatar>
                   </div>
                   <h2 class="name">

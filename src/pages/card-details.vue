@@ -51,7 +51,6 @@
                 <a class="plus-btn" @click="dynamicCmp({ cmp: { name: 'members' } })">
                   <span class="el-icon-plus plus"></span>
                 </a>
-                <!--TODO  למצוא אייקון מתאים -->
               </ul>
             </div>
 
@@ -78,7 +77,6 @@
               <h3>Due date</h3>
               <div class="dueDate-container">
                 <el-checkbox class="checkBox" @click="dateDone" v-model="checked"></el-checkbox>
-                <!-- TODO איך יודעים אם בוצע או לא -->
                 <a @click="openDate" class="date-dedline-container">
                   {{ card.dueDate.date | moment('MMM ') }}
                   {{ dueDateDay.date }}
@@ -86,7 +84,6 @@
                   {{ card.dueDate.date | moment(' h:mm: A') }}
                   <span class="el-icon-arrow-down"></span>
                 </a>
-                <!--TODO  למצוא אייקון מתאים -->
               </div>
             </div>
           </div>

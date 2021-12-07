@@ -8,7 +8,6 @@ import cardDetails from '../pages/card-details.vue';
 import board from '../pages/board.vue';
 import login from '../pages/login.vue';
 import signup from '../pages/signup.vue';
-import drugGroup from '../cmp/drug-group.vue';
 
 Vue.use(VueRouter);
 
@@ -51,11 +50,7 @@ const routes = [
             },
         ],
     },
-    {
-        path: '/drug',
-        name: 'drugGroup',
-        component: drugGroup,
-    },
+   
 ];
 
 const router = new VueRouter({

@@ -1,8 +1,4 @@
-import { utilService } from './util.service.js';
-// import { upDownService } from '../../../main-services/upDown-service.js';
-import { storageService } from './async-storage.service.js';
 import { httpService } from './http.service.js';
-import loader from 'sass-loader';
 export const boardService = {
   getById,
   updatedBoard,
@@ -24,7 +20,6 @@ export const boardService = {
   getEmptyChecklist,
   addBoard,
   updateDuedate,
-  // saveGroups,
 };
 function _getEmptyActivity() {
   return {
@@ -41,14 +36,17 @@ function _getEmptyActivity() {
 const BOARD_KEY = 'boards';
 
 async function addBoard(newBoard, userConnect) {
+  let copyUser = JSON.parse(JSON.stringify(userConnect));
+  copyUser.boards = [];
   try {
-    newBoard.createdBy = userConnect;
+    newBoard.createdBy = copyUser;
+    console.log(newBoard, 'newboard');
     newBoard.createdAt = Date.now();
-    newBoard.members.push(userConnect);
+    newBoard.members.push(copyUser);
 
     let currBoard = await httpService.post(`board`, newBoard);
     currBoard = currBoard.ops[0];
-    let currNewBoard = await addActivity('add Board', currBoard, userConnect, {
+    let currNewBoard = await addActivity('add Board', currBoard, copyUser, {
       id: currBoard._id,
       title: currBoard.title,
     });
@@ -83,10 +81,7 @@ async function _updateService(board) {
 
 async function query() {
   try {
-    // return await storageService.query(BOARD_KEY);
-
     let boards = await httpService.get(`board`);
-
     return httpService.get(`board`);
   } catch (err) {
     console.log(err);
@@ -96,7 +91,6 @@ async function query() {
 // Board
 function updatedBoard(board) {
   return _updateService(board);
-  // return storageService.put(BOARD_KEY, board);
 }
 async function getBoardsForDisplay(userLog) {
   console.log(userLog);
@@ -146,16 +140,12 @@ function addGroup(board, newGroup) {
   board = JSON.parse(JSON.stringify(board));
   newGroup.id = makeId();
   board.groups.push(newGroup);
-
-  // return storageService.put(BOARD_KEY, board);
   return _updateService(board);
 }
 
 function deleteGroup(board, groupId) {
-  //    var group = getGroupById(board,groupId)
   let idx = board.groups.findIndex((group) => group.id === groupId);
   board.groups.splice(idx, 1);
-  // return storageService.put(BOARD_KEY, board);
   return _updateService(board);
 }
 
@@ -164,15 +154,9 @@ function saveGroup(board, group) {
     return group1.id === group.id;
   });
   board.groups.splice(groupIdx, 1, group);
-  // return storageService.put(BOARD_KEY, board);
   return _updateService(board);
 }
 
-// function saveGroups(board, groups) {
-//     board.groups = groups;
-//     // return storageService.put(BOARD_KEY, board);
-//     return _updateService(board);
-// }
 function getEmptyGroup() {
   return {
     style: {},
@@ -192,20 +176,19 @@ function getGroupById(board, groupId) {
 function getEmptyCard() {
   return {
     title: '',
-    attachment: {},
+    attachment: {
+      trelixAttachments: [],
+      computerAttachment: [],
+    },
     checklists: [],
     description: '',
     comments: [],
-    attachment: {
-      trelixAttachments: null,
-      computerAttachment: null,
-    },
     members: [],
     labelIds: [],
-    createdAt: Date.now,
     dueDate: null,
-    byMember: {},
-    style: {},
+    createdAt: Date.now(),
+    byMember: null,
+    style: null,
   };
 }
 async function addCard(board, groupId, newCard) {
@@ -216,7 +199,6 @@ async function addCard(board, groupId, newCard) {
   board.groups[groupIdx].cards.push(newCard);
 
   try {
-    // let currBoard = await httpService.put(`board/${board._id}`, board);
     return _updateService(board);
   } catch (err) {
     console.log(err);
@@ -232,7 +214,6 @@ async function updateCard(board, cardToSave) {
   board = JSON.parse(JSON.stringify(board));
   board.groups[groupIdx].cards.splice(cardIx, 1, cardToSave);
   try {
-    // let currBoard = await httpService.put(`board/${board._id}`, board);
     return _updateService(board);
   } catch (err) {
     console.log(err);
@@ -257,12 +238,9 @@ async function getLabelByCard(boardId, card) {
 
     board = board.find((board) => board._id === boardId);
     let carrLabels = [];
-    console.log(boardId);
     board.labels.forEach((label) => {
       if (
         card.labelIds.some((labelId) => {
-          console.log(labelId);
-          console.log(label);
           if (labelId.lId === label.id) {
             label.idDone = labelId.isDone;
             return true;
@@ -279,20 +257,16 @@ async function getLabelByCard(boardId, card) {
 }
 
 function deleteMember(board, memberId) {
-  //    var group = getGroupById(board,groupId)
   let idx = board.members.findIndex((member) => member.id === memberId);
   board.members.splice(idx, 1);
-  // return storageService.put(BOARD_KEY, board);
   return _updateService(board);
 }
 function deleteCard(board, cardId) {
   let groupIdx = board.groups.findIndex((group) => {
     return group.cards.some((c) => c.id === cardId);
   });
-  // let groupIdx = board.groups.findIndex((group) => group.id === groupId);
   let cardIdx = board.groups[groupIdx].cards.findIndex((card) => card.id === cardId);
   board.groups[groupIdx].cards.splice(cardIdx, 1);
-  // return storageService.put(BOARD_KEY, board);
   return _updateService(board);
 }
 
@@ -307,7 +281,6 @@ async function updateDuedate(board, newDone, card) {
   board = JSON.parse(JSON.stringify(board));
   board.groups[groupIdx].cards.splice(cardIx, 1, card);
   try {
-    // let currBoard = await httpService.put(`board/${board._id}`, board);
     return _updateService(board);
   } catch (err) {
     console.log(err);
@@ -318,13 +291,7 @@ function getEmptyChecklist() {
   return {
     id: makeId(),
     title: '',
-    todos: [
-      //   {
-      //     id: makeId(),
-      //     txt: '',
-      //     isDone: false,
-      //   },
-    ],
+    todos: [],
   };
 }
 
@@ -334,8 +301,8 @@ function getEmptyBoard() {
   return {
     title: '',
     description: '',
-    createdAt: '',
-    createdBy: '',
+    createdAt: null,
+    createdBy: null,
     style: {
       backgroundImage:
         'url(https://images.unsplash.com/photo-1477346611705-65d1883cee1e?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNzk3MjJ8MHwxfHNlYXJjaHwxfHxXYWxscGFwZXJzfGVufDB8MHx8fDE2Mzg3ODM4NTg&ixlib=rb-1.2.1&q=85)',

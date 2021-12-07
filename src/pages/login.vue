@@ -25,7 +25,7 @@
           <div class="or">OR</div>
           <div class="google-btn">
             <span class="icon"></span>
-            <strong class="google-txt">Continue with Google</strong>
+            <strong class="google-txt"> <span class="icon-g">Continue with Google</span></strong>
           </div>
           <div class="google-btn">
             <span class="icon"></span>

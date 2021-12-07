@@ -126,8 +126,8 @@
       <hr />
       <div class="center active" @click="moveToBoards">
         <div v-for="board in boards" :key="board._id">
-            {{board.style.backgroundImage}}
-          <img :src="board.style.backgroundImage" alt="" />
+            {{board.style}}
+         <div :style="board.style"></div>
         </div>
       </div>
     </div>
@@ -157,9 +157,10 @@ export default {
     },
   },
   created() {
+      console.log(this.$store.getters.getBoardsForDisplay.boards);
     this.boards = this.$store.getters.getBoardsForDisplay.boards;
     this.starBoards = this.$store.getters.getBoardsForDisplay.boards.starBoards;
-    console.log(this.boards);
+    // console.log(this.boards);
     this.createdBy = this.$store.getters.getUserConnect;
     console.log(this.createdBy);
     this.headerStyle = this.$store.getters.getStyleHeader;
@@ -170,6 +171,7 @@ export default {
     },
     moveToBoards() {
       console.log("move");
+      this.isRecent = false
       return this.$router.push(`/${this.createdBy.username}/boards`);
     },
     openMenu() {
@@ -193,4 +195,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.img-board{
+
+            }
+</style>
