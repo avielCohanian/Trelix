@@ -47,7 +47,10 @@ export default {
       },
       isLogin: false,
     };
-  },
+    
+  },created(){
+    this.$store.commit({type:'updateStyleHeader',style: false})
+  }
 };
 </script>
 
