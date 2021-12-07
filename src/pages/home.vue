@@ -1,16 +1,20 @@
 <template>
-    <div class="home">
-    </div>
+    <section class="home">
+        <home-header />
+    </section>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/cmp/HelloWorld.vue';
+import homeHeader from '@/cmp/home-header.vue';
 
 export default {
     name: 'home',
     components: {
-        HelloWorld,
+        homeHeader
     },
+    created(){
+
+    }
 };
 </script>

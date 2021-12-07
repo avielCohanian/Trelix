@@ -26,8 +26,6 @@ async function updateUser(user){
 	}catch(err){
 		throw err 
 	}
-
-
 }
 async function changeFevorit(copyDetails){
 	const { idBoard,isFavorit,userLog} =copyDetails
