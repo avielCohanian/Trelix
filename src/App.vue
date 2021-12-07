@@ -14,18 +14,18 @@ export default {
     data(){
         return{
             loadUser:false,
-createdBy:{
-            _id: 'u104',
-            username: 'Yael Oushky',
-            mail: 'YaelOushky@gmail.com',
-            fullname: 'Yael oushky',
-            imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
-        },
+                    createdBy:{
+                                _id: 'u104',
+                                username: 'Yael Oushky',
+                                mail: 'YaelOushky@gmail.com',
+                                fullname: 'Yael oushky',
+                                imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
+                            },
         }
     },
    async created(){
         try{
-           await this.$store.dispatch({type:'logIn',userName:'abi@ababmi.com'})
+           await this.$store.dispatch({type:'logIn',user:{email:'p',password:'p'}})
            this.loadUser= true
         }catch(err){
             console.log(err);

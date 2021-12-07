@@ -4,7 +4,7 @@ import { userService } from '../service/user-service.js';
 
 export const userStore = {
     state: {
-        currUser: null,
+        currUser: userService.getLoggedinUser(),
     },
     getters: {
         getUserConnect(state) {
@@ -66,7 +66,7 @@ export const userStore = {
         async updateUser({ commit }, { currUser }) {
             try {
                 const updateUser = await userService.updateUser(currUser);
-                commit({ type: 'logIn', user:updateUser });
+                commit({ type: 'logIn', user: updateUser });
             } catch (err) {
                 throw err;
             }

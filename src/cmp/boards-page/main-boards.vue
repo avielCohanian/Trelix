@@ -63,6 +63,10 @@ export default {
     },
     created(){
         this.getColors()
+        if (!this.userBoards) {
+          this.iScreateBoard = true
+          
+        }
     },
     methods: {
       openBoard(id){
