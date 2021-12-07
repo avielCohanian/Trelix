@@ -71,10 +71,16 @@
 
     <div class="dynamic-cmp-minimal" v-if="minComponent.currCmp">
       <header>
-        <h2>{{ minComponent.name }}</h2>
+        <h2>{{ minComponent.title }}</h2>
         <a @click="closeModel" class="el-icon-close"> </a>
       </header>
-      <component :is="minComponent.currCmp" :card="card" @remove="removeAtt" @update="updateAtt">
+      <component
+        :is="minComponent.currCmp"
+        :card="card"
+        :cmp="minComponent"
+        @remove="removeAtt"
+        @update="updateAtt"
+      >
       </component>
     </div>
   </section>
@@ -87,8 +93,8 @@ import attachment from './edit/edit-attachment.vue';
 import trelix from './edit/edit-trelix.vue';
 import cover from './edit/edit-cover.vue';
 import checklist from './edit/edit-checklist.vue';
-import editAttachment from './edit/edit-details-attachment.vue';
-import removeEditAttachment from './edit/remove-edit-details-attachment.vue';
+import edit from './edit/edit-details.vue';
+import remove from './edit/remove-edit.vue';
 import coverSearch from './edit/edit-cover-search.vue';
 
 export default {
@@ -99,7 +105,7 @@ export default {
       required: true,
     },
     cmp: {
-      type: String,
+      type: Object,
       // required: true,
     },
   },
@@ -112,6 +118,10 @@ export default {
       minComponent: {
         currCmp: null,
         name: '',
+        txt: '',
+        type: '',
+        title: '',
+        btnTxt: '',
       },
       propCmp: this.cmp,
       userJoin: false,
@@ -135,14 +145,18 @@ export default {
       this.component.currCmp = `card-${cmp}`;
     },
     minDynamicCmp(cmp) {
+      // if (cmp === 'removeEditAttachment') {
+      //   this.minComponent.name = 'Remove attachment?';
+      //   console.log(this.minComponent.name);
+      // } else {
+      this.minComponent.name = cmp.name;
+      this.minComponent.type = cmp.type;
+      this.minComponent.txt = cmp.txt;
+      this.minComponent.title = cmp.title;
+      this.minComponent.btnTxt = cmp.btnTxt;
       console.log(cmp);
-      if (cmp === 'removeEditAttachment') {
-        this.minComponent.name = 'Remove attachment?';
-        console.log(this.minComponent.name);
-      } else {
-        this.minComponent.name = cmp;
-      }
-      this.minComponent.currCmp = `card-${cmp}`;
+      // }
+      this.minComponent.currCmp = `card-${cmp.type}`;
     },
     closeModel() {
       this.component.currCmp = null;
@@ -209,6 +223,11 @@ export default {
       card.attachment.computerAttachment.push(imgUrl);
       this.$emit('updateCard', card);
     },
+    deleteChecklist(checklistId) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      card.checklists.filter((c) => c.id !== checklistId);
+      this.$emit('updateCard', card);
+    },
     computerAttLink(link) {
       let card = JSON.parse(JSON.stringify(this.card));
       card.attachment.computerAttachment.push(link);
@@ -234,8 +253,8 @@ export default {
     'card-labels': label,
     'card-cover': cover,
     'card-checklist': checklist,
-    'card-editAttachment': editAttachment,
-    'card-removeEditAttachment': removeEditAttachment,
+    'card-edit': edit,
+    'card-remove': remove,
     'card-coverSearch': coverSearch,
   },
 
@@ -245,15 +264,15 @@ export default {
     },
   },
   watch: {
-    cmp(cmpName) {
+    'cmp.cmp': function (cmpName) {
       console.log(cmpName);
+
       if (cmpName) {
-        cmpName === 'removeEditAttachment'
-          ? this.minDynamicCmp(cmpName)
-          : cmpName === 'editAttachment'
-          ? this.minDynamicCmp(cmpName)
-          : this.dynamicCmp(cmpName);
+        cmpName.type ? this.minDynamicCmp(cmpName) : this.dynamicCmp(cmpName.name);
+        // ? this.minDynamicCmp(cmpName)
+        // : this.dynamicCmp(cmpName.name);
       }
+      deep: true;
     },
   },
 };

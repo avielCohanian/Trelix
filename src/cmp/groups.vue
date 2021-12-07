@@ -4,7 +4,6 @@
             class="list-group flex"
             v-model="groups"
             @change="onDrug"
-            ghost-class="ghost"
             @end="endDragg"
         >
             <div v-for="group in groups" :key="group.id">
@@ -12,7 +11,6 @@
                     :group="group"
                     @updateGroup="loadGroups"
                     @updateGroupDrug="endDragg"
-                    class="sortable-drag"
                 />
             </div>
         </draggable>

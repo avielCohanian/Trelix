@@ -2,25 +2,22 @@
   <article class="checklist">
     <span class="material-icons-outlined icon"> check_box </span>
 
-    <header class="checklist-header">
+    <header class="checklist-header" :style="{ height: editMode }">
       <div class="show" v-if="!editTitleMode">
         <h3 @click="editTitle">
           {{ checklist.title }}
         </h3>
         <div class="todos-btn">
-          <span v-show="checklist.todos.length">
-            <a
-              class="checked-item"
-              v-if="countTodosDone(copyList.id)"
-              @click="toggleCheckedItem(copyList.id)"
+          <span v-if="countTodosDone">
+            <a v-show="longSow" class="checked-item" @click="toggleCheckedItem"
               >Hide checked items</a
             >
-            <a v-else class="checked-item" @click="toggleCheckedItem(copyList.id)"
-              >Show checked items({{ countTodosDone(copyList.id) }})</a
+            <a v-show="!longSow" class="checked-item" @click="toggleCheckedItem"
+              >Show checked items({{ countTodosDone }})</a
             >
           </span>
 
-          <a class="delete-checklist" @click="deleteChecklist(copyList.id)">Delete</a>
+          <a class="delete-checklist" @click="deleteChecklist">Delete</a>
         </div>
       </div>
 
@@ -46,7 +43,7 @@
     <ul class="todos-container">
       <li
         class="todos"
-        v-for="(todo, idx) in checklist.todos"
+        v-for="todo in todosToShow"
         :key="todo.id"
         @click="editCurrentTodo(todo.id)"
       >
@@ -56,13 +53,11 @@
           {{ todo.txt }}
         </div>
 
-        <form v-else>
-          <label :for="idx">
-            <input type="textarea" :id="idx" :name="idx" v-model="newTodo.txt" />
-          </label>
+        <span v-else class="edit-container">
+          <input type="textarea" v-model="editTodo.txt" />
           <a class="save" @click="addNewTodo">Add</a>
-          <a class="back-btn close-btn el-icon-close"></a>
-        </form>
+          <span class="back-btn close-btn el-icon-close"></span>
+        </span>
       </li>
     </ul>
 
@@ -72,7 +67,7 @@
       <form v-else>
         <input type="textarea" placeholder="Add an item" v-model="newTodo.txt" />
         <a class="add" @click="addNewTodo">Add</a>
-        <a @click="closeTodoAdd" class="back-btn close-btn el-icon-close"></a>
+        <span @click="closeTodoAdd" class="back-btn close-btn el-icon-close"></span>
       </form>
     </div>
     <!-- </div> -->
@@ -94,26 +89,23 @@ export default {
     return {
       checklistName: this.checklist.name,
       newTodo: { txt: '', isDone: false },
+      todoToEdit: null,
       editTitleMode: false,
       editTodoMode: false,
       editCurrentTodoMode: null,
       copyList: null,
+      longSow: true,
     };
   },
+  // this.editTodo
   created() {
     this.copyList = JSON.parse(JSON.stringify(this.checklist));
   },
   methods: {
-    countTodosDone(checklistId) {
-      let list = this.checklist;
-      let doneCount = list.todos.reduce((acc, todo) => {
-        return todo.isDone ? acc + 1 : acc;
-      }, 0);
-      return doneCount;
-      // TODO: return count todos is done
-    },
     x() {},
-    toggleCheckedItem(checklistId) {
+    toggleCheckedItem() {
+      this.longSow = !this.longSow;
+
       // TODO: all logic Which button show
     },
     addTodo() {
@@ -121,6 +113,7 @@ export default {
     },
     editCurrentTodo(todoId) {
       this.editCurrentTodoMode = todoId;
+      this.editTodo = this.copyList.todos.find((todo) => todo.id === todoId);
     },
     closeTodoAdd() {
       this.editTodoMode = false;
@@ -138,6 +131,7 @@ export default {
         let todoIdx = this.copyList.todos.findIndex((t) => (t.id = this.newTodo.id));
         this.copyList.todos.splice(todoIdx, 1, this.newTodo);
       }
+      this.newTodo = { txt: '', isDone: false };
       this.saveChecklist();
     },
     newTodoRest() {
@@ -154,6 +148,9 @@ export default {
     editTitle() {
       this.editTitleMode = !this.editTitleMode;
     },
+    deleteChecklist() {
+      this.$emit('deleteChecklist', this.checklist.id);
+    },
   },
   computed: {
     statistic() {
@@ -167,6 +164,23 @@ export default {
         return 'success';
         return 'backgroundColor: #61bd4f';
       }
+    },
+    editMode() {
+      return this.editTitleMode ? '110px' : '48px';
+    },
+    countTodosDone() {
+      let list = this.checklist;
+      let doneCount = list.todos.reduce((acc, todo) => {
+        return todo.isDone ? acc + 1 : acc;
+      }, 0);
+
+      return doneCount;
+    },
+    todosToShow() {
+      if (this.longSow) {
+        return this.checklist.todos;
+      }
+      return this.checklist.todos.filter((t) => !t.isDone);
     },
   },
 };

@@ -1,12 +1,18 @@
 <template>
   <section class="remove-edit-details-attachment">
-    <p>Remove this attachment? There is no undo.</p>
-    <a class="remove" @click="remove">Remove</a>
+    <p>{{ cmp.txt }}</p>
+    <a class="remove" @click="remove">{{ cmp.btnTxt }}</a>
   </section>
 </template>
 
 <script>
 export default {
+  props: {
+    cmp: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {};
   },
