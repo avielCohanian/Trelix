@@ -108,7 +108,7 @@ export default {
 }
 .logo  {
     font-size: 25px;
-    color: #0c61dc;
+    /* color: #0c61dc; */
 }
 
 .sign-up-home{

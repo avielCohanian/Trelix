@@ -206,8 +206,8 @@ export const boardStore = {
     async loadBoards({ commit, getters, dispatch }) {
       try {
         // await dispatch({ type: 'logIn', userName: 'abi@ababmi.com' });
-console.log(getters.getUserConnect);
-          if(getters.getUserConnect.boards.boards.length||getters.getUserConnect.boards.starBoard.length){
+            console.log(getters.getUserConnect);
+          if(getters.getUserConnect.boards.boards.length || getters.getUserConnect.boards.starBoard.length){
             const boards = await boardService.getBoardsForDisplay(getters.getUserConnect);
             commit({ type: 'setdBoards', boards });
           }
