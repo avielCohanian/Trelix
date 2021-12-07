@@ -53,7 +53,7 @@ export default {
 
 <style>
 .app-header{
-    display: none;
+    /* display: none; */
 }
 img {
   display: block;

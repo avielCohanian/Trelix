@@ -57,7 +57,7 @@ export default {
 <style  scoped>
 
 .app-header{
-    display: none;
+    /* display: none; */
 }
 img {
   display: block;
