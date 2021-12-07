@@ -8,11 +8,11 @@ export const storageService = {
 
 const users = [
     {
-        _id: 'u101',
-        fullname: 'Abi Abambi',
-        username: 'abi@ababmi.com',
-        password: 'aBambi123',
-        imgUrl: 'http://some-img.jpg',
+        username: 'Yael oushky',
+        fullname: 'Yael oushky',
+        email: 'Yaeloushky@gmail.com',
+        password: '1234',
+        imgUrl: '',
         boards: {
             boards: [ '61ad4481ec9e776b609a7fd6'],
             starBoard: ['61ad4049ec9e776b609a7fd5'],
