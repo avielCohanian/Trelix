@@ -258,9 +258,12 @@ async function getLabelByCard(boardId, card) {
 
     board = board.find((board) => board._id === boardId);
     let carrLabels = [];
+    console.log(boardId);
     board.labels.forEach((label) => {
       if (
         card.labelIds.some((labelId) => {
+          console.log(labelId);
+          console.log(label);
           if (labelId.lId === label.id) {
             label.idDone = labelId.isDone;
             return true;

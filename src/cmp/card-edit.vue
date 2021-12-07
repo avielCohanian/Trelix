@@ -69,7 +69,7 @@
         @searchImgCmp="dynamicCmp"
         @addLabel="addLabel"
         @editLabel="editLabel"
-        @newLabel="newLabel"
+        @newLabel="newLabel(newLabel)"
         @deleteLabel="deleteLabel"
         @backLabel="dynamicCmp('labels')"
       >
@@ -276,19 +276,25 @@ export default {
       this.$emit('deleteLabel', labelId);
       setTimeout(() => {
         this.closeModel();
-      }, 500);
+      }, 0);
     },
     async newLabel(newLabel) {
-      this.closeModel();
-      // this.updateLabel(label);
+      // this.updateLabel(newLabel);
       try {
+        if (!newLabel.id) {
+        }
+        console.log();
         await this.$store.dispatch({ type: 'addLabel', newLabel });
-        this.label.currLabel = null;
 
-        // let card = JSON.parse(JSON.stringify(this.card));
-        // let currLabel = { lId: newLabel.id, isDone: false };
-        // card.labelIds.push(currLabel);
-        // this.$emit('updateCard', card);
+        let card = JSON.parse(JSON.stringify(this.card));
+
+        const lIdx = card.labelIds.findIndex((l) => l.id === newLabel.id);
+        const labelToUpdate = { lId: newLabel.id, isDone: false };
+        card.labelIds.splice(lIdx, 1, labelToUpdate);
+        this.$emit('updateCard', card);
+
+        this.label.currLabel = null;
+        this.closeModel();
       } catch (err) {
         console.log(err);
       }

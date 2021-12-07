@@ -74,7 +74,7 @@
               </ul>
             </div>
 
-            <div class="dueDate" v-if="card.dueDate.date">
+            <div class="dueDate" v-if="card.dueDate && card.dueDate.date">
               <h3>Due date</h3>
               <div class="dueDate-container">
                 <el-checkbox class="checkBox" @click="dateDone" v-model="checked"></el-checkbox>

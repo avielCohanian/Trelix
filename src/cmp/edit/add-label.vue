@@ -74,9 +74,11 @@ export default {
   methods: {
     addLabel() {
       if (this.label.currLabel) {
+        console.log(this.label.currLabel);
         this.$emit('newLabel', this.label.currLabel);
+      } else {
+        this.$emit('newLabel', this.newLabel);
       }
-      this.$emit('newLabel', this.newLabel);
     },
     deleteLabel() {
       if (this.label.currLabel) {
