@@ -54,7 +54,8 @@ export default {
 };
 </script>
 
-<style>
+<style  scoped>
+
 .app-header{
     display: none;
 }
@@ -193,6 +194,8 @@ a:hover{
     left: 0;
     overflow: hidden;
     background-image: url("../assets/img/login.svg");
+    background-size: 300px;
+    background-repeat: no-repeat;
 }
 .small{
     margin-top: 10px;
