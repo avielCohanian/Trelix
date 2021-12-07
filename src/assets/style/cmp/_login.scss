@@ -50,6 +50,9 @@
                     padding: 8.4px 18.2px;
                     height: 34px;
                     width: 320px;
+                    &.blue {
+                        background: var(--ds-background-boldBrand-resting,#0052CC);
+                    }
                 }
                 .or {
                     text-align: center;
@@ -113,15 +116,15 @@
                 }
             }
         }
-        .background{
+        .background {
             z-index: -900;
-          height: 100%;
-          width: 100%;
-          position: fixed;
-          top: 0;
-          left: 0;
-          overflow: hidden;
-      }
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
     }
     img {
         display: block;
@@ -130,12 +133,12 @@
         margin-right: auto;
         margin-top: 40px;
         margin-bottom: 40px;
-      }
+    }
 }
-p.small{
+p.small {
     margin-top: 10px;
     margin-bottom: 20px;
     font-size: 12px;
     line-height: 16px;
-    color: #5E6C84;
+    color: #5e6c84;
 }

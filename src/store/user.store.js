@@ -4,30 +4,65 @@ import { userService } from '../service/user-service.js';
 
 export const userStore = {
     state: {
-        userLog: null,
+        currUser: null,
     },
     getters: {
         getUserConnect(state) {
-            return state.userLog;
+            return state.currUser;
         },
     },
     mutations: {
-        logIn(state, { userLog }) {
-            state.userLog = userLog;
+        logIn(state, { currUser }) {
+            state.currUser = currUser;
+            console.log(state.currUser);
         },
+        signUp(state, { currUser }) {
+            state.currUser = currUser;
+          },
+          logout(state) {
+            state.currUser = null;
+          },
         changeFavorit(state, { updateUser }) {
-            state.userLog = updateUser;
+            state.currUser = updateUser;
         },
     },
     actions: {
-        async logIn({ commit }, { userName }) {
+        async logIn({ commit }, { user }) {
             try {
-                const userLog = await userService.logIn(userName);
-                commit({ type: 'logIn', userLog });
+                const currUser = await userService.logIn(user);
+                commit({ type: 'logIn', currUser });
+                return currUser
             } catch (err) {
                 throw err;
             }
         },
+        async signUp({ commit }, { user }) {
+            try {
+              console.log(user);
+              const currUser = await userService.signup(user);
+              commit({
+                type: "signUp",
+                currUser,
+              });
+              console.log(currUser);
+              return currUser;
+            } catch (err) {
+              console.log(err);
+            }
+          },
+          async logout({ state, commit }) {
+            try {
+              console.log("here");
+              const currUser = await userService.logout(state.currUser);
+              commit({
+                type: "logout",
+                currUser,
+              });
+              return currUser;
+            } catch (err) {
+              console.log(err);
+            }
+          },
         async updateUser({ commit }, { currUser }) {
             try {
                 const updateUser = await userService.updateUser(currUser);
@@ -42,12 +77,12 @@ export const userStore = {
                     JSON.stringify({
                         idBoard: change.idBoard,
                         isFavorit: change.isFavorit,
-                        userLog: state.userLog,
+                        currUser: state.currUser,
                     })
                 );
                 const updateUser = await userService.changeFevorit(copyDetails);
                 commit({ type: 'changeFavorit', updateUser });
-                //    this.userLog =userUp
+                //    this.currUser =userUp
             } catch (err) {
                 throw err;
             }

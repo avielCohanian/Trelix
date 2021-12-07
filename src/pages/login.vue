@@ -8,9 +8,19 @@
         <div class="login">
           <p><strong class="title"> Log in to Trelix</strong></p>
           <div class="login-password-container">
-            <el-input placeholder="Enter email"> </el-input>
-            <el-input placeholder="Enter password"> </el-input>
-            <button><strong>Log in</strong></button>
+            <el-input
+              placeholder="Enter email"
+              type="email"
+              v-model="userToLogIn.email"
+            >
+            </el-input>
+            <el-input
+              placeholder="Enter password"
+              type="password"
+              v-model="userToLogIn.password"
+            >
+            </el-input>
+            <button @click="logIn"><strong>Log in</strong></button>
           </div>
           <div class="or">OR</div>
           <div class="google-btn">
@@ -35,19 +45,39 @@
 
 <script>
 export default {
-  name: 'login',
+  name: "login",
   data() {
     return {
-      user: {
-        fullname: '',
-        username: '',
-        password: '',
-      },
-      isLogin: false,
+      userToLogIn: "",
     };
   },
   created() {
-    this.$store.commit({ type: 'updateStyleHeader', style: false });
+    this.userToLogIn = this.getEmptyUserToCheck();
+    this.$store.commit({ type: "updateStyleHeader", style: false });
+  },
+  methods: {
+    
+    getEmptyUserToCheck() {
+      return {
+        email: "",
+        password: "",
+      };
+    },
+    async logIn() {
+      console.log(this.userToLogIn);
+      try {
+        var res = await this.$store.dispatch({
+          type: "logIn",
+          user: this.userToLogIn,
+        });
+        console.log(res);
+        // console.log(res.username);
+        // var username = this.$store.getters.getBoardsForDisplay.username
+        if (res) return this.$router.push(`/${res.username}/boards`)
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 };
 </script>

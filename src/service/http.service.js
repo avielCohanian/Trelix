@@ -42,7 +42,7 @@ async function ajax(endpoint, method = 'GET', data = null) {
             // Depends on routing startegy - hash or history
             // window.location.assign('/#/login')
             // window.location.assign('/login')
-            this.$router.push('/login/loginSignup');
+       router.push('/login');
         }
         throw err;
     }
