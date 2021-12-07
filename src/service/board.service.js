@@ -45,7 +45,6 @@ async function addBoard(newBoard, userConnect) {
     newBoard.createdBy = userConnect;
     newBoard.createdAt = Date.now();
     newBoard.members.push(userConnect);
-
     let currBoard = await httpService.post(`board`, newBoard);
     currBoard = currBoard.ops[0];
     let currNewBoard = await addActivity('add Board', currBoard, userConnect, {
