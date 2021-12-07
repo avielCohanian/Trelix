@@ -8,42 +8,40 @@
         <div class="login">
           <p><strong class="title"> Log in to Trelix</strong></p>
           <div class="login-password-container">
-            <el-input placeholder="Enter email" > </el-input>
-            <el-input placeholder="Enter password" > </el-input>
+            <el-input placeholder="Enter email"> </el-input>
+            <el-input placeholder="Enter password"> </el-input>
             <button><strong>Log in</strong></button>
           </div>
           <div class="or">OR</div>
           <div class="google-btn">
-              <span class="icon"></span>
-              <strong class="google-txt">Continue with Google</strong>
+            <span class="icon"></span>
+            <strong class="google-txt">Continue with Google</strong>
           </div>
           <div class="google-btn">
-              <span class="icon"></span>
-              <strong class="google-txt">Continue with Facebook</strong>
+            <span class="icon"></span>
+            <strong class="google-txt">Continue with Facebook</strong>
           </div>
-        
-        <hr class="section-hr">
-        <div class="signup">
+
+          <hr class="section-hr" />
+          <div class="signup">
             <a href="">Sign up for an account</a>
-        </div>
+          </div>
         </div>
       </div>
-      <div class="background">
-          
-      </div>
+      <div class="background"></div>
     </section>
   </section>
 </template>
 
 <script>
 export default {
-  name: "login",
+  name: 'login',
   data() {
     return {
       user: {
-        fullname: "",
-        username: "",
-        password: "",
+        fullname: '',
+        username: '',
+        password: '',
       },
       isLogin: false,
     };
@@ -52,7 +50,7 @@ export default {
 </script>
 
 <style>
-.app-header{
+/* .app-header{
     display: none;
 }
 img {
@@ -141,7 +139,7 @@ button {
 }
 .icon{
         /* background: url(https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/8215f66…/sign-in-with-google.svg) 0 50% no-repeat; */
-}
+/* }
 .google-txt{
         display: inline-block;
     vertical-align: middle;
@@ -153,7 +151,7 @@ button {
     height: 32px;
     line-height: 32px;
 }
-hr.section-hr{  
+hr.section-hr{
     width: 320px;
     height: 2px;
 
@@ -189,5 +187,5 @@ a:hover{
     top: 0;
     left: 0;
     overflow: hidden;
-}
+} */
 </style>

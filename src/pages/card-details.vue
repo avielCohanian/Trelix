@@ -239,7 +239,7 @@
               v-for="checklist in card.checklists"
               :key="checklist.id"
               :checklist="checklist"
-              @updateChecklist="updateChecklist"
+              @updateList="updateList"
               @deleteChecklist="deleteChecklist"
             ></check-list>
           </div>
@@ -384,12 +384,19 @@ export default {
     toggleTitle() {
       this.isOpenTitle = !this.isOpenTitle;
     },
-    updateChecklist(checklist) {
+    updateList(checklist) {
       let card = JSON.parse(JSON.stringify(this.card));
+      console.log(checklist);
       const checklistIdx = card.checklists.findIndex((ch) => ch.id === checklist.id);
       card.checklists.splice(checklistIdx, 1, checklist);
       this.updateCard(card);
       // console.log(checklist);
+    },
+    updateChecklist(newVal) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      let checklistIdx = card.checklists.findIndex((l) => l === this.cmp.id);
+      card.checklists.splice(checklistIdx, 1, newVal);
+      this.updateCard(card);
     },
     async updateCard(card) {
       try {
@@ -455,12 +462,6 @@ export default {
       let card = JSON.parse(JSON.stringify(this.card));
 
       card.attachment.computerAttachment[this.cmp.id].name = newVal;
-      this.updateCard(card);
-    },
-    updateChecklist(newVal) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      let checklistIdx = card.checklists.findIndex((l) => l === this.cmp.id);
-      card.checklists.splice(checklistIdx, 1, newVal);
       this.updateCard(card);
     },
   },

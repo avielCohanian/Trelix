@@ -41,17 +41,19 @@
       <el-progress :percentage="statistic" :status="progress"></el-progress>
     </div>
     <ul class="todos-container">
-      <li class="todos" v-for="todo in todosToShow" :key="todo.id" @click="editCurrentTodo(todo.id)">
-        <el-checkbox class="checkbox" v-model="todo.isDone" @click.self="x"> </el-checkbox>
+      <li class="todos" v-for="todo in todosToShow" :key="todo.id">
+        <el-checkbox class="checkbox" v-model="todo.isDone" @click.stop> </el-checkbox>
+        <!-- @click.self="x" -->
+        <div class="todo-row" @click="editCurrentTodo(todo.id)">
+          <div v-if="todo.id !== editCurrentTodoMode && !updateTodoMode" class="checklist-todo">
+            {{ todo.txt }}
+          </div>
 
-        <div v-if="todo.id !== editCurrentTodoMode" class="checklist-todo">
-          {{ todo.txt }}
-        </div>
-
-        <div v-else class="edit-container">
-          <input type="textarea" v-model="editTodo.txt" />
-          <a class="save" @click="addNewTodo">Add</a>
-          <span class="back-btn close-btn el-icon-close" @click="closeEditContainer"></span>
+          <div v-else class="edit-container">
+            <input type="textarea" v-model="editTodo.txt" />
+            <a class="save" @click="updateTodo">Add</a>
+            <span class="back-btn close-btn el-icon-close" @click="closeEditContainer"></span>
+          </div>
         </div>
       </li>
     </ul>
@@ -85,18 +87,22 @@ export default {
       newTodo: { txt: '', isDone: false },
       todoToEdit: null,
       editTitleMode: false,
-      editTodoMode: false,
-      editCurrentTodoMode: null,
       copyList: null,
       longSow: true,
+      editTodoMode: false,
+
+      updateTodoMode: false,
+      editTodo: null, //currTodo
+      editCurrentTodoMode: null, //todoId
     };
   },
-  // this.editTodo
   created() {
     this.copyList = JSON.parse(JSON.stringify(this.checklist));
   },
   methods: {
-    x() {},
+    x(todoId) {
+      return todoId !== this.editCurrentTodoMode;
+    },
     toggleCheckedItem() {
       this.longSow = !this.longSow;
     },
@@ -105,6 +111,7 @@ export default {
     },
     editCurrentTodo(todoId) {
       this.editCurrentTodoMode = todoId;
+      this.updateTodoMode = true;
       this.editTodo = this.copyList.todos.find((todo) => todo.id === todoId);
     },
     closeTodoAdd() {
@@ -117,7 +124,7 @@ export default {
     },
     addNewTodo() {
       this.closeTodoAdd();
-      this.editCurrentTodoMode = false;
+      // this.editCurrentTodoMode = false;
       if (!this.newTodo.id) {
         this.newTodo.id = utilService.makeId();
         this.copyList.todos.push(this.newTodo);
@@ -126,6 +133,14 @@ export default {
         this.copyList.todos.splice(todoIdx, 1, this.newTodo);
       }
       this.newTodo = { txt: '', isDone: false };
+      this.saveChecklist();
+    },
+    updateTodo() {
+      // editTodo
+      let todoIdx = this.copyList.todos.findIndex((t) => (t.id = this.editTodo.id));
+      this.copyList.todos.splice(todoIdx, 1, this.editTodo);
+      // this.editTodo = null;
+      this.updateTodoMode = false;
       this.saveChecklist();
     },
     newTodoRest() {
@@ -137,7 +152,7 @@ export default {
     },
 
     saveChecklist() {
-      this.$emit('updateChecklist', this.copyList);
+      this.$emit('updateList', this.copyList);
     },
     editTitle() {
       this.editTitleMode = !this.editTitleMode;
@@ -147,7 +162,8 @@ export default {
     },
     closeEditContainer() {
       console.log(this.editCurrentTodoMode);
-      this.editCurrentTodoMode = false;
+      this.editCurrentTodoMode = null;
+      this.editTodo = null;
       console.log(this.editCurrentTodoMode);
     },
   },

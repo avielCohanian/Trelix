@@ -10,33 +10,38 @@
       </div>
       <h3>Add to card</h3>
       <div class="edit-btn">
-        <a class="btn" @click="dynamicCmp('members')" title="Members">
+        <a class="btn members" @click="dynamicCmp('members', $event)" title="Members">
           <span class="el-icon-user icon"></span>
           Members</a
         >
 
-        <a class="btn" @click="dynamicCmp('labels')" title="Labels">
+        <a class="btn labels" @click="dynamicCmp('labels')" title="Labels">
           <span class="el-icon-price-tag label-icon icon"></span>
           Labels</a
         >
 
-        <a class="btn" @click="dynamicCmp('checklist')" title="Checklist">
+        <a class="btn checklist" @click="dynamicCmp('checklist')" title="Checklist">
           <span class="material-icons-outlined icon"> check_box </span>
 
           <!-- <span class="el-icon-document-checked icon"> </span> -->
           Checklist</a
         >
 
-        <a class="btn" @click="dynamicCmp('dates')" title="Dates">
+        <a class="btn dates" @click="dynamicCmp('dates')" title="Dates">
           <span class="el-icon-time icon"></span>
           Dates</a
         >
 
-        <a class="btn" @click="dynamicCmp('attachment')" title="Attachment">
+        <a class="btn attachment" @click="dynamicCmp('attachment')" title="Attachment">
           <span class="el-icon-paperclip icon"></span> Attachment</a
         >
 
-        <a class="btn" @click="dynamicCmp('cover')" title="Cover" v-show="!card.style.bgColor && !card.style.bgUrl">
+        <a
+          class="btn cover"
+          @click="dynamicCmp('cover')"
+          title="Cover"
+          v-show="!card.style.bgColor && !card.style.bgUrl"
+        >
           <span class="cover-icon">
             <span class="material-icons-outlined icon"> web_asset </span>
           </span>
@@ -45,6 +50,7 @@
       </div>
     </div>
     <div class="dynamic-cmp" v-if="component.currCmp">
+      <!-- :style="{ top: component.position.top + 'px', left: component.position.left + 'px' }" -->
       <header>
         <h2>{{ component.name }}</h2>
         <a @click="closeModel" class="el-icon-close"> </a>
@@ -65,6 +71,7 @@
     </div>
 
     <div class="dynamic-cmp-minimal" v-if="minComponent.currCmp">
+      <!-- :style="{ top: minComponent.position.y + 'px', left: minComponent.position.x + 'px' }" -->
       <header>
         <h2>{{ minComponent.title }}</h2>
         <a @click="closeModel" class="el-icon-close"> </a>
@@ -103,6 +110,7 @@ export default {
       component: {
         currCmp: null,
         name: '',
+        position: null,
       },
       minComponent: {
         currCmp: null,
@@ -111,6 +119,7 @@ export default {
         type: '',
         title: '',
         btnTxt: '',
+        position: null,
       },
       propCmp: this.cmp,
       userJoin: false,
@@ -124,6 +133,10 @@ export default {
   methods: {
     dynamicCmp(cmp) {
       console.log(cmp);
+      this.component.currCmp = null;
+      this.minComponent.currCmp = null;
+      this.position = null;
+
       if (cmp === 'attachment') this.component.name = 'attach from...';
       if (cmp === 'coverSearch') this.component.name = 'photo search';
       if (cmp === 'editAttachment') {
@@ -131,18 +144,21 @@ export default {
       } else {
         this.component.name = cmp;
       }
+      // this.component.position = document.querySelector(`.${cmp}`).getBoundingClientRect();
       this.component.currCmp = `card-${cmp}`;
     },
     minDynamicCmp(cmp) {
-      // if (cmp === 'removeEditAttachment') {
-      //   this.minComponent.name = 'Remove attachment?';
-      //   console.log(this.minComponent.name);
-      // } else {
-      this.minComponent.name = cmp.name;
-      this.minComponent.type = cmp.type;
-      this.minComponent.txt = cmp.txt;
-      this.minComponent.title = cmp.title;
-      this.minComponent.btnTxt = cmp.btnTxt;
+      this.component.currCmp = null;
+      this.minComponent.currCmp = null;
+      this.position = null;
+
+      let { name, type, txt, title, btnTxt } = cmp;
+
+      this.minComponent.name = name;
+      this.minComponent.type = type;
+      this.minComponent.txt = txt;
+      this.minComponent.title = title;
+      this.minComponent.btnTxt = btnTxt;
       console.log(cmp);
       // }
       this.minComponent.currCmp = `card-${cmp.type}`;
@@ -150,6 +166,7 @@ export default {
     closeModel() {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
+      this.position = null;
       this.$emit('closeModel');
     },
     join(userId) {
