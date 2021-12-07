@@ -61,6 +61,8 @@ export default {
     async addBoard() {
       if (!this.emptyBoard.title) return;
       try {
+        this.$store.commit({type:'logIn'})
+        console.log(this.$store.getters.getUserConnect, 'kk') ;
         const copyUser = JSON.parse(JSON.stringify(this.$store.getters.getUserConnect));
         const newBoard = await boardService.addBoard(this.emptyBoard, copyUser);
         copyUser.boards.boards.push(newBoard._id);

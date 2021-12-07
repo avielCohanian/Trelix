@@ -37,6 +37,11 @@ export default {
             return this.$store.getters.getBoardsForDisplay;
         },
     },
+    watch:{
+        '$store.getters.getUserConnect'(){
+            console.log(this.$store.getters.getUserConnect,'$store.getters.getUserConnect');
+        }
+    }
    
 };
 </script>

@@ -63,7 +63,6 @@ async function addActivity(txt, board, byUser, card) {
   activity.byMember = byUser;
   activity.txt = txt;
   activity.card = card;
-  console.log(currBoard);
   currBoard.activities.push(activity);
   try {
     let currNewBoard = await _updateService(currBoard);
