@@ -1,11 +1,7 @@
 <template>
   <section class="screen" v-if="card" @click="closeDetails">
     <article class="card-details" @click.stop>
-      <div
-        class="color-header"
-        v-if="card.style && (card.style.bgColor || card.style.bgUrl)"
-        :style="bgColor"
-      >
+      <div class="color-header" v-if="card.style && (card.style.bgColor || card.style.bgUrl)" :style="bgColor">
         <span class="cover-back-btn">
           <a class="back-btn close-btn el-icon-close" @click="closeDetails"> </a>
         </span>
@@ -49,12 +45,7 @@
               <h3>Members</h3>
               <ul class="member-container">
                 <li v-for="member in card.members" :key="member._id">
-                  <avatar
-                    v-if="member.imgUrl"
-                    :src="member.imgUrl"
-                    :size="35"
-                    class="member"
-                  ></avatar>
+                  <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="35" class="member"></avatar>
                   <avatar v-else :username="member.fullname" :size="35" class="member"></avatar>
                 </li>
                 <a class="plus-btn" @click="dynamicCmp({ cmp: { name: 'members' } })">
@@ -64,7 +55,7 @@
               </ul>
             </div>
 
-            <div class="labels" v-if="card.labelIds">
+            <div class="labels" v-if="card.labelIds.length">
               <h3>Labels</h3>
               <ul class="labels-container">
                 <li v-for="label in labels" :key="label.id">
@@ -83,7 +74,7 @@
               </ul>
             </div>
 
-            <div class="dueDate" v-if="card.dueDate">
+            <div class="dueDate" v-if="card.dueDate.date">
               <h3>Due date</h3>
               <div class="dueDate-container">
                 <el-checkbox class="checkBox" @click="dateDone" v-model="checked"></el-checkbox>
@@ -164,11 +155,7 @@
             <div class="attachment-list">
               <a v-for="(att, idx) in cardAttachments" :key="idx" class="attachment-link">
                 <span>
-                  <div
-                    v-if="att.url"
-                    class="img"
-                    :style="{ backgroundImage: `url(${att.url})` }"
-                  ></div>
+                  <div v-if="att.url" class="img" :style="{ backgroundImage: `url(${att.url})` }"></div>
                   <div v-else class="img-link">
                     <span>LINK</span>
                   </div>
@@ -189,9 +176,7 @@
                         -
                       </span>
 
-                      <a class="title-option-btn" @click.stop="addLinkToActivity(att.link)"
-                        >Comment</a
-                      >
+                      <a class="title-option-btn" @click.stop="addLinkToActivity(att.link)">Comment</a>
                       -
                       <a
                         class="title-option-btn"
@@ -199,7 +184,7 @@
                           dynamicCmp(
                             {
                               cmp: {
-                                name: 'removeEditAttachment',
+                                name: 'Att',
                                 txt: 'Remove this attachment? There is no undo.',
                                 type: 'remove',
                                 title: 'Delete attachment?',
@@ -218,7 +203,7 @@
                           dynamicCmp(
                             {
                               cmp: {
-                                name: 'editAttachment',
+                                name: 'Att',
                                 txt: 'Link name',
                                 type: 'edit',
                                 title: 'Edit attachment',
@@ -241,16 +226,12 @@
               </a>
             </div>
             <p class="longAtt">
-              <a
-                v-if="card.attachment.computerAttachment.length > 4 && !logAtt"
-                @click="logAtt = true"
+              <a v-if="card.attachment.computerAttachment.length > 4 && !logAtt" @click="logAtt = true"
                 >View all attachments ( {{ attHidden }} hidden)</a
               >
               <a v-if="logAtt" @click="logAtt = false">Show fewer attachments.</a>
             </p>
-            <a class="add-item" @click="dynamicCmp({ cmp: { name: 'attachment' } })"
-              >Add an attachment</a
-            >
+            <a class="add-item" @click="dynamicCmp({ cmp: { name: 'attachment' } })">Add an attachment</a>
           </div>
 
           <div class="checklists-container" v-if="card.checklists">
@@ -274,6 +255,8 @@
           @removeAtt="removeAtt"
           @updateAtt="updateAtt"
           @closeModel="closeModel"
+          @removeChecklist="removeChecklist"
+          @updateChecklist="updateChecklist"
         ></card-edit>
       </div>
     </article>
@@ -409,7 +392,6 @@ export default {
       // console.log(checklist);
     },
     async updateCard(card) {
-      console.log(card);
       try {
         if (!card) card = JSON.parse(JSON.stringify(this.card));
         await this.$store.dispatch({
@@ -442,13 +424,6 @@ export default {
       console.log(this.$refs);
     },
     dynamicCmp(cmp, id = null) {
-      console.log(this.cmp.cmp);
-      console.log(cmp);
-      //   if (this.cmp.cmp === cmp) {
-      //     console.log('a');
-      //     this.cmp.cmp = null;
-      //     this.cmp.id = null;
-      //   }
       this.cmp = { cmp, id };
     },
     deleteChecklist(checklistId) {
@@ -456,12 +431,13 @@ export default {
       const checklistIdx = this.card.checklists.findIndex((c) => c.id === checklistId);
       this.dynamicCmp({
         cmp: {
-          name: 'removeEditAttachment',
+          name: 'Checklist',
           txt: 'Deleting a checklist is permanent and there is no way to get it back.',
           title: `Delete ${this.card.checklists[checklistIdx].title}?`,
           type: 'remove',
           btnTxt: 'Delete checklist',
         },
+        id: checklistIdx,
       });
       //   this.dynamicCmp({ cmp: { name: 'attachment' } }
     },
@@ -470,13 +446,22 @@ export default {
       card.attachment.computerAttachment.splice(this.cmp.id, 1);
       this.updateCard(card);
     },
+    removeChecklist() {
+      let card = JSON.parse(JSON.stringify(this.card));
+      card.checklists.splice(this.cmp.id, 1);
+      this.updateCard(card);
+    },
     updateAtt(newVal) {
       let card = JSON.parse(JSON.stringify(this.card));
-      console.log(card.attachment.computerAttachment);
-      console.log(this.cmp);
+
       card.attachment.computerAttachment[this.cmp.id].name = newVal;
       this.updateCard(card);
-      console.log(newVal);
+    },
+    updateChecklist(newVal) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      let checklistIdx = card.checklists.findIndex((l) => l === this.cmp.id);
+      card.checklists.splice(checklistIdx, 1, newVal);
+      this.updateCard(card);
     },
   },
   computed: {
@@ -492,7 +477,6 @@ export default {
     },
     cardAttachments() {
       let computerAttachment = JSON.parse(JSON.stringify(this.card.attachment.computerAttachment));
-      console.log(computerAttachment);
 
       return !this.logAtt
         ? computerAttachment.splice(0, 4)
@@ -516,7 +500,6 @@ export default {
       if (this.card.style.bgColor) {
         return { backgroundColor: this.card.style.bgColor };
       } else if (this.card.style.bgUrl) {
-        console.log(this.card.style);
         return {
           backgroundImage: this.card.style.bgUrl,
         };
@@ -526,7 +509,10 @@ export default {
   watch: {
     editDescription() {
       if (this.editDescription) {
-        this.$refs.editInput.focus();
+        setTimeout(() => {
+          this.$refs.editInput.focus();
+          this.$refs.editInput.select();
+        }, 0);
       }
     },
   },

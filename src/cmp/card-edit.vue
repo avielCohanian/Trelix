@@ -36,12 +36,7 @@
           <span class="el-icon-paperclip icon"></span> Attachment</a
         >
 
-        <a
-          class="btn"
-          @click="dynamicCmp('cover')"
-          title="Cover"
-          v-show="!card.style.bgColor && !card.style.bgUrl"
-        >
+        <a class="btn" @click="dynamicCmp('cover')" title="Cover" v-show="!card.style.bgColor && !card.style.bgUrl">
           <span class="cover-icon">
             <span class="material-icons-outlined icon"> web_asset </span>
           </span>
@@ -74,13 +69,7 @@
         <h2>{{ minComponent.title }}</h2>
         <a @click="closeModel" class="el-icon-close"> </a>
       </header>
-      <component
-        :is="minComponent.currCmp"
-        :card="card"
-        :cmp="minComponent"
-        @remove="removeAtt"
-        @update="updateAtt"
-      >
+      <component :is="minComponent.currCmp" :card="card" :cmp="minComponent" @remove="remove" @update="update">
       </component>
     </div>
   </section>
@@ -233,14 +222,15 @@ export default {
       card.attachment.computerAttachment.push(link);
       this.$emit('updateCard', card);
     },
-    removeAtt() {
-      this.$emit('removeAtt');
+    remove() {
+      console.log(`remove${this.minComponent.name}`);
+      this.$emit(`remove${this.minComponent.name}`);
       setTimeout(() => {
         this.closeModel();
       }, 500);
     },
-    updateAtt(newVal) {
-      this.$emit('updateAtt', newVal);
+    update(newVal) {
+      this.$emit(`update${this.minComponent.name}`, newVal);
       setTimeout(() => {
         this.closeModel();
       }, 500);

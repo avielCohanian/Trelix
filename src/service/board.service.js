@@ -39,6 +39,7 @@ function _getEmptyActivity() {
   };
 }
 const BOARD_KEY = 'boards';
+
 async function addBoard(newBoard, userConnect) {
   try {
     newBoard.createdBy = userConnect;
@@ -47,19 +48,31 @@ async function addBoard(newBoard, userConnect) {
 
     let currBoard = await httpService.post(`board`, newBoard);
     currBoard = currBoard.ops[0];
-    const activity = _getEmptyActivity();
-    activity.byMember = userConnect;
-    activity.txt = 'add Board';
-    activity.card = { id: currBoard._id, title: currBoard.title };
-    currBoard.activities.push(activity);
-
-    let currNewBoard = _updateService(currBoard);
-
+    let currNewBoard = await addActivity('add Board', currBoard, userConnect, {
+      id: currBoard._id,
+      title: currBoard.title,
+    });
     return currNewBoard;
   } catch (err) {
     throw err;
   }
 }
+async function addActivity(txt, board, byUser, card) {
+  let activity = _getEmptyActivity();
+  let currBoard = board;
+  activity.byMember = byUser;
+  activity.txt = txt;
+  activity.card = card;
+  console.log(currBoard);
+  currBoard.activities.push(activity);
+  try {
+    let currNewBoard = await _updateService(currBoard);
+    return currNewBoard;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 async function _updateService(board) {
   try {
     let currBoard = await httpService.put(`board/${board._id}`, board);
@@ -72,6 +85,9 @@ async function _updateService(board) {
 async function query() {
   try {
     // return await storageService.query(BOARD_KEY);
+
+    let boards = await httpService.get(`board`);
+
     return httpService.get(`board`);
   } catch (err) {
     console.log(err);
@@ -300,11 +316,11 @@ function getEmptyChecklist() {
     id: makeId(),
     title: '',
     todos: [
-      {
-        id: makeId(),
-        txt: '',
-        isDone: false,
-      },
+      //   {
+      //     id: makeId(),
+      //     txt: '',
+      //     isDone: false,
+      //   },
     ],
   };
 }
@@ -388,3 +404,13 @@ const colors = [
   { background: 'rgb(75, 191, 107)' },
   { background: 'rgb(131, 140, 145)' },
 ];
+
+// let boards = await httpService.get(`board`);
+//     boards.forEach((b) => {
+//       b.groups.forEach((g) => {
+//         g.cards.forEach((c) => {
+//           if (!c.dueDate) c.dueDate = { date: null, isDone: false };
+//         });
+//       });
+//       _updateService(b);
+//     });

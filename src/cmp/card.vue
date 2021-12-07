@@ -1,28 +1,22 @@
 <template>
   <!-- :style="{'{background: card.style.bgColor}': card.style.isFull}" -->
-  <section
-    @mouseover="isHover = true"
-    @mouseleave="isHover = false"
-    class="card-preview"
-  >
+  <section @mouseover="isHover = true" @mouseleave="isHover = false" class="card-preview">
     <div
-      v-if="card.style && card.style.isFull === false &&  card.style.bgColor"
+      v-if="card.style && card.style.isFull === false && card.style.bgColor"
       class="cover-Half"
       :style="bgColorHalf"
     ></div>
 
-    <img
-      :src="bgUrlHalf"
-      v-if="card.style && card.style.isFull === false && card.style.bgUrl"
-    />
-    <span
-      class="material-icons-outlined edit"
-      @click.stop="openEditor"
-      :style="isShow"
-    >
+    <img :src="bgUrlHalf" v-if="card.style && card.style.isFull === false && card.style.bgUrl" />
+    <span class="material-icons-outlined edit" @click.stop="openEditor" :style="isShow">
       create
     </span>
-    <section :style="bgColorFull" class="card" @click.stop.prevent="openDetails(card.id)" :class="{ 'img-cover': card.style && card.style.isFull && card.style.bgUrl }">
+    <section
+      :style="bgColorFull"
+      class="card"
+      @click.stop.prevent="openDetails(card.id)"
+      :class="{ 'img-cover': card.style && card.style.isFull && card.style.bgUrl }"
+    >
       <!-- :style="{ background: card.style.bgColor }" -->
 
       <div class="labels" v-if="card.labelIds && card.labelIds.length">
@@ -37,33 +31,30 @@
               @click.stop.prevent="toggleLabel"
             >
               <transition name="fade">
-                <span class="label-title" v-if="label.title && isLabelText">{{
-                  label.title
-                }}</span>
+                <span class="label-title" v-if="label.title && isLabelText">{{ label.title }}</span>
               </transition>
             </span>
           </li>
         </ul>
       </div>
       <header class="single" v-if="card.title">
-        <p :class="{ 'white': card.style && card.style.isFull && card.style.bgUrl }">{{ card.title }}</p>
+        <p :class="{ white: card.style && card.style.isFull && card.style.bgUrl }">
+          {{ card.title }}
+        </p>
       </header>
-
-   
 
       <!-- labels  -->
 
       <div
         class="icons"
-         v-if="
+        v-if="
           card.dueDate ||
-            card.comments ||
-            card.checklists ||
-            card.attachment ||
-            card.checklists ||
-            card.description 
-            
-        " 
+          card.comments ||
+          card.checklists ||
+          card.attachment ||
+          card.checklists ||
+          card.description
+        "
       >
         <!-- dueDate -->
         <div
@@ -74,38 +65,24 @@
           @click.stop="isDone"
           :class="{ 'done-card': isCardDone }"
         >
-          <span
-            v-if="isCardDone && showCheck"
-            class="material-icons-outlined icon"
-          >
+          <span v-if="isCardDone && showCheck" class="material-icons-outlined icon">
             check_box</span
           >
-          <span
-            v-if="showCheck && !isCardDone"
-            class="material-icons-outlined icon check"
+          <span v-if="showCheck && !isCardDone" class="material-icons-outlined icon check"
             >crop_din</span
           >
-          <span
-            v-if="!showCheck"
-            class="due-date-icon icon el-icon-time check"
-          ></span>
+          <span v-if="!showCheck" class="due-date-icon icon el-icon-time check"></span>
           <span v-if="card.dueDate.date">
-            {{ card.dueDate.date | moment("MMM ") }}
+            {{ card.dueDate.date | moment('MMM ') }}
             {{ dueDateDay }}</span
           >
         </div>
 
         <!-- description -->
-        <span
-          v-if="card.description"
-          class="el-icon-s-unfold icon description"
-        ></span>
+        <span v-if="card.description" class="el-icon-s-unfold icon description"></span>
 
         <!-- attachment -->
-        <span
-          v-if="card.attachment && card.attachment.length > 0"
-          class="el-icon-paperclip icon"
-        >
+        <span v-if="card.attachment && card.attachment.length > 0" class="el-icon-paperclip icon">
           {{ card.attachment.length }}</span
         >
 
@@ -116,7 +93,7 @@
           :class="{ 'done-todos': isTodosDone }"
         >
           <span class="material-icons-outlined icon"> check_box</span>
-          <span>{{ doneTodosAmount }}</span>
+          <span v-if="doneTodosAmount">{{ doneTodosAmount }}</span>
           <span>/</span>
           <span>{{ todosAmount }}</span>
         </span>
@@ -128,107 +105,78 @@
 
         <!-- isdone ?-->
         <!-- <span v-if="card.status.isDone" class="el-icon-check icon isDone"></span> -->
-        
       </div>
       <!-- members -->
       <div class="members" v-if="card.members && card.members.length > 0">
         <div v-for="member in card.members" :key="member._id">
-          <avatar
-            v-if="member.imgUrl"
-            :src="member.imgUrl"
-            :size="28"
-            class="member-img"
-          />
-          <avatar
-            v-else
-            :username="member.username"
-            :size="28"
-            class="member"
-          ></avatar>
+          <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
+          <avatar v-else :username="member.username" :size="28" class="member"></avatar>
         </div>
       </div>
-
     </section>
-      <main>
-        <div v-if="isOpenEditor" class="editor" @click="openEditor">
-          <p
-            class="material-icons-outlined btn-x"
-            @click.stop.prevent="openEditor"
-          >
-            close
-          </p>
-          <div class="edit-txt" @click.stop>
-            <el-input type="textarea" :rows="5" v-model="cardToUpdate.title">
-            </el-input>
-            <el-button type="primary" @click.stop="openEditor"
-              >Save</el-button
-            >
-          </div>
-          <div class="chose-edit">
-            <ul>
-              <li @click.stop.prevent="openDetails(card.id)">
-                <span class="material-icons-outlined"> branding_watermark </span
-                >Open card
-              </li>
-              <li @click.stop="dynamicCmp('labels')">
-                <span class="material-icons-outlined"> sell </span>Edit labels
-              </li>
-              <li @click.stop.prevent="dynamicCmp('members')" >
-                <span class="material-icons-outlined"> person_outline </span
-                >Change members
-              </li>
-              <li @click.stop.prevent="dynamicCmp('cover')">
-                <span class="material-icons-outlined"> branding_watermark </span
-                >Change cover
-              </li>
-              <li>
-                <span class="material-icons-outlined"> arrow_forward </span>Move
-              </li>
-              <li>
-                <span class="material-icons-outlined"> file_copy </span>Copy
-              </li>
-              <li @click.stop.prevent="dynamicCmp('dates')">
-                <span class="material-icons-outlined"> watch_later </span>
-                Edit dates
-              </li>
-              <li @click.stop.prevent="deleteCard">
-                <span class="material-icons-outlined"> move_to_inbox </span
-                >Archive
-              </li>
-            </ul>
-          </div>
-          <div class="dynamic-cmp" v-if="component.currCmp"  @click.stop="">
-            <header>
-              <h2>{{ component.name }}</h2>
-              <a @click.stop.prevent="closeModel" class="el-icon-close"> </a>
-            </header>
-            <component
-           
-              :is="component.currCmp"
-              :card="card"
-              @dynamicCmp="dynamicCmp"
-               @updateMember="updateMember"
-                @changeBcg="changeBcg"
-                 @updateLabel="updateLabel"
-            >
-            </component>
-          </div>
+    <main>
+      <div v-if="isOpenEditor" class="editor" @click="openEditor">
+        <p class="material-icons-outlined btn-x" @click.stop.prevent="openEditor">close</p>
+        <div class="edit-txt" @click.stop>
+          <el-input type="textarea" :rows="5" v-model="cardToUpdate.title"> </el-input>
+          <el-button type="primary" @click.stop="openEditor">Save</el-button>
         </div>
-      </main>
+        <div class="chose-edit">
+          <ul>
+            <li @click.stop.prevent="openDetails(card.id)">
+              <span class="material-icons-outlined"> branding_watermark </span>Open card
+            </li>
+            <li @click.stop="dynamicCmp('labels')">
+              <span class="material-icons-outlined"> sell </span>Edit labels
+            </li>
+            <li @click.stop.prevent="dynamicCmp('members')">
+              <span class="material-icons-outlined"> person_outline </span>Change members
+            </li>
+            <li @click.stop.prevent="dynamicCmp('cover')">
+              <span class="material-icons-outlined"> branding_watermark </span>Change cover
+            </li>
+            <li><span class="material-icons-outlined"> arrow_forward </span>Move</li>
+            <li><span class="material-icons-outlined"> file_copy </span>Copy</li>
+            <li @click.stop.prevent="dynamicCmp('dates')">
+              <span class="material-icons-outlined"> watch_later </span>
+              Edit dates
+            </li>
+            <li @click.stop.prevent="deleteCard">
+              <span class="material-icons-outlined"> move_to_inbox </span>Archive
+            </li>
+          </ul>
+        </div>
+        <div class="dynamic-cmp" v-if="component.currCmp" @click.stop="">
+          <header>
+            <h2>{{ component.name }}</h2>
+            <a @click.stop.prevent="closeModel" class="el-icon-close"> </a>
+          </header>
+          <component
+            :is="component.currCmp"
+            :card="card"
+            @dynamicCmp="dynamicCmp"
+            @updateMember="updateMember"
+            @changeBcg="changeBcg"
+            @updateLabel="updateLabel"
+          >
+          </component>
+        </div>
+      </div>
+    </main>
   </section>
 </template>
 
 <script>
-import { boardService } from "../service/board.service";
-import avatar from "vue-avatar";
-import member from "./edit/edit-member.vue";
-import label from "./edit-label.vue";
+import { boardService } from '../service/board.service';
+import avatar from 'vue-avatar';
+import member from './edit/edit-member.vue';
+import label from './edit-label.vue';
 import cover from './edit/edit-cover.vue';
-import attachment from "./edit/edit-attachment.vue";
-import trelix from "./edit/edit-trelix.vue";
+import attachment from './edit/edit-attachment.vue';
+import trelix from './edit/edit-trelix.vue';
 
 export default {
-  name: "card",
+  name: 'card',
   props: { card: null },
   data() {
     return {
@@ -241,14 +189,13 @@ export default {
       cardToUpdate: this.card,
       component: {
         currCmp: null,
-        name: "",
+        name: '',
       },
     };
   },
   mounted() {},
   async created() {
     try {
-      
       if (this.card.labelIds) {
         this.labels = await this.getLabel();
       }
@@ -265,13 +212,13 @@ export default {
   methods: {
     changeBcg(color) {
       let card = JSON.parse(JSON.stringify(this.card));
-      if (typeof color === "object") {
+      if (typeof color === 'object') {
         if (card.style.bgUrl === color) card.style.bgUrl = null;
         else {
           card.style.bgUrl = color;
           card.style.bgColor = null;
         }
-      } else if (typeof color === "string") {
+      } else if (typeof color === 'string') {
         if (card.style.bgColor === color) card.style.bgColor = null;
         else {
           card.style.bgColor = color;
@@ -282,19 +229,19 @@ export default {
         card.style.bgUrl = null;
       }
       this.closeModel();
-      this.$emit("updateCard", card);
+      this.$emit('updateCard', card);
       // this.$store.dispatch({ type: 'updateCard', card });
     },
-// isDone(){
-//   this.isCardDone = !this.isCardDone;
-// },
+    // isDone(){
+    //   this.isCardDone = !this.isCardDone;
+    // },
     async isDone() {
       this.isCardDone = !this.isCardDone;
-        try {
+      try {
         var res = await this.$store.dispatch({
-          type: "updateDuedate",
-          newDone : this.isCardDone,
-          card:  JSON.parse(JSON.stringify(this.card)) ,
+          type: 'updateDuedate',
+          newDone: this.isCardDone,
+          card: JSON.parse(JSON.stringify(this.card)),
         });
       } catch (err) {
         console.log(err);
@@ -329,10 +276,10 @@ export default {
     async deleteCard() {
       try {
         var res = await this.$store.dispatch({
-          type: "deleteCard",
+          type: 'deleteCard',
           card: this.card,
         });
-        this.$emit("updateGroup");
+        this.$emit('updateGroup');
         if (res) return this.openEditor();
       } catch (err) {
         console.log(err);
@@ -341,10 +288,10 @@ export default {
     async updateCard() {
       try {
         var res = await this.$store.dispatch({
-          type: "updateCard",
+          type: 'updateCard',
           card: this.cardToUpdate,
         });
-        this.$emit("updateGroup");
+        this.$emit('updateGroup');
         if (res) this.openEditor();
       } catch (err) {
         console.log(err);
@@ -358,7 +305,7 @@ export default {
       const boardId = this.$route.params.boardId;
       this.$router.push(`/board/${boardId}/${cardId}`);
     },
-       updateLabel(label) {
+    updateLabel(label) {
       let card = JSON.parse(JSON.stringify(this.card));
       if (card.labelIds.some((labelId) => labelId.lId === label.id)) {
         const labelIdx = card.labelIds.findIndex((labelId) => labelId.id === label.id);
@@ -432,15 +379,18 @@ export default {
     doneTodosAmount() {
       let doneTodos = 0;
       this.card.checklists.forEach((checklist) => {
-        doneTodos += checklist.todos.filter((todo) => todo.isDone).length;
+        if (checklist.todos) {
+          doneTodos += checklist.todos.filter((todo) => todo.isDone).length;
+        }
       });
-
       return doneTodos;
     },
     todosAmount() {
       let todos = 0;
       this.card.checklists.forEach((checklist) => {
-        todos += checklist.todos.length;
+        if (checklist.todos) {
+          todos += checklist.todos.length;
+        }
       });
 
       return todos;
@@ -459,11 +409,11 @@ export default {
   },
   components: {
     avatar,
-    "card-attachment": attachment,
-    "card-trelix": trelix,
-    "card-members": member,
-    "card-labels": label,
-     'card-cover': cover,
+    'card-attachment': attachment,
+    'card-trelix': trelix,
+    'card-members': member,
+    'card-labels': label,
+    'card-cover': cover,
   },
 };
 </script>

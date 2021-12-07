@@ -132,18 +132,21 @@
   }
   .todos-container {
     .todos {
+      width: 100%;
       position: relative;
       // ul {
       display: flex;
       align-items: center;
       border-radius: 3px;
-      height: 36px;
+      min-height: 36px;
       transition-duration: 0.14s;
       transition-property: transform;
       transition-timing-function: ease-in;
       cursor: pointer;
       margin-bottom: 5px;
       .checklist-todo {
+        width: 100%;
+
         display: flex;
         width: 100%;
       }
@@ -172,6 +175,7 @@
         display: block;
         height: 96px;
         input {
+          width: 100%;
           display: flex;
           resize: none;
           height: 56px;
