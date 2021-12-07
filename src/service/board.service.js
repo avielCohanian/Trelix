@@ -48,6 +48,7 @@ async function addBoard(newBoard,userConnect){
 
         let currBoard = await httpService.post(`board`, newBoard)
         currBoard= currBoard.ops[0]
+        console.log(currBoard);
         const activity =_getEmptyActivity()
         activity.byMember = userConnect
         activity.txt = 'add Board'
