@@ -9,7 +9,7 @@
         <span class="cover-back-btn">
           <a class="back-btn close-btn el-icon-close" @click="closeDetails"> </a>
         </span>
-        <a class="cover-btn" @click="dynamicCmp('cover')">
+        <a class="cover-btn" @click="dynamicCmp({ cmp: { name: 'cover' } })">
           <span class="cover-icon">
             <span class="material-icons-outlined icon"> web_asset </span>
           </span>
@@ -57,7 +57,7 @@
                   ></avatar>
                   <avatar v-else :username="member.fullname" :size="35" class="member"></avatar>
                 </li>
-                <a class="plus-btn" @click="dynamicCmp('members')">
+                <a class="plus-btn" @click="dynamicCmp({ cmp: { name: 'members' } })">
                   <span class="el-icon-plus plus"></span>
                 </a>
                 <!--TODO  למצוא אייקון מתאים -->
@@ -77,7 +77,7 @@
                     {{ label.title }}</span
                   >
                 </li>
-                <a class="plus-btn" @click="dynamicCmp('labels')">
+                <a class="plus-btn" @click="dynamicCmp({ cmp: { name: 'labels' } })">
                   <span class="el-icon-plus plus"></span>
                 </a>
               </ul>
@@ -89,10 +89,10 @@
                 <el-checkbox class="checkBox" @click="dateDone" v-model="checked"></el-checkbox>
                 <!-- TODO איך יודעים אם בוצע או לא -->
                 <a @click="openDate" class="date-dedline-container">
-                  {{ card.dueDate | moment('MMM ') }}
-                  {{ dueDateDay }}
+                  {{ card.dueDate.date | moment('MMM ') }}
+                  {{ dueDateDay.date }}
                   at
-                  {{ card.dueDate | moment(' h:mm: A') }}
+                  {{ card.dueDate.date | moment(' h:mm: A') }}
                   <span class="el-icon-arrow-down"></span>
                 </a>
                 <!--TODO  למצוא אייקון מתאים -->
@@ -149,6 +149,7 @@
             </div>
             <a @click="openAttachment">Add Trelix attachment</a>
           </div>
+
           <!-- attachmentViewer -->
           <!-- <div class="attachmentViewer" v-show="attachmentViewer">
             <a class="close-btn el-icon-close"></a>
@@ -194,11 +195,39 @@
                       -
                       <a
                         class="title-option-btn"
-                        @click.stop="dynamicCmp('removeEditAttachment', idx)"
+                        @click.stop="
+                          dynamicCmp(
+                            {
+                              cmp: {
+                                name: 'removeEditAttachment',
+                                txt: 'Remove this attachment? There is no undo.',
+                                type: 'remove',
+                                title: 'Delete attachment?',
+                                btnTxt: 'Delete',
+                              },
+                            },
+                            idx
+                          )
+                        "
                         >Remove</a
                       >
                       -
-                      <a class="title-option-btn" @click.stop="dynamicCmp('editAttachment', idx)"
+                      <a
+                        class="title-option-btn"
+                        @click.stop="
+                          dynamicCmp(
+                            {
+                              cmp: {
+                                name: 'editAttachment',
+                                txt: 'Link name',
+                                type: 'edit',
+                                title: 'Edit attachment',
+                                btnTxt: 'Update',
+                              },
+                            },
+                            idx
+                          )
+                        "
                         >Edit</a
                       >
                     </span>
@@ -211,8 +240,17 @@
                 </div>
               </a>
             </div>
-
-            <a class="add-item" @click="dynamicCmp('attachment')">Add an attachment</a>
+            <p class="longAtt">
+              <a
+                v-if="card.attachment.computerAttachment.length > 4 && !logAtt"
+                @click="logAtt = true"
+                >View all attachments ( {{ attHidden }} hidden)</a
+              >
+              <a v-if="logAtt" @click="logAtt = false">Show fewer attachments.</a>
+            </p>
+            <a class="add-item" @click="dynamicCmp({ cmp: { name: 'attachment' } })"
+              >Add an attachment</a
+            >
           </div>
 
           <div class="checklists-container" v-if="card.checklists">
@@ -221,6 +259,7 @@
               :key="checklist.id"
               :checklist="checklist"
               @updateChecklist="updateChecklist"
+              @deleteChecklist="deleteChecklist"
             ></check-list>
           </div>
           <div class="activity-container" v-if="card.activity">
@@ -264,6 +303,7 @@ export default {
       labels: [],
       cmp: { cmp: null, id: null },
       attachmentViewer: false,
+      logAtt: false,
     };
   },
   methods: {
@@ -411,6 +451,20 @@ export default {
       //   }
       this.cmp = { cmp, id };
     },
+    deleteChecklist(checklistId) {
+      //   let card = JSON.parse(JSON.stringify(this.card));
+      const checklistIdx = this.card.checklists.findIndex((c) => c.id === checklistId);
+      this.dynamicCmp({
+        cmp: {
+          name: 'removeEditAttachment',
+          txt: 'Deleting a checklist is permanent and there is no way to get it back.',
+          title: `Delete ${this.card.checklists[checklistIdx].title}?`,
+          type: 'remove',
+          btnTxt: 'Delete checklist',
+        },
+      });
+      //   this.dynamicCmp({ cmp: { name: 'attachment' } }
+    },
     removeAtt() {
       let card = JSON.parse(JSON.stringify(this.card));
       card.attachment.computerAttachment.splice(this.cmp.id, 1);
@@ -437,9 +491,18 @@ export default {
       );
     },
     cardAttachments() {
-      let computerAttachment = this.card.attachment.computerAttachment;
-      // TODO: return only 3 attachment
-      return computerAttachment;
+      let computerAttachment = JSON.parse(JSON.stringify(this.card.attachment.computerAttachment));
+      console.log(computerAttachment);
+
+      return !this.logAtt
+        ? computerAttachment.splice(0, 4)
+        : computerAttachment.length < 4
+        ? computerAttachment
+        : computerAttachment;
+    },
+    attHidden() {
+      let computerAttachment = JSON.parse(JSON.stringify(this.card.attachment.computerAttachment));
+      return computerAttachment.length - 4;
     },
     isCover() {
       // TODO: if we have bcg to the card

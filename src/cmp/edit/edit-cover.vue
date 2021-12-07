@@ -2,7 +2,9 @@
   <section class="edit-cover">
     <div class="size">
       <h4>Size</h4>
-      <a class="removeCaver" v-if="card.style.bgColor" @click="changeBgc(null)">Remove cover</a>
+      <a class="removeCaver" v-if="card.style.bgColor || card.style.bgUrl" @click="changeBgc(0)"
+        >Remove cover</a
+      >
     </div>
     <div class="colors">
       <h4>Colors</h4>
@@ -33,7 +35,7 @@
       <h4>Attachment</h4>
       <ul>
         <li
-          v-for="(att, idx) in card.attachment.computerAttachment"
+          v-for="(att, idx) in attToShow"
           :key="idx"
           :style="{ backgroundImage: `url(${att.url})` }"
           @click="changeBgc({ backgroundImage: `url(${att.url})` })"
@@ -101,6 +103,7 @@ export default {
   methods: {
     changeBgc(newBcg) {
       let res = newBcg;
+      console.log(typeof newBcg);
       if (typeof newBcg === 'object') res = newBcg.backgroundImage;
       this.$emit('changeBcg', res);
     },
@@ -115,7 +118,13 @@ export default {
       this.$emit('searchImgCmp', 'coverSearch');
     },
   },
-  computed: {},
+  computed: {
+    attToShow() {
+      let attC = JSON.parse(JSON.stringify(this.card.attachment.computerAttachment));
+
+      return attC;
+    },
+  },
 };
 </script>
 

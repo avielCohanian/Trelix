@@ -3,7 +3,8 @@
   margin-bottom: 24px;
 
   .checklist-header {
-    min-height: 100px;
+    // min-height: 100px;
+    position: relative;
     .show {
       display: flex;
       align-items: center;
@@ -108,6 +109,8 @@
   .el-progress {
     position: relative;
     width: 100%;
+    margin-bottom: 5px;
+    direction: rtl;
     .el-progress-bar__outer {
       position: absolute;
       background-color: #091e4214;
@@ -119,15 +122,13 @@
     }
     .el-progress__text {
       position: absolute;
-      left: -45px;
+      left: -52px;
       top: 6px;
       width: 32px;
       line-height: 10px;
       color: #5e6c84;
       font-size: 11px;
     }
-    margin-bottom: 5px;
-    direction: rtl;
   }
   .todos-container {
     .todos {
@@ -142,19 +143,19 @@
       transition-timing-function: ease-in;
       cursor: pointer;
       margin-bottom: 5px;
-
+      .checklist-todo {
+        display: flex;
+        width: 100%;
+      }
       .el-checkbox__inner {
-        // position: absolute;
         top: 0;
-        left: -34px;
+        left: -37px;
         height: 16px;
         width: 16px;
-        // background-color: #fafbfc;
         border-radius: 2px;
         box-shadow: inset 0 0 0 0.9px #dfe1e6;
         margin: 6px;
         border: 0px solid #dcdfe6;
-        // background-color: #ebecf0;
       }
       .el-checkbox__inner::after {
         top: 3px;
@@ -163,11 +164,13 @@
           box-shadow: inset 0 0 0 2px #dfe1e6;
         }
       }
-      form {
+      .edit-container {
+        position: relative;
         padding-bottom: 9px;
         width: 100%;
         color: #172b4d;
-
+        display: block;
+        height: 96px;
         input {
           display: flex;
           resize: none;
@@ -176,7 +179,7 @@
           background-color: #091e420a;
           border-color: #091e4221;
           box-shadow: inset 0 0 0 1px #091e4221;
-          margin-bottom: 4px;
+          margin-bottom: 9px;
         }
         a.save {
           float: left;
@@ -221,7 +224,8 @@
   .todos:hover {
     background-color: #091e420a;
   }
-  a.back-btn {
+
+  .back-btn {
     color: #42526e;
     height: 32px;
     line-height: 32px;
@@ -232,6 +236,7 @@
     background-color: initial;
     margin-left: 3px;
   }
+
   .add-item {
     .item-btn {
       width: 100px;
