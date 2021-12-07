@@ -1,9 +1,6 @@
 import { boardService } from '../service/board.service.js';
-import {
-  socketService,
-  SOCKET_EMIT_USER_WATCH,
-  SOCKET_EVENT_USER_UPDATED,
-} from '../service/socket.service.js';
+import { socketService, SOCKET_EMIT_USER_WATCH, SOCKET_EVENT_USER_UPDATED } from '../service/socket.service.js';
+import { utilService } from '../service/util.service.js';
 
 export const boardStore = {
   state: {
@@ -223,6 +220,17 @@ console.log(getters.getUserConnect);
       const board = getters.getBoard;
       board.activities.push(activity);
       dispatch({ type: 'updateBoard', board });
+    },
+    async addLabel({ commit, getters }, { newLabel }) {
+      const board = JSON.parse(JSON.stringify(getters.getBoard));
+      newLabel.id = utilService.makeId();
+      board.labels.push(newLabel);
+      try {
+        const updateBoard = await boardService.updatedBoard(board);
+        commit({ type: 'setBoard', board: updateBoard });
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

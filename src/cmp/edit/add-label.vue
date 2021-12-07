@@ -1,0 +1,96 @@
+<template>
+  <section class="add-label">
+    <span class="backIcon material-icons-outlined" @click="backLabel"> chevron_left </span>
+    <h3 class="labels-name">Name</h3>
+    <input v-if="!label.currLabel" class="search" type="text" v-model="newLabel.title" />
+    <input v-else class="search" type="text" v-model="label.currLabel.title" />
+    <h3 class="labels-title">Select a color</h3>
+    <ul>
+      <li v-for="(color, idx) in colors" :key="idx" @click="chooseColor(color)">
+        <div
+          v-if="!label.currLabel"
+          class="label"
+          :style="{
+            backgroundColor: color,
+          }"
+        >
+          <span class="material-icons-outlined" v-show="color === newLabel.color"> check </span>
+        </div>
+        <div
+          v-else
+          class="label"
+          :style="{
+            backgroundColor: color,
+          }"
+        >
+          <span class="material-icons-outlined" v-show="color === label.currLabel.color"> check </span>
+        </div>
+        <!-- <span class="material-icons-outlined" v-show="color === newLabel.color"> check </span> -->
+      </li>
+      <span class="no-color">
+        <h3>No color.</h3>
+        <p>This won't show up on the front of cards.</p>
+      </span>
+    </ul>
+    <div class="flex-space">
+      <a class="add-label" @click="addLabel">Save</a>
+      <a v-if="label.type === 'edit'" class="delete-label" @click="deleteLabel">Delete</a>
+    </div>
+  </section>
+</template>
+
+<script>
+export default {
+  name: 'add-label',
+  props: {
+    label: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      colors: [
+        '#61bd4f',
+        '#f2d600',
+        '#ff9f1a',
+        '#eb5a46',
+        '#c377e0',
+        '#0079bf',
+        '#00c2e0',
+        '#51e898',
+        '#ff78cb',
+        '#344563',
+        '#b3bac5',
+      ],
+      newLabel: { color: '#51e898', title: '' },
+    };
+  },
+  created() {
+    if (this.label.currLabel) {
+      console.log(this.label);
+    }
+  },
+  methods: {
+    addLabel() {
+      if (this.label.currLabel) {
+        this.$emit('newLabel', this.label.currLabel);
+      }
+      this.$emit('newLabel', this.newLabel);
+    },
+    deleteLabel() {
+      if (this.label.currLabel) {
+        this.$emit('deleteLabel', this.labelId);
+      }
+    },
+    chooseColor(color) {
+      this.newLabel.color = color;
+    },
+    backLabel() {
+      this.$emit('backLabel');
+    },
+  },
+};
+</script>
+
+<style></style>
