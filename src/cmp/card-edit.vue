@@ -40,7 +40,7 @@
           class="btn cover"
           @click="dynamicCmp('cover')"
           title="Cover"
-          v-show="!card.style.bgColor && !card.style.bgUrl"
+          v-show="card.style && !card.style.bgColor && !card.style.bgUrl "
         >
           <span class="cover-icon">
             <span class="material-icons-outlined icon"> web_asset </span>
@@ -161,14 +161,8 @@ export default {
       this.position = null;
 
       let { name, type, txt, title, btnTxt } = cmp;
-
-      this.minComponent.name = name;
-      this.minComponent.type = type;
-      this.minComponent.txt = txt;
-      this.minComponent.title = title;
-      this.minComponent.btnTxt = btnTxt;
-      console.log(cmp);
-      // }
+thia.minComponent={name,type,txt,title,btnTxt}
+    
       this.minComponent.currCmp = `card-${cmp.type}`;
     },
     closeModel() {
@@ -184,9 +178,7 @@ export default {
     changeBcg(color) {
       let card = JSON.parse(JSON.stringify(this.card));
       // if (typeof color === 'object') {
-      console.log(color);
-      console.log(card.style.bgUrl);
-      console.log(card.style.bgColor);
+
       if (card.style.bgUrl !== color && color.length > 15) {
         card.style.bgUrl = color;
         card.style.bgColor = null;

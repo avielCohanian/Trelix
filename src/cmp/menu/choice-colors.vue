@@ -21,7 +21,7 @@
 <script>
 export default {
    props: {
-      colors: { type: Object },
+      colors: { type: Array },
    },
    methods: {
       changeBgc(newBcg) {

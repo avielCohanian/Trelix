@@ -48,7 +48,7 @@
             Anyone on the internet (including Google) can see this board. Only board members can edit. </p>
         </label>
         </div>
-        <!-- <menu-activity :board="getBoard" /> -->
+        <menu-activity :board="getBoard" />
         </div>
     </ul>
     <transition name="slide-fade">

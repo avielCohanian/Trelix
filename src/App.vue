@@ -14,13 +14,13 @@ export default {
     data(){
         return{
             loadUser:false,
-                    createdBy:{
-                                _id: 'u104',
-                                username: 'Yael Oushky',
-                                mail: 'YaelOushky@gmail.com',
-                                fullname: 'Yael oushky',
-                                imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
-                            },
+            createdBy:{
+                _id: 'u104',
+                username: 'Yael Oushky',
+                mail: 'YaelOushky@gmail.com',
+                fullname: 'Yael oushky',
+                imgUrl: 'https://res.cloudinary.com/dshrwhc75/image/upload/v1638466706/user/yael_ypkjt9.jpg',
+            },
         }
     },
    async created(){

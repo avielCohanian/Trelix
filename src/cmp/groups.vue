@@ -1,19 +1,31 @@
 <template>
     <section class="groups">
-        <draggable
+        <!-- <draggable
             class="list-group flex"
             v-model="groups"
             @change="onDrug"
             @end="endDragg"
         >
-            <div v-for="group in groups" :key="group.id">
-                <group
-                    :group="group"
-                    @updateGroup="loadGroups"
-                    @updateGroupDrug="endDragg"
-                />
-            </div>
-        </draggable>
+        </draggable> -->
+        <Container
+            orientation="horizontal"
+            @drop="onColumnDrop($event)"
+            drag-handle-selector="header"
+            :drop-placeholder="upperDropPlaceholderOptions"
+            drag-class="card-ghost"
+        >
+            <Draggable v-for="group in groups" :key="group.id">
+                <div>
+                    <group
+                        :group="group"
+                        :board="board"
+                        @updateGroup="loadGroups"
+                    />
+                </div>
+            </Draggable>
+        </Container>
+                        <!-- @updateGroupDrug="endDragg" -->
+
         <div class="add-list">
             <div class="add-list-new" @click="toggleGroup" v-if="!isAddGroup">
                 <span class="material-icons-outlined icon"> add </span>
@@ -44,25 +56,37 @@
 
 <script>
 import { boardService } from '../service/board.service';
+import { applyDrag } from '../service/util.service.js';
 import group from '../cmp/group.vue';
-import draggable from 'vuedraggable';
+// import draggable from 'vuedraggable';
+import { Container, Draggable } from 'vue-smooth-dnd';
+
 export default {
     name: 'groups',
-    components: {
-        group,
-        draggable,
-    },
+   
     data() {
         return {
             isAddGroup: false,
             newGroup: boardService.getEmptyGroup(),
             groups: [],
+            board: null,
+            upperDropPlaceholderOptions: {
+                className: 'cards-drop-preview',
+                animationDuration: '150',
+                showOnTop: true,
+            },
         };
     },
     created() {
         this.loadGroups();
+        this.board=JSON.parse(JSON.stringify(this.$store.getters.getBoard)) 
     },
     methods: {
+        async onColumnDrop(dropResult) {
+            const board = Object.assign({}, this.board);
+            board.groups = applyDrag(board.groups, dropResult);
+            await this.$store.dispatch({ type: 'updateBoard', board });
+        },
         async endDragg() {
             await this.$store.dispatch({
                 type: 'updateGroups',
@@ -114,12 +138,22 @@ export default {
             return this.groups;
         },
     },
+    components: {
+        Draggable,
+        Container,
+        group,
+    },
     watch: {
         '$store.getters.getBoard'(board) {
+            this.board = JSON.parse(JSON.stringify(board)) 
             this.groups = board.groups;
         },
     },
 };
 </script>
 
-<style></style>
+<style lang="scss">
+    .card-ghost{
+        transform: rotateZ(5deg);
+    }
+</style>

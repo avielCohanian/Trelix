@@ -1,0 +1,265 @@
+[
+
+    {
+       
+        "title": "",
+        "description": "",
+        "createdAt": null,
+        "createdBy": null,
+        "style": {
+            "backgroundImage":
+              "url(https://images.unsplash.com/photo-1477346611705-65d1883cee1e?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNzk3MjJ8MHwxfHNlYXJjaHwxfHxXYWxscGFwZXJzfGVufDB8MHx8fDE2Mzg3ODM4NTg&ixlib=rb-1.2.1&q=85)"
+              
+          },
+        "styleCustom": [],
+        "members": [],
+        "activities": [],
+        "groups": [],
+        "labels": [
+            {
+                "id": "l101",
+                "title": "Done",
+                "color": "#eb5a46"
+            },
+            {
+                "id": "l102",
+                "title": "",
+                "color": "#0079bf"
+            },
+            {
+                "id": "l103",
+                "title": "",
+                "color": "#61bd4f"
+            },
+            {
+                "id": "l104",
+                "title": "",
+                "color": "#f2d600"
+            },
+            {
+                "id": "l105",
+                "title": "",
+                "color": "#ff9f1a"
+            },
+            {
+                "id": "l106",
+                "title": "",
+                "color": "#c377e0"
+            },
+            {
+                "id": "l1017",
+                "title": "",
+                "color": "#0098b7"
+            }
+        ]
+    },
+
+    {
+        "title": "yty",
+        "description": "",
+        "createdAt": 1638908934868.0,
+        "createdBy": {
+            "_id": "61af97f455e11e3ff4b7f2a6",
+            "fullname": "p",
+            "username": "p",
+            "email": "p",
+            "imgUrl": ""
+        },
+        "style": {
+            "background": "rgb(210, 144, 52)"
+        },
+        "styleCustom": [],
+        "members": [
+            {
+                "_id": "61af97f455e11e3ff4b7f2a6",
+                "fullname": "p",
+                "username": "p",
+                "email": "p",
+                "imgUrl": "",
+                "boards": {}
+            }
+        ],
+        "activities": [
+            {
+                "id": "rPIgO",
+                "txt": "add Board",
+                "createdAt": 1638908934977.0,
+                "byMember": {
+                    "_id": "61af97f455e11e3ff4b7f2a6",
+                    "fullname": "p",
+                    "username": "p",
+                    "email": "p",
+                    "imgUrl": ""
+                },
+                "card": {
+                    "id": "61afc40653b43917b44586f7",
+                    "title": "yty"
+                }
+            }
+        ],
+        "groups": [
+            {
+                "style": {},
+                "cards": [
+                    {
+                        "title": "xvzzcd\\gdv",
+                        "attachment": {
+                            "trelixAttachments": null,
+                            "computerAttachment": null
+                        },
+                        "checklists": [],
+                        "description": "",
+                        "comments": [],
+                        "members": [],
+                        "labelIds": [],
+                        "dueDate": null,
+                        "byMember": {},
+                        "style": {},
+                        "id": "rsPWC"
+                    },
+                    {
+                        "title": "fdgbzxfhbzf",
+                        "attachment": {
+                            "trelixAttachments": null,
+                            "computerAttachment": null
+                        },
+                        "checklists": [],
+                        "description": "",
+                        "comments": [],
+                        "members": [],
+                        "labelIds": [
+                            {
+                                "isDone": false
+                            }
+                        ],
+                        "dueDate": null,
+                        "byMember": {},
+                        "style": {},
+                        "id": "c0TLj"
+                    },
+                    {
+                        "title": "cxszgvz\\dcx",
+                        "attachment": {
+                            "trelixAttachments": null,
+                            "computerAttachment": null
+                        },
+                        "checklists": [],
+                        "description": "",
+                        "comments": [],
+                        "members": [],
+                        "labelIds": [],
+                        "dueDate": null,
+                        "byMember": {},
+                        "style": {},
+                        "id": "0c8XT"
+                    }
+                ],
+                "title": "fzsdxgdxcvf",
+                "id": "9KIV4"
+            }
+        ],
+        "labels": [
+            {
+                "id": "l101",
+                "title": "Done",
+                "color": "#eb5a46"
+            },
+            {
+                "id": "l102",
+                "title": "",
+                "color": "#0079bf"
+            },
+            {
+                "id": "l103",
+                "title": "",
+                "color": "#61bd4f"
+            },
+            {
+                "id": "l104",
+                "title": "",
+                "color": "#f2d600"
+            },
+            {
+                "id": "l105",
+                "title": "",
+                "color": "#ff9f1a"
+            },
+            {
+                "id": "l106",
+                "title": "",
+                "color": "#c377e0"
+            },
+            {
+                "id": "l1017",
+                "title": "",
+                "color": "#0098b7"
+            }
+        ]
+    },
+
+    [
+        {
+            "title": "",
+            "attachment": {
+                "trelixAttachments": [],
+                "computerAttachment": []
+            },
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+            "dueDate": null,
+            "createdAt":null,
+            "byMember": null,
+            "style": null,
+            "id": ""
+        },
+        {
+            "title": "fdgbzxfhbzf",
+            "attachment": {
+                "trelixAttachments": null,
+                "computerAttachment": null
+            },
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [
+                {
+                    "isDone": false
+                }
+            ],
+            "dueDate": null,
+            "byMember": {},
+            "style": {},
+            "id": "c0TLj"
+        },
+        {
+            "title": "cxszgvz\\dcx",
+            "attachment": {
+                "trelixAttachments": null,
+                "computerAttachment": null
+            },
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+            "dueDate": null,
+            "byMember": {},
+            "style": {},
+            "id": "0c8XT"
+        }
+    ]
+
+    
+     
+        
+               
+                  
+                
+               
+]
+
+

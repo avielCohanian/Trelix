@@ -120,13 +120,19 @@
         margin: 5px;
         padding: 0;
         // justify-content: space-between;
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-between;
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: space-between;
         gap: 4px;
         margin-top: 6px
     }
+    // .bcg-choich ul{
+
+    //     height: 100%;
+    //     position: absolute;
+    //     overflow: auto;
+    // }
     .bcg-main {
         
         .choice-bcg-up {
