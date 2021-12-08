@@ -349,4 +349,7 @@ export default {
     transition: transform 0.18s ease-in-out;
     transform: rotateZ(0deg);
 }
+.smooth-dnd-container{
+    min-height: 3px;
+}
 </style>

@@ -1,5 +1,96 @@
 <template>
-  <section class="card-edit">
+
+
+  <section class="card-edit"  >
+
+ <section  v-if="!isShowModal">
+   <div class="editor" >
+        <p
+          class="material-icons-outlined btn-x pointer"
+          @click.stop.prevent="closeModel"
+        >
+          close
+        </p>
+        <div class="edit-txt" @click.stop>
+          <el-input type="textarea" :rows="5" v-model="cardToUpdate.title">
+          </el-input>
+          <el-button type="primary" @click.stop="closeModel">Save</el-button>
+        </div>
+        <div class="chose-edit">
+          <ul>
+            <li @click.stop.prevent="switchModel" class="pointer">
+              <span class="material-icons-outlined"> branding_watermark </span
+              >Open card
+            </li>
+            <li
+              @click.stop="dynamicCmp('labels', 'labels', $event)"
+              class="pointer"
+            >
+              <span class="material-icons-outlined"> sell </span>Edit labels
+            </li>
+            <li
+              @click.stop.prevent="dynamicCmp('members', 'members', $event)"
+              class="pointer"
+            >
+              <span class="material-icons-outlined"> person_outline </span
+              >Change members
+            </li>
+            <li
+              @click.stop.prevent="dynamicCmp('cover', 'cover', $event)"
+              class="pointer"
+            >
+              <span class="material-icons-outlined"> branding_watermark </span
+              >Change cover
+            </li>
+            <li class="pointer">
+              <span class="material-icons-outlined"> arrow_forward </span>Move
+            </li>
+            <li class="pointer">
+              <span class="material-icons-outlined"> file_copy </span>Copy
+            </li>
+            <li @click.stop.prevent="dynamicCmp('dates')" class="pointer">
+              <span class="material-icons-outlined"> watch_later </span>
+              Edit dates
+            </li>
+            <li @click.stop.prevent="deleteCard" class="pointer">
+              <span class="material-icons-outlined"> move_to_inbox </span
+              >Archive
+            </li>
+          </ul>
+        </div>
+        <div class="dynamic-cmp" v-if="component.currCmp" @click.stop=""
+        :style="{ top: component.position.y + 'px', left: component.position.x + 'px' }"
+        >
+         
+          <component
+            :is="component.currCmp"
+            :card="card"
+            :header="component.header"
+            :label="label"
+            @closeModel="closeModel"
+            @dynamicCmp="dynamicCmp"
+            @updateMember="updateMember"
+            @changeBcg="changeBcg"
+            @updateLabel="updateLabel"
+            @addLabel="addLabel('Create label', $event)"
+            @editLabel="editLabel"
+            @newLabel="newLabel"
+            @deleteLabel="deleteLabel"
+            @changeBcgSize="changeBcgSize"
+             @searchImgCmp="dynamicCmp('coverSearch', 'photo search', $event)"
+            @backLabel="dynamicCmp('labels', 'labels', $event)"
+          >
+          </component>
+        </div>
+      </div>
+</section> 
+
+
+
+
+
+
+    <template >
     <div class="sidebar">
       <div class="join-member" v-if="!userJoin">
         <h3>Suggested</h3>
@@ -100,7 +191,9 @@
       >
       </component>
     </div>
+    </template>
   </section>
+  <!-- </section> -->
 </template>
 
 <script>
@@ -128,6 +221,9 @@ export default {
   },
   data() {
     return {
+      isShowModal:null,
+       isOpenEditor: false,
+ cardToUpdate: null,
       component: {
         currCmp: null,
         header: '',
@@ -148,6 +244,8 @@ export default {
     };
   },
   created() {
+    this.isShowModal = this.$store.getters.getModalForDisplay
+     this.cardToUpdate = JSON.parse(JSON.stringify(this.card));
     if (this.cmp) {
       this.dynamicCmp(this.cmp);
     }
@@ -169,26 +267,29 @@ export default {
       } else this.component.position.y = e.clientY;
       this.component.currCmp = cmp.name && cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp}`;
     },
-    minDynamicCmp(cmp, e) {
-      this.component.currCmp = null;
-      this.minComponent.currCmp = null;
-      console.log(cmp);
-      // this.position = null;
-      let { name, type, txt, title, btnTxt } = cmp.name;
-      this.minComponent = { name, type, txt, title, btnTxt };
-      this.minComponent.position = { x: '', y: '' };
-      this.minComponent.position.x = 450;
-      console.log(this.minComponent);
-      if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
-        this.minComponent.position.y = cmp.pos.y;
-      } else this.minComponent.position.y = e.clientY;
-      console.log(this.minComponent);
-      console.log(cmp);
-      console.log(cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp.name}`);
-      this.minComponent.currCmp = cmp.name.name ? `card-${cmp.name.type}` : `card-${cmp}`;
-
-      // this.minComponent.currCmp = `card-${cmp.name.type}`;
+     switchModel() {
+      this.isShowModal = !this.isShowModal;
     },
+    // minDynamicCmp(cmp, e) {
+    //   this.component.currCmp = null;
+    //   this.minComponent.currCmp = null;
+    //   console.log(cmp);
+    //   // this.position = null;
+    //   let { name, type, txt, title, btnTxt } = cmp.name;
+    //   this.minComponent = { name, type, txt, title, btnTxt };
+    //   this.minComponent.position = { x: '', y: '' };
+    //   this.minComponent.position.x = 450;
+    //   console.log(this.minComponent);
+    //   if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
+    //     this.minComponent.position.y = cmp.pos.y;
+    //   } else this.minComponent.position.y = e.clientY;
+    //   console.log(this.minComponent);
+    //   console.log(cmp);
+    //   console.log(cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp.name}`);
+    //   this.minComponent.currCmp = cmp.name.name ? `card-${cmp.name.type}` : `card-${cmp}`;
+
+    //   // this.minComponent.currCmp = `card-${cmp.name.type}`;
+    // },
     closeModel() {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;

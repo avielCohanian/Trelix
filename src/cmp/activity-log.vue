@@ -22,7 +22,7 @@
         />
 
         <div class="edit-btn" v-if="edit">
-          <a class="save-btn" :class="saveBtn"> Save</a>
+          <a class="save-btn" :class="saveBtn" @click="saveCommit(commit.id)"> Save</a>
         </div>
       </form>
     </div>
@@ -81,6 +81,7 @@ export default {
     editUserComment(aId) {
       this.activity.id = aId;
     },
+    saveCommit(commitId) {},
   },
   computed: {
     edit() {
