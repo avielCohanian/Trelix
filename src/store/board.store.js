@@ -1,5 +1,5 @@
 import { boardService } from '../service/board.service.js';
-import { socketService, SOCKET_EMIT_USER_WATCH, SOCKET_EVENT_USER_UPDATED } from '../service/socket.service.js';
+// import { socketService, SOCKET_EMIT_USER_WATCH, SOCKET_EVENT_USER_UPDATED } from '../service/socket.service.js';
 import { utilService } from '../service/util.service.js';
 
 export const boardStore = {
@@ -45,6 +45,9 @@ export const boardStore = {
   mutations: {
     updateStyleHeader(state, { color }) {
       state.styleHeader = color;
+    },
+    removeStyleHeader(state) {
+      state.styleHeader = null;
     },
     setBoard(state, { board }) {
       state.currBoard = board;
@@ -141,11 +144,17 @@ export const boardStore = {
     async updateBoard({ commit }, { board }) {
       try {
         const updateBoard = await boardService.updatedBoard(board);
-        commit({ type: 'setBoard', board: updateBoard });
+        // console.log('before socket emit ');
+        // socketService.emit('update board',updateBoard)
+        socketService.emit('update', updateBoard)
+
+        // socketService.on('update board',board=>{ console.log('update',board)})
+        // console.log('after socket emit ');
       } catch (err) {
         throw err;
       }
     },
+
     async addGroup({ commit, getters }, { newGroup }) {
       try {
         const board = getters.getBoard;

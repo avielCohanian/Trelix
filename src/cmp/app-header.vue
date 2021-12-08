@@ -30,7 +30,7 @@
           </li>
           <li>Starred <i class="el-icon-arrow-down pointer"></i></li>
           <li>Templates <i class="el-icon-arrow-down pointer"></i></li>
-          <li>Create</li>
+          <li @click="craeteNew">Create</li>
         </ul>
       </div>
       <div class="search">
@@ -159,18 +159,24 @@ export default {
    async  logOut() {
       try {
         var res = await this.$store.dispatch({ type: "logout" });
-        if (res) return this.$router.push("/");
+        this.isShowProfile = false
+        this.$store.commit({ type: 'removeStyleHeader' });
+        if (res) return this.$router.push("/")
         console.log(res);
       } catch (err) {
         console.log(err);
       }
     },
+    craeteNew(){
+      this.$router.push('/createNew/boards')
+    },
     openRecentBoards() {
       this.isRecent = !this.isRecent;
     },
     moveToBoards() {
+      // this.openMenu = false
       console.log("move");
-      this.isRecent = false
+      this.isOpenMenu =  false
       return this.$router.push(`/${this.createdBy.username}/boards`);
     },
     openMenu() {
@@ -186,7 +192,6 @@ export default {
       return this.$store.getters.getStyleHeader;
     },
     getBoardsForDisplay(){
-      
         return this.$store.getters.getBoardsForDisplay
     }
     

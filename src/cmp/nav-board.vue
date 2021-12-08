@@ -2,7 +2,7 @@
   <section class="full">
     <section class="nav-board" :style="color">
       <ul class="left">
-        <li class="pointer">Board <i class="el-icon-arrow-down"></i></li>
+        <!-- <li class="pointer">Board <i class="el-icon-arrow-down"></i></li> -->
 
         <li class="edit-title-container">
           <el-input
@@ -98,9 +98,9 @@
       </div>
       <!-- </div> -->
       <ul class="right">
-        <li class="icon pointer">
+        <!-- <li class="icon pointer">
           <span class="material-icons-outlined">flash_on</span>Automation
-        </li>
+        </li> -->
         <span class="divider"></span>
         <li class="icon pointer">
           <span class="material-icons-outlined">filter_list</span>Filter

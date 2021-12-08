@@ -88,6 +88,8 @@
 import choicePhotos from '../menu/choice-photos.vue';
 import choiceColors from '../menu/choice-colors.vue';
 import { uploadImg } from '../../service/img.service.js';
+import { socketService } from '../../service/socket.service.js';
+
 export default {
     props: {
         board: {
@@ -104,8 +106,14 @@ export default {
     },
     created() {
         this.loadImgAndColors();
+        // socketService.on('update', this.logog)
+        // socketService.emit('update', 'popo')
     },
     methods: {
+        logog(imgs){
+            console.log(imgs ,'new socket');
+
+        },
         async onUploadImg(ev) {
             const copyBoard = JSON.parse(JSON.stringify(this.board));
             this.isLoading = true;
@@ -126,10 +134,9 @@ export default {
             const copyBoard = JSON.parse(JSON.stringify(this.board));
             copyBoard.style = img;
             copyBoard.color = color;
-            console.log(copyBoard.style);
-            console.log(copyBoard.color);
             this.$store.dispatch({ type: 'updateBoard', board: copyBoard });
-            this.$emit('changeBcg');
+
+            // this.$emit('changeBcg');
         },
         closeMenu() {
             this.$emit('closeMenu');

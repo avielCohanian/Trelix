@@ -57,6 +57,7 @@
         <a @click="closeModel" class="el-icon-close"> </a>
       </header>
       <component
+
         :is="component.currCmp"
         :card="card"
         :label="label"
@@ -73,8 +74,8 @@
         @newLabel="newLabel"
         @deleteLabel="deleteLabel"
         @changeBcgSize="changeBcgSize"
-        @backLabel="dynamicCmp('labels')"
-      >
+        @backLabel="dynamicCmp('labels')">
+        
       </component>
     </div>
 
