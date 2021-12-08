@@ -206,11 +206,11 @@ export const boardStore = {
     async loadBoards({ commit, getters, dispatch }) {
       try {
         // await dispatch({ type: 'logIn', userName: 'abi@ababmi.com' });
-            console.log(getters.getUserConnect);
-          if(getters.getUserConnect.boards.boards.length || getters.getUserConnect.boards.starBoard.length){
-            const boards = await boardService.getBoardsForDisplay(getters.getUserConnect);
-            commit({ type: 'setdBoards', boards });
-          }
+        console.log(getters.getUserConnect);
+        if (getters.getUserConnect.boards.boards.length || getters.getUserConnect.boards.starBoard.length) {
+          const boards = await boardService.getBoardsForDisplay(getters.getUserConnect);
+          commit({ type: 'setdBoards', boards });
+        }
         // return boards
       } catch (err) {
         throw err;
@@ -223,10 +223,21 @@ export const boardStore = {
     },
     async addLabel({ commit, getters }, { newLabel }) {
       const board = JSON.parse(JSON.stringify(getters.getBoard));
-      newLabel.id = utilService.makeId();
-      board.labels.push(newLabel);
+      if (!newLabel.id) {
+        newLabel.lId = utilService.makeId();
+        board.labels.push(newLabel);
+      } else {
+        board.groups.forEach((g) => {
+          g.cards.forEach((c) => {
+            c.labelIds.forEach((l) => {
+              if (l.id === newLabel.id) board.labels.splice(lIdx, 1, newLabel);
+            });
+          });
+        });
+      }
       try {
         const updateBoard = await boardService.updatedBoard(board);
+        console.log(updateBoard);
         commit({ type: 'setBoard', board: updateBoard });
       } catch (err) {
         console.log(err);
