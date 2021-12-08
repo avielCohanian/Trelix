@@ -449,10 +449,8 @@ export default {
       return this.doneTodosAmount === this.todosAmount;
     },
      myLabels(){
-       console.log(this.$store.getters.boardLabels);
      let boardLabels =  JSON.parse(JSON.stringify(this.$store.getters.boardLabels)) 
      
-  console.log('boardLabels', boardLabels);
 let carrLabels = []
     boardLabels.forEach((label) => {
       if (
@@ -463,7 +461,6 @@ let carrLabels = []
           }
         })
       ) {
-        carrLabels.push(label);
       }
     });
     console.log('carrLabels', carrLabels);
