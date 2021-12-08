@@ -25,7 +25,7 @@ export default {
    },
    methods: {
       changeBgc(newBcg) {
-         this.$emit("changeBcg", newBcg);
+         this.$emit("changeBcg", {img: newBcg, color:'#fff'});
       },
    },
 };
