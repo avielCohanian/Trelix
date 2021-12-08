@@ -36,9 +36,7 @@
 
     <ul class="todos-container">
       <li class="todos" v-for="todo in todosToShow" :key="todo.id">
-        <span @click="updateStatistic(todo.id)">
-          <el-checkbox class="checkbox" v-model="todo.isDone"> </el-checkbox>
-        </span>
+        <el-checkbox @change="updateStatistic(todo.id)" class="checkbox" v-model="todo.isDone"> </el-checkbox>
 
         <div class="todo-row" @click="editCurrentTodo(todo.id)">
           <div v-show="todo.id !== editTodoTxt" class="checklist-todo">
@@ -47,10 +45,12 @@
 
           <div v-show="todo.id === editTodoTxt" class="edit-container">
             <input type="textarea" v-model="editTodo" ref="editInputTodo" />
-            <a class="save" @click.stop="updateTodo">Add</a>
-            <span class="back-btn close-btn el-icon-close" @click.stop="closeEditContainer"></span>
-            <span class="more-btn">
-              <span class="el-icon-more"></span>
+            <span class="btn-container">
+              <a class="save" @click.stop="updateTodo">Add</a>
+              <span class="back-btn close-btn el-icon-close" @click.stop="closeEditContainer"></span>
+              <span class="more-btn">
+                <span class="el-icon-more"></span>
+              </span>
             </span>
           </div>
         </div>
@@ -95,6 +95,7 @@ export default {
   },
   created() {
     this.copyList = JSON.parse(JSON.stringify(this.checklist));
+    console.log(this.checklist);
   },
   methods: {
     editCurrentTodo(todoId) {
@@ -143,7 +144,7 @@ export default {
     },
 
     updateStatistic(todoId) {
-      // this.$emit('updateList', this.checklist);
+      this.$emit('updateList', this.checklist);
     },
     saveChecklist() {
       this.$emit('updateList', this.copyList);
@@ -213,6 +214,16 @@ export default {
           this.$refs.editInputTodo.focus();
         }, 50);
       }
+    },
+    'checklist.todos': {
+      handler(x) {
+        console.log(x);
+        deep: true;
+      },
+    },
+    'copyList.todos'(x) {
+      console.log(x);
+      deep: true;
     },
   },
 };

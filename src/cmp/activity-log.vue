@@ -9,8 +9,9 @@
         <a class="show-btn" @click="showActivity">Show details</a>
       </span>
     </header>
+
     <div class="activity-container">
-      <form v-if="!editMode">
+      <form @submit.prevent="saveCommit(0)">
         <avatar v-if="user.imgUrl" :src="user.imgUrl" :size="32" class="avatar"></avatar>
         <avatar v-else :username="user.fullname" :size="32" class="avatar"></avatar>
         <input
@@ -18,30 +19,44 @@
           :class="edit"
           placeholder="Write a comment..."
           class="comment-edit"
+          v-model="newCommit.txt"
           @click="editModeComment"
         />
-
         <div class="edit-btn" v-if="edit">
-          <a class="save-btn" :class="saveBtn" @click="saveCommit(commit.id)"> Save</a>
+          <a class="save-btn" :class="saveBtn" @click="saveCommit(0)"> Save</a>
         </div>
       </form>
     </div>
 
     <ul class="commit-list">
-      <li v-for="commit in cardCommit" :key="commit.id">
+      <li v-for="cmm in currCommits" :key="cmm.id">
         <div class="user-avatar">
-          <avatar v-if="commit.byMember.imgUrl" :src="commit.byMember.imgUrl" :size="32" class="avatar"></avatar>
-          <avatar v-else :username="commit.byMember.fullName" :size="32" class="avatar"></avatar>
+          <avatar v-if="cmm.byMember.imgUrl" :src="cmm.byMember.imgUrl" :size="32" class="avatar"></avatar>
+          <avatar v-else :username="cmm.byMember.fullname" :size="32" class="avatar"></avatar>
         </div>
-        <form v-if="cardEdit === activity.id">
-          <strong>{{ commit.byMember.fullName }}</strong>
-          {{ commit.createdAt | moment('from') }}
 
-          <input :value="commit.txt" type="textarea" placeholder="Write a comment..." class="comment-edit" />
-          <!-- -->
-          <div v-if="cardEdit === activity.id" class="edit-btn">
-            <a class="edit-btn" @click="editUserComment(comment.id)"> Edit</a>
-            <a class="delete-btn"> Delete</a>
+        <form @submit.prevent>
+          <strong>{{ cmm.byMember.fullname }}</strong>
+          {{ cmm.createdAt | moment('from') }}
+
+          <!-- :value="cmm.txt" -->
+          <input
+            type="textarea"
+            placeholder="Write a comment..."
+            class="comment-edit"
+            :class="editCmm(cmm.id)"
+            v-model="cmm.txt"
+            @click.stop
+          />
+
+          <div class="edit-btn" v-if="editCmm(cmm.id)">
+            <a class="save-btn" :class="saveBtn" @click="saveCommit(cmm.id)"> Save</a>
+            <a class="back-btn close-btn el-icon-close" @click="closeDetails"> </a>
+          </div>
+          <div v-else class="cmm-btn">
+            <a class="edit-cmm-btn" @click="editUserComment(cmm)"> Edit</a>
+            <span class="span">-</span>
+            <a class="delete-btn" @click="deleteCommit(cmm.id)"> Delete</a>
           </div>
         </form>
       </li>
@@ -52,23 +67,27 @@
 <script>
 import avatar from 'vue-avatar';
 import moment from 'moment';
-
+import { boardService } from '../service/board.service.js';
+import { utilService } from '../service/util.service.js';
 export default {
   data() {
     return {
       user: null,
+      props: {
+        card: {
+          type: Object,
+          required: true,
+        },
+      },
       editMode: false,
-      cardCommit: [
-        { id: 'sas', txt: 'sacasca', createdAt: Date.now(), byMember: { fullName: 'yosi1' } },
-        { id: '1as', txt: '46747467', createdAt: Date.now(), byMember: { fullName: 'yosi2' } },
-        { id: '3as', txt: 'scsa', createdAt: Date.now(), byMember: { fullName: 'yosi3' } },
-      ],
       cardEdit: null,
-      activity: { id: null },
+      activity: null,
+      newCommit: null,
     };
   },
   created() {
     this.user = this.$store.getters.getUserConnect;
+    this.newCommit = this.getEmptyActivity();
     console.log(this.user);
   },
   methods: {
@@ -76,19 +95,62 @@ export default {
       // TODO: show all activity to the card
     },
     editModeComment() {
-      this.editMode = !this.editMode;
+      this.editMode = true;
     },
-    editUserComment(aId) {
-      this.activity.id = aId;
+    editModeClose() {
+      this.editMode = false;
     },
-    saveCommit(commitId) {},
+    editUserComment(cmm) {
+      this.activity = cmm;
+      console.log(this.activity.id);
+    },
+    saveCommit(cmmId = null) {
+      console.log(this.newCommit);
+      console.log(cmmId);
+      if (!cmmId) {
+        this.newCommit.byMember = this.user;
+        this.newCommit.id = utilService.makeId();
+        this.$emit('saveCommit', this.newCommit);
+        this.newCommit = this.getEmptyActivity();
+      } else {
+        this.$emit('updateCmm', this.activity);
+        this.activity = null;
+      }
+      this.editModeClose();
+    },
+    deleteCommit(cmmId) {
+      this.$emit('removeCommit', cmmId);
+    },
+    getEmptyActivity() {
+      return {
+        id: null,
+        txt: '',
+        createdAt: Date.now(),
+        byMember: {},
+        card: {
+          id: '',
+          title: '',
+        },
+      };
+    },
+    editCmm(cmmId) {
+      return this.activity && this.activity.id === cmmId ? 'edit' : '';
+    },
+    closeDetails() {
+      this.activity = null;
+    },
   },
   computed: {
     edit() {
-      return 'edit';
+      return this.editMode ? 'edit' : '';
     },
+
     saveBtn() {
       return 'save';
+    },
+    currCommits() {
+      console.log(this.$store.getters.currCard);
+      return JSON.parse(JSON.stringify(this.$store.getters.currCard.comments));
     },
   },
 
@@ -97,5 +159,4 @@ export default {
   },
 };
 </script>
-
 <style></style>

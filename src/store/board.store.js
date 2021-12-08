@@ -55,6 +55,10 @@ export const boardStore = {
     setdBoards(state, { boards }) {
       state.boardsForDisplay = boards;
     },
+    setCard(state, { card }) {
+      console.log(card);
+      state.currCard = card;
+    },
 
     setCardGroup(state, { card, group }) {
       state.currCard = card;
@@ -90,7 +94,7 @@ export const boardStore = {
       try {
         const board = JSON.parse(JSON.stringify(getters.getBoard));
         let updateBoard = await boardService.addCard(board, groupId, newCard);
-        socketService.emit('update', updateBoard)
+        socketService.emit('update', updateBoard);
 
         // commit({ type: 'setBoard', board: updateBoard });
         return updateBoard;
@@ -103,9 +107,10 @@ export const boardStore = {
       const board = getters.getBoard;
       try {
         const updateBoard = await boardService.updateCard(board, card);
-          console.log(updateBoard,'updateBoard');
-        socketService.emit('update', updateBoard)
-        // commit({ type: 'setBoard', board: updateBoard });
+        // console.log(updateBoard, 'updateBoard');
+        // socketService.emit('update', updateBoard)
+        commit({ type: 'setBoard', board: updateBoard });
+        commit({ type: 'setCard', card });
         return updateBoard;
       } catch (err) {
         console.log(err);
@@ -127,7 +132,7 @@ export const boardStore = {
       const board = JSON.parse(JSON.stringify(getters.getBoard));
       try {
         const updateBoard = await boardService.saveGroup(board, group);
-        socketService.emit('update', updateBoard)
+        socketService.emit('update', updateBoard);
         // commit({ type: 'setBoard', board: updateBoard });
         return updateBoard;
       } catch (err) {
@@ -151,7 +156,7 @@ export const boardStore = {
         const updateBoard = await boardService.updatedBoard(board);
         // console.log('before socket emit ');
         // socketService.emit('update board',updateBoard)
-        socketService.emit('update', updateBoard)
+        socketService.emit('update', updateBoard);
 
         // socketService.on('update board',board=>{ console.log('update',board)})
         // console.log('after socket emit ');
@@ -164,7 +169,7 @@ export const boardStore = {
       try {
         const board = getters.getBoard;
         var savedBoard = await boardService.addGroup(board, newGroup);
-        socketService.emit('update', savedBoard)
+        socketService.emit('update', savedBoard);
         // commit({ type: 'setBoard', board: savedBoard });
         return savedBoard;
       } catch (err) {
@@ -185,7 +190,7 @@ export const boardStore = {
       try {
         const board = JSON.parse(JSON.stringify(getters.getBoard));
         var savedBoard = await boardService.deleteCard(board, card.id);
-        socketService.emit('update', savedBoard)
+        socketService.emit('update', savedBoard);
         // commit({ type: 'setBoard', board: savedBoard });
         return savedBoard;
       } catch (err) {

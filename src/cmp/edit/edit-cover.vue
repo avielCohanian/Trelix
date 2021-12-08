@@ -9,7 +9,6 @@
       <h4>Size</h4>
       <div class="size-container">
         <div class="size-card half" @click="size('half')">
-          <!-- :style="{ bcg }" -->
           <div class="header"></div>
           <div class="size-body">
             <div class="size-1"></div>
@@ -75,9 +74,7 @@
           :style="img.small"
           class="unsplash-card-img"
           @click="changeBgc(img.full)"
-        >
-          <!-- <a> {{ img.description }}</a> -->
-        </li>
+        ></li>
       </ul>
       <div class="btn-container">
         <a class="btn" @click="searchImgCmp($event)">Search for photos</a>
@@ -122,8 +119,6 @@ export default {
   },
   created() {
     this.searchBy();
-    // this.debounce = utilService.debounce(this.searchBy, 1500);
-    console.log(this.header, 'a123');
   },
   methods: {
     changeBgc(newBcg) {
@@ -152,8 +147,7 @@ export default {
   computed: {
     attToShow() {
       let attC = JSON.parse(JSON.stringify(this.card.attachment.computerAttachment));
-
-      return attC;
+      return attC.filter((att) => att.url);
     },
   },
 };

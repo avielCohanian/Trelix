@@ -39,8 +39,9 @@
       }
 
       .comment-edit {
-        width: 100%;
+        width: 491px;
         overflow: hidden;
+        cursor: pointer;
         overflow-wrap: break-word;
         padding: 8px 12px;
         border: 0;
@@ -55,7 +56,7 @@
         border-radius: 3px;
         line-height: 20px;
         transition-duration: 85ms;
-        transition-property: background-color, border-color, box-shadow;
+        transition-property: background-color, border-color, box-shadow, padding-bottom;
         transition-timing-function: ease;
       }
       .edit {
@@ -96,10 +97,12 @@
   .commit-list {
     display: flex;
     flex-direction: column;
+
     li {
       position: relative;
       margin-top: 10px;
       form {
+        position: relative;
         margin-top: 11px;
         input {
           width: 100%;
@@ -120,6 +123,75 @@
           transition-duration: 85ms;
           transition-property: background-color, border-color, box-shadow;
           transition-timing-function: ease;
+          &:focus {
+            border: 0;
+            box-shadow: none;
+          }
+        }
+        .edit {
+          padding-bottom: 56px;
+        }
+        .edit-btn {
+          .save-btn {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            top: 71px;
+            opacity: 1;
+            transform: translateY(0);
+            bottom: 8px;
+            border-radius: 3px;
+            left: 12px;
+            height: 32px;
+            width: 57px;
+            transition-duration: 85ms;
+            transition-property: opacity, transform;
+            transition-timing-function: ease;
+          }
+          .save {
+            background-color: #0079bf;
+            border: none;
+            box-shadow: none;
+            color: #fff;
+
+            &:hover {
+              background-color: #026aa7;
+            }
+          }
+          .back-btn {
+            color: #42526e;
+            height: 32px;
+            line-height: 32px;
+            width: 32px;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 71px;
+            left: 82px;
+            background-color: #fff;
+          }
+        }
+        .cmm-btn {
+          color: #5e6c84;
+          background-color: initial;
+          cursor: pointer;
+          font-size: 12px;
+          line-height: 24px;
+          background-color: #f4f5f700;
+          a {
+            text-decoration: underline;
+          }
+          a:hover {
+            color: #172b4d;
+          }
+          & > * {
+            margin-left: 5px;
+          }
+        }
+        .span {
+          text-decoration: none;
         }
       }
       .user-avatar {

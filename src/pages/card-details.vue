@@ -21,7 +21,6 @@
         </a>
         <div class="secund-header" v-if="card.title">
           <font-awesome-icon class="svg" :icon="['fab', 'trello']" />
-          <!-- <span></span> למצוא אייקון מתאים -->
           <div class="secund-header-input" @click="toggleTitle">
             <input
               type="text"
@@ -31,7 +30,6 @@
               @blur="saveTitle"
             />
           </div>
-          <!--TODO @click in a dynamicCmp -->
         </div>
         <p class="title" v-if="currGroup">
           in list <a>{{ currGroup.title }}</a>
@@ -244,7 +242,12 @@
           </div>
           <!-- v-if="!card.activity" -->
           <div class="activity-container">
-            <activity-log></activity-log>
+            <activity-log
+              :card="card"
+              @saveCommit="saveCommit"
+              @updateCmm="updateCmm"
+              @removeCommit="removeCommit"
+            ></activity-log>
           </div>
         </div>
         <card-edit
@@ -344,7 +347,7 @@ export default {
       this.card.description = this.description;
       this.updateCard(this.card);
       this.editDescription = false;
-      this.updateCard(this.card)
+      this.updateCard(this.card);
     },
     attachmentLink(attachmentIdx) {
       console.log('TODO');
@@ -483,6 +486,25 @@ export default {
       let card = JSON.parse(JSON.stringify(this.card));
       let labelIdx = card.labelIds.findIndex((l) => l.lId === labelId);
       card.labelIds.splice(labelIdx, 1);
+      this.updateCard(card);
+    },
+    saveCommit(commit) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      card.comments.unshift(commit);
+      console.log(card.comments);
+      this.updateCard(card);
+      console.log(card.comments);
+    },
+    updateCmm(commit) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      let cmmIdx = card.comments.findIndex((cm) => cm.id === commit.id);
+      card.comments.splice(cmmIdx, 1, commit);
+      this.updateCard(card);
+    },
+    removeCommit(commId) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      let cmmIdx = card.comments.findIndex((cm) => cm.id === commId);
+      card.comments.splice(cmmIdx, 1);
       this.updateCard(card);
     },
   },

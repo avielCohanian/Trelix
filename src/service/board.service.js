@@ -309,7 +309,7 @@ function getEmptyBoard() {
       backgroundImage:
         'url(https://images.unsplash.com/photo-1477346611705-65d1883cee1e?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNzk3MjJ8MHwxfHNlYXJjaHwxfHxXYWxscGFwZXJzfGVufDB8MHx8fDE2Mzg3ODM4NTg&ixlib=rb-1.2.1&q=85)',
     },
-    color:'#260c26',
+    color: '#260c26',
     styleCustom: [],
     members: [],
     activities: [],
