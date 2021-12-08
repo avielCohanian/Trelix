@@ -1,5 +1,10 @@
 <template>
   <section class="edit-cover">
+    <header>
+      <h2>{{ header }}</h2>
+      <a @click="closeModel" class="el-icon-close"> </a>
+    </header>
+
     <div class="size">
       <h4>Size</h4>
       <div class="size-container">
@@ -75,7 +80,7 @@
         </li>
       </ul>
       <div class="btn-container">
-        <a class="btn" @click="searchImgCmp">Search for photos</a>
+        <a class="btn" @click="searchImgCmp($event)">Search for photos</a>
       </div>
     </div>
   </section>
@@ -90,6 +95,10 @@ export default {
   props: {
     card: {
       type: Object,
+      required: true,
+    },
+    header: {
+      type: String,
       required: true,
     },
   },
@@ -113,7 +122,8 @@ export default {
   },
   created() {
     this.searchBy();
-    this.debounce = utilService.debounce(this.searchBy, 1500);
+    // this.debounce = utilService.debounce(this.searchBy, 1500);
+    console.log(this.header, 'a123');
   },
   methods: {
     changeBgc(newBcg) {
@@ -128,12 +138,15 @@ export default {
     isSelect() {
       return 'box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #5ba4cf';
     },
-    searchImgCmp() {
-      this.$emit('searchImgCmp', 'coverSearch');
+    searchImgCmp(e) {
+      this.$emit('searchImgCmp', 'photo search', e);
     },
     size(size) {
       size = size === 'full';
       this.$emit('changeBcgSize', size);
+    },
+    closeModel() {
+      this.$emit('closeModel');
     },
   },
   computed: {

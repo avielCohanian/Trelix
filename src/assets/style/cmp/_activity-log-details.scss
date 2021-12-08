@@ -26,20 +26,22 @@
       }
     }
   }
+
   .activity-container {
     margin-top: 20px;
     position: relative;
-    .avatar {
-      position: absolute;
-      top: 0;
-      left: -38px;
-    }
     form {
+      margin-left: 7px;
+      .avatar {
+        position: absolute;
+        top: 0;
+        left: -38px;
+      }
+
       .comment-edit {
         width: 100%;
         overflow: hidden;
         overflow-wrap: break-word;
-        margin: -8px -12px;
         padding: 8px 12px;
         border: 0;
         box-shadow: none;
@@ -48,23 +50,91 @@
         height: 20px;
         min-height: 20px;
         resize: none;
-        margin-left: 7px;
-        margin-top: 12px;
+        margin-top: -2px;
         margin-bottom: 20px;
         border-radius: 3px;
         line-height: 20px;
         transition-duration: 85ms;
         transition-property: background-color, border-color, box-shadow;
         transition-timing-function: ease;
+      }
+      .edit {
+        padding-bottom: 56px;
+      }
+      .edit-btn {
         .save-btn {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          top: 45px;
           opacity: 1;
           transform: translateY(0);
           bottom: 8px;
+          border-radius: 3px;
           left: 12px;
+          height: 32px;
+          width: 57px;
           transition-duration: 85ms;
           transition-property: opacity, transform;
           transition-timing-function: ease;
         }
+        .save {
+          background-color: #0079bf;
+          border: none;
+          box-shadow: none;
+          color: #fff;
+
+          &:hover {
+            background-color: #026aa7;
+          }
+        }
+      }
+    }
+  }
+  .commit-list {
+    display: flex;
+    flex-direction: column;
+    li {
+      position: relative;
+      margin-top: 10px;
+      form {
+        margin-top: 11px;
+        input {
+          width: 100%;
+          overflow: hidden;
+          overflow-wrap: break-word;
+          padding: 8px 12px;
+          border: 0;
+          box-shadow: none;
+          background-color: #fff;
+          box-sizing: initial;
+          height: 20px;
+          min-height: 20px;
+          resize: none;
+          margin-top: 3px;
+          margin-bottom: 20px;
+          border-radius: 3px;
+          line-height: 20px;
+          transition-duration: 85ms;
+          transition-property: background-color, border-color, box-shadow;
+          transition-timing-function: ease;
+        }
+      }
+      .user-avatar {
+        .avatar {
+          position: absolute;
+          top: 12px;
+          left: -37px;
+        }
+      }
+      strong {
+        font-weight: 700;
+        cursor: pointer;
+        line-height: 20px;
+        font-size: 14px;
+        color: #172b4d;
       }
     }
   }
