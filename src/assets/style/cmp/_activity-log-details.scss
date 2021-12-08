@@ -1,13 +1,71 @@
 .activity-log {
+  position: relative;
+  margin-bottom: 224px;
+  .svg {
+    top: 7px;
+  }
+  header {
+    display: flex;
+    min-height: 32px;
+    align-items: center;
+    justify-content: space-between;
+
+    .show-btn {
+      margin: 0 0 0 8px;
+      padding: 6px 12px;
+      line-height: 20px;
+      border: none;
+      border-radius: 3px;
+      background-color: #091e420a;
+      cursor: pointer;
+      font-weight: 400;
+      text-align: center;
+      color: #172b4d;
+      &:hover {
+        background-color: #091e4214;
+      }
+    }
+  }
+  .activity-container {
+    margin-top: 20px;
     position: relative;
-    margin-bottom: 24px;
-    .svg {
-        top: 7px;
+    .avatar {
+      position: absolute;
+      top: 0;
+      left: -38px;
     }
-    header {
-        display: flex;
-        min-height: 32px;
-        align-items: center;
-        justify-content: space-between;
+    form {
+      .comment-edit {
+        width: 100%;
+        overflow: hidden;
+        overflow-wrap: break-word;
+        margin: -8px -12px;
+        padding: 8px 12px;
+        border: 0;
+        box-shadow: none;
+        background-color: #fff;
+        box-sizing: initial;
+        height: 20px;
+        min-height: 20px;
+        resize: none;
+        margin-left: 7px;
+        margin-top: 12px;
+        margin-bottom: 20px;
+        border-radius: 3px;
+        line-height: 20px;
+        transition-duration: 85ms;
+        transition-property: background-color, border-color, box-shadow;
+        transition-timing-function: ease;
+        .save-btn {
+          opacity: 1;
+          transform: translateY(0);
+          bottom: 8px;
+          left: 12px;
+          transition-duration: 85ms;
+          transition-property: opacity, transform;
+          transition-timing-function: ease;
+        }
+      }
     }
+  }
 }

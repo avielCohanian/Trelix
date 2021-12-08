@@ -30,7 +30,7 @@
           </li>
           <li>Starred <i class="el-icon-arrow-down pointer"></i></li>
           <li>Templates <i class="el-icon-arrow-down pointer"></i></li>
-          <li>Create</li>
+          <li @click="craeteNew">Create</li>
         </ul>
       </div>
       <div class="search">

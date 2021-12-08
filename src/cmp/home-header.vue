@@ -4,36 +4,19 @@
             <nav>
                 <div class="nav-list">
                     <!-- <i class="el-icon-s-grid"></i> -->
-
                     <div
                         class=" pointer flex-center">
                        <strong>  <font-awesome-icon class="logo" :icon="[ 'fab', 'trello' ]" /> </strong>
                         <strong class="logo-name"> Trelix</strong>
                     </div>
                     <div>
-                        <button class="btn-homePage log-in"> Log in  </button>
-                        <button class="btn-homePage sign-up"> Sign up </button>
+                        <button class="btn-homePage log-in" @click="logIn"> Log in  </button>
+                        <button class="btn-homePage sign-up" @click="signUp"> Sign up </button>
                     </div>
                 </div>
             </nav>
         </section>
-        <section class="sign-up-home">
-
-        <div class="container-header-home">
-        <div class="home-main">
-        <h1 class="h1-home"> Trello helps teams move work forward. </h1>
-        <p> Collaborate, manage projects, and reach new productivity peaks. From high rises to the home office,
-             the way your team works is unique accomplish it all with Trello. </p>
-             <label for="sign-up" class="sign-up-form">
-                 <input type="email" name="sign-up" id="" placeholder="email" v-model="emailConnect" @keyup.enter="signUp">
-                 <button type="submit" @click="signUp"> Sign up-it's free!</button>
-             </label>
-        </div>
-        <div class="img-home"></div>
-        </div>
-
-        
-        </section>
+       
     </section>
 
 </template>
@@ -41,23 +24,14 @@
 <script>
 export default {
     name: 'appHeader',
-    data() {
-        return {
-           emailConnect:''
-        };
-    },
-    computed: {
-      
-    },
-   
-    methods: {
-       
-        signUp(ev){
-            console.log(this.emailConnect);
-            console.log(ev);
-            this.emailConnect = ''
-        }
-    },
+   methods:{
+       signUp(){
+           this.$router.push('/signup')
+       },
+       logIn(){
+           this.$router.push('/login')
+       }
+   }
 };
 </script>
 
@@ -123,6 +97,7 @@ export default {
     background-color:#eeebff ;
     overflow-x: hidden;
     overflow-y: hidden;
+box-shadow: inset 1px -14px 10px 7px white;
 
     
 }

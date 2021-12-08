@@ -50,9 +50,10 @@ export default {
       emptyBoard: null,
     };
   },
-  async created() {
+  async created(){
     this.loadEmptyBoard();
     await this.getImgs();
+    console.log(this.$route.params );
   },
   methods: {
     changeBgc(bgc,color) {

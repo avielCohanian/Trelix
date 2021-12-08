@@ -89,7 +89,8 @@ export default {
             this.showCmp = null
         },
         changeBcg(newColor){
-            this.bcgColor =newColor
+            console.log('bcg change');
+            this.bcgColor = newColor
         },
     },
     components: {

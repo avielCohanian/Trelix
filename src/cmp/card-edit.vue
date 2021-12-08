@@ -15,27 +15,27 @@
           Members</a
         >
 
-        <a class="btn labels" @click="dynamicCmp('labels')" title="Labels">
+        <a class="btn labels" @click="dynamicCmp('labels', $event)" title="Labels">
           <span class="el-icon-price-tag label-icon icon"></span>
           Labels</a
         >
 
-        <a class="btn checklist" @click="dynamicCmp('checklist')" title="Checklist">
+        <a class="btn checklist" @click="dynamicCmp('checklist', $event)" title="Checklist">
           <span class="material-icons-outlined icon"> check_box </span>
           Checklist</a
         >
 
-        <a class="btn dates" @click="dynamicCmp('dates')" title="Dates">
+        <a class="btn dates" @click="dynamicCmp('dates', $event)" title="Dates">
           <span class="el-icon-time icon"></span>
           Dates</a
         >
 
-        <a class="btn attachment" @click="dynamicCmp('attachment')" title="Attachment">
+        <a class="btn attachment" @click="dynamicCmp('attachment', $event)" title="Attachment">
           <span class="el-icon-paperclip icon"></span> Attachment</a
         >
         <a
           class="btn cover"
-          @click="dynamicCmp('cover')"
+          @click="dynamicCmp('cover', $event)"
           title="Cover"
           v-show="!card.style || (card.style && !card.style.bgColor && !card.style.bgUrl)"
         >
@@ -46,13 +46,18 @@
         >
       </div>
     </div>
-    <div class="dynamic-cmp" v-if="component.currCmp">
+    <div
+      class="dynamic-cmp"
+      v-if="component.currCmp"
+      :style="{ top: component.position.y + 'px', left: component.position.x + 'px' }"
+    >
       <!-- :style="{ top: component.position.top + 'px', left: component.position.left + 'px' }" -->
       <header>
         <h2>{{ component.name }}</h2>
         <a @click="closeModel" class="el-icon-close"> </a>
       </header>
       <component
+
         :is="component.currCmp"
         :card="card"
         :label="label"
@@ -69,12 +74,16 @@
         @newLabel="newLabel"
         @deleteLabel="deleteLabel"
         @changeBcgSize="changeBcgSize"
-        @backLabel="dynamicCmp('labels')"
-      >
+        @backLabel="dynamicCmp('labels')">
+        
       </component>
     </div>
 
-    <div class="dynamic-cmp-minimal" v-if="minComponent.currCmp">
+    <div
+      class="dynamic-cmp-minimal"
+      v-if="minComponent.currCmp"
+      :style="{ top: minComponent.position.y + 'px', left: minComponent.position.x + 'px' }"
+    >
       <!-- :style="{ top: minComponent.position.y + 'px', left: minComponent.position.x + 'px' }" -->
       <header>
         <h2>{{ minComponent.title }}</h2>
@@ -114,7 +123,7 @@ export default {
       component: {
         currCmp: null,
         name: '',
-        position: null,
+        position: { x: '', y: '' },
       },
       minComponent: {
         currCmp: null,
@@ -123,7 +132,7 @@ export default {
         type: '',
         title: '',
         btnTxt: '',
-        position: null,
+        position: { x: '', y: '' },
       },
       label: { type: '', currLabel: null },
       propCmp: this.cmp,
@@ -136,36 +145,49 @@ export default {
     }
   },
   methods: {
-    dynamicCmp(cmp) {
-      console.log(cmp);
+    dynamicCmp(cmp, e = null) {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
-      this.position = null;
-      console.log(cmp === 'addLabels' && this.label.type === 'edit');
+      this.component.position = { x: '', y: null };
       if (cmp === 'attachment') this.component.name = 'attach from...';
       if (cmp === 'coverSearch') this.component.name = 'photo search';
       if (cmp === 'checklist') this.component.name = 'Add checklist';
       cmp === 'editAttachment' ? (this.component.name = 'Remove attachment?') : (this.component.name = cmp);
       if (cmp === 'addLabels' && this.label.type === 'edit') this.component.name = 'Change label';
       if (cmp === 'addLabels' && this.label.type === 'add') this.component.name = 'Create label';
-
-      // this.component.position = document.querySelector(`.${cmp}`).getBoundingClientRect();
-      this.component.currCmp = `card-${cmp}`;
+      this.component.position.x = 450;
+      // console.log(cmp.pos.y);
+      if (cmp.name.pos && (cmp.name.pos.y || cmp.name.pos.y === 0)) {
+        console.log(this.component);
+        this.component.position.y = cmp.name.pos.y;
+      } else this.component.position.y = e.clientY;
+      this.component.currCmp = cmp.name.name.name ? `card-${cmp.name.name.name}` : `card-${cmp}`;
     },
     minDynamicCmp(cmp) {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
-      this.position = null;
+      console.log(cmp);
+      // this.position = null;
+      // console.log(cmp);
+      let { name, type, txt, title, btnTxt } = cmp.name;
+      this.minComponent = { name, type, txt, title, btnTxt };
+      this.minComponent.position = { x: '', y: '' };
+      this.minComponent.position.x = 450;
+      console.log(this.minComponent);
+      if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
+        this.minComponent.position.y = cmp.pos.y;
+      } else this.minComponent.position.y = e.clientY;
+      console.log(this.minComponent);
+      console.log(cmp);
+      console.log(cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp.name}`);
+      this.minComponent.currCmp = cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp.name}`;
 
-      let { name, type, txt, title, btnTxt } = cmp;
-      thia.minComponent = { name, type, txt, title, btnTxt };
-
-      this.minComponent.currCmp = `card-${cmp.type}`;
+      // this.minComponent.currCmp = `card-${cmp.name.type}`;
     },
     closeModel() {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
-      this.position = null;
+      // this.position = null;
       this.$emit('closeModel');
     },
     join(userId) {
@@ -314,13 +336,20 @@ export default {
     },
   },
   watch: {
-    'cmp.cmp': function (cmpName) {
-      console.log(cmpName);
+    // cmp: function (cmpName) {
+    //   console.log(cmpName);
 
-      if (cmpName) {
-        cmpName.type ? this.minDynamicCmp(cmpName) : this.dynamicCmp(cmpName.name);
+    //   if (cmpName) {
+    //     cmpName.type ? this.minDynamicCmp(cmpName) : this.dynamicCmp(cmpName.name);
+    //   }
+    //   deep: true;
+    // },
+    '$store.getters.cmpDyn'() {
+      console.log(this.$store.getters.cmpDyn);
+      let cmp = JSON.parse(JSON.stringify(this.$store.getters.cmpDyn));
+      if (cmp) {
+        cmp.name.type ? this.minDynamicCmp(cmp) : this.dynamicCmp(cmp);
       }
-      deep: true;
     },
   },
 };
