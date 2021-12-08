@@ -15,15 +15,15 @@
                         <p class="profile">
                             <section class="avatar-container">
                                 <div class="avatar-icon">
-                                     <avatar
+                                     <!-- <avatar
               v-if="userToLogout.imgUrl"
               :src="userToLogout.imgUrl"
               :size="72"
               :username="userToLogout.fullname"
               
-            ></avatar>
+            ></avatar> -->
             <avatar
-              v-else
+              
               :size="72"
               :username="userToLogout.fullname"
              
@@ -37,7 +37,7 @@
                         </p>
                         
                         
-                        <button  class="blue" @click="signUp">
+                        <button  class="blue" @click="logOut">
                             <strong>Log out</strong>
                         </button>
                     </div>
@@ -76,44 +76,21 @@ avatar
   },
   created() {
     this.userToLogout = this.$store.getters.getUserConnect;
-    this.userToSignUp = this.getEmptyUser();
     this.$store.commit({ type: "updateStyleHeader", style: false });
   },
 
   methods: {
-    moveToLogin() {
-      this.$router.push("/login");
-    },
-    async signUp() {
-      console.log(this.userToSignUp);
-      this.userToSignUp.username = this.userToSignUp.fullname;
+    async  logOut() {
       try {
-        var res = await this.$store.dispatch({
-          type: "signUp",
-          user: this.userToSignUp,
-        });
+        var res = await this.$store.dispatch({ type: "logout" });
+        if (res) return this.$router.push("/")
         console.log(res);
-        if (res) return this.$router.push(`/${res.username}/boards`);
       } catch (err) {
         console.log(err);
       }
     },
-    toggle() {
-      if (!this.userToSignUp.email) return;
-      this.isLogin = !this.isLogin;
-    },
-    getEmptyUser() {
-      return {
-        fullname: "",
-        username: "",
-        password: "",
-        email: "",
-        imgUrl: "",
-        boards: {
-          boards: [],
-          starBoard: [],
-        },
-      };
+    moveToLogin() {
+      this.$router.push("/login");
     },
   },
 };

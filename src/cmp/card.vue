@@ -449,6 +449,7 @@ export default {
       return this.doneTodosAmount === this.todosAmount;
     },
      myLabels(){
+       console.log(this.$store.getters.boardLabels);
      let boardLabels =  JSON.parse(JSON.stringify(this.$store.getters.boardLabels)) 
      
 let carrLabels = []
@@ -463,7 +464,6 @@ let carrLabels = []
       ) {
       }
     });
-    console.log('carrLabels', carrLabels);
     return carrLabels
     }
 
