@@ -67,7 +67,7 @@
                             :key="idx"
                             :style="img"
                             class="card-photo"
-                            @click="changeBcg(img)"
+                            @click="changeBcg({img,color:{color:'#fff'}})"
                         ></li>
                     </ul>
                 </div>
@@ -121,9 +121,13 @@ export default {
         changeCmp(cmp) {
             this.showCmp = cmp;
         },
-        changeBcg(newBcg) {
+        // newBcg ,
+        changeBcg({img ,color}) {
             const copyBoard = JSON.parse(JSON.stringify(this.board));
-            copyBoard.style = newBcg;
+            copyBoard.style = img;
+            copyBoard.color = color;
+            console.log(copyBoard.style);
+            console.log(copyBoard.color);
             this.$store.dispatch({ type: 'updateBoard', board: copyBoard });
             this.$emit('changeBcg');
         },

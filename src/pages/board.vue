@@ -39,6 +39,8 @@ export default {
     },
     computed: {
         getBoard() {
+            // console.log(this.$store.getters.getBoard.style);
+            // console.log(this.$store.getters.getBoard.color);
             return this.$store.getters.getBoard;
         },
     },

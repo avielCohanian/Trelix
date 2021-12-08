@@ -14,14 +14,14 @@ export default {
       loadUser: false,
     };
   },
-  async created() {
-    try {
-      await this.$store.dispatch({ type: 'logIn', user: { email: 'p', password: 'p' } });
-      this.loadUser = true;
-    } catch (err) {
-      console.log(err);
-    }
-  },
+//   async created() {
+//     try {
+//       await this.$store.dispatch({ type: 'logIn', user: { email: 'p', password: 'p' } });
+//       this.loadUser = true;
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   },
   components: {
     appHeader,
   },

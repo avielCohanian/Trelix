@@ -12,7 +12,7 @@
             color: yellow;
         }
         &.star-false{
-            color: rgb(255, 255, 255);
+            // color: rgb(255, 255, 255);
         }
     }
     li:not(.avatar-logo) {
@@ -33,7 +33,7 @@
         padding: 0;
         
         .edit-title input {
-            color: white;
+            // color: white;
             width: 100%;
             background-color: #0000;
             border-radius: 3px;
@@ -88,7 +88,7 @@
 //     }
     .left {
         padding-inline-start: 0;
-        color: white;
+        // color: white;
         display: flex;
         gap: 5px;
         .icon-user {
@@ -98,7 +98,7 @@
         }
     }
     .right {
-        color: white;
+        // color: white;
         display: flex;
         gap: 5px;
     }

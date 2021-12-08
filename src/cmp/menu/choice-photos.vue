@@ -12,7 +12,7 @@
                     :key="idx"
                     :style="img.small"
                     class="card-img pointer"
-                    @click="$emit('changeBcg', img.full)"
+                    @click="$emit('changeBcg', {img: img.full ,color:img.color})"
                 ></li>
             </ul>
         </div>
@@ -40,7 +40,7 @@ export default {
         },
         async searchBy() {
             if (!this.search) return;
-            const imgs = await imgService.getImgs(this.search,100);
+            const imgs = await imgService.getImgs(this.search,14);
             this.imgs = imgs;
         },
     },

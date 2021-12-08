@@ -1,33 +1,16 @@
 <template>
   <section class="full">
-    <section class="nav-board">
+    <section class="nav-board" :style="color">
       <ul class="left">
         <li class="pointer">Board <i class="el-icon-arrow-down"></i></li>
 
-        <!-- <li class="pointer name-board" v-if="!isEditTitle">
-
-          <p @click="editTitle" >{{getBoard.title}}</p>
-          </li>
-          
-<span class="edit-title">
-
-          <input
-          v-if="isEditTitle"
-                    ref="input"
-                    class="edit-title-input"
-                   
-                    :class="{ focus: isEditTitle }"
-                    v-model="getBoard.title"
-                    @keyup.enter.native="editTitle"
-                    @click.native="editTitle"
-                ></input>
-</span> -->
         <li class="edit-title-container">
           <el-input
             ref="input"
-            class="edit-title"
+            class="edit-title style"
             size="mini"
             :class="{ focus: isEditTitle }"
+           
             v-model="getBoard.title"
             @keyup.enter.native="editTitle"
             @click.native="editTitle"
@@ -151,6 +134,9 @@ export default {
     isShowMenu() {
       return this.showMenu ? "open-menu" : "close-menu";
     },
+    color(){
+      return this.getBoard.color
+    }
   },
   methods: {
     async changeFavorite(change = this.isStarOn) {
@@ -193,6 +179,7 @@ export default {
     //   this.group = val
     // }
   },
+
   mounted() {},
   components: {
     avatar,
@@ -201,4 +188,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+/* .nav-board li.edit-title-container .edit-title.style input {
+  
+      color: rgb(250, 71, 0);
+      background-color: #0000;
+} */
+/* .newColor{
+background-color: ;
+} */
+</style>
