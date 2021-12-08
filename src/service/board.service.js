@@ -81,7 +81,6 @@ async function _updateService(board) {
 
 async function query() {
   try {
-    let boards = await httpService.get(`board`);
     return httpService.get(`board`);
   } catch (err) {
     console.log(err);
@@ -188,7 +187,10 @@ function getEmptyCard() {
     dueDate: null,
     createdAt: Date.now(),
     byMember: null,
-    style: null,
+    style: {
+      bgColor: null,
+      bgImg: null,
+    },
   };
 }
 async function addCard(board, groupId, newCard) {

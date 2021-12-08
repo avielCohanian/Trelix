@@ -14,7 +14,9 @@
             backgroundColor: color,
           }"
         >
-          <span class="material-icons-outlined" v-show="color === newLabel.color"> check </span>
+          <span class="material-icons-outlined" v-show="color === newLabel.color" @click="chooseColor(color)">
+            check
+          </span>
         </div>
         <div
           v-else
@@ -73,20 +75,26 @@ export default {
   },
   methods: {
     addLabel() {
+      console.log(this.label);
       if (this.label.currLabel) {
         console.log(this.label.currLabel);
-        this.$emit('newLabel', this.label.currLabel);
+        let labelToSave = JSON.parse(JSON.stringify(this.label.currLabel));
+        this.$emit('newLabel', labelToSave);
       } else {
         this.$emit('newLabel', this.newLabel);
       }
     },
     deleteLabel() {
       if (this.label.currLabel) {
-        this.$emit('deleteLabel', this.labelId);
+        this.$emit('deleteLabel', this.label.currLabel.id);
       }
     },
     chooseColor(color) {
-      this.newLabel.color = color;
+      if (this.label.currLabel) {
+        this.label.currLabel.color = color;
+      } else {
+        this.newLabel.color = color;
+      }
     },
     backLabel() {
       this.$emit('backLabel');

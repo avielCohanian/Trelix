@@ -2,14 +2,37 @@
   <section class="edit-cover">
     <div class="size">
       <h4>Size</h4>
-      <a class="removeCaver" v-if="card.style.bgColor || card.style.bgUrl" @click="changeBgc(0)"
-        >Remove cover</a
-      >
+      <div class="size-container">
+        <div class="size-card half" @click="size('half')">
+          <!-- :style="{ bcg }" -->
+          <div class="header"></div>
+          <div class="size-body">
+            <div class="size-1"></div>
+            <div class="size-2"></div>
+            <div class="size-3">
+              <span class="size-3-1"></span>
+              <span class="size-3-1"></span>
+            </div>
+            <div class="size-4"></div>
+          </div>
+        </div>
+
+        <div class="size-card full" @click="size('full')">
+          <div class="header"></div>
+          <div class="size-body">
+            <span class="size-1"></span>
+            <span class="size-2"></span>
+          </div>
+        </div>
+      </div>
     </div>
+    <a class="removeCaver" v-if="card.style && (card.style.bgColor || card.style.bgUrl)" @click="changeBgc(0)"
+      >Remove cover</a
+    >
     <div class="colors">
       <h4>Colors</h4>
       <ul>
-        <li v-for="color in colors" :key="color">
+        <li v-for="color in colors" :key="color" v-show="card.style">
           <div
             v-if="card.style.bgColor === color"
             class="color-btn"
@@ -19,19 +42,11 @@
             }"
             @click="changeBgc(color)"
           ></div>
-          <div
-            v-else
-            class="color-btn"
-            :style="{ backgroundColor: color }"
-            @click="changeBgc(color)"
-          ></div>
+          <div v-else class="color-btn" :style="{ backgroundColor: color }" @click="changeBgc(color)"></div>
         </li>
       </ul>
     </div>
-    <div
-      class="attachment"
-      v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length"
-    >
+    <div class="attachment" v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length">
       <h4>Attachment</h4>
       <ul>
         <li
@@ -103,7 +118,6 @@ export default {
   methods: {
     changeBgc(newBcg) {
       let res = newBcg;
-      console.log(typeof newBcg);
       if (typeof newBcg === 'object') res = newBcg.backgroundImage;
       this.$emit('changeBcg', res);
     },
@@ -116,6 +130,10 @@ export default {
     },
     searchImgCmp() {
       this.$emit('searchImgCmp', 'coverSearch');
+    },
+    size(size) {
+      size = size === 'full';
+      this.$emit('changeBcgSize', size);
     },
   },
   computed: {

@@ -22,8 +22,6 @@
 
         <a class="btn checklist" @click="dynamicCmp('checklist')" title="Checklist">
           <span class="material-icons-outlined icon"> check_box </span>
-
-          <!-- <span class="el-icon-document-checked icon"> </span> -->
           Checklist</a
         >
 
@@ -35,12 +33,11 @@
         <a class="btn attachment" @click="dynamicCmp('attachment')" title="Attachment">
           <span class="el-icon-paperclip icon"></span> Attachment</a
         >
-
         <a
           class="btn cover"
           @click="dynamicCmp('cover')"
           title="Cover"
-          v-show="card.style && !card.style.bgColor && !card.style.bgUrl "
+          v-show="!card.style || (card.style && !card.style.bgColor && !card.style.bgUrl)"
         >
           <span class="cover-icon">
             <span class="material-icons-outlined icon"> web_asset </span>
@@ -69,8 +66,9 @@
         @searchImgCmp="dynamicCmp"
         @addLabel="addLabel"
         @editLabel="editLabel"
-        @newLabel="newLabel(newLabel)"
+        @newLabel="newLabel"
         @deleteLabel="deleteLabel"
+        @changeBcgSize="changeBcgSize"
         @backLabel="dynamicCmp('labels')"
       >
       </component>
@@ -109,7 +107,6 @@ export default {
     },
     cmp: {
       type: Object,
-      // required: true,
     },
   },
   data() {
@@ -161,8 +158,8 @@ export default {
       this.position = null;
 
       let { name, type, txt, title, btnTxt } = cmp;
-thia.minComponent={name,type,txt,title,btnTxt}
-    
+      thia.minComponent = { name, type, txt, title, btnTxt };
+
       this.minComponent.currCmp = `card-${cmp.type}`;
     },
     closeModel() {
@@ -177,7 +174,6 @@ thia.minComponent={name,type,txt,title,btnTxt}
     },
     changeBcg(color) {
       let card = JSON.parse(JSON.stringify(this.card));
-      // if (typeof color === 'object') {
 
       if (card.style.bgUrl !== color && color.length > 15) {
         card.style.bgUrl = color;
@@ -195,7 +191,14 @@ thia.minComponent={name,type,txt,title,btnTxt}
         card.style.bgColor = null;
         card.style.bgUrl = null;
       }
+      if (!card.style.isFull) card.style.isFull = false;
+
       this.closeModel();
+      this.$emit('updateCard', card);
+    },
+    changeBcgSize(size) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      card.style.isFull = size;
       this.$emit('updateCard', card);
     },
     updateLabel(label) {
@@ -265,26 +268,26 @@ thia.minComponent={name,type,txt,title,btnTxt}
       this.dynamicCmp('addLabels');
     },
     deleteLabel(labelId) {
+      console.log(labelId);
       this.$emit('deleteLabel', labelId);
       setTimeout(() => {
         this.closeModel();
       }, 0);
     },
     async newLabel(newLabel) {
-      // this.updateLabel(newLabel);
+      this.updateLabel(newLabel);
       try {
-        if (!newLabel.id) {
-        }
-        console.log();
+        console.log(newLabel);
         await this.$store.dispatch({ type: 'addLabel', newLabel });
 
         let card = JSON.parse(JSON.stringify(this.card));
 
         const lIdx = card.labelIds.findIndex((l) => l.id === newLabel.id);
-        const labelToUpdate = { lId: newLabel.id, isDone: false };
-        card.labelIds.splice(lIdx, 1, labelToUpdate);
-        this.$emit('updateCard', card);
-
+        if (lIdx) {
+          const labelToUpdate = { lId: newLabel.id, isDone: false };
+          card.labelIds.splice(lIdx, 1, labelToUpdate);
+          this.$emit('updateCard', card);
+        }
         this.label.currLabel = null;
         this.closeModel();
       } catch (err) {

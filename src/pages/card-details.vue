@@ -240,7 +240,7 @@
               @deleteChecklist="deleteChecklist"
             ></check-list>
           </div>
-          <div class="activity-container" v-if="card.activity">
+          <div class="activity-container" v-if="!card.activity">
             <activity-log></activity-log>
           </div>
         </div>
@@ -399,6 +399,7 @@ export default {
     async updateCard(card) {
       try {
         if (!card) card = JSON.parse(JSON.stringify(this.card));
+        console.log(card);
         await this.$store.dispatch({
           type: 'updateCard',
           card,
@@ -406,7 +407,7 @@ export default {
         this.cmp.cmp = null;
         this.cmp.id = null;
         await this.loadCard();
-        // this.$emit('updateCard')
+        this.$emit('updateCard');
       } catch (err) {
         console.log(err);
       }
@@ -464,7 +465,8 @@ export default {
     },
     deleteLabel(labelId) {
       let card = JSON.parse(JSON.stringify(this.card));
-      card.labelIds.filter((l) => l.id !== labelId);
+      let labelIdx = card.labelIds.findIndex((l) => l.lId === labelId);
+      card.labelIds.splice(labelIdx, 1);
       this.updateCard(card);
     },
   },

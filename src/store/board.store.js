@@ -227,17 +227,23 @@ export const boardStore = {
         newLabel.lId = utilService.makeId();
         board.labels.push(newLabel);
       } else {
-        board.groups.forEach((g) => {
-          g.cards.forEach((c) => {
-            c.labelIds.forEach((l) => {
-              if (l.id === newLabel.id) board.labels.splice(lIdx, 1, newLabel);
-            });
-          });
+        // board.groups.forEach((g) => {
+        //   g.cards.forEach((c) => {
+        //     c.labelIds.forEach((l) => {
+        //       console.log(l);
+        //       if (l.id === newLabel.id) board.labels.splice(lIdx, 1, newLabel);
+        //     });
+        //   });
+        // });
+
+        board.labels.forEach((l, idx) => {
+          if (l.id === newLabel.id) board.labels.splice(idx, 1, newLabel);
         });
       }
       try {
         const updateBoard = await boardService.updatedBoard(board);
-        console.log(updateBoard);
+
+        console.log(board.labels);
         commit({ type: 'setBoard', board: updateBoard });
       } catch (err) {
         console.log(err);
