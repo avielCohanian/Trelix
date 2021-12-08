@@ -1,6 +1,6 @@
 <template>
     <section class="user-login main-layout">
-          <div class="logo"> <font-awesome-icon class="" :icon="[ 'fab', 'trello' ]" /> <strong>Trelix</strong></div>
+          <div class="logo"> <font-awesome-icon class="trelix" :icon="[ 'fab', 'trello' ]" /> <strong>Trelix</strong></div>
         <!-- <img
         class="logo"
             src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/167dc7b9900a5b241b15ba21f8037cf8/trello-logo-blue.svg"
@@ -44,7 +44,7 @@
                     
 
                     <hr class="section-hr" />
-                    <div class="signup">
+                    <div class="signup ">
                         <a @click="moveToLogin">Log in to another account</a>
                     </div>
                 </div>
