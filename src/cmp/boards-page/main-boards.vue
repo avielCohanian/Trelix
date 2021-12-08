@@ -52,21 +52,17 @@
 import {boardService} from '../../service/board.service.js'
 import createBoard from './create-board.vue'
 export default {
-       props:{
-        userBoards:{ type: Object }
+  props:{
+    userBoards:{ type: Object }
     },
     data(){
-        return{
-          iScreateBoard:null,
+      return{
+        iScreateBoard:null,
           bgcs:{}
         }
     },
     created(){
-        this.getColors()
-        // if (!this.userBoards) {
-        //   this.iScreateBoard = true
-          
-        // }
+      this.getColors()
     },
     methods: {
       openBoard(id){
