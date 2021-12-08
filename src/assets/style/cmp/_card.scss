@@ -15,14 +15,36 @@
         background: #c6cbd4;
         // background: rgba(0, 0, 0, 0.32);
     }
+   
 }
 .card-preview {
     position: relative;
+   
+    .bcg-img{
+        background-size: cover;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-position: center;
+
+    }
     .cover-Half {
         margin: 0;
         padding: 0;
         // width: 256px;
         height: 32px;
+        border-radius: 3px 3px 0 0;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    .img-cover-Half{
+        margin: 0;
+        padding: 0;
+        // width: 256px;
+        height: 250px;
         border-radius: 3px 3px 0 0;
         background-position: 50%;
         background-repeat: no-repeat;
@@ -49,6 +71,7 @@
 section.card.img-cover {
     background-size: cover;
     min-height: 250px;
+    color: white;
 }
 .card {
     background-color: #fff;
@@ -121,7 +144,7 @@ section.card.img-cover {
             height: 8px;
             line-height: 100px;
             margin: 0 4px 4px 0;
-            max-width: 63px;
+            // max-width: 63px;
             min-width: 40px;
             padding: 0;
             text-shadow: none;
@@ -129,8 +152,9 @@ section.card.img-cover {
             &.label-text {
                 height: 16px;
                 line-height: 16px;
-                width: 198px;
+                // min-width: 198px;
                 padding: 0 8px;
+                min-width: 52px;
                 // line-height: 16px;
                 //  height: rem(22px);
             }

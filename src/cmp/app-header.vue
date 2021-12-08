@@ -159,7 +159,9 @@ export default {
    async  logOut() {
       try {
         var res = await this.$store.dispatch({ type: "logout" });
-        if (res) return this.$router.push("/");
+        this.isShowProfile = false
+        this.$store.commit({ type: 'removeStyleHeader' });
+        if (res) return this.$router.push("/")
         console.log(res);
       } catch (err) {
         console.log(err);
@@ -169,8 +171,9 @@ export default {
       this.isRecent = !this.isRecent;
     },
     moveToBoards() {
+      // this.openMenu = false
       console.log("move");
-      this.isRecent = false
+      this.isOpenMenu =  false
       return this.$router.push(`/${this.createdBy.username}/boards`);
     },
     openMenu() {
@@ -186,7 +189,6 @@ export default {
       return this.$store.getters.getStyleHeader;
     },
     getBoardsForDisplay(){
-      
         return this.$store.getters.getBoardsForDisplay
     }
     

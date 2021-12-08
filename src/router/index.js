@@ -7,6 +7,7 @@ import boards from '../pages/board-page.vue';
 import cardDetails from '../pages/card-details.vue';
 import board from '../pages/board.vue';
 import login from '../pages/login.vue';
+import logout from '../pages/logout.vue';
 import signup from '../pages/signup.vue';
 
 Vue.use(VueRouter);
@@ -21,6 +22,11 @@ const routes = [
         path: '/login',
         name: 'login',
         component: login,
+    },
+    {
+        path: '/logout',
+        name: 'logout',
+        component: logout,
     },
     {
         path: '/signup',

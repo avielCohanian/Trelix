@@ -1,8 +1,10 @@
 <template>
   <section class="user-login main-layout">
-    <img
+     <div class="logo"> <font-awesome-icon class="" :icon="[ 'fab', 'trello' ]" /> <strong>Trelix</strong></div>
+    <!-- <img
+    class="logo"
       src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/167dc7b9900a5b241b15ba21f8037cf8/trello-logo-blue.svg"
-    />
+    /> -->
     <section class="login-section">
       <div class="login-container">
         <div class="login">
@@ -38,7 +40,14 @@
           </div>
         </div>
       </div>
-      <div class="background"></div>
+     <div class="background">
+                <div class="left">
+                    <img src="../assets/img/login.svg" alt="" />
+                </div>
+                <div class="right">
+                    <img src="../assets/img/login.svg" alt="" />
+                </div>
+            </div>
     </section>
   </section>
 </template>
