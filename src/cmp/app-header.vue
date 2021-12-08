@@ -91,7 +91,7 @@
       </div>
       <div class="active">Activity</div>
       <hr />
-      <div class="active">Log out</div>
+      <div class="active"  @click="logOut">Log out</div>
     </div>
 
     <div class="modal menu" v-if="isOpenMenu">
@@ -152,6 +152,15 @@ export default {
     // this.headerStyle = this.$store.getters.getStyleHeader;
   },
   methods: {
+   async  logOut() {
+      try {
+        var res = await this.$store.dispatch({ type: "logout" });
+        if (res) return this.$router.push("/");
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    },
     openRecentBoards() {
       this.isRecent = !this.isRecent;
     },

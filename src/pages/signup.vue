@@ -54,7 +54,7 @@
 
                     <hr class="section-hr" />
                     <div class="signup">
-                        <a>Already have an account? Log in</a>
+                        <a @click="moveToLogin">Already have an account? Log in</a>
                     </div>
                 </div>
             </div>
@@ -82,6 +82,9 @@ export default {
   },
  
     methods: {
+            moveToLogin(){
+ this.$router.push("/login")
+    },
         async signUp() {
             console.log(this.userToSignUp);
             this.userToSignUp.username = this.userToSignUp.fullname;
