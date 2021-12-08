@@ -5,7 +5,7 @@
         <span class="cover-back-btn">
           <a class="back-btn close-btn el-icon-close" @click="closeDetails"> </a>
         </span>
-        <a class="cover-btn" @click="dynamicCmp({ cmp: { name: 'cover' } })">
+        <a class="cover-btn" @click="dynamicCmp({ cmp: { name: 'cover' } }, null, $event)">
           <span class="cover-icon">
             <span class="material-icons-outlined icon"> web_asset </span>
           </span>
@@ -48,7 +48,7 @@
                   <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="35" class="member"></avatar>
                   <avatar v-else :username="member.fullname" :size="35" class="member"></avatar>
                 </li>
-                <a class="plus-btn" @click="dynamicCmp({ cmp: { name: 'members' } })">
+                <a class="plus-btn" @click="dynamicCmp({ cmp: { name: 'members' } }, null, $event)">
                   <span class="el-icon-plus plus"></span>
                 </a>
               </ul>
@@ -67,7 +67,7 @@
                     {{ label.title }}</span
                   >
                 </li>
-                <a class="plus-btn" @click="dynamicCmp({ cmp: { name: 'labels' } })">
+                <a class="plus-btn" @click="dynamicCmp({ cmp: { name: 'labels' } }, null, $event)">
                   <span class="el-icon-plus plus"></span>
                 </a>
               </ul>
@@ -161,7 +161,7 @@
                   <p class="attachment-option">
                     <span class="link">
                       {{ att.name }}
-                      <span class="el-icon-top-right"></span>
+                      <span @click="openAttachUrl(att.url)" class="el-icon-top-right"></span>
                     </span>
                     <span class="title-option">
                       <span>
@@ -189,7 +189,8 @@
                               },
                             },
                             idx
-                          )
+                          ),
+                            $event
                         "
                         >Remove</a
                       >
@@ -208,7 +209,8 @@
                               },
                             },
                             idx
-                          )
+                          ),
+                            $event
                         "
                         >Edit</a
                       >
@@ -228,7 +230,7 @@
               >
               <a v-if="logAtt" @click="logAtt = false">Show fewer attachments.</a>
             </p>
-            <a class="add-item" @click="dynamicCmp({ cmp: { name: 'attachment' } })">Add an attachment</a>
+            <a class="add-item" @click="dynamicCmp({ cmp: { name: 'attachment' } }, null, $event)">Add an attachment</a>
           </div>
 
           <div class="checklists-container" v-if="card.checklists">
@@ -282,12 +284,15 @@ export default {
       editDescription: false,
       isOpenTitle: false,
       labels: [],
-      cmp: { cmp: null, id: null },
+      cmp: { name: null, id: null, pos: { x: null, y: null } },
       attachmentViewer: false,
       logAtt: false,
     };
   },
   methods: {
+    openAttachUrl(url) {
+      window.open(url, '_blank');
+    },
     async loadCard() {
       try {
         const cardId = this.$route.params.cardId;
@@ -429,8 +434,15 @@ export default {
     selectInInput() {
       console.log(this.$refs);
     },
-    dynamicCmp(cmp, id = null) {
-      this.cmp = { cmp, id };
+    dynamicCmp(cmp, id = null, e) {
+      // let x = e.clientX;
+      // let y = e.clientY;
+      let x = 0;
+      let y = 0;
+      let pos = { x, y };
+      this.cmp = { name: cmp.cmp, id, pos };
+      this.$store.commit({ type: 'steCmpDyn', cmpDyn: this.cmp });
+      console.log(this.cmp);
     },
     deleteChecklist(checklistId) {
       //   let card = JSON.parse(JSON.stringify(this.card));
@@ -444,6 +456,7 @@ export default {
           btnTxt: 'Delete checklist',
         },
         id: checklistIdx,
+        e: { clientX: 0, clientY: 0 },
       });
       //   this.dynamicCmp({ cmp: { name: 'attachment' } }
     },
