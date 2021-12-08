@@ -24,7 +24,6 @@
           <strong> Trelix</strong>
         </div>
         <ul>
-          <li>Workspace <i class="el-icon-arrow-down pointer"></i></li>
           <li @click="openRecentBoards">
             Recent <i class="el-icon-arrow-down pointer"></i>
           </li>

@@ -242,7 +242,8 @@
               @deleteChecklist="deleteChecklist"
             ></check-list>
           </div>
-          <div class="activity-container" v-if="!card.activity">
+          <!-- v-if="!card.activity" -->
+          <div class="activity-container">
             <activity-log></activity-log>
           </div>
         </div>
@@ -341,6 +342,7 @@ export default {
     },
     saveDescription() {
       this.card.description = this.description;
+      this.updateCard(this.card);
       this.editDescription = false;
       this.updateCard(this.card)
     },
@@ -442,8 +444,8 @@ export default {
       let y = 0;
       let pos = { x, y };
       this.cmp = { name: cmp.cmp, id, pos };
-      this.$store.commit({ type: 'steCmpDyn', cmpDyn: this.cmp });
       console.log(this.cmp);
+      this.$store.commit({ type: 'steCmpDyn', cmpDyn: this.cmp });
     },
     deleteChecklist(checklistId) {
       //   let card = JSON.parse(JSON.stringify(this.card));

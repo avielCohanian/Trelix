@@ -1,5 +1,10 @@
 <template>
   <section class="edit-checklist">
+    <header>
+      <h2>{{ header }}</h2>
+      <a @click="closeModel" class="el-icon-close"> </a>
+    </header>
+
     <h4 class="title">Title</h4>
 
     <input class="checklist-name" type="text" v-model="newChecklist.title" />
@@ -25,6 +30,9 @@ export default {
       type: Object,
       required: true,
     },
+    header: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -38,6 +46,9 @@ export default {
     saveChecklist() {
       this.$emit('addChecklist', this.newChecklist);
       this.newChecklist = boardService.getEmptyChecklist();
+    },
+    closeModel() {
+      this.$emit('closeModel');
     },
   },
   computed: {},

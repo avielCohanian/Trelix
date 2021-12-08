@@ -1,5 +1,10 @@
 <template>
   <section class="edit-member">
+    <header>
+      <h2 v-if="header">{{ header }}</h2>
+      <a @click="closeModel" class="el-icon-close"> </a>
+    </header>
+
     <input class="search" type="text" placeholder="Search members" v-model="filterMember" />
     <h3 class="member-title">Board members</h3>
     <ul>
@@ -29,6 +34,10 @@ export default {
       type: Object,
       required: true,
     },
+    header: {
+      type: String,
+      // required: true,
+    },
   },
   data() {
     return {
@@ -55,6 +64,9 @@ export default {
 
       // TODO
     },
+    closeModel() {
+      this.$emit('closeModel');
+    },
   },
   components: {
     avatar,
@@ -62,4 +74,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+header {
+  color: black;
+}
+</style>

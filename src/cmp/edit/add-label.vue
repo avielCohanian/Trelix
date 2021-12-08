@@ -1,5 +1,9 @@
 <template>
   <section class="add-label">
+    <header>
+      <h2>{{ header }}</h2>
+      <a @click="closeModel" class="el-icon-close"> </a>
+    </header>
     <span class="backIcon material-icons-outlined" @click="backLabel"> chevron_left </span>
     <h3 class="labels-name">Name</h3>
     <input v-if="!label.currLabel" class="search" type="text" v-model="newLabel.title" />
@@ -35,8 +39,8 @@
       </span>
     </ul>
     <div class="flex-space">
-      <a class="add-label" @click="addLabel">Save</a>
-      <a v-if="label.type === 'edit'" class="delete-label" @click="deleteLabel">Delete</a>
+      <a class="add-label" @click="addLabel($event)">Save</a>
+      <a v-if="label.type === 'edit'" class="delete-label" @click="deleteLabel(label.currLabel.id, $event)">Delete</a>
     </div>
   </section>
 </template>
@@ -48,6 +52,9 @@ export default {
     label: {
       type: Object,
       required: true,
+    },
+    header: {
+      type: String,
     },
   },
   data() {
@@ -74,19 +81,19 @@ export default {
     }
   },
   methods: {
-    addLabel() {
+    addLabel(e) {
       console.log(this.label);
       if (this.label.currLabel) {
         console.log(this.label.currLabel);
         let labelToSave = JSON.parse(JSON.stringify(this.label.currLabel));
-        this.$emit('newLabel', labelToSave);
+        this.$emit('newLabel', labelToSave, e);
       } else {
-        this.$emit('newLabel', this.newLabel);
+        this.$emit('newLabel', this.newLabel, e);
       }
     },
-    deleteLabel() {
+    deleteLabel(labelId, e) {
       if (this.label.currLabel) {
-        this.$emit('deleteLabel', this.label.currLabel.id);
+        this.$emit('deleteLabel', labelId, e);
       }
     },
     chooseColor(color) {
@@ -96,8 +103,11 @@ export default {
         this.newLabel.color = color;
       }
     },
-    backLabel() {
-      this.$emit('backLabel');
+    backLabel(e) {
+      this.$emit('backLabel', 'labels', e);
+    },
+    closeModel() {
+      this.$emit('closeModel');
     },
   },
 };

@@ -1,5 +1,10 @@
 <template>
   <section class="edit-label">
+    <header>
+      <h2>{{ header }}</h2>
+      <a @click="closeModel" class="el-icon-close"> </a>
+    </header>
+
     <input class="search" type="text" placeholder="Search labels..." v-model="filterLabels" />
 
     <h3 class="labels-title">Labels</h3>
@@ -25,10 +30,10 @@
           </span>
         </div>
 
-        <span class="material-icons-outlined icon" @click.stop="editLabel(label.id)"> edit </span>
+        <span class="material-icons-outlined icon" @click.stop="editLabel(label.id, $event)"> edit </span>
       </li>
     </ul>
-    <a class="add-label" @click="addLabel"> Create a new label</a>
+    <a class="add-label" @click="addLabel($event)"> Create a new label</a>
   </section>
 </template>
 
@@ -38,6 +43,9 @@ export default {
   props: {
     card: {
       type: Object,
+    },
+    header: {
+      type: String,
     },
   },
   data() {
@@ -72,11 +80,14 @@ export default {
     updateLabels(label) {
       this.$emit('updateLabel', label);
     },
-    addLabel() {
-      this.$emit('addLabel');
+    addLabel(e) {
+      this.$emit('addLabel', 'Create label', e);
     },
-    editLabel(labelId) {
-      this.$emit('editLabel', labelId);
+    editLabel(labelId, e) {
+      this.$emit('editLabel', { labelId, e });
+    },
+    closeModel() {
+      this.$emit('closeModel');
     },
   },
 };

@@ -47,6 +47,9 @@
             font-size: 15px;
             padding: 5px 8px 5px 7px;
             font-weight: 600;
+           
+        
+            
         }
         .focus {
             width: 90%;
@@ -130,10 +133,12 @@
             }
         }
         header.single {
-            height: 20px;
+            line-height: 20px;
+            // height: 20px;
         }
         header {
-            height: 40px;
+            min-height: 20px;
+            // height: 40px;
             align-items: center;
             // padding-top: 3px;
             // padding-bottom: 3px;
@@ -248,6 +253,7 @@
     }
 }
 .group-container .group .edit-title input {
-    margin: 0;
+    margin: 6px 0px 6px 0px;
+    // margin: 0;
 }
 

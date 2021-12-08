@@ -10,17 +10,17 @@
       </div>
       <h3>Add to card</h3>
       <div class="edit-btn">
-        <a class="btn members" @click="dynamicCmp('members', $event)" title="Members">
+        <a class="btn members" @click="dynamicCmp('members', 'members', $event)" title="Members">
           <span class="el-icon-user icon"></span>
           Members</a
         >
 
-        <a class="btn labels" @click="dynamicCmp('labels', $event)" title="Labels">
+        <a class="btn labels" @click="dynamicCmp('labels', 'labels', $event)" title="Labels">
           <span class="el-icon-price-tag label-icon icon"></span>
           Labels</a
         >
 
-        <a class="btn checklist" @click="dynamicCmp('checklist', $event)" title="Checklist">
+        <a class="btn checklist" @click="dynamicCmp('checklist', 'Add checklist', $event)" title="Checklist">
           <span class="material-icons-outlined icon"> check_box </span>
           Checklist</a
         >
@@ -30,12 +30,12 @@
           Dates</a
         >
 
-        <a class="btn attachment" @click="dynamicCmp('attachment', $event)" title="Attachment">
+        <a class="btn attachment" @click="dynamicCmp('attachment', 'attach from...', $event)" title="Attachment">
           <span class="el-icon-paperclip icon"></span> Attachment</a
         >
         <a
           class="btn cover"
-          @click="dynamicCmp('cover', $event)"
+          @click="dynamicCmp('cover', 'cover', $event)"
           title="Cover"
           v-show="!card.style || (card.style && !card.style.bgColor && !card.style.bgUrl)"
         >
@@ -52,30 +52,31 @@
       :style="{ top: component.position.y + 'px', left: component.position.x + 'px' }"
     >
       <!-- :style="{ top: component.position.top + 'px', left: component.position.left + 'px' }" -->
-      <header>
+      <!-- <header>
         <h2>{{ component.name }}</h2>
         <a @click="closeModel" class="el-icon-close"> </a>
-      </header>
+      </header> -->
       <component
-
         :is="component.currCmp"
         :card="card"
+        :header="component.header"
         :label="label"
         @updateMember="updateMember"
+        @closeModel="closeModel"
         @changeBcg="changeBcg"
         @updateLabel="updateLabel"
         @addChecklist="addChecklist"
         @dynamicCmp="dynamicCmp"
         @computerAttImg="computerAttImg"
         @computerAttLink="computerAttLink"
-        @searchImgCmp="dynamicCmp"
-        @addLabel="addLabel"
+        @searchImgCmp="dynamicCmp('coverSearch', 'photo search', $event)"
+        @addLabel="addLabel('Create label', $event)"
         @editLabel="editLabel"
         @newLabel="newLabel"
         @deleteLabel="deleteLabel"
         @changeBcgSize="changeBcgSize"
-        @backLabel="dynamicCmp('labels')">
-        
+        @backLabel="dynamicCmp('labels', 'labels', $event)"
+      >
       </component>
     </div>
 
@@ -85,11 +86,18 @@
       :style="{ top: minComponent.position.y + 'px', left: minComponent.position.x + 'px' }"
     >
       <!-- :style="{ top: minComponent.position.y + 'px', left: minComponent.position.x + 'px' }" -->
-      <header>
+      <!-- <header>
         <h2>{{ minComponent.title }}</h2>
         <a @click="closeModel" class="el-icon-close"> </a>
-      </header>
-      <component :is="minComponent.currCmp" :card="card" :cmp="minComponent" @remove="remove" @update="update">
+      </header> -->
+      <component
+        :is="minComponent.currCmp"
+        :card="card"
+        :cmp="minComponent"
+        :title="minComponent.title"
+        @remove="remove"
+        @update="update"
+      >
       </component>
     </div>
   </section>
@@ -101,10 +109,10 @@ import label from './edit-label.vue';
 import addLabel from './edit/add-label.vue';
 import attachment from './edit/edit-attachment.vue';
 import trelix from './edit/edit-trelix.vue';
-import cover from './edit/edit-cover.vue';
 import checklist from './edit/edit-checklist.vue';
 import edit from './edit/edit-details.vue';
 import remove from './edit/remove-edit.vue';
+import cover from './edit/edit-cover.vue';
 import coverSearch from './edit/edit-cover-search.vue';
 
 export default {
@@ -122,7 +130,7 @@ export default {
     return {
       component: {
         currCmp: null,
-        name: '',
+        header: '',
         position: { x: '', y: '' },
       },
       minComponent: {
@@ -145,30 +153,27 @@ export default {
     }
   },
   methods: {
-    dynamicCmp(cmp, e = null) {
+    dynamicCmp(cmp, header, e = null) {
+      console.log(cmp);
+      console.log(header);
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
-      this.component.position = { x: '', y: null };
-      if (cmp === 'attachment') this.component.name = 'attach from...';
-      if (cmp === 'coverSearch') this.component.name = 'photo search';
-      if (cmp === 'checklist') this.component.name = 'Add checklist';
-      cmp === 'editAttachment' ? (this.component.name = 'Remove attachment?') : (this.component.name = cmp);
-      if (cmp === 'addLabels' && this.label.type === 'edit') this.component.name = 'Change label';
-      if (cmp === 'addLabels' && this.label.type === 'add') this.component.name = 'Create label';
+      this.component.position = { x: '', y: '' };
+      this.component.header = cmp.name && cmp.name.name ? cmp.name.name : header;
+
+      console.log(this.component.header);
       this.component.position.x = 450;
-      // console.log(cmp.pos.y);
-      if (cmp.name.pos && (cmp.name.pos.y || cmp.name.pos.y === 0)) {
+      if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         console.log(this.component);
-        this.component.position.y = cmp.name.pos.y;
+        this.component.position.y = cmp.pos.y;
       } else this.component.position.y = e.clientY;
-      this.component.currCmp = cmp.name.name.name ? `card-${cmp.name.name.name}` : `card-${cmp}`;
+      this.component.currCmp = cmp.name && cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp}`;
     },
-    minDynamicCmp(cmp) {
+    minDynamicCmp(cmp, e) {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
       console.log(cmp);
       // this.position = null;
-      // console.log(cmp);
       let { name, type, txt, title, btnTxt } = cmp.name;
       this.minComponent = { name, type, txt, title, btnTxt };
       this.minComponent.position = { x: '', y: '' };
@@ -180,7 +185,7 @@ export default {
       console.log(this.minComponent);
       console.log(cmp);
       console.log(cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp.name}`);
-      this.minComponent.currCmp = cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp.name}`;
+      this.minComponent.currCmp = cmp.name.name ? `card-${cmp.name.type}` : `card-${cmp}`;
 
       // this.minComponent.currCmp = `card-${cmp.name.type}`;
     },
@@ -247,6 +252,7 @@ export default {
     addChecklist(checklist) {
       let card = JSON.parse(JSON.stringify(this.card));
       card.checklists.push(checklist);
+      this.closeModel();
       this.$emit('updateCard', card);
     },
     computerAttImg(imgUrl) {
@@ -277,17 +283,18 @@ export default {
         this.closeModel();
       }, 500);
     },
-    addLabel() {
+    addLabel(header, e) {
       this.label.type = 'add';
-      this.dynamicCmp('addLabels');
+      this.dynamicCmp('addLabels', header, e);
     },
-    editLabel(labelId) {
+    editLabel({ labelId, e }) {
+      console.log(labelId);
       let label = this.$store.getters.boardLabels;
       label = label.find((l) => l.id === labelId);
       this.label.currLabel = JSON.parse(JSON.stringify(label));
 
       this.label.type = 'edit';
-      this.dynamicCmp('addLabels');
+      this.dynamicCmp('addLabels', 'Change label', e);
     },
     deleteLabel(labelId) {
       console.log(labelId);

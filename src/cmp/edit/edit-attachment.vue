@@ -1,5 +1,10 @@
 <template>
   <div class="edit-attachment">
+    <header>
+      <h2 v-if="header">{{ header }}</h2>
+      <a @click="closeModel" class="el-icon-close"> </a>
+    </header>
+
     <ul class="list">
       <li>
         <label class="attachment">
@@ -40,6 +45,10 @@ export default {
       type: Object,
       // required: true,
     },
+    header: {
+      type: String,
+      // required: true,
+    },
   },
   data() {
     return {
@@ -73,6 +82,9 @@ export default {
         name: '',
       }),
         console.log(this.att);
+    },
+    closeModel() {
+      this.$emit('closeModel');
     },
   },
 };
