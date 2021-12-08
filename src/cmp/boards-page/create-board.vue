@@ -18,7 +18,7 @@
               v-for="bgc in getBgcImg"
               :style="bgc.small"
               :key="bgc.description"
-              @click="changeBgc(bgc.full)"
+              @click="changeBgc(bgc.full ,bgc.color)"
             ></li>
             <li
               class="card-bcg pointer"
@@ -55,8 +55,10 @@ export default {
     await this.getImgs();
   },
   methods: {
-    changeBgc(bgc) {
+    changeBgc(bgc,color) {
+      console.log(color);
       this.emptyBoard.style = bgc;
+      this.emptyBoard.color = color;
     },
     async addBoard() {
       if (!this.emptyBoard.title) return;

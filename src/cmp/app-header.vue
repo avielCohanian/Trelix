@@ -1,6 +1,5 @@
 <template>
-  <section class="app-header" :style="styleHeader" v-if="styleHeader && getBoardsForDisplay &&  getBoardsForDisplay.boards &&
-    getBoardsForDisplay.boards.length">
+  <section class="app-header" :style="styleHeader" v-if="styleHeader ">
     <nav>
       <div class="nav-list">
         <i class="material-icons-outlined pointer grid" @click="openMenu">
@@ -116,7 +115,12 @@
         <i>Recent boards</i>
       </div>
       <hr />
-      <div class="center active" @click="moveToBoards">
+      <div class="center active" 
+      @click="moveToBoards" 
+      v-if=" getBoardsForDisplay &&
+        getBoardsForDisplay.boards &&
+    getBoardsForDisplay.boards.length
+    ">
         <div v-for="board in getBoardsForDisplay.boards" :key="board._id">
             {{board.style}}
          <div :style="board.style"></div>
