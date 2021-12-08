@@ -1,6 +1,6 @@
 <template>
-  <section class="screen" v-if="card" @click="closeDetails">
-    <article class="card-details" @click.stop>
+  <section class="screen" v-if="card "  @click="closeDetails" >
+    <article class="card-details" @click.stop v-show="editor">
       <div class="color-header" v-if="card.style && (card.style.bgColor || card.style.bgUrl)" :style="bgColor">
         <span class="cover-back-btn">
           <a class="back-btn close-btn el-icon-close" @click="closeDetails"> </a>
@@ -248,6 +248,7 @@
           </div>
         </div>
         <card-edit
+       
           class="card-edit"
           :card="card"
           :cmp="dynamicCmpToShow"
@@ -261,6 +262,19 @@
         ></card-edit>
       </div>
     </article>
+     <card-edit
+      v-show="!editor"
+          class="card-edit"
+          :card="card"
+          :cmp="dynamicCmpToShow"
+          @updateCard="updateCard"
+          @removeAtt="removeAtt"
+          @updateAtt="updateAtt"
+          @closeModel="closeModel"
+          @removeChecklist="removeChecklist"
+          @updateChecklist="updateChecklist"
+          @deleteLabel="deleteLabel"
+        ></card-edit>
   </section>
 </template>
 
@@ -526,6 +540,10 @@ export default {
           backgroundImage: this.card.style.bgUrl,
         };
       }
+    },
+     editor(){
+       console.log(this.$store.getters.getModalForDisplay);
+return this.$store.getters.getModalForDisplay
     },
   },
   watch: {

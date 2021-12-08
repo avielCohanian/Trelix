@@ -10,10 +10,14 @@ export const boardStore = {
     currGroup: null,
     boardsForDisplay: null,
     styleHeader: null,
+    modal:null,
     // watchedUser: null,
     // currUser: userService.getLoggedinUser(),
   },
   getters: {
+    getModalForDisplay(state){
+    return state.modal
+    },
     getStyleHeader(state) {
       return state.styleHeader;
     },
@@ -43,6 +47,10 @@ export const boardStore = {
     },
   },
   mutations: {
+    updateModal(state, {isModal}){
+      console.log(isModal);
+      state.modal = isModal
+    },
     updateStyleHeader(state, { color }) {
       state.styleHeader = color;
     },
