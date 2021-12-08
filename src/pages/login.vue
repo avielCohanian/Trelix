@@ -34,7 +34,7 @@
 
           <hr class="section-hr" />
           <div class="signup">
-            <a href="">Sign up for an account</a>
+            <a href="" @click="moveToSignup">Sign up for an account</a>
           </div>
         </div>
       </div>
@@ -56,7 +56,9 @@ export default {
     this.$store.commit({ type: "updateStyleHeader", style: false });
   },
   methods: {
-    
+    moveToSignup(){
+ this.$router.push("/signup")
+    },
     getEmptyUserToCheck() {
       return {
         email: "",
