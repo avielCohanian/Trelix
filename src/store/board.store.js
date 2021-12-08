@@ -104,8 +104,8 @@ export const boardStore = {
       try {
         const updateBoard = await boardService.updateCard(board, card);
           console.log(updateBoard,'updateBoard');
-        socketService.emit('update', updateBoard)
-        // commit({ type: 'setBoard', board: updateBoard });
+        // socketService.emit('update', updateBoard)
+        commit({ type: 'setBoard', board: updateBoard });
         return updateBoard;
       } catch (err) {
         console.log(err);
