@@ -21,7 +21,52 @@
                 border-radius: 3px;
                 padding: 25px 40px;
                 box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
-                .icon{
+                .profile {
+                    display: flex;
+                    -webkit-box-align: center;
+                    align-items: center;
+                    flex-direction: row;
+                    padding-top: 0px;
+                    padding-bottom: 24px;
+                    .avatar-container {
+                        display: flex;
+                        flex-direction: row;
+                        -webkit-box-align: center;
+                        align-items: center;
+                        padding: 0px 12px;
+                        .avatar-icon {
+                            margin: 0px;
+                            width: 72px;
+                            display: flex;
+                            -webkit-box-align: center;
+                            align-items: center;
+                            -webkit-box-pack: center;
+                            justify-content: center;
+                        }
+                        .name-user {
+                            -webkit-box-flex: 1;
+                            flex-grow: 1;
+                            min-width: 0px;
+                            display: inline-block;
+                            margin: 0px 16px;
+                            .name {
+                                font-style: inherit;
+                                font-weight: 500;
+                                letter-spacing: -0.008em;
+                                margin-top: 28px;
+                                font-size: 20px;
+                                line-height: 24px;
+                            }
+                            .mail {
+                                font-size: 14px;
+                                line-height: 20px;
+                                color: rgb(37, 56, 88);
+                                margin-top: 4px;
+                            }
+                        }
+                    }
+                }
+                .icon {
                     background: url(https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/8215f66…/sign-in-with-google.svg);
                 }
                 strong.title {
@@ -54,7 +99,10 @@
                     height: 34px;
                     width: 320px;
                     &.blue {
-                        background: var(--ds-background-boldBrand-resting,#0052CC);
+                        background: var(
+                            --ds-background-boldBrand-resting,
+                            #0052cc
+                        );
                     }
                 }
                 .or {
@@ -127,15 +175,41 @@
             top: 0;
             left: 0;
             overflow: hidden;
+            .left {
+                position: absolute;
+                width: 400px;
+                bottom: 0;
+                left: 0;
+                z-index: -999;
+                max-width: 30%;
+            }
+            .right {
+                position: absolute;
+                width: 400px;
+                bottom: 0;
+                right: 0;
+                z-index: -999;
+                max-width: 30%;
+            }
         }
     }
-    img {
-        display: block;
+    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // display: block;
         height: 43px;
         margin-left: auto;
         margin-right: auto;
         margin-top: 40px;
         margin-bottom: 40px;
+        font-size: 50px;
+        gap: 5px;
+        color: #0c61dc;
+        strong {
+            color: rgb(42, 42, 42);
+            // font-size: 45px;
+        }
     }
 }
 p.small {

@@ -46,6 +46,9 @@ export const boardStore = {
     updateStyleHeader(state, { color }) {
       state.styleHeader = color;
     },
+    removeStyleHeader(state) {
+      state.styleHeader = null;
+    },
     setBoard(state, { board }) {
       state.currBoard = board;
     },

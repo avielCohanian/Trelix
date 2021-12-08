@@ -67,6 +67,7 @@
                     touchStartThreshold: 50 -->
 
                 <Container
+               class="hover"
                     drag-handle-selector=".card"
                     group-name="col"
                     @drop="(e) => onCardDrop(group.id, e)"
@@ -81,6 +82,7 @@
                     >
                         <div>
                             <card
+                            :board="board"
                                 :card="card"
                                 @click.native="showEdit(card.id)"
                                 @updateGroup="loadGroup"
@@ -168,6 +170,7 @@ export default {
     name: 'group',
     data() {
         return {
+            // isCardDrop:false,
             title: 'xhr',
             isModalAdd: false,
             isEditTitle: false,
@@ -188,6 +191,7 @@ export default {
     },
     methods: {
         async onCardDrop(groupId, dropResult) {
+            // this.isCardDrop = !this.isCardDrop
             if (
                 dropResult.removedIndex !== null ||
                 dropResult.addedIndex !== null
@@ -202,6 +206,7 @@ export default {
             }
         },
         getCardPayload(groupId) {
+            //  this.isCardDrop = !this.isCardDrop
             return (index) => {
                 return this.board.groups.filter((_g) => _g.id === groupId)[0]
                     .cards[index];

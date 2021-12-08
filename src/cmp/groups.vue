@@ -145,7 +145,7 @@ export default {
     },
     watch: {
         '$store.getters.getBoard'(board) {
-            this.board = JSON.parse(JSON.stringify(board)) 
+            this.board = {...board}
             this.groups = board.groups;
         },
     },
