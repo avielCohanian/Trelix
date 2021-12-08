@@ -1,12 +1,11 @@
 <template>
-  <section class="app-header" :style="styleHeader" v-if="styleHeader">
+  <section class="app-header" :style="styleHeader" v-if="styleHeader && getBoardsForDisplay &&  getBoardsForDisplay.boards &&
+    getBoardsForDisplay.boards.length">
     <nav>
       <div class="nav-list">
         <i class="material-icons-outlined pointer grid" @click="openMenu">
           apps
         </i>
-        <!-- <i class="el-icon-s-grid"></i> -->
-
         <div
           @click="moveToBoards"
           class="logo pointer"
@@ -23,8 +22,6 @@
             src="https://res.cloudinary.com/trelix-casep21/image/upload/v1638632838/ezgif.com-gif-maker_1_hbqgql.gif"
             class="img-logo"
           />
-
-          <!-- <font-awesome-icon v-if="!isHover" :icon="['fab', 'trello']" /> -->
           <strong> Trelix</strong>
         </div>
         <ul>
@@ -84,11 +81,6 @@
           :username="createdBy.fullname"
           class="member"
         ></avatar>
-        <!-- <avatar
-                    :size="40"
-                    username="member.username"
-                    class="member"
-                ></avatar> -->
         <div class="user-details">
           <div>
             <strong>{{ createdBy.fullname }}</strong>
@@ -125,7 +117,7 @@
       </div>
       <hr />
       <div class="center active" @click="moveToBoards">
-        <div v-for="board in boards" :key="board._id">
+        <div v-for="board in getBoardsForDisplay.boards" :key="board._id">
             {{board.style}}
          <div :style="board.style"></div>
         </div>
@@ -142,28 +134,22 @@ export default {
   // props: ['createdBy'],
   data() {
     return {
-      boards: "",
-      starBoards: "",
-      createdBy: "",
+      boards: null,
+      // starBoards: [],
+      createdBy: null,
       isHover: false,
       isShowProfile: false,
       isOpenMenu: false,
       isRecent: false,
     };
   },
-  computed: {
-    styleHeader() {
-      return this.$store.getters.getStyleHeader;
-    },
-  },
+ 
   created() {
-      console.log(this.$store.getters.getBoardsForDisplay.boards);
-    this.boards = this.$store.getters.getBoardsForDisplay.boards;
-    this.starBoards = this.$store.getters.getBoardsForDisplay.boards.starBoards;
-    // console.log(this.boards);
+   
+    console.log();
+    // getBoardsForDisplay
     this.createdBy = this.$store.getters.getUserConnect;
-    console.log(this.createdBy);
-    this.headerStyle = this.$store.getters.getStyleHeader;
+    // this.headerStyle = this.$store.getters.getStyleHeader;
   },
   methods: {
     openRecentBoards() {
@@ -182,21 +168,19 @@ export default {
       this.isShowProfile = !this.isShowProfile;
     },
   },
-  // watch:{
-  //      '$store.getters.getStyleHeader'(){
-  //          this.headerStyle = this.$store.getters.getStyleHeader
-  //      }
-
-  // },
+  computed:{
+     styleHeader() {
+      return this.$store.getters.getStyleHeader;
+    },
+    getBoardsForDisplay(){
+      
+        return this.$store.getters.getBoardsForDisplay
+    }
+    
+  },
   mounted() {},
   components: {
     avatar,
   },
 };
 </script>
-
-<style>
-.img-board{
-
-            }
-</style>
