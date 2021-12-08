@@ -29,9 +29,7 @@ function createSocketService() {
       else socket.off(eventName, cb);
     },
     emit(eventName, data) {
-      console.log(eventName, data,'inside socket service client -before');
       socket.emit(eventName, data);
-      console.log(eventName, data,'inside socket service client -after');
     },
     terminate() {
       socket = null;

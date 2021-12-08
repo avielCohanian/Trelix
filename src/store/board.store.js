@@ -90,7 +90,9 @@ export const boardStore = {
       try {
         const board = JSON.parse(JSON.stringify(getters.getBoard));
         let updateBoard = await boardService.addCard(board, groupId, newCard);
-        commit({ type: 'setBoard', board: updateBoard });
+        socketService.emit('update', updateBoard)
+
+        // commit({ type: 'setBoard', board: updateBoard });
         return updateBoard;
       } catch (err) {
         console.log(err);
@@ -101,7 +103,9 @@ export const boardStore = {
       const board = getters.getBoard;
       try {
         const updateBoard = await boardService.updateCard(board, card);
-        commit({ type: 'setBoard', board: updateBoard });
+          console.log(updateBoard,'updateBoard');
+        socketService.emit('update', updateBoard)
+        // commit({ type: 'setBoard', board: updateBoard });
         return updateBoard;
       } catch (err) {
         console.log(err);
@@ -123,7 +127,8 @@ export const boardStore = {
       const board = JSON.parse(JSON.stringify(getters.getBoard));
       try {
         const updateBoard = await boardService.saveGroup(board, group);
-        commit({ type: 'setBoard', board: updateBoard });
+        socketService.emit('update', updateBoard)
+        // commit({ type: 'setBoard', board: updateBoard });
         return updateBoard;
       } catch (err) {
         console.log(err);
@@ -159,7 +164,8 @@ export const boardStore = {
       try {
         const board = getters.getBoard;
         var savedBoard = await boardService.addGroup(board, newGroup);
-        commit({ type: 'setBoard', board: savedBoard });
+        socketService.emit('update', savedBoard)
+        // commit({ type: 'setBoard', board: savedBoard });
         return savedBoard;
       } catch (err) {
         console.log(err);
@@ -179,7 +185,8 @@ export const boardStore = {
       try {
         const board = JSON.parse(JSON.stringify(getters.getBoard));
         var savedBoard = await boardService.deleteCard(board, card.id);
-        commit({ type: 'setBoard', board: savedBoard });
+        socketService.emit('update', savedBoard)
+        // commit({ type: 'setBoard', board: savedBoard });
         return savedBoard;
       } catch (err) {
         console.log(err);

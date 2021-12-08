@@ -342,6 +342,7 @@ export default {
     saveDescription() {
       this.card.description = this.description;
       this.editDescription = false;
+      this.updateCard(this.card)
     },
     attachmentLink(attachmentIdx) {
       console.log('TODO');

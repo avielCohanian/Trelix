@@ -89,7 +89,6 @@ export default {
     }
 .container-header-home{
     /* padding-top: 250px 10px; */
-    padding-top: 90px;
     display: flex;
     justify-content: center;
     width: 100vw;
@@ -98,6 +97,7 @@ export default {
     overflow-x: hidden;
     overflow-y: hidden;
 box-shadow: inset 1px -14px 10px 7px white;
+align-items: center;
 
     
 }
