@@ -114,15 +114,23 @@
         <i>Recent boards</i>
       </div>
       <hr />
-      <div class="center active" 
-      @click="moveToBoards" 
-      v-if=" getBoardsForDisplay &&
+      <div  
+      
+       v-if=" getBoardsForDisplay &&
         getBoardsForDisplay.boards &&
-    getBoardsForDisplay.boards.length
-    ">
-        <div v-for="board in getBoardsForDisplay.boards" :key="board._id">
-            {{board.style}}
-         <div :style="board.style"></div>
+    getBoardsForDisplay.boards.length 
+    "
+    >
+        <div v-for="board in getBoardsForDisplay.boards" :key="board._id" class="board-details">
+          <div class="board-preview" @click="moveToBoard(board._id)" >
+
+            <!-- {{board.style}} -->
+         <div class="board-template" :style="board.style"></div>
+            <div class="board-txt-container">
+
+         <div class="board-title"> {{board.title}}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -164,6 +172,10 @@ export default {
     moveToBoards() {
       this.isOpenMenu =  false
       return this.$router.push(`/${this.createdBy.username}/boards`);
+    },
+    moveToBoard(boardId) {
+      this.isRecent =  false
+      return this.$router.push(`/board/${boardId}`)
     },
     openMenu() {
       this.isOpenMenu = !this.isOpenMenu;
