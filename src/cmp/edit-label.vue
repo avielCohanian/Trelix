@@ -1,5 +1,5 @@
 <template>
-  <section class="edit-label">
+  <section class="edit-label" @click.stop>
     <header>
       <h2>{{ header }}</h2>
       <a @click="closeModel" class="el-icon-close"> </a>
@@ -33,7 +33,7 @@
         <span class="material-icons-outlined icon" @click.stop="editLabel(label.id, $event)"> edit </span>
       </li>
     </ul>
-    <a class="add-label" @click="addLabel($event)"> Create a new label</a>
+    <a class="add-label" @click.stop="addLabel($event)"> Create a new label</a>
   </section>
 </template>
 

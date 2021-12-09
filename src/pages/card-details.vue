@@ -275,9 +275,11 @@
       @removeLabel="removeLabel"
       @updateAtt="updateAtt"
       @closeModel="closeModel"
+      @closeDetails="closeDetails"
       @removeChecklist="removeChecklist"
       @updateChecklist="updateChecklist"
       @deleteLabel="deleteLabel($event)"
+      @deleteCard="deleteCard"
     ></card-edit>
   </section>
 </template>
@@ -549,6 +551,18 @@ export default {
       let cmmIdx = card.comments.findIndex((cm) => cm.id === commId);
       card.comments.splice(cmmIdx, 1);
       this.updateCard(card);
+    },
+    async deleteCard(card) {
+      try {
+        await this.$store.dispatch({
+          type: 'deleteCard',
+          card,
+        });
+
+        this.closeDetails();
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
   computed: {
