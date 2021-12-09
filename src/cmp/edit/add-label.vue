@@ -2,15 +2,16 @@
   <section class="add-label" @click.stop>
     <header>
       <h2>{{ header }}</h2>
-      <a @click="closeModel" class="el-icon-close"> </a>
+      <a @click="closeModel" class="el-icon-close" v-show="!inMenu"> </a>
     </header>
-    <span class="backIcon material-icons-outlined" @click="backLabel"> chevron_left </span>
+    <span class="backIcon material-icons-outlined" @click="backLabel" v-show="!inMenu"> chevron_left </span>
     <h3 class="labels-name">Name</h3>
     <input v-if="!label.currLabel" class="search" type="text" v-model="newLabel.title" />
     <input v-else class="search" type="text" v-model="label.currLabel.title" />
     <h3 class="labels-title">Select a color</h3>
     <ul>
       <li v-for="(color, idx) in colors" :key="idx" @click="chooseColor(color)">
+       
         <div
           v-if="!label.currLabel"
           class="label"
@@ -18,7 +19,8 @@
             backgroundColor: color,
           }"
         >
-          <span class="material-icons-outlined" v-show="color === newLabel.color" @click="chooseColor(color)">
+
+          <span class="material-icons-outlined" v-show="color === newLabel.color  " @click="chooseColor(color)">
             check
           </span>
         </div>
@@ -40,7 +42,7 @@
     </ul>
     <div class="flex-space">
       <a class="add-label" @click="addLabel">Save</a>
-      <a v-if="label.type === 'edit'" class="delete-label" @click="deleteLabel">Delete</a>
+      <a v-if="label.type === 'edit' || type==='edit'" class="delete-label" @click="deleteLabel">Delete</a>
     </div>
   </section>
 </template>
@@ -52,6 +54,13 @@ export default {
     label: {
       type: Object,
       required: true,
+    },
+     inMenu: {
+      type: Boolean,
+      default:false
+    },
+    type: {
+      type: String,
     },
     header: {
       type: String,

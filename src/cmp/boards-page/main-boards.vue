@@ -24,7 +24,6 @@
                 <div class="card-board  flex pointer" :style="board.style" @click="openBoard(board._id)">
                       <h3 class="card-title "> {{board.title}} </h3>
                       <h3 class="selected-fevorit hover"   @click.stop="changeFavorit(board._id,false)"> <span class="startIcon"></span> </h3>
-                      
                 </div>
             </div>
           </div>

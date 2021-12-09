@@ -392,7 +392,7 @@ export default {
         }
         console.log(board.labels);
         this.$emit('updateBoard', board);
-        this.$store.dispatch({ type: 'updateBoard', board });
+        this.$store.dispatch({ type: 'updateBoard', board: JSON.parse(JSON.stringify(board ))});
         this.label.currLabel = null;
         this.closeModel();
       } catch (err) {

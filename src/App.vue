@@ -16,6 +16,7 @@ export default {
     };
   },
   created() {
+      this.$store.dispatch({ type: 'logIn', user: { email: 'eligranat@gmail.com', password: 'p' } });
     //  socketService.on('update board',this.msg)
     //     socketService.on('update board', msg=>{console.log(msg)})
   },
@@ -30,13 +31,14 @@ export default {
     },
     updateCard(updateCard) {
       console.log(updateCard);
+      
       // commit({ type: 'setBoard', board: updateBoard });
       this.$store.commit({ type: 'setCard', card: updateCard });
     },
-  },
-  created() {
-    this.$store.dispatch({ type: 'logIn', user: { email: 'eligranat@gmail.com', password: 'p' } });
-    // this.loadUser = true;
+    // updateMouse(mouseEvents){
+    //   this.$store.commit({ type: 'updateMouse', mouseEvents });
+
+    // }
   },
   components: {
     appHeader,
@@ -55,6 +57,13 @@ export default {
         // console.log(this.$store.getters.currCard ,'after');
       }
     },
+    // '$store.getters.getBoard'() {
+    //   if (this.$store.getters.getBoard) {
+    //     // console.log(this.$store.getters.currCard,'before');
+    //     socketService.on(`updateMouse${this.$store.getters.getBoard._id}`, this.updateMouse);
+    //     // console.log(this.$store.getters.currCard ,'after');
+    //   }
+    // },
   },
 };
 </script>

@@ -11,10 +11,14 @@ export const boardStore = {
     boardsForDisplay: null,
     styleHeader: null,
     modal: true,
+    // mouseEvents:[]
     // watchedUser: null,
     // currUser: userService.getLoggedinUser(),
   },
   getters: {
+    // getMouseEvents(state){
+    //   return state.mouseEvents
+    // },
     getModalForDisplay(state) {
       return state.modal;
     },
@@ -47,6 +51,11 @@ export const boardStore = {
     },
   },
   mutations: {
+    
+    // updateMouse(state,{mouseEvents}) {
+    //   // console.log(isModal);
+    //   state.mouseEvents = mouseEvents;
+    // },
     updateModal(state, { isModal }) {
       // console.log(isModal);
       state.modal = isModal;
@@ -91,6 +100,7 @@ export const boardStore = {
 
       try {
         const board = await boardService.getById(boardId);
+        console.log(board);
         commit({ type: 'setBoard', board });
         return board;
       } catch (err) {
@@ -111,9 +121,11 @@ export const boardStore = {
 
     async updateCard({ commit, getters }, { card }) {
       const board = getters.getBoard;
+      console.log(card,'card');
       try {
         const updateBoard = await boardService.updateCard(board, card);
         // commit({ type: 'setCard', card });
+        console.log(updateBoard,'updateBoard');
         socketService.emit('updateCard', card);
         socketService.emit('update', updateBoard);
 
@@ -138,8 +150,8 @@ export const boardStore = {
       const board = JSON.parse(JSON.stringify(getters.getBoard));
       try {
         const updateBoard = await boardService.saveGroup(board, group);
-        socketService.emit('update', updateBoard);
-        // commit({ type: 'setBoard', board: updateBoard });
+        // socketService.emit('update', updateBoard);
+        commit({ type: 'setBoard', board: updateBoard });
         return updateBoard;
       } catch (err) {
         console.log(err);
@@ -157,16 +169,15 @@ export const boardStore = {
       }
     },
 
-    async updateBoard({ getters }, { board }) {
+    async updateBoard({ getters , commit }, { board }) {
+      
       try {
-        const updateBoard = await boardService.updatedBoard(board, getters.getUserConnect);
+        const updateBoard = await boardService.updatedBoard(board, JSON.parse(JSON.stringify(getters.getUserConnect)));
+        console.log(updateBoard,'updateBoard');
+        // commit({ type: 'setBoard', board: JSON.parse(JSON.stringify(updateBoard)) });
 
-        // console.log('before socket emit ');
-        // socketService.emit('update board',updateBoard)
         socketService.emit('update', updateBoard);
-
-        // socketService.on('update board',board=>{ console.log('update',board)})
-        // console.log('after socket emit ');
+        
       } catch (err) {
         throw err;
       }
@@ -243,13 +254,10 @@ export const boardStore = {
     },
     async loadBoards({ commit, getters, dispatch }) {
       try {
-        // await dispatch({ type: 'logIn', userName: 'abi@ababmi.com' });
-        console.log(getters.getUserConnect);
         if (getters.getUserConnect.boards.boards.length || getters.getUserConnect.boards.starBoard.length) {
           const boards = await boardService.getBoardsForDisplay(getters.getUserConnect);
           commit({ type: 'setdBoards', boards });
         }
-        // return boards
       } catch (err) {
         throw err;
       }
@@ -265,15 +273,6 @@ export const boardStore = {
         // newLabel.lId = utilService.makeId();
         board.labels.push(newLabel);
       } else {
-        // board.groups.forEach((g) => {
-        //   g.cards.forEach((c) => {
-        //     c.labelIds.forEach((l) => {
-        //       console.log(l);
-        //       if (l.id === newLabel.id) board.labels.splice(lIdx, 1, newLabel);
-        //     });
-        //   });
-        // });
-
         board.labels.forEach((l, idx) => {
           if (l.id === newLabel.id) board.labels.splice(idx, 1, newLabel);
         });
@@ -287,11 +286,19 @@ export const boardStore = {
         console.log(err);
       }
     },
-    addActivity({ getters, dispatch }, { activity }) {
+    addActivity({ getters, dispatch ,commit}, { activity }) {
       let board = JSON.parse(JSON.stringify(getters.getBoard));
+      // let board = getters.getBoard
       console.log(board.activities, 'chack');
       board.activities.unshift(activity);
       dispatch({ type: 'updateBoard', board });
     },
+    // updateMouse({getters},{mouseEvent}){
+    //   const userConnect = JSON.parse(JSON.stringify(getters.getUserConnect)) 
+    //   mouseEvent.userConnect =userConnect
+    //   console.log(mouseEvent);
+    //   mouseEvent.boardId = getters.getBoard._id
+    //   socketService.emit('updateMouse', mouseEvent);
+    // }
   },
 };
