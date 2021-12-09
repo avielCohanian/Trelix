@@ -216,12 +216,10 @@ export default {
     },
     'checklist.todos': {
       handler(x) {
-        console.log(x);
         deep: true;
       },
     },
     'copyList.todos'(x) {
-      console.log(x);
       deep: true;
     },
   },

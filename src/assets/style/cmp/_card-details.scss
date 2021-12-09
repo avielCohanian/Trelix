@@ -450,214 +450,452 @@
         }
       }
 
-      .attachmentViewer {
-        bottom: 0;
-        color: #fff;
-        left: 0;
-        position: fixed;
-        right: 0;
-        text-align: center;
-        top: 0;
-        z-index: 100;
-        overflow-y: auto;
-        background-color: aqua;
-        a.close-btn {
-          background-color: #000000b3;
-          top: 0;
-          position: absolute;
-          right: 0;
-        }
-      }
+      .trelix-attachments {
+        .svg {
+          top: -2px;
+          color: #42526e;
+          line-height: 32px;
 
-      .section-attachments {
-        clear: both;
-        margin-bottom: 24px;
-        position: relative;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 20px;
-        color: $clr7;
+          font-size: 24px;
+        }
+
         h3 {
-          margin: 0 0 7px 0;
-          padding: 8px 0;
+          margin: 0;
           min-height: 18px;
           min-width: 40px;
+          width: auto;
           font-size: 16px;
           line-height: 20px;
-          font-weight: 600;
-          color: $clr7;
+          color: #172b4d;
         }
-        .el-icon-paperclip {
-          top: 1px;
-          left: -41px;
-          transform: rotate(180deg);
+        .att-remove {
+          color: #5e6c84;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 20px;
+          background-color: initial;
+          text-decoration: underline;
+          &:hover {
+            color: #172b4d;
+          }
         }
-        .attachment-list {
-          .attachment-link {
-            position: relative;
-            .img {
-              height: 80px;
-              position: absolute;
-              background-color: #413b39;
-              text-align: center;
-              text-decoration: none;
-              top: 50%;
-              width: 112px;
-              background-position: 50%;
-              background-repeat: no-repeat;
-              background-size: contain;
+        .attachment-link {
+          position: relative;
+          display: inline-block;
+          margin-bottom: 16px;
+          vertical-align: top;
+          background-repeat: no-repeat;
+          background-size: cover;
+          border: none;
+          border-radius: 3px;
+          box-sizing: border-box;
+          overflow: hidden;
+          width: 248px;
+
+          .att-container {
+            border-radius: 3px;
+            box-shadow: 0 1px 0 0 #ebecf0;
+            margin-bottom: 8px;
+            margin-right: 8px;
+            color: #172b4d;
+            background-size: 100% 64px, cover;
+            height: auto;
+            padding: 0;
+            background-position: bottom;
+            padding: 0.5px;
+
+            .att-card {
+              display: block;
+              margin: 8px 8px 0 8px;
+              width: calc(100% - 16px);
+              padding-bottom: 6px;
+              position: relative;
+              overflow: hidden;
+              background-color: #fff;
               border-radius: 3px;
-            }
-            .img-link {
-              position: absolute;
-              text-align: center;
-              text-decoration: none;
-              background-color: #091e420a;
-              background-position: 50%;
-              background-repeat: no-repeat;
-              background-size: contain;
-              border-radius: 3px;
-              height: 80px;
-              width: 112px;
-              span {
-                color: #5e6c84;
-                display: block;
-                font-size: 18px;
-                font-weight: 700;
-                height: 100%;
-                line-height: 80px;
-                text-align: center;
-                text-decoration: none;
-                width: 100%;
+              box-sizing: border-box;
+              box-shadow: 0 1px 0 0 rgb(9 30 66 / 25%);
+              cursor: pointer;
+              &:hover {
+                background-color: #f4f5f7;
               }
-            }
-            .attachment-option-container {
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              height: 80px;
-              margin-bottom: 20px;
-              .attachment-option {
-                width: 100%;
-                cursor: pointer;
-                margin: 0;
-                margin-bottom: 18px;
-                min-height: 80px;
-                padding: 8px 8px 8px 128px;
+
+              .att-labels-container {
+                display: flex;
+                flex-shrink: 0;
+                flex-wrap: wrap;
+                max-width: 100%;
+                padding: 2px 4px 0 8px;
                 font-size: 14px;
                 font-weight: 400;
                 line-height: 20px;
-                color: #172b4d;
+                .att-label {
+                  margin-right: 4px;
+                  margin-top: 4px;
+                  border-radius: 3px;
+                  box-sizing: border-box;
+                  height: 16px;
+                  line-height: 16px;
+                  max-width: 100%;
+                  min-width: 56px;
+                  overflow: hidden;
+                  padding: 0 8px;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  width: auto;
+                  padding-bottom: 18px;
 
-                .link {
-                  word-wrap: break-word;
-                  font-weight: 700;
-                  cursor: pointer;
-                  font-size: 14px;
-                  line-height: 20px;
-                  color: #172b4d;
-                  display: block;
-                  .el-icon-top-right {
-                    color: $clr9;
-                    font-size: 13px;
-                    height: 20px;
-                    line-height: 20px;
-                    width: 20px;
-                    font-style: normal;
+                  .label-text {
+                    line-height: 16px;
+                    white-space: nowrap;
+                    color: #fff;
+                    font-size: 12px;
                     font-weight: 700;
                   }
                 }
-                .title-option {
-                  width: 100%;
-                  margin-bottom: 8px;
-                  color: $clr6;
-                  cursor: pointer;
-                  font-size: 14px;
-                  font-weight: 400;
-                  line-height: 20px;
+              }
 
-                  .title-option-btn {
-                    text-decoration: underline;
-                    background-color: initial;
-                    &:hover {
-                      color: #172b4d;
-                    }
-                  }
+              .att-card-title {
+                padding-top: 4px;
+                color: #172b4d;
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 20px;
+                margin: 0;
+                padding: 6px 8px 0;
+                word-wrap: break-word;
+              }
+
+              .att-card-icon {
+                box-sizing: border-box;
+                display: inline-block;
+                float: left;
+                max-width: calc(100% - 6px);
+                padding-left: 6px;
+                color: #172b4d;
+                display: flex;
+                & > * {
+                  margin-top: 4px;
+                  margin-right: 4px;
+
+                  background-color: #0000;
+                  border-radius: 3px;
+                  color: #6b778c;
+                  display: inline-block;
+                  font-size: 12px;
+                  font-weight: 400;
+                  height: 24px;
+                  line-height: 24px;
+                  max-width: calc(100% - 16px);
+                  min-height: 24px;
+                  overflow: hidden;
+                  padding: 0 6px;
+                  text-overflow: ellipsis;
+                  vertical-align: top;
+                  white-space: nowrap;
                 }
-                .cover {
-                  position: relative;
-                  display: flex;
-                  padding-left: 20px;
-                  margin-top: 8px;
-                  a {
-                    background-color: initial;
-                    text-decoration: underline;
-                  }
-                  .material-icons-outlined {
-                    position: absolute;
-                    top: 0;
-                    left: -4px;
-                    font-size: 16px;
-                    height: 20px;
-                    line-height: 20px;
-                    width: 20px;
-                    color: $clr9;
-                    font-style: normal;
-                    font-weight: 400;
-                    transform: rotate(180deg);
-                  }
+                .description-icon {
+                  margin-top: 4px;
+                  margin-right: 4px;
+                  background-color: #0000;
+                  border-radius: 3px;
+                  color: #6b778c;
+                  font-size: 12px;
+                  font-weight: 400;
+                  height: 24px;
+                  line-height: 24px;
+                  max-width: calc(100% - 16px);
+                  min-height: 24px;
+                  padding: 0 6px;
+                  text-overflow: ellipsis;
+                  vertical-align: top;
+                  white-space: nowrap;
+                }
+              }
+
+              .att-card-avatar {
+                display: flex;
+                box-sizing: border-box;
+                float: right;
+                max-width: calc(100% - 6px);
+                padding-right: 6px;
+                color: #172b4d;
+              }
+            }
+            .att-card-from {
+              display: flex;
+              font-size: 12px;
+              height: 28px;
+              line-height: 16px;
+              letter-spacing: -0.2px;
+              padding: 4px 8px;
+              color: inherit;
+              .att-board-name {
+                display: inline-block;
+                text-decoration: none;
+                color: inherit;
+                line-height: 16px;
+                letter-spacing: -0.2px;
+                display: inline-block;
+                font-size: inherit;
+                height: 100%;
+                margin: 0;
+                overflow: hidden;
+                position: relative;
+                text-overflow: ellipsis;
+                top: 1px;
+                white-space: nowrap;
+              }
+              .att-board-group {
+                display: inline-block;
+                font-size: inherit;
+                height: 100%;
+                margin: 0;
+                overflow: hidden;
+                position: relative;
+                text-overflow: ellipsis;
+                top: 1px;
+                white-space: nowrap;
+                flex: 1;
+                line-height: 16px;
+                letter-spacing: -0.2px;
+              }
+            }
+          }
+        }
+
+        .view {
+          border-radius: 3px;
+          color: #5e6c84;
+          display: block;
+          margin: 2px 0;
+          padding: 6px 12px;
+          background-color: initial;
+          text-decoration: underline;
+          transition-duration: 85ms;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 20px;
+          transition-property: background-color, border-color, box-shadow;
+          transition-timing-function: ease;
+          cursor: pointer;
+          &:hover {
+            background-color: #091e4214;
+            color: #172b4d;
+          }
+        }
+      }
+    }
+
+    .attachmentViewer {
+      bottom: 0;
+      color: #fff;
+      left: 0;
+      position: fixed;
+      right: 0;
+      text-align: center;
+      top: 0;
+      z-index: 100;
+      overflow-y: auto;
+      background-color: aqua;
+      a.close-btn {
+        background-color: #000000b3;
+        top: 0;
+        position: absolute;
+        right: 0;
+      }
+    }
+
+    .section-attachments {
+      clear: both;
+      margin-bottom: 24px;
+      position: relative;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: $clr7;
+      h3 {
+        margin: 0 0 7px 0;
+        padding: 8px 0;
+        min-height: 18px;
+        min-width: 40px;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 600;
+        color: $clr7;
+      }
+      .paperclip-icon {
+        // background-color: lawngreen;
+        top: 1px;
+        left: -45px !important;
+        transform: rotate(180deg);
+      }
+      .attachment-list {
+        .attachment-link {
+          position: relative;
+          .img {
+            height: 80px;
+            position: absolute;
+            background-color: #413b39;
+            text-align: center;
+            text-decoration: none;
+            top: 50%;
+            width: 112px;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: contain;
+            border-radius: 3px;
+          }
+          .img-link {
+            position: absolute;
+            text-align: center;
+            text-decoration: none;
+            background-color: #091e420a;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: contain;
+            border-radius: 3px;
+            height: 80px;
+            width: 112px;
+            span {
+              color: #5e6c84;
+              display: block;
+              font-size: 18px;
+              font-weight: 700;
+              height: 100%;
+              line-height: 80px;
+              text-align: center;
+              text-decoration: none;
+              width: 100%;
+            }
+          }
+          .attachment-option-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 80px;
+            margin-bottom: 20px;
+            .attachment-option {
+              width: 100%;
+              cursor: pointer;
+              margin: 0;
+              margin-bottom: 18px;
+              min-height: 80px;
+              padding: 8px 8px 8px 128px;
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 20px;
+              color: #172b4d;
+
+              .link {
+                word-wrap: break-word;
+                font-weight: 700;
+                cursor: pointer;
+                font-size: 14px;
+                line-height: 20px;
+                color: #172b4d;
+                display: block;
+                .el-icon-top-right {
+                  color: $clr9;
+                  font-size: 13px;
+                  height: 20px;
+                  line-height: 20px;
+                  width: 20px;
+                  font-style: normal;
+                  font-weight: 700;
+                }
+              }
+              .title-option {
+                width: 100%;
+                margin-bottom: 8px;
+                color: $clr6;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+
+                .title-option-btn {
+                  text-decoration: underline;
+                  background-color: initial;
                   &:hover {
                     color: #172b4d;
                   }
                 }
               }
-              &:hover {
-                background-color: #091e420a;
+              .cover {
+                position: relative;
+                display: flex;
+                padding-left: 20px;
+                margin-top: 8px;
+                a {
+                  background-color: initial;
+                  text-decoration: underline;
+                }
+                .material-icons-outlined {
+                  position: absolute;
+                  top: 0;
+                  left: -4px;
+                  font-size: 16px;
+                  height: 20px;
+                  line-height: 20px;
+                  width: 20px;
+                  color: $clr9;
+                  font-style: normal;
+                  font-weight: 400;
+                  transform: rotate(180deg);
+                }
+                &:hover {
+                  color: #172b4d;
+                }
               }
+            }
+            &:hover {
+              background-color: #091e420a;
             }
           }
         }
-        .add-item {
-          align-items: center;
-          background-color: #091e420a;
-          border-radius: 3px;
-          color: #172b4d;
+      }
+      .add-item {
+        align-items: center;
+        background-color: #091e420a;
+        border-radius: 3px;
+        color: #172b4d;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        padding: 6px 12px;
+        margin: 8px 0;
+        text-decoration: none;
+        transition-duration: 85ms;
+        transition-property: background-color, border-color, box-shadow;
+        transition-timing-function: ease;
+        &:hover {
+          background-color: #091e4214;
+        }
+      }
+      .longAtt {
+        margin: 0 0 8px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        color: $clr7;
+        a {
           cursor: pointer;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 20px;
+          border-radius: 3px;
+          color: #5e6c84;
+          display: block;
+          margin: -10px 0 15px;
           padding: 6px 12px;
-          margin: 8px 0;
-          text-decoration: none;
+          text-decoration: underline;
           transition-duration: 85ms;
           transition-property: background-color, border-color, box-shadow;
           transition-timing-function: ease;
+          background-color: initial;
           &:hover {
             background-color: #091e4214;
-          }
-        }
-        .longAtt {
-          margin: 0 0 8px;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 20px;
-          color: $clr7;
-          a {
-            cursor: pointer;
-            border-radius: 3px;
-            color: #5e6c84;
-            display: block;
-            margin: -10px 0 15px;
-            padding: 6px 12px;
-            text-decoration: underline;
-            transition-duration: 85ms;
-            transition-property: background-color, border-color, box-shadow;
-            transition-timing-function: ease;
-            background-color: initial;
-            &:hover {
-              background-color: #091e4214;
-              color: #172b4d;
-            }
+            color: #172b4d;
           }
         }
       }

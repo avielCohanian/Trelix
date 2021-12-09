@@ -100,7 +100,7 @@ export default {
       this.editMode = false;
     },
     editUserComment(cmm) {
-      this.activity = JSON.parse(JSON.stringify(cmm));
+      this.activity = cmm;
       console.log(this.activity.id);
     },
     saveCommit(cmmId = null) {
@@ -147,8 +147,8 @@ export default {
       return 'save';
     },
     currCommits() {
-      // console.log(this.$store.getters.currCard);
-      return this.$store.getters.currCard.comments;
+      console.log(this.$store.getters.currCard);
+      return JSON.parse(JSON.stringify(this.$store.getters.currCard.comments));
     },
   },
 

@@ -1,50 +1,39 @@
 <template>
   <section class="edit-dueDate">
-    <div class="block">
-      <span class="demonstration">With default time</span>
-      <el-date-picker v-model="value3" type="datetime" placeholder="Select date and time" default-time="10:00:00">
-      </el-date-picker>
-    </div>
+    <header>
+      <h2>{{ header }}</h2>
+      <a @click="closeModel" class="el-icon-close"> </a>
+    </header>
+    <date-picker type="date" @change="setDueDate" v-model="time1" valueType="format"></date-picker>
   </section>
 </template>
 
 <script>
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 export default {
   name: 'edit-dueDate',
-
+  props: {
+    header: {
+      type: String,
+    },
+  },
   data() {
     return {
-      pickerOptions: {
-        shortcuts: [
-          {
-            text: 'Today',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            },
-          },
-          {
-            text: 'Yesterday',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            },
-          },
-          {
-            text: 'A week ago',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            },
-          },
-        ],
-      },
-      value1: '',
-      value2: '',
-      value3: '',
+      time1: null,
     };
   },
+  methods: {
+    closeModel() {
+      this.$emit('closeModel');
+    },
+    setDueDate() {
+      this.$emit();
+      console.log(this.time1);
+    },
+  },
+
+  components: { DatePicker },
 };
 </script>
 

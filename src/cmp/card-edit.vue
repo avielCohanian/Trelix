@@ -48,6 +48,8 @@
             @dynamicCmp="dynamicCmp"
             @updateMember="updateMember"
             @changeBcg="changeBcg"
+            @attTrelix="dynamicCmp('trelix', 'Add card or board…', $event)"
+            @addAttTr="addTrelixAtt"
             @updateLabel="updateLabel"
             @addLabel="addLabel('Create label', $event)"
             @editLabel="editLabel"
@@ -88,7 +90,7 @@
             Checklist</a
           >
 
-          <a class="btn dates" @click="dynamicCmp('dates', $event)" title="Dates">
+          <a class="btn dates" @click="dynamicCmp('dueDate', 'dates', $event)" title="Dates">
             <span class="el-icon-time icon"></span>
             Dates</a
           >
@@ -127,11 +129,13 @@
           @updateMember="updateMember"
           @closeModel="closeModel"
           @changeBcg="changeBcg"
+          @addAttTr="addTrelixAtt"
           @updateLabel="updateLabel"
           @addChecklist="addChecklist"
           @dynamicCmp="dynamicCmp"
           @computerAttImg="computerAttImg"
           @computerAttLink="computerAttLink"
+          @attTrelix="dynamicCmp('trelix', 'Add card or board…', $event)"
           @searchImgCmp="dynamicCmp('coverSearch', 'photo search', $event)"
           @addLabel="addLabel('Create label', $event)"
           @editLabel="editLabel"
@@ -158,7 +162,7 @@
           :card="card"
           :cmp="minComponent"
           :title="minComponent.title"
-          @remove="remove"
+          @cmpRemove="cmpRemove"
           @update="update"
         >
         </component>
@@ -179,6 +183,7 @@ import edit from './edit/edit-details.vue';
 import remove from './edit/remove-edit.vue';
 import cover from './edit/edit-cover.vue';
 import coverSearch from './edit/edit-cover-search.vue';
+import dueDate from './edit/edit-dueDate.vue';
 
 import { utilService } from '../service/util.service.js';
 
@@ -246,7 +251,6 @@ export default {
       this.minComponent = { name, type, txt, title, btnTxt };
       this.minComponent.position = { x: '', y: '' };
       this.minComponent.position.x = 450;
-      console.log(this.minComponent);
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.minComponent.position.y = cmp.pos.y;
       } else this.minComponent.position.y = e.clientY;
@@ -272,7 +276,6 @@ export default {
 
     changeBcg(color) {
       let card = JSON.parse(JSON.stringify(this.card));
-
       if (card.style.bgUrl !== color && color.length > 15) {
         card.style.bgUrl = color;
         card.style.bgColor = null;
@@ -291,7 +294,6 @@ export default {
       if (!card.style.isFull) card.style.isFull = false;
 
       // this.closeModel();
-      console.log(card.style);
       this.$emit('updateCard', card);
     },
     changeBcgSize(size) {
@@ -302,7 +304,6 @@ export default {
     updateLabel(label) {
       let card = JSON.parse(JSON.stringify(this.card));
       if (card.labelIds.some((labelId) => labelId.lId === label.id)) {
-        console.log(card.labelIds, 'card.labelIds');
         const labelIdx = card.labelIds.findIndex((labelId) => labelId.lId === label.id);
         card.labelIds.splice(labelIdx, 1);
       } else {
@@ -342,8 +343,7 @@ export default {
       card.attachment.computerAttachment.push(link);
       this.$emit('updateCard', card);
     },
-    remove() {
-      console.log(`remove${this.minComponent.name}`);
+    cmpRemove() {
       this.$emit(`remove${this.minComponent.name}`);
       setTimeout(() => {
         this.closeModel();
@@ -360,7 +360,6 @@ export default {
       this.dynamicCmp('addLabels', header, e);
     },
     editLabel({ labelId, e }) {
-      console.log(labelId);
       let label = this.$store.getters.boardLabels;
       label = label.find((l) => l.id === labelId);
       this.label.currLabel = JSON.parse(JSON.stringify(label));
@@ -380,7 +379,6 @@ export default {
       this.updateLabel(newLabel);
 
       try {
-        console.log(newLabel);
         let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
 
         const lIdx = board.labels.findIndex((l) => l.id === newLabel.id);
@@ -390,7 +388,6 @@ export default {
           const labelToUpdate = { id: newLabel.id, title: newLabel.title, color: newLabel.color };
           board.labels.push(labelToUpdate);
         }
-        console.log(board.labels);
         this.$emit('updateBoard', board);
         this.$store.dispatch({ type: 'updateBoard', board });
         this.label.currLabel = null;
@@ -404,6 +401,13 @@ export default {
       const card = JSON.parse(JSON.stringify(this.card));
       card.members.push(currUser);
       this.$emit('updateCard', card);
+    },
+    addTrelixAtt(cardId) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      card.attachment.trelixAttachments.push(cardId);
+      this.$emit('updateCard', card);
+
+      // this.$emit('addTrelixAtt', card);
     },
     deleteCard() {
       this.$emit('deleteCard', this.card);
@@ -420,6 +424,7 @@ export default {
     'card-edit': edit,
     'card-remove': remove,
     'card-coverSearch': coverSearch,
+    'card-dueDate': dueDate,
   },
 
   computed: {
@@ -447,7 +452,6 @@ export default {
     //   deep: true;
     // },
     '$store.getters.cmpDyn'() {
-      console.log(this.$store.getters.cmpDyn);
       let cmp = JSON.parse(JSON.stringify(this.$store.getters.cmpDyn));
       if (cmp) {
         cmp.name.type ? this.minDynamicCmp(cmp) : this.dynamicCmp(cmp);

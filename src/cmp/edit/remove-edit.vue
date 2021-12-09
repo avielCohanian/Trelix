@@ -16,7 +16,7 @@ export default {
       type: Object,
       required: true,
     },
-    title: {
+    header: {
       type: String,
     },
   },
@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     remove() {
-      this.$emit('remove');
+      this.$emit('cmpRemove');
     },
     closeModel() {
       this.$emit('closeModel');

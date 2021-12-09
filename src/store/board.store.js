@@ -112,6 +112,7 @@ export const boardStore = {
     async updateCard({ commit, getters }, { card }) {
       const board = getters.getBoard;
       try {
+        console.log(card);
         const updateBoard = await boardService.updateCard(board, card);
         // commit({ type: 'setCard', card });
         socketService.emit('updateCard', card);

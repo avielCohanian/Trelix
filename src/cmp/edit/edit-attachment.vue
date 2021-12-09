@@ -14,12 +14,12 @@
         {{ cmp }}
       </li>
       <li>
-        <label class="attachment" @click="dynamicCmp"> Trelix </label>
+        <label class="attachment" @click="dynamicCmp($event)"> Trelix </label>
       </li>
     </ul>
     <hr />
 
-    <form @submit.prevent="aa">
+    <form @submit.prevent="saveLink">
       <label class="link">Attach a link</label>
       <input type="text" placeholder="Paste any link here..." v-model="att.link" />
 
@@ -60,8 +60,8 @@ export default {
     };
   },
   methods: {
-    dynamicCmp() {
-      this.$emit('dynamicCmp', 'trelix');
+    dynamicCmp(e) {
+      this.$emit('attTrelix', 'trelix', e);
     },
 
     async onUploadImg(ev) {

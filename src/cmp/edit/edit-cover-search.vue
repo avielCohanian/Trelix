@@ -4,16 +4,16 @@
       <h2>{{ header }}</h2>
       <a @click="closeModel" class="el-icon-close"> </a>
     </header>
-    <input type="text" placeholder="Search Unsplash for photos" v-model="search" />
+    <input type="text" placeholder="Search Unsplash for photos" v-model="search" @input="searchBy" />
 
     <h4>Suggested searches</h4>
     <ul class="suggestedSearches">
       <li v-for="(s, idx) in suggested" :key="idx">
-        <a>{{ s }}</a>
+        <a @click="searchBy(suggest(s))">{{ s }}</a>
       </li>
     </ul>
     <h4>Top photos</h4>
-    <ul class="imgs" v-if="imgs.length">
+    <ul class="imgs" v-if="imgs && imgs.length">
       <li
         v-for="(img, idx) in imgs"
         :key="idx"
@@ -61,16 +61,19 @@ export default {
   },
   methods: {
     changeBgc(newBcg) {
-      this.$emit('changeBcg', newBcg);
+      this.$emit('changeBcg', newBcg.backgroundImage);
+    },
+    async suggest(s) {
+      this.search = s;
     },
     async searchBy() {
       this.imgs = await imgService.getImgs(this.search);
-      console.log(this.imgs);
-      // this.imgs = imgs.splice(0, 6);
+      this.imgs = imgs.splice(0, 12);
     },
     closeModel() {
       this.$emit('closeModel');
     },
+    searchImg() {},
   },
 };
 </script>
