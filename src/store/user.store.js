@@ -4,10 +4,15 @@ import { userService } from '../service/user-service.js';
 
 export const userStore = {
   state: {
+    users: null,
     currUser: userService.getLoggedinUser(),
     cmpDyn: null,
   },
   getters: {
+    getUsers(state){
+      console.log(state.users);
+      return state.users;
+    },
     getUserConnect(state) {
       return state.currUser;
     },
@@ -25,6 +30,9 @@ export const userStore = {
     },
     logout(state) {
       state.currUser = null;
+    },
+    getUsers(state,{currUsers}) {
+      state.users = currUsers
     },
     changeFavorit(state, { updateUser }) {
       state.currUser = updateUser;
@@ -55,6 +63,18 @@ export const userStore = {
         });
         console.log(currUser);
         return currUser;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getUsers({ state, commit }) {
+      try {
+        const currUsers = await userService.getUsers();
+        commit({
+          type: 'getUsers',
+          currUsers,
+        });
+        return currUsers;
       } catch (err) {
         console.log(err);
       }

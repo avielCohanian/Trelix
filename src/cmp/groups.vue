@@ -1,5 +1,6 @@
 <template>
     <section class="groups">
+        <!-- <nav-side @closeModal="closeModal" :class="ShowModal"/> -->
         <!-- <draggable
             class="list-group flex"
             v-model="groups"
@@ -60,12 +61,14 @@ import { applyDrag } from '../service/util.service.js';
 import group from '../cmp/group.vue';
 // import draggable from 'vuedraggable';
 import { Container, Draggable } from 'vue-smooth-dnd';
+// import NavSide from './nav-side.vue';
 
 export default {
     name: 'groups',
    
     data() {
         return {
+            // isOpenModal:true,
             isAddGroup: false,
             newGroup: boardService.getEmptyGroup(),
             groups: [],
@@ -82,6 +85,9 @@ export default {
         this.board=JSON.parse(JSON.stringify(this.$store.getters.getBoard)) 
     },
     methods: {
+        // closeModal(){
+        // this.isOpenModal = !this.isOpenModal
+        // },
         async onColumnDrop(dropResult) {
             const board = Object.assign({}, this.board);
             board.groups = applyDrag(board.groups, dropResult);
@@ -134,6 +140,9 @@ export default {
         },
     },
     computed: {
+    //     ShowModal() {
+    //   return this.isOpenModal ? "open-nav" : "close-nav";
+    // },
         getGroups() {
             return this.groups;
         },
@@ -142,6 +151,7 @@ export default {
         Draggable,
         Container,
         group,
+        // NavSide,
     },
     watch: {
         '$store.getters.getBoard'(board) {

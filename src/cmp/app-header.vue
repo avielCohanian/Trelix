@@ -27,9 +27,9 @@
           <li @click="openRecentBoards">
             Recent <i class="el-icon-arrow-down pointer"></i>
           </li>
-          <li>Starred <i class="el-icon-arrow-down pointer"></i></li>
-          <li>Templates <i class="el-icon-arrow-down pointer"></i></li>
-          <li @click="moveToBoards">Create</li>
+          <li @click="openStarredBoards">Starred <i class="el-icon-arrow-down pointer"></i></li>
+          <li @click="openTemplatesBoards">Templates <i class="el-icon-arrow-down pointer"></i></li>
+          <li @click="moveToBoards" :style="{margin: '2px'}">Create</li>
         </ul>
       </div>
       <div class="search">
@@ -122,7 +122,8 @@
     "
     >
         <div v-for="board in getBoardsForDisplay.boards" :key="board._id" class="board-details">
-          <div class="board-preview" @click="moveToBoard(board._id)" >
+            <router-link :to="`${board._id}`">
+          <div class="board-preview"  >
 
             <!-- {{board.style}} -->
          <div class="board-template" :style="board.style"></div>
@@ -131,6 +132,59 @@
          <div class="board-title"> {{board.title}}</div>
             </div>
           </div>
+            </router-link>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal menu" v-if="isStared">
+      <div class="title">
+        <i class="el-icon-close" @click="openStarredBoards"></i>
+        <i>Starred boards</i>
+      </div>
+      <hr />
+      <div  
+      
+       v-if=" getBoardsForDisplay &&
+        getBoardsForDisplay.boardsStar &&
+    getBoardsForDisplay.boardsStar.length 
+    "
+    >
+        <div v-for="board in getBoardsForDisplay.boardsStar" :key="board._id" class="board-details">
+            <router-link :to="`${board._id}`">
+          <div class="board-preview"  >
+
+            <!-- {{board.style}} -->
+         <div class="board-template" :style="board.style"></div>
+            <div class="board-txt-container">
+
+         <div class="board-title"> {{board.title}}</div>
+            </div>
+          </div>
+            </router-link>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal menu" v-if="isTemplate">
+      <div class="title">
+        <i class="el-icon-close" @click="openTemplatesBoards"></i>
+        <i>Templates</i>
+      </div>
+      <hr />
+      <div  
+    >
+        <div v-for="temp in templateBoards" :key="temp._id" class="board-details">
+            <router-link :to="`${temp._id}`" >
+          <div class="board-preview"  >
+            <!-- {{board.style}} -->
+         <div class="board-template" :style="temp.style"></div>
+            <div class="board-txt-container">
+
+         <div class="board-title"> {{temp.title}}</div>
+            </div>
+          </div>
+            </router-link>
         </div>
       </div>
     </div>
@@ -138,6 +192,7 @@
 </template>
 
 <script>
+import {boardService} from '../service/board.service.js'
 import avatar from "vue-avatar";
 
 export default {
@@ -152,10 +207,15 @@ export default {
       isShowProfile: false,
       isOpenMenu: false,
       isRecent: false,
+      isStared:false,
+      isTemplate:false,
+      templateBoards:'',
     };
   },
  
   created() {
+    this.$store.dispatch({type:'loadBoards'})
+      this.getTemplate()
     this.createdBy = this.$store.getters.getUserConnect;
     // this.headerStyle = this.$store.getters.getStyleHeader;
   },
@@ -168,31 +228,67 @@ export default {
    
     openRecentBoards() {
       this.isRecent = !this.isRecent;
+       this.isStared = false
+        this.isTemplate= false
+        this.isOpenMenu =false
+    },
+    openStarredBoards() {
+      this.isStared = !this.isStared;
+       this.isTemplate= false
+        this.isRecent =false
+        this.isOpenMenu =false
+    },
+    openTemplatesBoards() {
+      this.isTemplate= !this.isTemplate;
+        this.isRecent =false
+         this.isStared = false
+           this.isOpenMenu =false
     },
     moveToBoards() {
       this.isOpenMenu =  false
+      this.isRecent =false
+         this.isStared = false
+         this.isTemplate= false
       return this.$router.push(`/${this.createdBy.username}/boards`);
     },
     moveToBoard(boardId) {
+       this.isOpenMenu =  false
+         this.isStared = false
+         this.isTemplate= false
       this.isRecent =  false
-      return this.$router.push(`/board/${boardId}`)
+      //  this.$router.push(`/${this.createdBy.username}/boards`);
+      return this.$router.push(`/board/${boardId}`);
     },
     openMenu() {
       this.isOpenMenu = !this.isOpenMenu;
+       this.isTemplate= false
+        this.isRecent =false
+         this.isStared = false
     },
     showProfile() {
       this.isShowProfile = !this.isShowProfile;
     },
+     getTemplate(){
+        this.templateBoards =  boardService.getTemplates()
+       console.log( this.templateBoards);
+      },
   },
   computed:{
      styleHeader() {
       return this.$store.getters.getStyleHeader;
     },
     getBoardsForDisplay(){
+      console.log(this.$store.getters.getBoardsForDisplay);
         return this.$store.getters.getBoardsForDisplay
     }
     
+    
   },
+  watch:{
+        '$store.getters.getUserConnect'(){
+            console.log(this.$store.getters.getUserConnect,'$store.getters.getUserConnect');
+        }
+    },
   mounted() {},
   components: {
     avatar,

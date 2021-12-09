@@ -26,8 +26,9 @@ async function remove(userId) {
   }
 }
 function getUsers() {
+  console.log('service');
   // return storageService.query('user')
-  return httpService.get(`user`);
+  return httpService.get(`user/` , getUsers);
 }
 async function logIn(user) {
   // console.log(user);

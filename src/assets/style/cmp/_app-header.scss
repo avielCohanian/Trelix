@@ -111,6 +111,10 @@
 }
 
 .modal.menu {
+    i{
+
+        font-style: normal;
+    }
     position: fixed;
     width: 304px;
     will-change: top, left;
@@ -169,6 +173,8 @@
         }
     }
     .title {
+        font-family: inherit;
+    font-style: normal;
         margin-inline-start: 26%;
     }
     .bcg-blue {

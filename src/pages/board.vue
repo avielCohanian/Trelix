@@ -1,8 +1,11 @@
 <template>
-    <section class="board" v-if="getBoard" :style="getBoard.style">
-        <nav-board :getBoard="getBoard" />
+    <section class="board flex" v-if="getBoard" :style="getBoard.style">
+        <nav-side @closeModal="closeModal" :class="ShowModal"/>
+        <div>
 
+        <nav-board :getBoard="getBoard" />
         <groups />
+        </div>
         <router-view />
     </section>
 </template>
@@ -10,14 +13,18 @@
 <script>
 import navBoard from '../cmp/nav-board.vue';
 import groups from '../cmp/groups.vue';
+import NavSide from '../cmp/nav-side.vue';
 export default {
     name: 'board',
     components: {
         groups,
         navBoard,
+        NavSide,
     },
     data() {
-        return {};
+        return {
+              isOpenModal:false,
+        };
     },
     created() {
         const boardId = this.$route.params.boardId;
@@ -26,6 +33,9 @@ export default {
         this.$store.dispatch({ type: 'addColors' });
     },
     methods: {
+        closeModal(){
+        this.isOpenModal = !this.isOpenModal
+        },
         async loadBoard(boardId) {
             try {
                 var res = await this.$store.dispatch({
@@ -38,12 +48,22 @@ export default {
         },
     },
     computed: {
+            ShowModal() {
+      return this.isOpenModal ? "open-nav" : "close-nav";
+    },
         getBoard() {
             // console.log(this.$store.getters.getBoard.style);
             // console.log(this.$store.getters.getBoard.color);
             return this.$store.getters.getBoard;
         },
     },
+    watch:{
+        "$route.params.boardId"(){
+             const boardId = this.$route.params.boardId;
+        this.loadBoard(boardId);
+            console.log('lalal');
+        }
+    }
 };
 </script>
 
