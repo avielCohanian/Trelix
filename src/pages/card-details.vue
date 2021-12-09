@@ -628,18 +628,10 @@ export default {
     saveCommit(commit) {
       let card = JSON.parse(JSON.stringify(this.card));
       card.comments.unshift(commit);
-<<<<<<< HEAD
       this.updateCard(card);
-      this.$store.dispatch({ type: 'addActivity', activity: commit });
-=======
-      console.log(card.comments);
-       this.updateCard(card);
-      console.log(card.comments);
-      setTimeout(()=>{
-
+      setTimeout(() => {
         this.$store.dispatch({ type: 'addActivity', activity: commit });
-      },1000)
->>>>>>> 7083c0d53425e3efdc5036f701c67f22fef60988
+      }, 1000);
     },
     updateCmm(commit) {
       let card = JSON.parse(JSON.stringify(this.card));
