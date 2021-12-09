@@ -256,11 +256,12 @@
           :cmp="dynamicCmpToShow"
           @updateCard="updateCard"
           @removeAtt="removeAtt"
+          @removeLabel="removeLabel"
           @updateAtt="updateAtt"
           @closeModel="closeModel"
           @removeChecklist="removeChecklist"
           @updateChecklist="updateChecklist"
-          @deleteLabel="deleteLabel"
+          @deleteLabel="deleteLabel($event)"
         ></card-edit>
       </div>
     </article>
@@ -271,11 +272,12 @@
       :cmp="dynamicCmpToShow"
       @updateCard="updateCard"
       @removeAtt="removeAtt"
+      @removeLabel="removeLabel"
       @updateAtt="updateAtt"
       @closeModel="closeModel"
       @removeChecklist="removeChecklist"
       @updateChecklist="updateChecklist"
-      @deleteLabel="deleteLabel"
+      @deleteLabel="deleteLabel($event)"
     ></card-edit>
   </section>
 </template>
@@ -496,12 +498,38 @@ export default {
       card.attachment.computerAttachment[this.cmp.id].name = newVal;
       this.updateCard(card);
     },
-    deleteLabel(labelId) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      let labelIdx = card.labelIds.findIndex((l) => l.lId === labelId);
-      card.labelIds.splice(labelIdx, 1);
-      this.updateCard(card);
+    deleteLabel(label, e) {
+      let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
+      let labelIdx = board.labels.findIndex((l) => l.id === label.currLabel.id);
+      console.log(labelIdx);
+
+      this.dynamicCmp({
+        cmp: {
+          name: 'Label',
+          txt: 'There is no undo. This will remove this label from all cards and destroy its history.',
+          title: `Delete label?`,
+          type: 'remove',
+          btnTxt: 'Delete',
+        },
+        id: labelIdx,
+        e,
+      });
+
+      // card.labelIds.splice(labelIdx, 1);
+      // this.updateCard(card);
     },
+
+    removeLabel() {
+      let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
+      board.labels.splice(this.cmp.id, 1);
+      // console.log(board.labels);
+      // console.log(this.cmp.id);
+      this.updateBoard(board);
+    },
+    updateBoard(board) {
+      this.$store.dispatch({ type: 'updateBoard', board });
+    },
+
     saveCommit(commit) {
       let card = JSON.parse(JSON.stringify(this.card));
       card.comments.unshift(commit);

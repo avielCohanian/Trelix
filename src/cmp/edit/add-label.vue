@@ -40,7 +40,7 @@
     </ul>
     <div class="flex-space">
       <a class="add-label" @click="addLabel">Save</a>
-      <a v-if="label.type === 'edit'" class="delete-label" @click="deleteLabel(label.currLabel.id, $event)">Delete</a>
+      <a v-if="label.type === 'edit'" class="delete-label" @click="deleteLabel">Delete</a>
     </div>
   </section>
 </template>
@@ -92,9 +92,9 @@ export default {
         this.$emit('newLabel', this.newLabel);
       }
     },
-    deleteLabel(labelId, e) {
+    deleteLabel(e) {
       if (this.label.currLabel) {
-        this.$emit('deleteLabel', labelId, e);
+        this.$emit('deleteLabel', this.label.currLabel, e);
       }
     },
     chooseColor(color) {

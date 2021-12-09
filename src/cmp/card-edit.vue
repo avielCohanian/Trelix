@@ -51,7 +51,7 @@
             @addLabel="addLabel('Create label', $event)"
             @editLabel="editLabel"
             @newLabel="newLabel"
-            @deleteLabel="deleteLabel"
+            @deleteLabel="deleteLabel(label, $event)"
             @changeBcgSize="changeBcgSize"
             @searchImgCmp="dynamicCmp('coverSearch', 'photo search', $event)"
             @backLabel="dynamicCmp('labels', 'labels', $event)"
@@ -65,8 +65,7 @@
       <div class="sidebar">
         <div class="join-member" v-if="join">
           <h3>Suggested</h3>
-          <!-- @click="joinUser('userId')" -->
-          <a class="join-btn btn">
+          <a class="join-btn btn" @click="joinUser">
             <!-- v-if="meInCardMember(userId)" -->
             <span class="el-icon-user icon"></span> Join</a
           >
@@ -136,7 +135,7 @@
           @addLabel="addLabel('Create label', $event)"
           @editLabel="editLabel"
           @newLabel="newLabel"
-          @deleteLabel="deleteLabel"
+          @deleteLabel="deleteLabel(label, $event)"
           @changeBcgSize="changeBcgSize"
           @backLabel="dynamicCmp('labels', 'labels', $event)"
         >
@@ -362,9 +361,8 @@ export default {
       this.label.type = 'edit';
       this.dynamicCmp('addLabels', 'Change label', e);
     },
-    deleteLabel(labelId) {
-      console.log(labelId);
-      this.$emit('deleteLabel', labelId);
+    deleteLabel(label, e) {
+      this.$emit('deleteLabel', label, e);
       setTimeout(() => {
         this.closeModel();
       }, 0);
@@ -394,6 +392,12 @@ export default {
         console.log(err);
       }
     },
+    joinUser() {
+      let currUser = this.$store.getters.getUserConnect;
+      const card = JSON.parse(JSON.stringify(this.card));
+      card.members.push(currUser);
+      this.$emit('updateCard', card);
+    },
   },
   components: {
     'card-attachment': attachment,
@@ -413,9 +417,8 @@ export default {
       this.card.members.some(member._id === userId);
     },
     join() {
-      let userId = this.$store.getters.getters;
-      console.log(this.card.members);
-      if (this.card.members.some((m) => m.id === userId)) {
+      let currUser = this.$store.getters.getUserConnect;
+      if (this.card.members.some((m) => m._id === currUser._id)) {
         return false;
       }
       return true;
