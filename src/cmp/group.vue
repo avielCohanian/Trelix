@@ -1,69 +1,56 @@
 <template>
-    <section class="group-container">
-        <div class="group">
-            <header class="pointer">
-                <el-input
-                    ref="input"
-                    class="edit-title"
-                    size="mini"
-                    :class="{ focus: isEditTitle }"
-                    v-model="group.title"
-                    @keyup.enter.native="editTitle"
-                    @click.native="editTitle"
-                ></el-input>
-                <i class="el-icon-more" @click="openModal = !openModal"></i>
-            </header>
-            <div class="modal" v-if="openModal">
-                <div class="title">
-                    <span
-                        class="material-icons-outlined"
-                        @click="openModal = !openModal"
-                        >close</span
-                    >
-                    <p>List actions</p>
-                </div>
-                <hr />
-                <ul>
-                    <li @click="openInput">Add card...</li>
-                    <li>Copy list...</li>
-                    <li>Move list...</li>
-                    <li @click="deleteGroup">Archive this list</li>
-                </ul>
-            </div>
-            <div class="modal" v-if="isModalAdd">
-                <div class="title">
-                    <span
-                        class="material-icons-outlined"
-                        @click="isModalAdd = !isModalAdd"
-                        >close</span
-                    >
-                    <p>Options</p>
-                </div>
-                <hr />
-                <ul>
-                    <li @click="dynamicCmp('members')">Members...</li>
-                    <li @click="dynamicCmp('labels')">Labels...</li>
-                    <li>Position...</li>
-                </ul>
-                <div class="dynamic-cmp" v-if="component.currCmp">
-                    <header>
-                        <h2>{{ component.name }}</h2>
-                        <a @click="closeModel" class="el-icon-close"> </a>
-                    </header>
-                    <component
-                        :is="component.currCmp"
-                        :card="newCard"
-                        @dynamicCmp="dynamicCmp"
-                    >
-                    </component>
-                </div>
-            </div>
-            <div class="card-container">
-                <!-- class="card-scroll list-group sortable-drag" -->
-                <!-- class="card-ghost card-ghost-drop" -->
-                <!-- :class="[isActive ? 'card-ghost' :  'sortable-drag' ,'item' , 'card-ghost-drop']" -->
-                <!-- draggable=".item" -->
-                <!-- animation: 150
+  <section class="group-container">
+    <div class="group">
+      <header>
+        <el-input
+          ref="input"
+          class="edit-title"
+          size="mini"
+          :class="{ focus: isEditTitle }"
+          v-model="group.title"
+          @keyup.enter.native="editTitle"
+          @click.native="editTitle"
+        ></el-input>
+        <i class="el-icon-more" @click="openModal = !openModal"></i>
+      </header>
+      <div class="modal" v-if="openModal">
+        <div class="title">
+          <span class="material-icons-outlined" @click="openModal = !openModal">close</span>
+          <p>List actions</p>
+        </div>
+        <hr />
+        <ul>
+          <li @click="openInput">Add card...</li>
+          <li>Copy list...</li>
+          <li>Move list...</li>
+          <li @click="deleteGroup">Archive this list</li>
+        </ul>
+      </div>
+      <div class="modal" v-if="isModalAdd">
+        <div class="title">
+          <span class="material-icons-outlined" @click="isModalAdd = !isModalAdd">close</span>
+          <p>Options</p>
+        </div>
+        <hr />
+        <ul>
+          <li @click="dynamicCmp('members')">Members...</li>
+          <li @click="dynamicCmp('labels')">Labels...</li>
+          <li>Position...</li>
+        </ul>
+        <div class="dynamic-cmp" v-if="component.currCmp">
+          <header>
+            <h2>{{ component.name }}</h2>
+            <a @click="closeModel" class="el-icon-close"> </a>
+          </header>
+          <component :is="component.currCmp" :card="newCard" @dynamicCmp="dynamicCmp"> </component>
+        </div>
+      </div>
+      <div class="card-container">
+        <!-- class="card-scroll list-group sortable-drag" -->
+        <!-- class="card-ghost card-ghost-drop" -->
+        <!-- :class="[isActive ? 'card-ghost' :  'sortable-drag' ,'item' , 'card-ghost-drop']" -->
+        <!-- draggable=".item" -->
+        <!-- animation: 150
                     touchStartThreshold: 50 -->
 
         <Container
