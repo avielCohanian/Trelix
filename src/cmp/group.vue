@@ -75,8 +75,8 @@
               type="textarea"
               :rows="3"
               placeholder="Enter a title for this card... "
-              v-model="newCard.title"
               @keyup.enter.native="addCard"
+              v-model="newCard.title"
             >
             </el-input>
             <div class="btn-add">
@@ -143,7 +143,6 @@ export default {
   },
   methods: {
     async onCardDrop(groupId, dropResult) {
-      // this.isCardDrop = !this.isCardDrop
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
         const board = Object.assign({}, this.board);
         const group = board.groups.filter((_g) => _g.id === groupId)[0];
@@ -151,11 +150,10 @@ export default {
         const newGroup = Object.assign({}, group);
         newGroup.cards = applyDrag(newGroup.cards, dropResult);
         board.groups.splice(groupIndex, 1, newGroup);
-        await this.$store.dispatch({ type: 'updateBoard', board });
+        await this.$store.dispatch({ type: 'updateBoard', board: JSON.parse(JSON.stringify(board))});
       }
     },
     getCardPayload(groupId) {
-      //  this.isCardDrop = !this.isCardDrop
       return (index) => {
         return this.board.groups.filter((_g) => _g.id === groupId)[0].cards[index];
       };
@@ -231,7 +229,7 @@ export default {
       }
     },
     loadGroup() {
-      +this.$emit('updateGroup');
+      this.$emit('updateGroup');
     },
   },
   computed: {
