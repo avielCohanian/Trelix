@@ -1,18 +1,19 @@
 <template>
   <section class="template-boards main-boards" >
          <div class="flex viewed" >
-          <div class="material-icons-outlined icon"> schedule </div>
-          <h3 class=""> Recently viewed </h3>
+          <!-- <div class="material-icons-outlined icon "> schedule </div> -->
+          <span class="material-icons-outlined icon">published_with_changes</span>
+          <h3> Popular template </h3>
         </div>
         <div>
           <div class="boards-container flex"  v-if=" templateBoards && templateBoards.length"> 
-            <div v-for=" temp in getTempS" :key="temp._id">
-                <div class="card-board  flex pointer" :style="temp.style" @click="createBoardTemp(temp)">
-                      <h3 class="card-title "> {{temp.title}} </h3>
-                </div>
+              <div v-for=" temp in getTempS" :key="temp._id">
+                  <div class="card-board  flex pointer" :style="temp.style" @click="createBoardTemp(temp)">
+                        <h3 class="card-title "> {{temp.title}} </h3>
+                  </div>
+              </div>
             </div>
-            </div>
-            </div>
+          </div>
   </section>
 </template>
 

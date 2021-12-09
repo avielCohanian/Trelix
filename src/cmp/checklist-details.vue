@@ -214,14 +214,6 @@ export default {
         }, 50);
       }
     },
-    'checklist.todos': {
-      handler(x) {
-        deep: true;
-      },
-    },
-    'copyList.todos'(x) {
-      deep: true;
-    },
   },
 };
 </script>

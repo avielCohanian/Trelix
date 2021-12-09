@@ -21,7 +21,8 @@ export const boardService = {
   addBoard,
   updateDuedate,
   getTemplates,
-  createBoardTemp
+  createBoardTemp,
+  addMember
 };
 function _getEmptyActivity(txt='',title='',id, byMember={}) {
   return {
@@ -280,6 +281,11 @@ async function getLabelByCard(boardId, card) {
 function deleteMember(board, memberId) {
   let idx = board.members.findIndex((member) => member.id === memberId);
   board.members.splice(idx, 1);
+  return _updateService(board);
+}
+function addMember(board, member) {
+ 
+  board.members.push(member);
   return _updateService(board);
 }
 function deleteCard(board, cardId) {

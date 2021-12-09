@@ -116,6 +116,7 @@
     }
 }
 .cmp-background {
+    
    
     ul {
         margin: 5px;
@@ -219,7 +220,7 @@
     }
     .scroll-container {
         height: 40vh;
-        height: 80vh;
+        height: 100vh;
         // overflow: scroll;
         overflow-x: hidden;
         &::-webkit-scrollbar {

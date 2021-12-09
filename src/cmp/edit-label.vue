@@ -1,8 +1,8 @@
 <template>
-  <section class="edit-label" @click.stop>
+  <section class="edit-label" @click.stop :style="getStyle">
     <header>
       <h2>{{ header }}</h2>
-      <a @click="closeModel" class="el-icon-close"> </a>
+      <a @click="closeModel" class="el-icon-close" v-show="!inMenu"> </a>
     </header>
 
     <input class="search" type="text" placeholder="Search labels..." v-model="filterLabels" />
@@ -44,6 +44,10 @@ export default {
     card: {
       type: Object,
     },
+    inMenu: {
+      type: Boolean,
+      default:false
+    },
     header: {
       type: String,
     },
@@ -54,6 +58,10 @@ export default {
     };
   },
   computed: {
+    getStyle(){
+     return this.inMenu ? {'max-height': 'fit-content'} : ''
+      
+    },
     labelsToShow() {
       let labelToShow = this.$store.getters.boardLabels;
       if (this.card) {

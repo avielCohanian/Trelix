@@ -1,6 +1,8 @@
 .nav-board {
+    width: 96vw;
     align-items: center;
-    margin-inline-start: 41px;
+    margin-inline-start: 9px;
+    // margin-inline-start: 41px;
     margin-inline-end: 10px;
     margin-top: 7px;
     display: flex;
@@ -45,7 +47,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            // text-align: center;
         }
         .focus {
             width: 100%;
@@ -127,6 +129,7 @@
         }
         // background-color: #091e4212;
         .name {
+            margin-top: 4px;
             display: flex;
             flex-direction: column;
             margin-inline-start: 18px;

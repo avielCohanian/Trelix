@@ -40,7 +40,7 @@ export default {
         },
         async searchBy() {
             if (!this.search) return;
-            const imgs = await imgService.getImgs(this.search,14);
+            const imgs = await imgService.getImgs(this.search,40);
             this.imgs = imgs;
         },
     },

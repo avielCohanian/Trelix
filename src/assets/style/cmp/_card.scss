@@ -96,16 +96,20 @@ section.card.img-cover {
     }
 
     .icons {
+        font-family: initial;
+        margin-bottom: 7px;
+        margin-top: 5px;
+        
         min-height: 0;
         // padding-bottom: 7px;
         max-height: 28px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        gap: 13px;
+        gap: 15px;
         .checklist {
             margin: 0;
-            height: 28px;
+            // height: 28px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -222,7 +226,7 @@ section.card.img-cover {
     }
 }
 .editor {
-    background-color: #0009;
+    // background-color: #0009;
     bottom: 0;
     // color: #fff;
     left: 0;

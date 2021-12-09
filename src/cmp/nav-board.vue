@@ -1,5 +1,5 @@
 <template>
-  <section class="full">
+  <section class="full" @click.stop>
     <section class="nav-board" :style="color">
       <ul class="left">
         <!-- <li class="pointer">Board <i class="el-icon-arrow-down"></i></li> -->
@@ -23,12 +23,7 @@
           :class="{ 'star-on': isStarOn, 'star-false': !isStarOn }"
         ></li>
 
-        <span class="divider"></span>
-        <li class="pointer">Trelix Workspace</li>
-        <span class="divider"></span>
-        <li class="icon pointer">
-          <span class="material-icons-outlined">people</span>Workspace visible
-        </li>
+        
         <span class="divider"></span>
         <div class="icon-user pointer">
           <li
@@ -52,7 +47,7 @@
             ></avatar>
           </li>
         </div>
-        <li class="icon pointer">
+        <li class="icon pointer" @click="toggleInvite">
           <span class="material-icons-outlined">person_add</span>Invite
         </li>
       </ul>
@@ -101,6 +96,7 @@
         <!-- <li class="icon pointer">
           <span class="material-icons-outlined">flash_on</span>Automation
         </li> -->
+        <boardMember v-if="isInvite"/>
         <span class="divider"></span>
         <li class="icon pointer">
           <span class="material-icons-outlined">filter_list</span>Filter
@@ -117,6 +113,7 @@
 <script>
 import avatar from "vue-avatar";
 import navMenu from "./menu/nav-menu.vue";
+import boardMember from "./board-member.vue"
 
 export default {
   name: "navBoard",
@@ -128,6 +125,7 @@ export default {
       isShowProfile: false,
       showMenu: false,
       currMember: null,
+      isInvite:false,
     };
   },
   computed: {
@@ -147,13 +145,15 @@ export default {
     editTitle() {
       this.isEditTitle = !this.isEditTitle;
     },
+    toggleInvite() {
+      this.isInvite = !this.isInvite;
+    },
     async removeMember() {
       try {
         var res = await this.$store.dispatch({
           type: "removeMember",
           member: this.currMember,
         });
-        console.log(res);
         if (res) return (this.isShowProfile = false);
       } catch (err) {
         console.log(err);
@@ -161,7 +161,6 @@ export default {
     },
 
     showProfile(member) {
-      console.log("clickk");
       this.isShowProfile = !this.isShowProfile;
       this.currMember = member;
     },
@@ -175,15 +174,14 @@ export default {
         this.$refs.input.select();
       } else this.$refs.input.focus();
     },
-    // group(val){
-    //   this.group = val
-    // }
+  
   },
 
   mounted() {},
   components: {
     avatar,
     navMenu,
+    boardMember
   },
 };
 </script>

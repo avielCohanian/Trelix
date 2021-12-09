@@ -1,12 +1,9 @@
 <template>
-    <section class="groups">
-        <!-- <draggable
-            class="list-group flex"
-            v-model="groups"
-            @change="onDrug"
-            @end="endDragg"
-        >
-        </draggable> -->
+    <section class="groups" >
+        <!-- @mouseover="login" @keydown="isOver" @keyup="isOver"> -->
+        <!-- <div class="mouseover" :style="move">
+             <span class="material-icons-outlined"> favorite </span>
+         </div> -->
         <Container
             orientation="horizontal"
             @drop="onColumnDrop($event)"
@@ -60,12 +57,14 @@ import { applyDrag } from '../service/util.service.js';
 import group from '../cmp/group.vue';
 // import draggable from 'vuedraggable';
 import { Container, Draggable } from 'vue-smooth-dnd';
+// import NavSide from './nav-side.vue';
 
 export default {
     name: 'groups',
    
     data() {
         return {
+            // isOpenModal:true,
             isAddGroup: false,
             newGroup: boardService.getEmptyGroup(),
             groups: [],
@@ -75,6 +74,8 @@ export default {
                 animationDuration: '150',
                 showOnTop: true,
             },
+            // mouseOver:true
+            
         };
     },
     created() {
@@ -82,10 +83,18 @@ export default {
         this.board=JSON.parse(JSON.stringify(this.$store.getters.getBoard)) 
     },
     methods: {
+        // login(ev){
+        //     if (this.mouseOver) {
+        //         this.$store.dispatch({type:'updateMouse', mouseEvent:{x:ev.clientX+100, y:ev.clientY+100}})
+        //     }
+        // },
+        // isOver(){
+        //         this.mouseOver=!this.mouseOver
+        // },
         async onColumnDrop(dropResult) {
             const board = Object.assign({}, this.board);
             board.groups = applyDrag(board.groups, dropResult);
-            await this.$store.dispatch({ type: 'updateBoard', board });
+            await this.$store.dispatch({ type: 'updateBoard', board  });
         },
         async endDragg() {
             await this.$store.dispatch({
@@ -128,12 +137,15 @@ export default {
                 console.log(err);
             }
         },
-        onDrug(evt) {
-            // window.console.log(evt);
-            // this.updateGroups();
-        },
+       
     },
     computed: {
+        // move(){
+            
+        //     const target =this.$store.getters.getMouseEvents
+        //     console.log(target);
+        //     return{top:`${target.y}px`,left:`${target.x}px`}
+        // },
         getGroups() {
             return this.groups;
         },
@@ -142,11 +154,12 @@ export default {
         Draggable,
         Container,
         group,
+        // NavSide,
     },
     watch: {
         '$store.getters.getBoard'(board) {
             this.board = {...board}
-            this.groups = board.groups;
+            this.groups = [...board.groups]
         },
     },
 };
@@ -155,5 +168,13 @@ export default {
 <style lang="scss">
     .card-ghost{
         transform: rotateZ(5deg);
+    }
+    .mouseover{
+        position: fixed;
+        z-index: 100000;
+        height: 50px;
+        width: 50px;
+        color: red;
+
     }
 </style>

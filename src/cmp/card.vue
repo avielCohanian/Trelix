@@ -53,8 +53,14 @@
       </header>
 
       <!-- labels  -->
-
-      <div class="icons" v-if="isBadgetsExist">
+<!-- v-if="isBadgetsExist" -->
+      <div class="icons" v-if="
+      card.dueDate ||
+      card.description ||
+      card.attachment ||
+      card.checklists ||
+      card.comments
+      ">
         <!-- dueDate -->
         <div
           class="due-date icon"
@@ -109,103 +115,12 @@
         </div>
       </div>
     </section>
-    <!-- <main>
-      <div v-if="isOpenEditor" class="editor" @click="openEditor">
-        <p
-          class="material-icons-outlined btn-x pointer"
-          @click.stop.prevent="openEditor"
-        >
-          close
-        </p>
-        <div class="edit-txt" @click.stop>
-          <el-input type="textarea" :rows="5" v-model="cardToUpdate.title">
-          </el-input>
-          <el-button type="primary" @click.stop="openEditor">Save</el-button>
-        </div>
-        <div class="chose-edit">
-          <ul>
-            <li @click.stop.prevent="openDetails(card.id)" class="pointer">
-              <span class="material-icons-outlined"> branding_watermark </span
-              >Open card
-            </li>
-            <li
-              @click.stop="dynamicCmp('labels', 'labels', $event)"
-              class="pointer"
-            >
-              <span class="material-icons-outlined"> sell </span>Edit labels
-            </li>
-            <li
-              @click.stop.prevent="dynamicCmp('members', 'members', $event)"
-              class="pointer"
-            >
-              <span class="material-icons-outlined"> person_outline </span
-              >Change members
-            </li>
-            <li
-              @click.stop.prevent="dynamicCmp('cover', 'cover', $event)"
-              class="pointer"
-            >
-              <span class="material-icons-outlined"> branding_watermark </span
-              >Change cover
-            </li>
-            <li class="pointer">
-              <span class="material-icons-outlined"> arrow_forward </span>Move
-            </li>
-            <li class="pointer">
-              <span class="material-icons-outlined"> file_copy </span>Copy
-            </li>
-            <li @click.stop.prevent="dynamicCmp('dates')" class="pointer">
-              <span class="material-icons-outlined"> watch_later </span>
-              Edit dates
-            </li>
-            <li @click.stop.prevent="deleteCard" class="pointer">
-              <span class="material-icons-outlined"> move_to_inbox </span
-              >Archive
-            </li>
-          </ul>
-        </div>
-        <div class="dynamic-cmp" v-if="component.currCmp" @click.stop=""
-        :style="{ top: component.position.y + 'px', left: component.position.x + 'px' }"
-        >
-          <header>
-            <h2>{{ component.name }}</h2>
-            <a @click.stop.prevent="closeModel" class="el-icon-close"> </a>
-          </header>
-          <component
-            :is="component.currCmp"
-            :card="card"
-            :header="component.header"
-            :label="label"
-            @closeModel="closeModel"
-            @dynamicCmp="dynamicCmp"
-            @updateMember="updateMember"
-            @changeBcg="changeBcg"
-            @updateLabel="updateLabel"
-            @addLabel="addLabel('Create label', $event)"
-            @editLabel="editLabel"
-            @newLabel="newLabel"
-            @deleteLabel="deleteLabel"
-            @changeBcgSize="changeBcgSize"
-             @searchImgCmp="dynamicCmp('coverSearch', 'photo search', $event)"
-            @backLabel="dynamicCmp('labels', 'labels', $event)"
-          >
-          </component>
-        </div>
-      </div>
-    </main> -->
   </section>
 </template>
 
 <script>
 import { boardService } from '../service/board.service';
 import avatar from 'vue-avatar';
-// import member from "./edit/edit-member.vue";
-// import label from "./edit-label.vue";
-// import addLabel from './edit/add-label.vue';
-// import cover from "./edit/edit-cover.vue";
-// import attachment from "./edit/edit-attachment.vue";
-// import trelix from "./edit/edit-trelix.vue";
-// import coverSearch from './edit/edit-cover-search.vue';
 
 export default {
   name: 'card',
@@ -219,29 +134,10 @@ export default {
       isHover: false,
       isOpenEditor: false,
       cardToUpdate: null,
-      //  component: {
-      //     currCmp: null,
-      //     header: '',
-      //     position: { x: '', y: '' },
-      //   },
-      //   minComponent: {
-      //     currCmp: null,
-      //     name: '',
-      //     txt: '',
-      //     type: '',
-      //     title: '',
-      //     btnTxt: '',
-      //     position: { x: '', y: '' },
-      //   },
-      //   label: { type: '', currLabel: null },
-      //   propCmp: this.cmp,
     };
   },
   mounted() {},
   created() {
-    // if (this.cmp) {
-    //   this.dynamicCmp(this.cmp);
-    // }
     try {
       this.cardToUpdate = JSON.parse(JSON.stringify(this.card));
       this.labels = this.myLabels;
@@ -256,38 +152,7 @@ export default {
     }
   },
   methods: {
-    // changeBcg(color) {
-    //   let card = JSON.parse(JSON.stringify(this.card));
-
-    //   if (card.style.bgUrl !== color && color.length > 15) {
-    //     card.style.bgUrl = color;
-    //     card.style.bgColor = null;
-    //   } else if (card.style.bgColor !== color) {
-    //     if (color === card.style.bgColor || color === card.style.bgUrl) {
-    //       console.log(color, "aa");
-    //       card.style.bgColor = null;
-    //       card.style.bgUrl = null;
-    //     } else {
-    //       card.style.bgColor = color;
-    //       card.style.bgUrl = null;
-    //     }
-    //   } else {
-    //     card.style.bgColor = null;
-    //     card.style.bgUrl = null;
-    //   }
-    //   if (!card.style.isFull) card.style.isFull = false;
-
-    //   this.closeModel();
-    //   this.$emit("updateCard", card);
-    // },
-    // changeBcgSize(size) {
-    //   let card = JSON.parse(JSON.stringify(this.card));
-    //   card.style.isFull = size;
-    //   this.$emit("updateCard", card);
-    // },
-    // isDone(){
-    //   this.isCardDone = !this.isCardDone;
-    // },
+    
     async isDone() {
       this.isCardDone = !this.isCardDone;
       try {
@@ -300,38 +165,9 @@ export default {
         console.log(err);
       }
     },
-    // async getLabel() {
-    //   let { boardId } = this.$route.params;
-    //   try {
-    //     let labels = await boardService.getLabelByCard(boardId, this.card);
-    //     return labels;
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
     toggleLabel() {
       this.isLabelText = !this.isLabelText;
     },
-    // dynamicCmp(cmp, header, e = null) {
-    //   console.log(cmp);
-    //   console.log(header);
-    //   // console.log(this.component);
-    //   this.component.currCmp = null;
-    //   // console.log( this.minComponent.currCmp);
-    //   this.minComponent.currCmp = null;
-    //   this.component.position = { x: "", y: "" };
-    //   this.component.header =
-    //     cmp.name && cmp.name.name ? cmp.name.name : header;
-
-    //   console.log(this.component.header);
-    //   this.component.position.x = 450;
-    //   if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
-    //     console.log(this.component);
-    //     this.component.position.y = cmp.pos.y;
-    //   } else this.component.position.y = e.clientY;
-    //   this.component.currCmp =
-    //     cmp.name && cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp}`;
-    // },
     closeModel() {
       this.component.currCmp = null;
     },
@@ -359,22 +195,6 @@ export default {
         console.log(err);
       }
     },
-    //  async updateCard(card) {
-    //   try {
-    //     if (!card) card = JSON.parse(JSON.stringify(this.card));
-    //     console.log(card);
-    //     await this.$store.dispatch({
-    //       type: 'updateCard',
-    //       card,
-    //     });
-    //     this.cmp.cmp = null;
-    //     this.cmp.id = null;
-    //     await this.loadCard();
-    //     this.$emit('updateCard');
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
     openEditor() {
       this.isOpenEditor = !this.isOpenEditor;
     },
@@ -386,71 +206,7 @@ export default {
       const boardId = this.$route.params.boardId;
       this.$router.push(`/board/${boardId}/${this.card.id}`);
     },
-    // updateLabel(label) {
-    //   let card = JSON.parse(JSON.stringify(this.card));
-    //   if (card.labelIds.some((labelId) => labelId.lId === label.id)) {
-    //     const labelIdx = card.labelIds.findIndex(
-    //       (labelId) => labelId.id === label.id
-    //     );
-    //     card.labelIds.splice(labelIdx, 1);
-    //   } else {
-    //     let currLabel = { lId: label.id, isDone: false };
-    //     card.labelIds.push(currLabel);
-    //   }
-    //   this.$emit("updateCard", card);
-    // },
-    // addLabel(header, e) {
-    //   this.label.type = "add";
-    //   this.dynamicCmp("addLabels", header, e);
-    // },
-    // editLabel({ labelId, e }) {
-    //   console.log(labelId);
-    //   let label = this.$store.getters.boardLabels;
-    //   label = label.find((l) => l.id === labelId);
-    //   this.label.currLabel = JSON.parse(JSON.stringify(label));
-
-    //   this.label.type = "edit";
-    //   this.dynamicCmp("addLabels", "Change label", e);
-    // },
-    // deleteLabel(labelId) {
-    //   console.log(labelId);
-    //   this.$emit("deleteLabel", labelId);
-    //   setTimeout(() => {
-    //     this.closeModel();
-    //   }, 0);
-    // },
-    // updateMember(currMember) {
-    //   let card = JSON.parse(JSON.stringify(this.card));
-    //   if (card.members.some((member) => member._id === currMember._id)) {
-    //     const labelIdx = card.members.findIndex(
-    //       (member) => member._id === currMember._id
-    //     );
-    //     card.members.splice(labelIdx, 1);
-    //   } else {
-    //     card.members.push(currMember);
-    //   }
-    //   this.$emit("updateCard", card);
-    // },
-    // async newLabel(newLabel) {
-    //   this.updateLabel(newLabel);
-    //   try {
-    //     console.log(newLabel);
-    //     await this.$store.dispatch({ type: "addLabel", newLabel });
-
-    //     let card = JSON.parse(JSON.stringify(this.card));
-
-    //     const lIdx = card.labelIds.findIndex((l) => l.id === newLabel.id);
-    //     if (lIdx) {
-    //       const labelToUpdate = { lId: newLabel.id, isDone: false };
-    //       card.labelIds.splice(lIdx, 1, labelToUpdate);
-    //       this.$emit("updateCard", card);
-    //     }
-    //     this.label.currLabel = null;
-    //     this.closeModel();
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
+    
   },
   computed: {
     labelsForDisplay() {
@@ -529,34 +285,14 @@ export default {
       });
       return carrLabels;
     },
-
-    // let { boardId } = this.$route.params;
-    //   let labels = await boardService.getLabelByCard(boardId, this.card);
-    //   console.log('labels',labels);
-    //     return this.labels = labels
-    // }
   },
   watch: {
     card(val) {
       this.card = val;
     },
-    // '$store.getters.cmpDyn'() {
-    //   console.log(this.$store.getters.cmpDyn);
-    //   let cmp = JSON.parse(JSON.stringify(this.$store.getters.cmpDyn));
-    //   if (cmp) {
-    //     cmp.name.type ? this.minDynamicCmp(cmp) : this.dynamicCmp(cmp);
-    //   }
-    // },
   },
   components: {
     avatar,
-    // 'card-attachment': attachment,
-    // 'card-trelix': trelix,
-    // 'card-members': member,
-    // 'card-labels': label,
-    // 'card-addLabels': addLabel,
-    // 'card-cover': cover,
-    // 'card-coverSearch': coverSearch,
   },
 };
 </script>
