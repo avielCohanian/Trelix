@@ -48,7 +48,7 @@ export const boardStore = {
   },
   mutations: {
     updateModal(state, { isModal }) {
-      console.log(isModal);
+      // console.log(isModal);
       state.modal = isModal;
     },
     updateStyleHeader(state, { color }) {
@@ -102,7 +102,8 @@ export const boardStore = {
       try {
         const board = JSON.parse(JSON.stringify(getters.getBoard));
         let updateBoard = await boardService.addCard(board, groupId, newCard);
-        socketService.emit('update', updateBoard);
+        // socketService.emit('update', updateBoard);
+        socketService.emit('updateCard', card);
 
         // commit({ type: 'setBoard', board: updateBoard });
         return updateBoard;
@@ -115,12 +116,11 @@ export const boardStore = {
       const board = getters.getBoard;
       try {
         const updateBoard = await boardService.updateCard(board, card);
-        // console.log(updateBoard, 'updateBoard');
-        // socketService.emit('update', updateBoard)
-        commit({ type: 'setBoard', board: updateBoard });
+        // commit({type:)
         commit({ type: 'setCard', card });
+        socketService.emit('updateCard', card);
+        socketService.emit('update', updateBoard);
 
-        // socketService.emit('update', updateBoard)
         return updateBoard;
       } catch (err) {
         console.log(err);
@@ -161,9 +161,10 @@ export const boardStore = {
       }
     },
 
-    async updateBoard({ commit }, { board }) {
+    async updateBoard({ getters }, { board }) {
       try {
-        const updateBoard = await boardService.updatedBoard(board);
+        const updateBoard = await boardService.updatedBoard(board, getters.getUserConnect);
+
         // console.log('before socket emit ');
         // socketService.emit('update board',updateBoard)
         socketService.emit('update', updateBoard);
@@ -279,6 +280,12 @@ export const boardStore = {
       } catch (err) {
         console.log(err);
       }
+    },
+    addActivity({ getters, dispatch }, { activity }) {
+      let board = JSON.parse(JSON.stringify(getters.getBoard));
+      console.log(board.activities, 'chack');
+      board.activities.unshift(activity);
+      dispatch({ type: 'updateBoard', board });
     },
   },
 };

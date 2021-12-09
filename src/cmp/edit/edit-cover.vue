@@ -8,7 +8,19 @@
     <div class="size">
       <h4>Size</h4>
       <div class="size-container">
-        <div class="size-card half" @click="size('half')">
+        <div class="size-card half" @click="size('half')" v-if="!card.style.isFull" :style="isSelect">
+          <div class="header"></div>
+          <div class="size-body">
+            <div class="size-1"></div>
+            <div class="size-2"></div>
+            <div class="size-3">
+              <span class="size-3-1"></span>
+              <span class="size-3-1"></span>
+            </div>
+            <div class="size-4"></div>
+          </div>
+        </div>
+        <div v-else class="size-card half" @click="size('half')">
           <div class="header"></div>
           <div class="size-body">
             <div class="size-1"></div>
@@ -21,13 +33,24 @@
           </div>
         </div>
 
-        <div class="size-card full" @click="size('full')">
-          <div class="header"></div>
-          <div class="size-body">
-            <span class="size-1"></span>
-            <span class="size-2"></span>
+        <span class="style" v-if="card.style.isFull" :style="isSelect">
+          <div class="size-card full" @click="size('full')">
+            <div class="header"></div>
+            <div class="size-body">
+              <span class="size-1"></span>
+              <span class="size-2"></span>
+            </div>
           </div>
-        </div>
+        </span>
+        <span class="style" v-else>
+          <div class="size-card full" @click="size('full')">
+            <div class="header"></div>
+            <div class="size-body">
+              <span class="size-1"></span>
+              <span class="size-2"></span>
+            </div>
+          </div>
+        </span>
       </div>
     </div>
     <a class="removeCaver" v-if="card.style && (card.style.bgColor || card.style.bgUrl)" @click="changeBgc(0)"
@@ -56,9 +79,11 @@
         <li
           v-for="(att, idx) in attToShow"
           :key="idx"
-          :style="{ backgroundImage: `url(${att.url})` }"
+          :style="{ backgroundImage: `url(${att.url})`, isSelect }"
           @click="changeBgc({ backgroundImage: `url(${att.url})` })"
-        ></li>
+        >
+          <span></span>
+        </li>
       </ul>
 
       <div class="btn-container">
@@ -130,9 +155,6 @@ export default {
       const imgs = await imgService.getImgs(this.search);
       this.imgs = imgs.splice(0, 6);
     },
-    isSelect() {
-      return 'box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #5ba4cf';
-    },
     searchImgCmp(e) {
       this.$emit('searchImgCmp', 'photo search', e);
     },
@@ -145,6 +167,9 @@ export default {
     },
   },
   computed: {
+    isSelect() {
+      return { boxShadow: '0 0 0 2px #ffffff, 0 0 0 4px #5ba4cf' };
+    },
     attToShow() {
       let attC = JSON.parse(JSON.stringify(this.card.attachment.computerAttachment));
       return attC.filter((att) => att.url);

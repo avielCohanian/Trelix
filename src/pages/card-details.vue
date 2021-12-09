@@ -1,6 +1,5 @@
 <template>
-
-  <section class="screen" v-if="card "  @click="closeDetails" >
+  <section class="screen" v-if="card" @click="closeDetails">
     <article class="card-details" @click.stop v-show="editor">
       <div class="color-header" v-if="card.style && (card.style.bgColor || card.style.bgUrl)" :style="bgColor">
         <span class="cover-back-btn">
@@ -231,8 +230,8 @@
             </p>
             <a class="add-item" @click="dynamicCmp({ cmp: { name: 'attachment' } }, null, $event)">Add an attachment</a>
           </div>
-
-          <div class="checklists-container" v-if="card.checklists">
+          <!-- v-if="card.checklists" -->
+          <div class="checklists-container">
             <check-list
               v-for="checklist in card.checklists"
               :key="checklist.id"
@@ -252,7 +251,6 @@
           </div>
         </div>
         <card-edit
-       
           class="card-edit"
           :card="card"
           :cmp="dynamicCmpToShow"
@@ -266,19 +264,19 @@
         ></card-edit>
       </div>
     </article>
-     <card-edit
-      v-show="!editor"
-          class="card-edit"
-          :card="card"
-          :cmp="dynamicCmpToShow"
-          @updateCard="updateCard"
-          @removeAtt="removeAtt"
-          @updateAtt="updateAtt"
-          @closeModel="closeModel"
-          @removeChecklist="removeChecklist"
-          @updateChecklist="updateChecklist"
-          @deleteLabel="deleteLabel"
-        ></card-edit>
+    <card-edit
+      v-if="!editor"
+      class="card-edit"
+      :card="card"
+      :cmp="dynamicCmpToShow"
+      @updateCard="updateCard"
+      @removeAtt="removeAtt"
+      @updateAtt="updateAtt"
+      @closeModel="closeModel"
+      @removeChecklist="removeChecklist"
+      @updateChecklist="updateChecklist"
+      @deleteLabel="deleteLabel"
+    ></card-edit>
   </section>
 </template>
 
@@ -321,6 +319,7 @@ export default {
         });
         const card = JSON.parse(JSON.stringify(currCard));
         // if (!card.style.bgUrl) card.style.bgUrl = { backgroundImage: null };
+        console.log(card.style, 'loadCard style');
         this.card = card;
         if (this.card.labelIds) {
           this.labels = await this.getLabel();
@@ -432,7 +431,7 @@ export default {
         });
         this.cmp.cmp = null;
         this.cmp.id = null;
-        await this.loadCard();
+        // await this.loadCard();
         this.$emit('updateCard');
       } catch (err) {
         console.log(err);
@@ -509,6 +508,7 @@ export default {
       console.log(card.comments);
       this.updateCard(card);
       console.log(card.comments);
+      this.$store.dispatch({ type: 'addActivity', activity: commit });
     },
     updateCmm(commit) {
       let card = JSON.parse(JSON.stringify(this.card));
@@ -556,6 +556,7 @@ export default {
       return new Date(t).getUTCDay() + 1;
     },
     bgColor() {
+      console.log(this.card.style.bgColor);
       if (this.card.style.bgColor) {
         return { backgroundColor: this.card.style.bgColor };
       } else if (this.card.style.bgUrl) {
@@ -564,9 +565,9 @@ export default {
         };
       }
     },
-     editor(){
-       console.log(this.$store.getters.getModalForDisplay);
-return this.$store.getters.getModalForDisplay
+    editor() {
+      console.log(this.$store.getters.getModalForDisplay);
+      return this.$store.getters.getModalForDisplay;
     },
   },
   watch: {
@@ -577,6 +578,10 @@ return this.$store.getters.getModalForDisplay
           this.$refs.editInput.select();
         }, 0);
       }
+    },
+    '$store.getters.currCard'() {
+      this.card = this.$store.getters.currCard;
+      console.log(this.$store.getters.currCard, 'change card watch details');
     },
   },
   mounted() {

@@ -19,7 +19,7 @@
           :class="edit"
           placeholder="Write a comment..."
           class="comment-edit"
-          v-model="newCommit.txt"
+          v-model="newCommit.cmmTxt"
           @click="editModeComment"
         />
         <div class="edit-btn" v-if="edit">
@@ -39,13 +39,13 @@
           <strong>{{ cmm.byMember.fullname }}</strong>
           {{ cmm.createdAt | moment('from') }}
 
-          <!-- :value="cmm.txt" -->
+          <!-- :value="cmm.cmmTxt" -->
           <input
             type="textarea"
             placeholder="Write a comment..."
             class="comment-edit"
             :class="editCmm(cmm.id)"
-            v-model="cmm.txt"
+            v-model="cmm.cmmTxt"
             @click.stop
           />
 
@@ -88,7 +88,6 @@ export default {
   created() {
     this.user = this.$store.getters.getUserConnect;
     this.newCommit = this.getEmptyActivity();
-    console.log(this.user);
   },
   methods: {
     showActivity() {
@@ -101,7 +100,7 @@ export default {
       this.editMode = false;
     },
     editUserComment(cmm) {
-      this.activity = cmm;
+      this.activity = JSON.parse(JSON.stringify(cmm));
       console.log(this.activity.id);
     },
     saveCommit(cmmId = null) {
@@ -123,8 +122,8 @@ export default {
     },
     getEmptyActivity() {
       return {
-        id: null,
-        txt: '',
+        cmmTxt: '',
+        txt: 'added commit ',
         createdAt: Date.now(),
         byMember: {},
         card: {
@@ -149,8 +148,8 @@ export default {
       return 'save';
     },
     currCommits() {
-      console.log(this.$store.getters.currCard);
-      return JSON.parse(JSON.stringify(this.$store.getters.currCard.comments));
+      // console.log(this.$store.getters.currCard);
+      return this.$store.getters.currCard.comments;
     },
   },
 

@@ -23,15 +23,16 @@ export const boardService = {
   getTemplates,
   createBoardTemp
 };
-function _getEmptyActivity() {
+function _getEmptyActivity(txt='',title='',id, byMember={}) {
   return {
     id: makeId(),
-    txt: '',
+    cmmTxt:'',
+    txt,
     createdAt: Date.now(),
-    byMember: {},
+    byMember,
     card: {
-      id: '',
-      title: '',
+      id,
+      title
     },
   };
 }
@@ -98,9 +99,17 @@ async function query() {
 }
 
 // Board
-function updatedBoard(board) {
-  return _updateService(board);
+function updatedBoard(board,userConnect,type='makeChange',loc = {title:board.title ,id:board._id } ) {
+  // console.log(board,userConnect,type,loc ,'upppp' )
+  const copyBoard = JSON.parse(JSON.stringify(board))
+   const copyUser= JSON.parse(JSON.stringify(userConnect))
+   delete copyUser.boards
+   const newActivity =_getEmptyActivity(type, loc.title, loc.id, copyUser)
+  copyBoard.activities.unshift(newActivity)
+
+  return _updateService(copyBoard);
 }
+
 async function getBoardsForDisplay(userLog) {
   console.log(userLog);
   try {

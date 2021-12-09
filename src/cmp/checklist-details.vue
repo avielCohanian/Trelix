@@ -95,7 +95,6 @@ export default {
   },
   created() {
     this.copyList = JSON.parse(JSON.stringify(this.checklist));
-    console.log(this.checklist);
   },
   methods: {
     editCurrentTodo(todoId) {
