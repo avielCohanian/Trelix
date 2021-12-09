@@ -556,7 +556,6 @@ export default {
       return new Date(t).getUTCDay() + 1;
     },
     bgColor() {
-      console.log(this.card.style.bgColor);
       if (this.card.style.bgColor) {
         return { backgroundColor: this.card.style.bgColor };
       } else if (this.card.style.bgUrl) {
@@ -566,7 +565,6 @@ export default {
       }
     },
     editor() {
-      console.log(this.$store.getters.getModalForDisplay);
       return this.$store.getters.getModalForDisplay;
     },
   },
@@ -579,9 +577,9 @@ export default {
         }, 0);
       }
     },
-    '$store.getters.currCard'() {
+    async '$store.getters.currCard'() {
       this.card = this.$store.getters.currCard;
-      console.log(this.$store.getters.currCard, 'change card watch details');
+      this.labels = await this.getLabel();
     },
   },
   mounted() {

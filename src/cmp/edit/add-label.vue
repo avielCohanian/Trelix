@@ -39,7 +39,7 @@
       </span>
     </ul>
     <div class="flex-space">
-      <a class="add-label" @click="addLabel($event)">Save</a>
+      <a class="add-label" @click="addLabel">Save</a>
       <a v-if="label.type === 'edit'" class="delete-label" @click="deleteLabel(label.currLabel.id, $event)">Delete</a>
     </div>
   </section>
@@ -81,14 +81,15 @@ export default {
     }
   },
   methods: {
-    addLabel(e) {
+    addLabel() {
       console.log(this.label);
+      console.log(this.newLabel);
       if (this.label.currLabel) {
         console.log(this.label.currLabel);
         let labelToSave = JSON.parse(JSON.stringify(this.label.currLabel));
-        this.$emit('newLabel', labelToSave, e);
+        this.$emit('newLabel', labelToSave);
       } else {
-        this.$emit('newLabel', this.newLabel, e);
+        this.$emit('newLabel', this.newLabel);
       }
     },
     deleteLabel(labelId, e) {

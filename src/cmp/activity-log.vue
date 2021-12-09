@@ -104,11 +104,10 @@ export default {
       console.log(this.activity.id);
     },
     saveCommit(cmmId = null) {
-      console.log(this.newCommit);
-      console.log(cmmId);
       if (!cmmId) {
         this.newCommit.byMember = this.user;
         this.newCommit.id = utilService.makeId();
+        this.newCommit.createdAt = Date.now();
         this.$emit('saveCommit', this.newCommit);
         this.newCommit = this.getEmptyActivity();
       } else {
@@ -124,7 +123,7 @@ export default {
       return {
         cmmTxt: '',
         txt: 'added commit ',
-        createdAt: Date.now(),
+        createdAt: null,
         byMember: {},
         card: {
           id: '',

@@ -63,9 +63,10 @@
 
     <template>
       <div class="sidebar">
-        <div class="join-member" v-if="!userJoin">
+        <div class="join-member" v-if="join">
           <h3>Suggested</h3>
-          <a class="join-btn btn" @click="join('userId')">
+          <!-- @click="joinUser('userId')" -->
+          <a class="join-btn btn">
             <!-- v-if="meInCardMember(userId)" -->
             <span class="el-icon-user icon"></span> Join</a
           >
@@ -179,6 +180,8 @@ import remove from './edit/remove-edit.vue';
 import cover from './edit/edit-cover.vue';
 import coverSearch from './edit/edit-cover-search.vue';
 
+import { utilService } from '../service/util.service.js';
+
 export default {
   name: 'cardEdit',
   props: {
@@ -226,17 +229,14 @@ export default {
       this.isShowModal = !this.isShowModal;
     },
     dynamicCmp(cmp, header, e = null) {
-      console.log(cmp);
-      console.log(header);
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
       this.component.position = { x: '', y: '' };
       this.component.header = cmp.name && cmp.name.name ? cmp.name.name : header;
       this.component.position.x = 450;
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
-        console.log(this.component);
-        this.component.position.y = cmp.pos.y;
-      } else this.component.position.y = e.clientY;
+        this.component.position.y = cmp.pos.y - 50;
+      } else this.component.position.y = e.clientY - 50;
       this.component.currCmp = cmp.name && cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp}`;
     },
 
@@ -263,10 +263,7 @@ export default {
       // this.position = null;
       this.$emit('closeModel');
     },
-    join(userId) {
-      //TODO
-      this.userJoin = true;
-    },
+
     changeBcg(color) {
       let card = JSON.parse(JSON.stringify(this.card));
 
@@ -299,7 +296,8 @@ export default {
     updateLabel(label) {
       let card = JSON.parse(JSON.stringify(this.card));
       if (card.labelIds.some((labelId) => labelId.lId === label.id)) {
-        const labelIdx = card.labelIds.findIndex((labelId) => labelId.id === label.id);
+        console.log(card.labelIds, 'card.labelIds');
+        const labelIdx = card.labelIds.findIndex((labelId) => labelId.lId === label.id);
         card.labelIds.splice(labelIdx, 1);
       } else {
         let currLabel = { lId: label.id, isDone: false };
@@ -372,19 +370,24 @@ export default {
       }, 0);
     },
     async newLabel(newLabel) {
+      newLabel.id = utilService.makeId();
+
       this.updateLabel(newLabel);
+
       try {
         console.log(newLabel);
-        await this.$store.dispatch({ type: 'addLabel', newLabel });
+        let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
 
-        let card = JSON.parse(JSON.stringify(this.card));
-
-        const lIdx = card.labelIds.findIndex((l) => l.id === newLabel.id);
-        if (lIdx) {
-          const labelToUpdate = { lId: newLabel.id, isDone: false };
-          card.labelIds.splice(lIdx, 1, labelToUpdate);
-          this.$emit('updateCard', card);
+        const lIdx = board.labels.findIndex((l) => l.id === newLabel.id);
+        if (lIdx >= 0) {
+          board.labelIds.splice(lIdx, 1, labelToUpdate);
+        } else {
+          const labelToUpdate = { id: newLabel.id, title: newLabel.title, color: newLabel.color };
+          board.labels.push(labelToUpdate);
         }
+        console.log(board.labels);
+        this.$emit('updateBoard', board);
+        this.$store.dispatch({ type: 'updateBoard', board });
         this.label.currLabel = null;
         this.closeModel();
       } catch (err) {
@@ -408,6 +411,14 @@ export default {
   computed: {
     meInCardMember(userId) {
       this.card.members.some(member._id === userId);
+    },
+    join() {
+      let userId = this.$store.getters.getters;
+      console.log(this.card.members);
+      if (this.card.members.some((m) => m.id === userId)) {
+        return false;
+      }
+      return true;
     },
   },
   watch: {

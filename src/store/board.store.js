@@ -116,8 +116,7 @@ export const boardStore = {
       const board = getters.getBoard;
       try {
         const updateBoard = await boardService.updateCard(board, card);
-        // commit({type:)
-        commit({ type: 'setCard', card });
+        // commit({ type: 'setCard', card });
         socketService.emit('updateCard', card);
         socketService.emit('update', updateBoard);
 
@@ -256,7 +255,7 @@ export const boardStore = {
     async addLabel({ commit, getters }, { newLabel }) {
       const board = JSON.parse(JSON.stringify(getters.getBoard));
       if (!newLabel.id) {
-        newLabel.lId = utilService.makeId();
+        // newLabel.lId = utilService.makeId();
         board.labels.push(newLabel);
       } else {
         // board.groups.forEach((g) => {
