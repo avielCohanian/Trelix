@@ -273,9 +273,11 @@
       @removeAtt="removeAtt"
       @updateAtt="updateAtt"
       @closeModel="closeModel"
+      @closeDetails="closeDetails"
       @removeChecklist="removeChecklist"
       @updateChecklist="updateChecklist"
       @deleteLabel="deleteLabel"
+      @deleteCard="deleteCard"
     ></card-edit>
   </section>
 </template>
@@ -522,6 +524,19 @@ export default {
       card.comments.splice(cmmIdx, 1);
       this.updateCard(card);
     },
+      async deleteCard(card) {
+        try {
+          await this.$store.dispatch({
+            type: 'deleteCard',
+          card,
+        });
+
+          this.closeDetails()
+
+      } catch (err) {
+        console.log(err);
+      }
+    }
   },
   computed: {
     dynamicCmpToShow() {

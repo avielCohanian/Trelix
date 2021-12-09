@@ -13,7 +13,7 @@
       @click.stop="openDetails(true)"
     ></div>
 
-    <span class="material-icons-outlined edit" @click.stop="openDetails(false)" :style="isShow"> create </span>
+    <span class="material-icons-outlined edit pointer" @click.stop="openDetails(false)" :style="isShow"> create </span>
 
     <section
       :style="bgColorFull"

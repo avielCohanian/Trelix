@@ -1,11 +1,11 @@
 <template>
   <section class="card-edit">
-    <section v-if="!isShowModal">
+    <section v-if="!cmpToShow">
       <div class="editor">
-        <p class="material-icons-outlined btn-x pointer" @click.stop.prevent="closeModel">close</p>
+        <p class="material-icons-outlined btn-x pointer" @click.stop="closeDetails">close</p>
         <div class="edit-txt" @click.stop>
           <el-input type="textarea" :rows="5" v-model="cardToUpdate.title"> </el-input>
-          <el-button type="primary" @click.stop="closeModel">Save</el-button>
+          <el-button type="primary" @click="saveCard">Save</el-button>
         </div>
         <div class="chose-edit">
           <ul>
@@ -39,6 +39,7 @@
           :style="{ top: component.position.y + 'px', left: component.position.x + 'px' }"
         >
           <component
+            @click.stop
             :is="component.currCmp"
             :card="card"
             :header="component.header"
@@ -61,7 +62,7 @@
       </div>
     </section>
 
-    <template>
+    <template v-else>
       <div class="sidebar">
         <div class="join-member" v-if="join">
           <h3>Suggested</h3>
@@ -195,7 +196,6 @@ export default {
   },
   data() {
     return {
-      isShowModal: null,
       isOpenEditor: false,
       cardToUpdate: null,
       component: {
@@ -218,7 +218,7 @@ export default {
     };
   },
   created() {
-    this.isShowModal = this.$store.getters.getModalForDisplay;
+    
     this.cardToUpdate = JSON.parse(JSON.stringify(this.card));
     if (this.cmp) {
       this.dynamicCmp(this.cmp);
@@ -226,7 +226,7 @@ export default {
   },
   methods: {
     switchModel() {
-      this.isShowModal = !this.isShowModal;
+      this.$store.commit({type:'updateModal',isModal:true})
     },
     dynamicCmp(cmp, header, e = null) {
       this.component.currCmp = null;
@@ -263,6 +263,17 @@ export default {
       // this.position = null;
       this.$emit('closeModel');
     },
+     saveCard() {
+      //  this.closeModel()
+      this.closeDetails()
+        this.$emit('updateCard',this.cardToUpdate)
+      
+    },
+    closeDetails(){
+      this.$emit('closeDetails')
+
+    },
+
 
     changeBcg(color) {
       let card = JSON.parse(JSON.stringify(this.card));
@@ -394,6 +405,10 @@ export default {
         console.log(err);
       }
     },
+    deleteCard() {
+        this.$emit('deleteCard',this.card)
+    },
+
   },
   components: {
     'card-attachment': attachment,
@@ -411,6 +426,9 @@ export default {
   computed: {
     meInCardMember(userId) {
       this.card.members.some(member._id === userId);
+    },
+    cmpToShow(){
+     return this.$store.getters.getModalForDisplay;
     },
     join() {
       let userId = this.$store.getters.getters;

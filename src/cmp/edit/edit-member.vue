@@ -1,5 +1,5 @@
 <template>
-  <section class="edit-member">
+  <section class="edit-member" @click.stop>
     <header>
       <h2 v-if="header">{{ header }}</h2>
       <a @click="closeModel" class="el-icon-close"> </a>

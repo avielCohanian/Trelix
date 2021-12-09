@@ -1,5 +1,5 @@
 <template>
-  <section class="edit-cover">
+  <section class="edit-cover" @click.stop>
     <header>
       <h2>{{ header }}</h2>
       <a @click="closeModel" class="el-icon-close"> </a>
