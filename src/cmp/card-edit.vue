@@ -7,7 +7,7 @@
    <div class="editor" >
         <p
           class="material-icons-outlined btn-x pointer"
-          @click.stop.prevent="closeModel"
+          @click.stop
         >
           close
         </p>

@@ -1,4 +1,5 @@
 <template>
+
   <section class="screen" v-if="card "  @click="closeDetails" >
     <article class="card-details" @click.stop v-show="editor">
       <div class="color-header" v-if="card.style && (card.style.bgColor || card.style.bgUrl)" :style="bgColor">

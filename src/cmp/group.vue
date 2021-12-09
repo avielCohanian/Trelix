@@ -351,5 +351,6 @@ export default {
 }
 .smooth-dnd-container{
     min-height: 3px;
+    min-width: 3px;;
 }
 </style>

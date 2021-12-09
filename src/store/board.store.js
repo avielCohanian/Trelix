@@ -10,7 +10,7 @@ export const boardStore = {
     currGroup: null,
     boardsForDisplay: null,
     styleHeader: null,
-    modal: null,
+    modal: true,
     // watchedUser: null,
     // currUser: userService.getLoggedinUser(),
   },
