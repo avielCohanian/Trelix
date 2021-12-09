@@ -81,32 +81,36 @@
         }
       }
 
-      .full {
-        background-color: #5e6c84;
-        opacity: 0.3;
-        position: relative;
-        .size-body {
-          position: absolute;
-          bottom: 4px;
-          padding: 6px 4px 4px 6px;
-          height: 20px;
-          width: 130px;
-          .size-1 {
-            background-color: #fff;
-            opacity: 1;
-            width: 116px;
-            height: 4px;
-            border-radius: 2px;
-            display: block;
-          }
-          .size-2 {
-            display: block;
-            background-color: #fff;
-            opacity: 1;
-            width: 92px;
-            margin-top: 4px;
-            height: 4px;
-            border-radius: 2px;
+      .style {
+        border-radius: 2px;
+        width: 98%;
+        .full {
+          background-color: #5e6c84;
+          position: relative;
+          opacity: 0.3;
+          .size-body {
+            position: absolute;
+            bottom: 4px;
+            padding: 6px 4px 4px 6px;
+            height: 20px;
+            width: 130px;
+            .size-1 {
+              background-color: #fff;
+              opacity: 1;
+              width: 116px;
+              height: 4px;
+              border-radius: 2px;
+              display: block;
+            }
+            .size-2 {
+              display: block;
+              background-color: #fff;
+              opacity: 1;
+              width: 92px;
+              margin-top: 4px;
+              height: 4px;
+              border-radius: 2px;
+            }
           }
         }
       }

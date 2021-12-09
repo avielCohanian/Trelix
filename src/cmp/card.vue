@@ -1,9 +1,5 @@
 <template>
-  <section
-    @mouseover="isHover = true"
-    @mouseleave="isHover = false"
-    class="card-preview"
-  >
+  <section @mouseover="isHover = true" @mouseleave="isHover = false" class="card-preview">
     <div
       v-if="card.style && card.style.isFull === false && card.style.bgColor"
       class="cover-Half"
@@ -17,13 +13,7 @@
       @click.stop="openDetails(true)"
     ></div>
 
-    <span
-      class="material-icons-outlined edit"
-      @click.stop="openDetails(false)"
-      :style="isShow"
-    >
-      create
-    </span>
+    <span class="material-icons-outlined edit" @click.stop="openDetails(false)" :style="isShow"> create </span>
 
     <section
       :style="bgColorFull"
@@ -46,9 +36,7 @@
               @click.stop.prevent="toggleLabel"
             >
               <transition name="fade">
-                <span class="label-title" v-if="label.title && isLabelText">{{
-                  label.title
-                }}</span>
+                <span class="label-title" v-if="label.title && isLabelText">{{ label.title }}</span>
               </transition>
             </span>
           </li>
@@ -76,39 +64,21 @@
           @click.stop="isDone"
           :class="{ 'done-card': isCardDone }"
         >
-          <span
-            v-if="isCardDone && showCheck"
-            class="material-icons-outlined icon"
-          >
-            check_box</span
-          >
-          <span
-            v-if="showCheck && !isCardDone"
-            class="material-icons-outlined icon check"
-            >crop_din</span
-          >
-          <span
-            v-if="!showCheck"
-            class="due-date-icon icon el-icon-time check"
-          ></span>
+          <span v-if="isCardDone && showCheck" class="material-icons-outlined icon"> check_box</span>
+          <span v-if="showCheck && !isCardDone" class="material-icons-outlined icon check">crop_din</span>
+          <span v-if="!showCheck" class="due-date-icon icon el-icon-time check"></span>
           <span v-if="card.dueDate.date">
-            {{ card.dueDate.date | moment("MMM ") }}
+            {{ card.dueDate.date | moment('MMM ') }}
             {{ dueDateDay }}</span
           >
         </div>
 
         <!-- description -->
-        <span
-          v-if="card.description && card.description.length > 0"
-          class="el-icon-s-unfold icon description"
-        ></span>
+        <span v-if="card.description && card.description.length > 0" class="el-icon-s-unfold icon description"></span>
 
         <!-- attachment -->
         <span
-          v-if="
-            card.attachment.computerAttachment &&
-            card.attachment.computerAttachment.length > 0
-          "
+          v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
           class="el-icon-paperclip icon"
         >
           {{ card.attachment.computerAttachment.length }}</span
@@ -134,18 +104,8 @@
       <!-- members -->
       <div class="members" v-if="card.members && card.members.length > 0">
         <div v-for="member in card.members" :key="member._id">
-          <avatar
-            v-if="member.imgUrl"
-            :src="member.imgUrl"
-            :size="28"
-            class="member-img"
-          />
-          <avatar
-            v-else
-            :username="member.username"
-            :size="28"
-            class="member"
-          ></avatar>
+          <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
+          <avatar v-else :username="member.username" :size="28" class="member"></avatar>
         </div>
       </div>
     </section>
@@ -237,8 +197,8 @@
 </template>
 
 <script>
-import { boardService } from "../service/board.service";
-import avatar from "vue-avatar";
+import { boardService } from '../service/board.service';
+import avatar from 'vue-avatar';
 // import member from "./edit/edit-member.vue";
 // import label from "./edit-label.vue";
 // import addLabel from './edit/add-label.vue';
@@ -247,9 +207,8 @@ import avatar from "vue-avatar";
 // import trelix from "./edit/edit-trelix.vue";
 // import coverSearch from './edit/edit-cover-search.vue';
 
-
 export default {
-  name: "card",
+  name: 'card',
   props: { card: null },
   data() {
     return {
@@ -260,23 +219,22 @@ export default {
       isHover: false,
       isOpenEditor: false,
       cardToUpdate: null,
-    //  component: {
-    //     currCmp: null,
-    //     header: '',
-    //     position: { x: '', y: '' },
-    //   },
-    //   minComponent: {
-    //     currCmp: null,
-    //     name: '',
-    //     txt: '',
-    //     type: '',
-    //     title: '',
-    //     btnTxt: '',
-    //     position: { x: '', y: '' },
-    //   },
-    //   label: { type: '', currLabel: null },
-    //   propCmp: this.cmp,
-      
+      //  component: {
+      //     currCmp: null,
+      //     header: '',
+      //     position: { x: '', y: '' },
+      //   },
+      //   minComponent: {
+      //     currCmp: null,
+      //     name: '',
+      //     txt: '',
+      //     type: '',
+      //     title: '',
+      //     btnTxt: '',
+      //     position: { x: '', y: '' },
+      //   },
+      //   label: { type: '', currLabel: null },
+      //   propCmp: this.cmp,
     };
   },
   mounted() {},
@@ -334,7 +292,7 @@ export default {
       this.isCardDone = !this.isCardDone;
       try {
         var res = await this.$store.dispatch({
-          type: "updateDuedate",
+          type: 'updateDuedate',
           newDone: this.isCardDone,
           card: JSON.parse(JSON.stringify(this.card)),
         });
@@ -380,10 +338,10 @@ export default {
     async deleteCard() {
       try {
         var res = await this.$store.dispatch({
-          type: "deleteCard",
+          type: 'deleteCard',
           card: this.card,
         });
-        this.$emit("updateGroup");
+        this.$emit('updateGroup');
         if (res) return this.openEditor();
       } catch (err) {
         console.log(err);
@@ -392,10 +350,10 @@ export default {
     async updateCard() {
       try {
         var res = await this.$store.dispatch({
-          type: "updateCard",
+          type: 'updateCard',
           card: this.cardToUpdate,
         });
-        this.$emit("updateGroup");
+        this.$emit('updateGroup');
         if (res) this.openEditor();
       } catch (err) {
         console.log(err);
@@ -423,7 +381,8 @@ export default {
     async openDetails(isModal) {
       //TODO: card id
       console.log(isModal);
-     await this.$store.commit({ type: 'updateModal', isModal });
+      this.$store.commit({ type: 'setCard', card: this.card });
+      await this.$store.commit({ type: 'updateModal', isModal });
       const boardId = this.$route.params.boardId;
       this.$router.push(`/board/${boardId}/${this.card.id}`);
     },
@@ -500,14 +459,7 @@ export default {
       }
     },
     isBadgetsExist() {
-      let badgets = [
-        "dueDate",
-        "comments",
-        "checklists",
-        "attachment",
-        "checklists",
-        "description",
-      ];
+      let badgets = ['dueDate', 'comments', 'checklists', 'attachment', 'checklists', 'description'];
       return Object.keys(this.card).some((_key) => badgets.includes(_key));
     },
     bgColorHalf() {
@@ -561,9 +513,7 @@ export default {
       return this.doneTodosAmount === this.todosAmount;
     },
     myLabels() {
-      let boardLabels = JSON.parse(
-        JSON.stringify(this.$store.getters.boardLabels)
-      );
+      let boardLabels = JSON.parse(JSON.stringify(this.$store.getters.boardLabels));
       let carrLabels = [];
       boardLabels.forEach((label) => {
         if (

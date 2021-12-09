@@ -78,7 +78,8 @@ section.card.img-cover {
     border-radius: 3px;
     box-shadow: 0 1px 0 #091e4240;
     cursor: pointer;
-    display: block;
+    display: flex; 
+    flex-direction: column;
     margin-bottom: 8px;
     width: 256px;
     // min-height: 41px;
@@ -95,6 +96,8 @@ section.card.img-cover {
     }
 
     .icons {
+        min-height: 0;
+        // padding-bottom: 7px;
         max-height: 28px;
         display: flex;
         justify-content: flex-start;
@@ -168,6 +171,7 @@ section.card.img-cover {
         }
 
         .label-title {
+            color: white;
             height: 16px;
             line-height: 16px;
             width: 198px;
