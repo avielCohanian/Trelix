@@ -1,7 +1,7 @@
 <template>
     <section class="group-container">
         <div class="group">
-            <header>
+            <header class="pointer">
                 <el-input
                     ref="input"
                     class="edit-title"
