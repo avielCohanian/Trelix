@@ -16,24 +16,29 @@ export default {
     };
   },
   created(){
-       
+      
     //  socketService.on('update board',this.msg)
     //     socketService.on('update board', msg=>{console.log(msg)})
 
   },
+  // destroyed(){
+  //   socketService.off(`update${this.$store.getters.getBoard._id}`)
+  // },
   methods: {
     updateBoard(updateBoard){
+      console.log(updateBoard.activities,'chack 2');
+
         this.$store.commit({ type: 'setBoard', board: updateBoard }); 
+    },
+    updateCard(updateCard){
+        this.$store.commit({ type: 'setCard', card:updateCard }); 
     }
   },
-//   async created() {
-//     try {
-//       await this.$store.dispatch({ type: 'logIn', user: { email: 'p', password: 'p' } });
-//       this.loadUser = true;
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   },
+   created() {
+  
+   this.$store.dispatch({ type: 'logIn', user: { email: 'eligranat@gmail.com', password: 'p' } });
+      // this.loadUser = true;
+  },
   components: {
     appHeader,
   },
@@ -41,8 +46,16 @@ export default {
   watch:{
     '$store.getters.getBoard'(){
       if (this.$store.getters.getBoard) {
-         socketService.on(`update${this.$store.getters.getBoard._id}`, this.updateBoard)
-        
+          socketService.on(`update${this.$store.getters.getBoard._id}`, this.updateBoard)
+      }
+
+    },
+    '$store.getters.currCard'(){
+      if (this.$store.getters.currCard) {
+        console.log(this.$store.getters.currCard,'before');
+          socketService.on(`updateCard${this.$store.getters.currCard.id}`, this.updateCard)
+        console.log(this.$store.getters.currCard ,'after');
+
       }
 
     }

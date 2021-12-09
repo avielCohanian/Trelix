@@ -230,8 +230,8 @@
             </p>
             <a class="add-item" @click="dynamicCmp({ cmp: { name: 'attachment' } }, null, $event)">Add an attachment</a>
           </div>
-
-          <div class="checklists-container" v-if="card.checklists">
+ <!-- v-if="card.checklists" -->
+          <div class="checklists-container">
             <check-list
               v-for="checklist in card.checklists"
               :key="checklist.id"
@@ -508,6 +508,7 @@ export default {
       console.log(card.comments);
       this.updateCard(card);
       console.log(card.comments);
+      this.$store.dispatch({type:'addActivity',activity:commit})
     },
     updateCmm(commit) {
       let card = JSON.parse(JSON.stringify(this.card));
@@ -577,6 +578,11 @@ return this.$store.getters.getModalForDisplay
         }, 0);
       }
     },
+    '$store.getters.currCard'(){
+      this.card = this.$store.getters.currCard
+      console.log(this.$store.getters.currCard ,'change card watch details');
+      
+    }
   },
   mounted() {
     // this.selectInInput();

@@ -10,7 +10,7 @@ export const boardStore = {
     currGroup: null,
     boardsForDisplay: null,
     styleHeader: null,
-    modal: null,
+    modal: true,
     // watchedUser: null,
     // currUser: userService.getLoggedinUser(),
   },
@@ -115,12 +115,7 @@ export const boardStore = {
       const board = getters.getBoard;
       try {
         const updateBoard = await boardService.updateCard(board, card);
-        // console.log(updateBoard, 'updateBoard');
-        // socketService.emit('update', updateBoard)
-        commit({ type: 'setBoard', board: updateBoard });
-        commit({ type: 'setCard', card });
-
-        // socketService.emit('update', updateBoard)
+        socketService.emit('updateCard', card);
         return updateBoard;
       } catch (err) {
         console.log(err);
@@ -161,9 +156,10 @@ export const boardStore = {
       }
     },
 
-    async updateBoard({ commit }, { board }) {
+    async updateBoard({ getters}, { board }) {
       try {
-        const updateBoard = await boardService.updatedBoard(board);
+        const updateBoard = await boardService.updatedBoard(board , getters.getUserConnect );
+        
         // console.log('before socket emit ');
         // socketService.emit('update board',updateBoard)
         socketService.emit('update', updateBoard);
@@ -280,5 +276,11 @@ export const boardStore = {
         console.log(err);
       }
     },
+     addActivity({getters , dispatch},{activity}){
+       let board = JSON.parse(JSON.stringify(getters.getBoard)) 
+       console.log(board.activities ,'chack');
+      board.activities.unshift(activity)
+      dispatch({type:'updateBoard',board})
+    }
   },
 };
