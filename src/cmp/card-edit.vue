@@ -222,6 +222,9 @@ export default {
     }
   },
   methods: {
+    switchModel() {
+      this.isShowModal = !this.isShowModal;
+    },
     dynamicCmp(cmp, header, e = null) {
       console.log(cmp);
       console.log(header);
@@ -229,8 +232,6 @@ export default {
       this.minComponent.currCmp = null;
       this.component.position = { x: '', y: '' };
       this.component.header = cmp.name && cmp.name.name ? cmp.name.name : header;
-
-      console.log(this.component.header);
       this.component.position.x = 450;
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         console.log(this.component);
@@ -238,9 +239,7 @@ export default {
       } else this.component.position.y = e.clientY;
       this.component.currCmp = cmp.name && cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp}`;
     },
-    switchModel() {
-      this.isShowModal = !this.isShowModal;
-    },
+
     minDynamicCmp(cmp, e) {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
@@ -276,7 +275,6 @@ export default {
         card.style.bgColor = null;
       } else if (card.style.bgColor !== color) {
         if (color === card.style.bgColor || color === card.style.bgUrl) {
-          console.log(color, 'aa');
           card.style.bgColor = null;
           card.style.bgUrl = null;
         } else {
