@@ -88,7 +88,6 @@ export default {
   created() {
     this.user = this.$store.getters.getUserConnect;
     this.newCommit = this.getEmptyActivity();
-    console.log(this.user);
   },
   methods: {
     showActivity() {
@@ -101,7 +100,7 @@ export default {
       this.editMode = false;
     },
     editUserComment(cmm) {
-      this.activity= JSON.parse(JSON.stringify(cmm))
+      this.activity = JSON.parse(JSON.stringify(cmm));
       console.log(this.activity.id);
     },
     saveCommit(cmmId = null) {
@@ -124,7 +123,7 @@ export default {
     getEmptyActivity() {
       return {
         cmmTxt: '',
-        txt:'added commit ',
+        txt: 'added commit ',
         createdAt: Date.now(),
         byMember: {},
         card: {
@@ -150,7 +149,7 @@ export default {
     },
     currCommits() {
       // console.log(this.$store.getters.currCard);
-      return this.$store.getters.currCard.comments
+      return this.$store.getters.currCard.comments;
     },
   },
 

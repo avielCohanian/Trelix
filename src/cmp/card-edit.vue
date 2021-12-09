@@ -287,7 +287,8 @@ export default {
       }
       if (!card.style.isFull) card.style.isFull = false;
 
-      this.closeModel();
+      // this.closeModel();
+      console.log(card.style);
       this.$emit('updateCard', card);
     },
     changeBcgSize(size) {
