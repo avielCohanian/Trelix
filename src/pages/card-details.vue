@@ -690,7 +690,7 @@ export default {
         return acc;
       }, []);
       this.attTrLongLength = cardAttTrelix.length;
-      return this.attTrLong && cardAttTrelix > 4 ? cardAttTrelix : cardAttTrelix.splice(0, 4);
+      return this.attTrLong && cardAttTrelix.length > 4 ? cardAttTrelix : cardAttTrelix.splice(0, 4);
     },
     dynamicCmpToShow() {
       return this.cmp.cmp;
