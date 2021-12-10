@@ -30,7 +30,7 @@
       <hr />
       <div class="title">
         <h2>Your boards</h2>
-        <div class="plus"><span class="material-icons-outlined"> add </span></div>
+        <div class="plus" @click="CreateBoard"><span class="material-icons-outlined"> add </span></div>
       </div>
       <!-- @click="moveToBoard(board._id)" -->
       <div class="board-list-container" v-for="board in getBoardsForDisplay.boards" :key="board._id" >
@@ -42,7 +42,9 @@
         </router-link>
       </div>
   </div>
-
+ <div class="create-board" v-if="iScreateBoard" >
+          <create-board @closeCreate="CreateBoard" />
+        </div>
 </section>
 
 </template>
@@ -51,17 +53,20 @@
 import avatar from "vue-avatar";
 import navMenu from "./menu/nav-menu.vue";
 import boardMember from "./board-member.vue";
+import createBoard from '../cmp/boards-page/create-board.vue'
 
 export default {
   name: "navSide",
 
   data() {
     return {
+      iScreateBoard:null,
       boards:null,
       isOpen:false,
     };
   },
   created(){
+
  this.$store.dispatch({type:'loadBoards'})
   },
   computed: {
@@ -71,6 +76,9 @@ export default {
     }
   },
   methods: {
+    CreateBoard(){
+        this.iScreateBoard = !this.iScreateBoard
+      },
     closeModal(){
     this.isOpen = !this.isOpen
     this.$emit('closeModal')
@@ -87,6 +95,7 @@ export default {
     avatar,
     navMenu,
     boardMember,
+    createBoard
   },
 };
 </script>

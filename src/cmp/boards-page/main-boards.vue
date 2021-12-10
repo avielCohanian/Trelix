@@ -42,13 +42,13 @@
           </div>
         </div>
         <div class="create-board" v-if="iScreateBoard" >
-          <create-board @closeCreate="CreateBoard" :bgcs="bgcs"/>
+          <create-board @closeCreate="CreateBoard" />
         </div>
   </section>
 </template>
 
 <script>
-import {boardService} from '../../service/board.service.js'
+// import {boardService} from '../../service/board.service.js'
 import createBoard from './create-board.vue'
 export default {
   props:{
@@ -57,11 +57,11 @@ export default {
     data(){
       return{
         iScreateBoard:null,
-          bgcs:{}
+          // bgcs:{}
         }
     },
     created(){
-      this.getColors()
+      // this.getColors()
     },
     methods: {
       openBoard(id){
@@ -73,9 +73,9 @@ export default {
       CreateBoard(){
         this.iScreateBoard = !this.iScreateBoard
       },
-      getColors(){
-         this.bgcs= boardService.getColors()
-      }
+      // getColors(){
+      //    this.bgcs= boardService.getColors()
+      // }
     },
     computed:{
     },

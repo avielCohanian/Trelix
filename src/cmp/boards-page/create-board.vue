@@ -41,21 +41,26 @@
 import { imgService } from '../../service/img.service.js';
 import { boardService } from '../../service/board.service.js';
 export default {
-  props: {
-    bgcs: { type: Array },
-  },
+  // props: {
+  //   bgcs: { type: Array },
+  // },
   data() {
     return {
+      bgcs:[],
       imgs: [],
       emptyBoard: null,
     };
   },
   async created(){
+    this.loadColors()
     this.loadEmptyBoard();
     await this.getImgs();
     console.log(this.$route.params );
   },
   methods: {
+    loadColors(){
+         this.bgcs= boardService.getColors()
+      },
     changeBgc(bgc,color) {
       console.log(color);
       this.emptyBoard.style = bgc;

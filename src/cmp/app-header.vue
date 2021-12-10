@@ -121,8 +121,10 @@
     getBoardsForDisplay.boards.length 
     "
     >
-        <div v-for="board in getBoardsForDisplay.boards" :key="board._id" class="board-details">
+        <div v-for="board in getBoardsForDisplay.boards" :key="board._id" >
             <router-link :to="`${board._id}`">
+          <div class="board-details">
+
           <div class="board-preview"  >
 
             <!-- {{board.style}} -->
@@ -131,6 +133,7 @@
 
          <div class="board-title"> {{board.title}}</div>
             </div>
+          </div>
           </div>
             </router-link>
         </div>
@@ -150,8 +153,10 @@
     getBoardsForDisplay.boardsStar.length 
     "
     >
-        <div v-for="board in getBoardsForDisplay.boardsStar" :key="board._id" class="board-details">
+        <div v-for="board in getBoardsForDisplay.boardsStar" :key="board._id" >
             <router-link :to="`${board._id}`">
+          <div class="board-details">
+
           <div class="board-preview"  >
 
             <!-- {{board.style}} -->
@@ -160,6 +165,7 @@
 
          <div class="board-title"> {{board.title}}</div>
             </div>
+          </div>
           </div>
             </router-link>
         </div>
@@ -174,17 +180,17 @@
       <hr />
       <div  
     >
-        <div v-for="temp in templateBoards" :key="temp._id" class="board-details">
-            <router-link :to="`${temp._id}`" >
+        <div v-for="temp in templateBoards" :key="temp._id" >
+              <div class="board-details" @click="createBoardTemp(temp)"> 
+
           <div class="board-preview"  >
-            <!-- {{board.style}} -->
          <div class="board-template" :style="temp.style"></div>
             <div class="board-txt-container">
 
          <div class="board-title"> {{temp.title}}</div>
             </div>
           </div>
-            </router-link>
+              </div>
         </div>
       </div>
     </div>
@@ -220,6 +226,19 @@ export default {
     // this.headerStyle = this.$store.getters.getStyleHeader;
   },
   methods: {
+    async createBoardTemp(temp){
+        const copyUser = JSON.parse(JSON.stringify(this.$store.getters.getUserConnect));
+          try{
+            const newBoard = await boardService.createBoardTemp(temp,copyUser)
+             copyUser.boards.boards.push(newBoard._id);
+              this.$store.dispatch({ type: 'updateUser', currUser: copyUser });
+              this.$router.push(`/board/${newBoard._id}`);
+          }catch(err){
+            throw err
+          }
+        console.log('hi');
+        // this.iScreateBoard = !this.iScreateBoard
+      },
     logout(){
        this.isShowProfile = false
        this.$store.commit({ type: 'removeStyleHeader' });
