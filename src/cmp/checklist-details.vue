@@ -14,7 +14,7 @@
             >
           </span>
 
-          <a class="delete-checklist" @click="deleteChecklist">Delete</a>
+          <a class="delete-checklist" @click="deleteChecklist($event)">Delete</a>
         </div>
       </div>
 
@@ -151,8 +151,8 @@ export default {
     editTitle() {
       this.editTitleMode = !this.editTitleMode;
     },
-    deleteChecklist() {
-      this.$emit('deleteChecklist', this.checklist.id);
+    deleteChecklist(e) {
+      this.$emit('deleteChecklist', this.checklist.id, e);
     },
   },
   computed: {

@@ -13,7 +13,7 @@
 
       <div class="tr-cards" v-if="boards">
         <h3>Cards:</h3>
-
+        <!-- v-for="group in boards.groups" :key="group.id" -->
         <ul v-for="group in boards.groups" :key="group.id">
           <li v-for="card in group.cards" :key="card.id" @click="addAttTr(card.id)">
             <span>{{ card.title }}</span>
@@ -40,6 +40,10 @@ export default {
       type: Object,
       // required: true,
     },
+    card: {
+      type: Object,
+      // required: true,
+    },
     header: {
       type: String,
       // required: true,
@@ -63,8 +67,6 @@ export default {
       }
     },
     addAttTr(cardId) {
-      console.log(cardId);
-
       this.$emit('addAttTr', cardId);
       //   this.$emit('closeModel');
     },
@@ -84,6 +86,20 @@ export default {
       //   }
       console.log(this.$store.getters.getBoard);
       return board;
+    },
+
+    cardsToShow() {
+      let board = this.$store.getters.getBoard;
+      let cardAttTrelix = board.groups.reduce((acc, g) => {
+        g.cards.forEach((c) => {
+          c.attachment.trelixAttachments.forEach((cI) => {
+            console.log(cI);
+            if (cI !== c.id && cI !== this.card.id) acc.push(c);
+          });
+        });
+        return acc;
+      }, []);
+      return cardAttTrelix;
     },
     // boards() {
     //   // not all

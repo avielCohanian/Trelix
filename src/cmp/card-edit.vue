@@ -54,7 +54,7 @@
             @addLabel="addLabel('Create label', $event)"
             @editLabel="editLabel"
             @newLabel="newLabel"
-            @deleteLabel="deleteLabel(label, $event)"
+            @deleteLabel="deleteLabel"
             @changeBcgSize="changeBcgSize"
             @searchImgCmp="dynamicCmp('coverSearch', 'photo search', $event)"
             @backLabel="dynamicCmp('labels', 'labels', $event)"
@@ -140,7 +140,7 @@
           @addLabel="addLabel('Create label', $event)"
           @editLabel="editLabel"
           @newLabel="newLabel"
-          @deleteLabel="deleteLabel(label, $event)"
+          @deleteLabel="deleteLabel"
           @changeBcgSize="changeBcgSize"
           @backLabel="dynamicCmp('labels', 'labels', $event)"
         >
@@ -163,6 +163,7 @@
           :cmp="minComponent"
           :title="minComponent.title"
           @cmpRemove="cmpRemove"
+          @closeModel="closeModel"
           @update="update"
         >
         </component>
@@ -234,13 +235,18 @@ export default {
     dynamicCmp(cmp, header, e = null) {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
-      this.component.position = { x: '', y: '' };
-      this.component.header = cmp.name && cmp.name.name ? cmp.name.name : header;
-      this.component.position.x = 450;
+      console.log(cmp);
+      // this.component.position = { x: '', y: '' };
+      this.component.header = cmp.name && cmp.name ? cmp.name : header;
+      // this.component.position.x = 450;
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.component.position.y = cmp.pos.y - 50;
-      } else this.component.position.y = e.clientY - 50;
-      this.component.currCmp = cmp.name && cmp.name.name ? `card-${cmp.name.name}` : `card-${cmp}`;
+        this.component.position.x = cmp.pos.x - 250;
+      } else {
+        this.component.position.x = e.clientX - 250;
+        this.component.position.y = e.clientY - 50;
+      }
+      this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
     },
 
     minDynamicCmp(cmp, e) {
@@ -250,18 +256,30 @@ export default {
       let { name, type, txt, title, btnTxt } = cmp.name;
       this.minComponent = { name, type, txt, title, btnTxt };
       this.minComponent.position = { x: '', y: '' };
-      this.minComponent.position.x = 450;
+      // this.minComponent.position.x = 450;
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.minComponent.position.y = cmp.pos.y;
-      } else this.minComponent.position.y = e.clientY;
-
+        this.minComponent.position.x = cmp.pos.x;
+      } else {
+        this.minComponent.position.y = e.clientY;
+        this.minComponent.position.x = e.clientX;
+      }
+      console.log(this.minComponent.position);
       this.minComponent.currCmp = cmp.name.name ? `card-${cmp.name.type}` : `card-${cmp}`;
 
       // this.minComponent.currCmp = `card-${cmp.name.type}`;
     },
     closeModel() {
       this.component.currCmp = null;
-      this.minComponent.currCmp = null;
+      this.minComponent = {
+        currCmp: null,
+        name: '',
+        txt: '',
+        type: '',
+        title: '',
+        btnTxt: '',
+        position: { x: '', y: '' },
+      };
       // this.position = null;
       this.$emit('closeModel');
     },
@@ -389,7 +407,7 @@ export default {
           board.labels.push(labelToUpdate);
         }
         this.$emit('updateBoard', board);
-        this.$store.dispatch({ type: 'updateBoard', board: JSON.parse(JSON.stringify(board ))});
+        this.$store.dispatch({ type: 'updateBoard', board: JSON.parse(JSON.stringify(board)) });
         this.label.currLabel = null;
         this.closeModel();
       } catch (err) {

@@ -16,7 +16,7 @@ export default {
       type: Object,
       required: true,
     },
-    header: {
+    title: {
       type: String,
     },
   },

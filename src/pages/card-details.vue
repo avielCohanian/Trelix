@@ -5,7 +5,7 @@
         <span class="cover-back-btn">
           <a class="back-btn close-btn el-icon-close" @click="closeDetails"> </a>
         </span>
-        <a class="cover-btn" @click="dynamicCmp({ cmp: { name: 'cover' } }, null, $event)">
+        <a class="cover-btn" @click="dynamicCmp('cover', null, null, $event)">
           <span class="cover-icon">
             <span class="material-icons-outlined icon"> web_asset </span>
           </span>
@@ -46,7 +46,7 @@
                   <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="35" class="member"></avatar>
                   <avatar v-else :username="member.fullname" :size="35" class="member"></avatar>
                 </li>
-                <a class="plus-btn" @click="dynamicCmp({ cmp: { name: 'members' } }, null, $event)">
+                <a class="plus-btn" @click="dynamicCmp('members', null, null, $event)">
                   <span class="el-icon-plus plus"></span>
                 </a>
               </ul>
@@ -65,7 +65,7 @@
                     {{ label.title }}</span
                   >
                 </li>
-                <a class="plus-btn" @click="dynamicCmp({ cmp: { name: 'labels' } }, null, $event)">
+                <a class="plus-btn" @click="dynamicCmp('labels', null, null, $event)">
                   <span class="el-icon-plus plus"></span>
                 </a>
               </ul>
@@ -200,9 +200,8 @@
                     <p class="att-board-group">{{ getGroup(attCard.id) }}</p>
                   </div>
                 </div>
-
-                <a class="att-remove">remove</a>
-                <!-- @click="removeMsg" -->
+                <a @click="removeMsg(attCard.id, $event)" class="att-remove">remove</a>
+                <!--  -->
                 <!-- <a @click="connectCard">Connect cards…</a> -->
               </article>
 
@@ -213,7 +212,7 @@
                 <a class="view view-short" @click="toggleAttTr" v-else>Show fewer Trello attachments. </a>
               </span>
             </div>
-            <a @click="openAttachment">Add Trelix attachment</a>
+            <a class="addAttTr" @click="dynamicCmp('trelix', null, null, $event)">Add Trelix attachment</a>
           </div>
 
           <div
@@ -252,18 +251,17 @@
                         class="title-option-btn"
                         @click.stop="
                           dynamicCmp(
-                            {
-                              cmp: {
-                                name: 'Att',
-                                txt: 'Remove this attachment? There is no undo.',
-                                type: 'remove',
-                                title: 'Delete attachment?',
-                                btnTxt: 'Delete',
-                              },
-                            },
-                            idx
-                          ),
+                            (cmp = {
+                              name: 'Att',
+                              txt: 'Remove this attachment? There is no undo.',
+                              type: 'remove',
+                              title: 'Delete attachment?',
+                              btnTxt: 'Delete',
+                            }),
+                            idx,
+                            null,
                             $event
+                          )
                         "
                         >Remove</a
                       >
@@ -272,18 +270,17 @@
                         class="title-option-btn"
                         @click.stop="
                           dynamicCmp(
-                            {
-                              cmp: {
-                                name: 'Att',
-                                txt: 'Link name',
-                                type: 'edit',
-                                title: 'Edit attachment',
-                                btnTxt: 'Update',
-                              },
-                            },
-                            idx
-                          ),
+                            (cmp = {
+                              name: 'Att',
+                              txt: 'Link name',
+                              type: 'edit',
+                              title: 'Edit attachment',
+                              btnTxt: 'Update',
+                            }),
+                            idx,
+                            null,
                             $event
+                          )
                         "
                         >Edit</a
                       >
@@ -303,7 +300,7 @@
               >
               <a v-if="logAtt" @click="logAtt = false">Show fewer attachments.</a>
             </p>
-            <a class="add-item" @click="dynamicCmp({ cmp: { name: 'attachment' } }, null, $event)">Add an attachment</a>
+            <a class="add-item" @click="dynamicCmp('attachment', null, null, $event)">Add an attachment</a>
           </div>
           <!-- v-if="card.checklists" -->
           <div class="checklists-container">
@@ -329,14 +326,15 @@
           class="card-edit"
           :card="card"
           :cmp="dynamicCmpToShow"
-          @updateCard="updateCard"
+          @closeModel="closeModel"
+          @deleteLabel="deleteLabel"
           @removeAtt="removeAtt"
           @removeLabel="removeLabel"
-          @updateAtt="updateAtt"
-          @closeModel="closeModel"
+          @removeAttTrelix="removeAttTrelix"
           @removeChecklist="removeChecklist"
+          @updateCard="updateCard"
+          @updateAtt="updateAtt"
           @updateChecklist="updateChecklist"
-          @deleteLabel="deleteLabel($event)"
         ></card-edit>
       </div>
     </article>
@@ -345,16 +343,17 @@
       class="card-edit"
       :card="card"
       :cmp="dynamicCmpToShow"
-      @updateCard="updateCard"
-      @removeAtt="removeAtt"
-      @removeLabel="removeLabel"
-      @updateAtt="updateAtt"
       @closeModel="closeModel"
       @closeDetails="closeDetails"
-      @removeChecklist="removeChecklist"
-      @updateChecklist="updateChecklist"
-      @deleteLabel="deleteLabel($event)"
+      @deleteLabel="deleteLabel"
       @deleteCard="deleteCard"
+      @updateCard="updateCard"
+      @updateChecklist="updateChecklist"
+      @updateAtt="updateAtt"
+      @removeAtt="removeAtt"
+      @removeLabel="removeLabel"
+      @removeAttTrelix="removeAttTrelix"
+      @removeChecklist="removeChecklist"
     ></card-edit>
   </section>
 </template>
@@ -386,6 +385,7 @@ export default {
       attachmentViewer: false,
       logAtt: false,
       labelToDeleteId: null,
+      attTrToDeleteId: null,
       attTrLong: false,
       attTrLongLength: 0,
     };
@@ -422,7 +422,6 @@ export default {
       let { boardId } = this.$route.params;
       try {
         let labels = await boardService.getLabelByCard(boardId, card);
-        console.log(labels);
         return labels;
       } catch (err) {
         console.log(err);
@@ -482,9 +481,19 @@ export default {
       if (!this.card.style.bgUrl) this.card.style.bgUrl = null;
       return this.card.style.bgUrl === imgUrl;
     },
-    removeMsg(a) {
-      console.log('TODO');
-      // TODO: show if he shore delete
+    removeMsg(cardId, e) {
+      this.attTrToDeleteId = cardId;
+      // this.dynamicCmp({
+      let cmp = {
+        name: 'AttTrelix',
+        txt: 'Remove this attachment? There is no undo.',
+        title: `Remove attachment?`,
+        type: 'remove',
+        btnTxt: 'Remove',
+      };
+      let id = cardId;
+      this.dynamicCmp(cmp, id, null, e);
+      // });
     },
     getTime(t) {
       return `${new Date(t).getHours()} :${new Date(t).getMinutes()} `;
@@ -492,13 +501,16 @@ export default {
     dayLeft(t) {
       return Date.now() - t > 100 * 60 * 60 * 24;
     },
-    openAttachment() {
-      console.log('TODO');
-      // TODO: open cmpDynamic in openAttachment in trelix mode
-    },
-    openAttachment() {
-      console.log('TODO');
-      // TODO: open cmpDynamic in openAttachment
+    openAttachment(e) {
+      let cmp = {
+        name: 'trelix',
+        txt: 'Remove this attachment? There is no undo.',
+        title: `Remove attachment?`,
+        type: 'remove',
+        btnTxt: 'Remove',
+      };
+      let id = cardId;
+      this.dynamicCmp(cmp, id, null, e);
     },
     addLinkToActivity(link) {
       // TODO: start msg to the activity with link dynamicCmp
@@ -555,34 +567,39 @@ export default {
     selectInInput() {
       console.log(this.$refs);
     },
-    dynamicCmp(cmp, id = null, e) {
-      // let x = e.clientX;
-      // let y = e.clientY;
-      let x = 0;
-      let y = 0;
-      let pos = { x, y };
-      this.cmp = { name: cmp.cmp, id, pos };
+    dynamicCmp(cmp, id = null, pos, e) {
+      console.log(pos);
+      console.log(e);
+      pos = pos ? pos : { x: e.clientX, y: e.clientY };
+
+      this.cmp = { name: cmp, id, pos };
       this.$store.commit({ type: 'steCmpDyn', cmpDyn: this.cmp });
     },
-    deleteChecklist(checklistId) {
+    deleteChecklist(checklistId, e) {
       //   let card = JSON.parse(JSON.stringify(this.card));
       const checklistIdx = this.card.checklists.findIndex((c) => c.id === checklistId);
-      this.dynamicCmp({
-        cmp: {
-          name: 'Checklist',
-          txt: 'Deleting a checklist is permanent and there is no way to get it back.',
-          title: `Delete ${this.card.checklists[checklistIdx].title}?`,
-          type: 'remove',
-          btnTxt: 'Delete checklist',
-        },
-        id: checklistIdx,
-        e: { clientX: 0, clientY: 0 },
-      });
-      //   this.dynamicCmp({ cmp: { name: 'attachment' } }
+      // this.dynamicCmp(
+      let cmp = {
+        name: 'Checklist',
+        txt: 'Deleting a checklist is permanent and there is no way to get it back.',
+        title: `Delete ${this.card.checklists[checklistIdx].title}?`,
+        type: 'remove',
+        btnTxt: 'Delete checklist',
+      };
+      let id = checklistIdx;
+      let pos = { x: e.clientX - 300, y: e.clientY - 850 };
+      // );
+      this.dynamicCmp(cmp, id, pos);
     },
     removeAtt() {
       let card = JSON.parse(JSON.stringify(this.card));
       card.attachment.computerAttachment.splice(this.cmp.id, 1);
+      this.updateCard(card);
+    },
+    removeAttTrelix() {
+      let card = JSON.parse(JSON.stringify(this.card));
+      const cardIdx = card.attachment.trelixAttachments.findIndex((a) => a === this.attTrToDeleteId);
+      card.attachment.trelixAttachments.splice(cardIdx, 1);
       this.updateCard(card);
     },
     removeChecklist() {
@@ -598,19 +615,18 @@ export default {
     },
     deleteLabel(label, e) {
       let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
-      let labelIdx = board.labels.findIndex((l) => l.id === label.currLabel.id);
+      let labelIdx = board.labels.findIndex((l) => l.id === label.id);
       this.labelToDeleteId = labelIdx;
-      this.dynamicCmp({
-        cmp: {
-          name: 'Label',
-          txt: 'There is no undo. This will remove this label from all cards and destroy its history.',
-          title: `Delete label?`,
-          type: 'remove',
-          btnTxt: 'Delete',
-        },
-        id: labelIdx,
-        e,
-      });
+      let cmp = {
+        name: 'Label',
+        txt: 'There is no undo. This will remove this label from all cards and destroy its history.',
+        title: `Delete label?`,
+        type: 'remove',
+        btnTxt: 'Delete',
+      };
+      let id = labelIdx;
+      let pos = { x: 0, y: 0 };
+      this.dynamicCmp(cmp, id, pos, null);
 
       // card.labelIds.splice(labelIdx, 1);
       // this.updateCard(card);
@@ -631,7 +647,7 @@ export default {
       this.updateCard(card);
       setTimeout(() => {
         this.$store.dispatch({ type: 'addActivity', activity: commit });
-      }, 1000);
+      }, 500);
     },
     updateCmm(commit) {
       let card = JSON.parse(JSON.stringify(this.card));
@@ -733,12 +749,9 @@ export default {
       }
     },
     boardBcg() {
-      console.log(this.getBoard.style.background);
       if (this.getBoard.style.background) {
-        console.log(this.getBoard.style.background);
         return { background: this.getBoard.style.background };
       } else if (this.getBoard.style.backgroundImage) {
-        console.log(this.getBoard.style.backgroundImage);
         return {
           backgroundImage: this.getBoard.style.backgroundImage,
         };

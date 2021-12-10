@@ -451,6 +451,7 @@
       }
 
       .trelix-attachments {
+        margin-bottom: 47px;
         .svg {
           top: -2px;
           color: #42526e;
@@ -575,33 +576,15 @@
                 padding-left: 6px;
                 color: #172b4d;
                 display: flex;
-                & > * {
-                  margin-top: 4px;
-                  margin-right: 4px;
 
-                  background-color: #0000;
-                  border-radius: 3px;
-                  color: #6b778c;
-                  display: inline-block;
-                  font-size: 12px;
-                  font-weight: 400;
-                  height: 24px;
-                  line-height: 24px;
-                  max-width: calc(100% - 16px);
-                  min-height: 24px;
-                  overflow: hidden;
-                  padding: 0 6px;
-                  text-overflow: ellipsis;
-                  vertical-align: top;
-                  white-space: nowrap;
-                }
-                .description-icon {
-                  margin-top: 4px;
+                .att-icon {
+                  margin-top: 0;
+
                   margin-right: 4px;
                   background-color: #0000;
                   border-radius: 3px;
                   color: #6b778c;
-                  font-size: 12px;
+                  font-size: 13px;
                   font-weight: 400;
                   height: 24px;
                   line-height: 24px;
@@ -664,6 +647,29 @@
             }
           }
         }
+        .addAttTr {
+          margin-bottom: 8px;
+          margin-top: 8px;
+          background-color: #091e420a;
+          border: none;
+          border-radius: 3px;
+          box-shadow: none;
+          box-sizing: border-box;
+          color: #172b4d;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 400;
+          justify-content: center;
+          line-height: 20px;
+          padding: 6px 12px;
+          text-decoration: none;
+          transition-duration: 85ms;
+          transition-property: background-color, border-color, box-shadow;
+          transition-timing-function: ease;
+          &:hover {
+            background-color: #091e4214;
+          }
+        }
 
         .view {
           border-radius: 3px;
@@ -671,6 +677,7 @@
           display: block;
           margin: 2px 0;
           padding: 6px 12px;
+          margin-bottom: 20px;
           background-color: initial;
           text-decoration: underline;
           transition-duration: 85ms;
