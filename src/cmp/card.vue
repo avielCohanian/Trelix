@@ -64,7 +64,7 @@
         <!-- dueDate -->
         <div
           class="due-date icon"
-          v-if="card.dueDate"
+          v-if="card.dueDate && card.dueDate.date"
           @mouseover="showCheck = true"
           @mouseleave="showCheck = false"
           @click.stop="isDone"

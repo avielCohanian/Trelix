@@ -154,7 +154,9 @@
     "
     >
         <div v-for="board in getBoardsForDisplay.boardsStar" :key="board._id" >
-            <router-link :to="`${board._id}`">
+            <!-- <router-link :to="`${board._id}`"> -->
+              <button @click="moveToBoard(board._id)">
+
           <div class="board-details">
 
           <div class="board-preview"  >
@@ -167,7 +169,8 @@
             </div>
           </div>
           </div>
-            </router-link>
+              </button>
+            <!-- </router-link> -->
         </div>
       </div>
     </div>

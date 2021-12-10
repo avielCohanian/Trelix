@@ -484,6 +484,7 @@ const templates = [
                 boards: [],
               },
             ],
+<<<<<<< HEAD
             labelIds: [],
             dueDate: null,
             createdAt: Date.now(),
@@ -493,6 +494,17 @@ const templates = [
               bgImg: null,
               bgUrl: null,
               isFull: true,
+=======
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": "#EF7564",
+              "bgImg": null,
+              "bgUrl": null,
+              "isFull": true
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -510,6 +522,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -523,6 +536,21 @@ const templates = [
               bgImg: null,
               bgUrl: null,
               isFull: false,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": "#EF7564",
+              "bgImg": null,
+              "bgUrl": null,
+              "isFull": false
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -552,6 +580,7 @@ const templates = [
                 boards: [],
               },
             ],
+<<<<<<< HEAD
             labelIds: [],
             dueDate: null,
             createdAt: Date.now(),
@@ -561,6 +590,17 @@ const templates = [
               bgImg: null,
               bgUrl: null,
               isFull: false,
+=======
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": "#5BA4CF",
+              "bgImg": null,
+              "bgUrl": null,
+              "isFull": false
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -577,6 +617,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -590,6 +631,21 @@ const templates = [
               bgImg: null,
               bgUrl: null,
               isFull: false,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": "#F5DD29",
+              "bgImg": null,
+              "bgUrl": null,
+              "isFull": false
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -612,6 +668,7 @@ const templates = [
                 },
               ],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -626,6 +683,21 @@ const templates = [
               bgUrl:
                 'url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638987529/%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%9E%D7%A1%D7%9A_2021-12-08_201842_y3acvh.png)',
               isFull: false,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null,
+              "bgUrl": "url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638987529/%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%9E%D7%A1%D7%9A_2021-12-08_201842_y3acvh.png)",
+              "isFull": false
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -642,6 +714,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -653,6 +726,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -669,6 +755,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -680,6 +767,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -799,6 +899,7 @@ const templates = [
                 },
               ],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -812,6 +913,21 @@ const templates = [
               bgImg: null,
               bgUrl: 'url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638996027/76023960_venc4s.jpg)',
               isFull: false,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null,
+              "bgUrl": "url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638996027/76023960_venc4s.jpg)",
+              "isFull": false
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -821,6 +937,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -832,6 +949,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -841,6 +971,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -852,6 +983,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -875,6 +1019,7 @@ const templates = [
                 },
               ],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -889,6 +1034,21 @@ const templates = [
               bgUrl:
                 'url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638996430/1_ckYICeNC_eXNRhQT0EdCiw_dfokkh.jpg)',
               isFull: false,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null,
+              "bgUrl": "url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638996430/1_ckYICeNC_eXNRhQT0EdCiw_dfokkh.jpg)",
+              "isFull": false
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -898,6 +1058,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -909,6 +1070,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": Date.now(),
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -918,6 +1092,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -929,6 +1104,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996443911.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -952,6 +1140,7 @@ const templates = [
                 },
               ],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -966,6 +1155,21 @@ const templates = [
               bgUrl:
                 'url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638996111/css-template-preview-82154_sy5ctt.jpg)',
               isFull: true,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996088585.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null,
+              "bgUrl": "url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638996111/css-template-preview-82154_sy5ctt.jpg)",
+              "isFull": true
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -975,6 +1179,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -986,6 +1191,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996100062.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -995,6 +1213,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -1006,6 +1225,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996132576.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -1015,6 +1247,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -1026,6 +1259,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996138058.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -1035,6 +1281,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -1046,6 +1293,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996143495.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -1055,6 +1315,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -1066,6 +1327,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996150194.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -1088,6 +1362,7 @@ const templates = [
                 },
               ],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -1102,6 +1377,21 @@ const templates = [
               bgUrl:
                 'url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638996184/html-template-18610_vpdgaw.jpg)',
               isFull: true,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996088586.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null,
+              "bgUrl": "url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638996184/html-template-18610_vpdgaw.jpg)",
+              "isFull": true
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -1111,6 +1401,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -1122,6 +1413,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996209035.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -1131,6 +1435,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -1142,6 +1447,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996170999.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -1164,6 +1482,7 @@ const templates = [
                 },
               ],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -1178,6 +1497,21 @@ const templates = [
               bgUrl:
                 'url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638996237/shutterstock_6408604_l_kkq9rd.jpg)',
               isFull: false,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996088588.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null,
+              "bgUrl": "url(http://res.cloudinary.com/trelix-casep21/image/upload/v1638996237/shutterstock_6408604_l_kkq9rd.jpg)",
+              "isFull": false
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -1187,6 +1521,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -1198,6 +1533,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996226764.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
@@ -1207,6 +1555,7 @@ const templates = [
               trelixAttachments: [],
               computerAttachment: [],
             },
+<<<<<<< HEAD
             checklists: [],
             description: '',
             comments: [],
@@ -1218,6 +1567,19 @@ const templates = [
             style: {
               bgColor: null,
               bgImg: null,
+=======
+            "checklists": [],
+            "description": "",
+            "comments": [],
+            "members": [],
+            "labelIds": [],
+           "dueDate": { date: null, remind: '', isComplete: false },
+            "createdAt": 1638996253233.0,
+            "byMember": null,
+            "style": {
+              "bgColor": null,
+              "bgImg": null
+>>>>>>> c9bee52b042b6b1e707b0cf2ee713bafb0a32b49
             },
             id: makeId(),
           },
