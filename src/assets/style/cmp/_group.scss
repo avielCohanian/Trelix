@@ -83,14 +83,28 @@
             textarea {
                 resize: none;
                 border: none;
-                box-shadow: 0 1px 0 #091e4240;
+                // box-shadow: 0 1px 0 #091e4240;
                 font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
                     Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
-                margin-bottom: 4px;
+                // margin-bottom: 4px;
                 background-color: white;
             }
+            .members{
+            border-radius: 3px;
+            display: flex;
+              resize: none;
+              border: none;
+              box-shadow: 0 1px 0 #091e4240;
+            //   margin-bottom: 4px;
+              background-color: white;
+              padding-bottom: 6px;
+              gap: 4px;
+              flex-wrap: wrap;
+              flex-direction: row-reverse;
+            //   padding-inline-start: 185px;
+              }
             .btn-add {
-                margin-top: 5px;
+                margin-top: 10px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -259,3 +273,77 @@
     
 }
 
+.add-member {
+    position: absolute;
+    bottom: 183px;
+    // top: 50px;
+    // left: 533px;
+    z-index: 99;
+    // position: fixed;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+    // top: 0px;
+    // right: 0;
+    a {
+        cursor: pointer;
+        color: #6b778c;
+        padding: 10px 12px 10px 8px;
+        position: absolute;
+        right: 0;
+        top: 10%;
+      }
+      ul.list-Member {
+        display: flex;
+        flex-direction: column;
+        li{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-inline-end: 20px;
+            // padding: 10px;
+            .curr-user {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                gap: 10px;
+              }
+          }
+      }
+      .member-title{
+            margin-inline-start: 20px;
+      }
+      header{
+        height: 40px;
+      margin-bottom: 8px;
+      position: relative;
+      text-align: center;
+      }
+    
+
+}
+
+.card-ghost {
+    width: 100%;
+    height: 100%;
+    /* background-color: brown; */
+    transition: transform 0.15s ease;
+    transform: rotateZ(8deg);
+  }
+  .drop-preview {
+    background-color: rgb(218, 218, 218);
+    border-radius: 3px;
+  }
+  
+  .card-ghost-drop {
+    /* background-color: brown; */
+  
+    width: 100%;
+    height: 100%;
+    transition: transform 0.18s ease-in-out;
+    transform: rotateZ(0deg);
+  }
+  .smooth-dnd-container {
+    min-height: 3px;
+    min-width: 3px;
+  }

@@ -3,7 +3,7 @@
         <nav-side @closeModal="closeModal" :class="ShowModal"/>
         <div>
 
-        <nav-board :getBoard="getBoard" />
+        <nav-board  />
         <groups />
         </div>
         <router-view />

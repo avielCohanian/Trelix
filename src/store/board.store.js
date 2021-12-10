@@ -218,17 +218,17 @@ export const boardStore = {
     },
     async removeMember({ commit, getters }, { member }) {
       try {
-        const board = JSON.parse(JSON.stringify(getters.getBoard));
-        var savedBoard = await boardService.deleteMember(board, member._id);
-        commit({ type: 'setBoard', board: savedBoard });
-        return savedBoard;
+
+        var savedBoard = await boardService.deleteMember(getters.getBoard, member._id);
+        commit({ type: 'setBoard', board:savedBoard });
+        // return savedBoard;
       } catch (err) {
         console.log(err);
       }
     },
     async addMember({ commit, getters }, { member }) {
       try {
-        const board = JSON.parse(JSON.stringify(getters.getBoard));
+        const board = JSON.parse(JSON.stringify(getters.getBoard))
         var savedBoard = await boardService.addMember(board, member);
         commit({ type: 'setBoard', board: savedBoard });
         return savedBoard;
