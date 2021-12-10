@@ -15,7 +15,7 @@
         <div class="txt-t">T</div>
       </div>
       <div class="header-container">
-        <span class="trelix">Trelix Workspace</span>
+        <span class="trelix-work">Trelix Workspace</span>
         <p class="mini-header">Free</p>
       </div>
       <div>
