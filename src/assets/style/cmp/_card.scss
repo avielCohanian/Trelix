@@ -109,6 +109,7 @@ section.card.img-cover {
         justify-content: flex-start;
         align-items: center;
         gap: 15px;
+
         .checklist {
             margin: 0;
             // height: 28px;
@@ -444,4 +445,8 @@ font-size: 12px;
             background-color: gainsboro;
         }
     }
+}
+.icons-container{
+    // position: absolute;
+    bottom: 0;
 }

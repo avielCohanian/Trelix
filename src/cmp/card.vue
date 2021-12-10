@@ -14,7 +14,6 @@
     ></div>
 
     <span class="material-icons-outlined edit pointer" @click.stop="openDetails(false)" :style="isShow"> create </span>
-
     <section
       :style="bgColorFull"
       class="card"
@@ -23,6 +22,8 @@
         'img-cover': card.style && card.style.isFull && card.style.bgUrl,
       }"
     >
+<div class="icons-container">
+    <!-- <template class="icons-container"> -->
       <div class="labels">
         <ul class="labels-container" v-if="myLabels">
           <!-- {{myLabels}} -->
@@ -53,7 +54,7 @@
       </header>
 
       <!-- labels  -->
-<!-- v-if="isBadgetsExist" -->
+      <!-- v-if="isBadgetsExist" -->
       <div class="icons" v-if="
       card.dueDate ||
       card.description ||
@@ -114,12 +115,12 @@
           <avatar v-else :username="member.username" :size="28" class="member"></avatar>
         </div>
       </div>
+ </div>
     </section>
      <div class="modal" v-if="isShowProfile">
         <div class="title">
           <i class="el-icon-close pointer" @click="isShowProfile = !isShowProfile"></i>
         </div>
-
         <div class="user-details">
           <div>
             <avatar

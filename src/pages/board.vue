@@ -2,7 +2,7 @@
     <section>
         <section class="board flex" v-if="getBoard" :style="getBoard.style">
             <nav-side @closeModal="closeModal" :class="ShowModal" />
-            <div>
+            <div class="container-board">
                 <nav-board :getBoard="getBoard" />
                 <groups />
             </div>
@@ -73,4 +73,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.container-board{
+    height: 95vh;
+}
+</style>
