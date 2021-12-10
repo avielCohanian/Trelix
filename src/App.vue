@@ -16,7 +16,7 @@ export default {
     };
   },
   created() {
-      this.$store.dispatch({ type: 'logIn', user: { email: 'eligranat@gmail.com', password: 'p' } });
+      // this.$store.dispatch({ type: 'logIn', user: { email: 'eligranat@gmail.com', password: 'p' } });
     //  socketService.on('update board',this.msg)
     //     socketService.on('update board', msg=>{console.log(msg)})
   },

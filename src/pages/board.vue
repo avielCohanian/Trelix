@@ -1,12 +1,16 @@
 <template>
-    <section class="board flex" v-if="getBoard" :style="getBoard.style">
-        <nav-side @closeModal="closeModal" :class="ShowModal"/>
-        <div>
-
-        <nav-board :getBoard="getBoard" />
-        <groups />
+    <section>
+        <section class="board flex" v-if="getBoard" :style="getBoard.style">
+            <nav-side @closeModal="closeModal" :class="ShowModal" />
+            <div>
+                <nav-board :getBoard="getBoard" />
+                <groups />
+            </div>
+            <router-view />
+        </section>
+        <div class="screen-loader" v-else>
+            <div class="loader"></div>
         </div>
-        <router-view />
     </section>
 </template>
 
@@ -14,6 +18,7 @@
 import navBoard from '../cmp/nav-board.vue';
 import groups from '../cmp/groups.vue';
 import NavSide from '../cmp/nav-side.vue';
+
 export default {
     name: 'board',
     components: {
@@ -23,22 +28,21 @@ export default {
     },
     data() {
         return {
-              isOpenModal:false,
+            isOpenModal: false,
         };
     },
     created() {
         const boardId = this.$route.params.boardId;
         this.loadBoard(boardId);
-        
         this.$store.dispatch({ type: 'addColors' });
     },
     methods: {
-        closeModal(){
-        this.isOpenModal = !this.isOpenModal
+        closeModal() {
+            this.isOpenModal = !this.isOpenModal;
         },
         async loadBoard(boardId) {
             try {
-                var res = await this.$store.dispatch({
+                await this.$store.dispatch({
                     type: 'loadBoard',
                     boardId,
                 });
@@ -48,22 +52,24 @@ export default {
         },
     },
     computed: {
-            ShowModal() {
-      return this.isOpenModal ? "open-nav" : "close-nav";
-    },
+        ShowModal() {
+            return this.isOpenModal ? 'open-nav' : 'close-nav';
+        },
         getBoard() {
-            // console.log(this.$store.getters.getBoard.style);
-            // console.log(this.$store.getters.getBoard.color);
+            this.$store.commit({
+                type: 'updateStyleHeader',
+                color: { background: ' rgba(0, 0, 0, 0.32)' },
+            });
             return this.$store.getters.getBoard;
         },
     },
-    watch:{
-        "$route.params.boardId"(){
-             const boardId = this.$route.params.boardId;
-        this.loadBoard(boardId);
+    watch: {
+        '$route.params.boardId'() {
+            const boardId = this.$route.params.boardId;
+            this.loadBoard(boardId);
             console.log('lalal');
-        }
-    }
+        },
+    },
 };
 </script>
 

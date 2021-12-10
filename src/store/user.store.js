@@ -96,6 +96,7 @@ export const userStore = {
       console.log('updateUser ', currUser);
       try {
         const updateUser = await userService.updateUser(currUser);
+        console.log(updateUser);
         console.log('up', updateUser);
         commit({ type: 'logIn', user: updateUser });
       } catch (err) {

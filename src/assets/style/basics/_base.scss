@@ -41,6 +41,7 @@ img {
 p {
     margin: 0 0 1rem;
     max-width: 60ch;
+    line-height: 20px
 }
 
 button {
@@ -72,5 +73,23 @@ ul{
 #app{
     position: relative;
 }
-
+.screen-loader{
+    width: 100vw;
+    height: 100vh;
+    background-color:rgba(255, 255, 255, 0.555);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .loader {
+        width: 100px;
+        height: 100px;
+        background-image: url('https://a.trellocdn.com/prgb/dist/images/spinner.24976c46bbf8be9db663.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+}
 

@@ -32,8 +32,8 @@ export default {
       this.getTemplate()
     },
     methods: {
-      getTemplate(){
-        this.templateBoards =  boardService.getTemplates()
+      async getTemplate(){
+        this.templateBoards =  await boardService.getTemplates()
       },
       openBoard(id){
         this.$router.push(`/board/${id}`)
@@ -43,6 +43,7 @@ export default {
           try{
             const newBoard = await boardService.createBoardTemp(temp,copyUser)
              copyUser.boards.boards.push(newBoard._id);
+            //  console.log('copyUser',copyUser);
               this.$store.dispatch({ type: 'updateUser', currUser: copyUser });
               this.$router.push(`/board/${newBoard._id}`);
           }catch(err){

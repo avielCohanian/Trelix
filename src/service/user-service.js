@@ -80,11 +80,13 @@ async function updateUser(user) {
   try {
     // const user = await axios.put(AUTH_URL + '/' + user._id, user);
     // return user.data;
+    
+    const CurrUser = await httpService.put(`user/${user._id}`, user);
+    console.log(CurrUser);
 
-    user = await httpService.put(`user/${user._id}`, user);
     // Handle case in which admin updates other user's details
-    if (getLoggedinUser()._id === user._id) _saveLocalUser(user);
-    return user;
+    if (getLoggedinUser()._id === CurrUser._id) _saveLocalUser(CurrUser);
+    return CurrUser;
   } catch (err) {
     console.log(err);
   }
