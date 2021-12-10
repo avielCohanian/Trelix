@@ -17,10 +17,22 @@
       ></date-picker>
 
       <div class="dueDate-show">
-        <h3>Due date</h3>
-        <input class="dueDate-checkbox" type="checkbox" />
-        <input class="date dueDate-date" type="text" v-model="dueTime" placeholder="M/D/YYY" />
-        <input class="date dueDate-hour" type="text" v-model="dueTime" placeholder="h/mm A" />
+        <h3 :class="{ activ: checkbox }">Due date</h3>
+        <input :class="{ activ: checkbox }" class="dueDate-checkbox" type="checkbox" v-model="checkbox" />
+        <input
+          :class="{ activ: checkbox }"
+          class="date dueDate-date"
+          type="text"
+          v-model="dueTime"
+          placeholder="M/D/YYY"
+        />
+        <input
+          :class="{ activ: checkbox }"
+          class="date dueDate-hour"
+          type="text"
+          v-model="dateTime"
+          placeholder="h/mm A"
+        />
       </div>
       <div class="dueDate-reminder">
         <h3>Set due date reminder</h3>
@@ -30,7 +42,7 @@
         <p class="dueDate-txt">Reminders will be sent to all members and watchers of this card.</p>
       </div>
       <div class="dueDate-btn">
-        <a class="save-btn">Save</a>
+        <a @click="saveDueDate" class="save-btn">Save</a>
         <a class="remove-btn">Remove</a>
       </div>
     </div>
@@ -50,6 +62,9 @@ export default {
   data() {
     return {
       dueTime: null,
+      dateTime: null,
+      checkbox: false,
+      remind: 'None',
       remindOption: [
         'None',
         'At time of due date',
@@ -68,8 +83,27 @@ export default {
       this.$emit('closeModel');
     },
     setDueDate() {
+      this.checkbox = true;
       // this.$emit();
-      console.log(this.dueTime);
+      //   if (!this.dateTime) this.dateTime = new Date(Date.now()).toLocaleTimeString();
+      // },
+    },
+    saveDueDate() {
+      console.log(Date.now(this.dueTime));
+      console.log(Date.now(this.dateTime));
+      let dueDate = { date: Date.now(this.dueTime), remind: this.remind };
+      this.$emit('dueDate', dueDate);
+    },
+  },
+  watch: {
+    checkbox() {
+      if (this.checkbox) {
+        this.dateTime = new Date(Date.now()).toLocaleTimeString();
+      } else {
+        this.dateTime = null;
+        this.dueTime = null;
+      }
+      console.log('ccc');
     },
   },
 

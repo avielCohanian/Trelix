@@ -46,6 +46,7 @@
             :label="label"
             @closeModel="closeModel"
             @dynamicCmp="dynamicCmp"
+            @dueDate="dueDate"
             @updateMember="updateMember"
             @changeBcg="changeBcg"
             @attTrelix="dynamicCmp('trelix', 'Add card or board…', $event)"
@@ -133,6 +134,7 @@
           @updateLabel="updateLabel"
           @addChecklist="addChecklist"
           @dynamicCmp="dynamicCmp"
+          @dueDate="dueDate"
           @computerAttImg="computerAttImg"
           @computerAttLink="computerAttLink"
           @attTrelix="dynamicCmp('trelix', 'Add card or board…', $event)"
@@ -235,17 +237,19 @@ export default {
     dynamicCmp(cmp, header, e = null) {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
-      console.log(cmp);
       // this.component.position = { x: '', y: '' };
       this.component.header = cmp.name && cmp.name ? cmp.name : header;
+      console.log(e);
       // this.component.position.x = 450;
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.component.position.y = cmp.pos.y - 50;
-        this.component.position.x = cmp.pos.x - 250;
+        this.component.position.x = cmp.pos.x - 300;
       } else {
-        this.component.position.x = e.clientX - 250;
+        this.component.position.x = e.clientX - 300;
         this.component.position.y = e.clientY - 50;
+        console.log(e.clientX);
       }
+      console.log(this.component.position.x);
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
     },
 
@@ -426,6 +430,13 @@ export default {
       this.$emit('updateCard', card);
 
       // this.$emit('addTrelixAtt', card);
+    },
+    dueDate(dateObj) {
+      let card = JSON.parse(JSON.stringify(this.card));
+      let { date, remind } = dateObj;
+      card.dueDate = { date, remind };
+      this.$emit('updateCard', card);
+      this.closeModel();
     },
     deleteCard() {
       this.$emit('deleteCard', this.card);

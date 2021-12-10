@@ -2,8 +2,8 @@
   <section class="screen" v-if="card" @click="closeDetails">
     <article class="card-details" @click.stop v-show="editor">
       <div class="color-header" v-if="card.style && (card.style.bgColor || card.style.bgUrl)" :style="bgColor">
-        <span class="cover-back-btn">
-          <a class="back-btn close-btn el-icon-close" @click="closeDetails"> </a>
+        <span class="cover-back-btn" @click="closeDetails">
+          <a class="back-btn close-btn el-icon-close"> </a>
         </span>
         <a class="cover-btn" @click="dynamicCmp('cover', null, null, $event)">
           <span class="cover-icon">
@@ -74,12 +74,14 @@
             <div class="dueDate" v-if="card.dueDate && card.dueDate.date">
               <h3>Due date</h3>
               <div class="dueDate-container">
-                <el-checkbox class="checkBox" @click="dateDone" v-model="checked"></el-checkbox>
-                <a @click="openDate" class="date-dedline-container">
+                <!-- v-model="card.dueDate.isComplete" -->
+                <el-checkbox class="checkBox" @change="dateDone" v-model="card.dueDate.isComplete"></el-checkbox>
+                <a @click="dynamicCmp('dueDate', null, null, $event)" class="date-dedline-container">
                   {{ card.dueDate.date | moment('MMM ') }}
                   {{ dueDateDay.date }}
                   at
                   {{ card.dueDate.date | moment(' h:mm: A') }}
+                  <span v-if="card.dueDate.isComplete" class="complete">complete</span>
                   <span class="el-icon-arrow-down"></span>
                 </a>
               </div>
@@ -447,12 +449,10 @@ export default {
     },
 
     dateDone() {
-      this.checked = !this.checked;
+      let card = JSON.parse(JSON.stringify(this.card));
+      this.updateCard(card);
     },
-    openDate() {
-      console.log('TODO');
-      // TODO: open cmpDynamic in datesMode
-    },
+
     openEditDescription() {
       this.editDescription = !this.editDescription;
     },
@@ -475,6 +475,7 @@ export default {
         card.style.bgUrl = imgUrl;
         card.style.bgColor = null;
       } else card.style.bgUrl = null;
+      if (!card.style.isFull) card.style.isFull = false;
       this.updateCard(card);
     },
     inCover(imgUrl) {
@@ -483,7 +484,6 @@ export default {
     },
     removeMsg(cardId, e) {
       this.attTrToDeleteId = cardId;
-      // this.dynamicCmp({
       let cmp = {
         name: 'AttTrelix',
         txt: 'Remove this attachment? There is no undo.',
@@ -493,7 +493,6 @@ export default {
       };
       let id = cardId;
       this.dynamicCmp(cmp, id, null, e);
-      // });
     },
     getTime(t) {
       return `${new Date(t).getHours()} :${new Date(t).getMinutes()} `;

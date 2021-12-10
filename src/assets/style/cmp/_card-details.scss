@@ -287,7 +287,7 @@
               display: flex;
               align-items: center;
               flex-direction: row;
-              margin-block-start: 1em;
+              -webkit-margin-before: 0;
               .el-checkbox__inner {
                 height: 16px;
                 width: 16px;
@@ -310,6 +310,21 @@
               }
               .date-dedline-container:hover {
                 background-color: $clr8;
+              }
+              .el-checkbox__inner::afte {
+                top: 2px;
+              }
+              .date-dedline-container {
+                margin-left: 5px;
+              }
+              .complete {
+                color: #fff;
+                background-color: #61bd4f;
+                font-size: 12px;
+                line-height: 16px;
+                padding: 0 4px;
+                border-radius: 2px;
+                margin: auto 0 auto 8px;
               }
             }
           }
