@@ -1,10 +1,6 @@
 <template>
   <section class="user-login main-layout">
      <div class="logo"> <font-awesome-icon class="" :icon="[ 'fab', 'trello' ]" /> <strong>Trelix</strong></div>
-    <!-- <img
-    class="logo"
-      src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/167dc7b9900a5b241b15ba21f8037cf8/trello-logo-blue.svg"
-    /> -->
     <section class="login-section">
       <div class="login-container">
         <div class="login">
@@ -36,7 +32,7 @@
 
           <hr class="section-hr" />
           <div class="signup">
-            <a href="" @click="moveToSignup">Sign up for an account</a>
+            <a  @click="moveToSignup">Sign up for an account</a>
           </div>
         </div>
       </div>
@@ -66,7 +62,7 @@ export default {
   },
   methods: {
     moveToSignup(){
- this.$router.push("/signup")
+    this.$router.push("/signup")
     },
     getEmptyUserToCheck() {
       return {
@@ -77,14 +73,11 @@ export default {
     async logIn() {
       console.log(this.userToLogIn);
       try {
-        var res = await this.$store.dispatch({
+        var user = await this.$store.dispatch({
           type: "logIn",
           user: this.userToLogIn,
         });
-        console.log(res);
-        // console.log(res.username);
-        // var username = this.$store.getters.getBoardsForDisplay.username
-        if (res) return this.$router.push(`/${res.username}/boards`)
+        if (user) return this.$router.push(`/${user.username}/boards`)
       } catch (err) {
         console.log(err);
       }

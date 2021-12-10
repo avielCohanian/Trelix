@@ -286,9 +286,11 @@ async function getLabelByCard(boardId, card) {
 }
 
 function deleteMember(board, memberId) {
-  let idx = board.members.findIndex((member) => member.id === memberId);
-  board.members.splice(idx, 1);
-  return _updateService(board);
+  // console.log(memberId);
+ const copyBoard = JSON.parse(JSON.stringify(board));
+  let idx = copyBoard.members.findIndex((member) => member._id === memberId);
+  copyBoard.members.splice(idx, 1);
+  return _updateService(copyBoard);
 }
 function addMember(board, member) {
   board.members.push(member);

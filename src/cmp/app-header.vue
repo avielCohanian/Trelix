@@ -34,9 +34,9 @@
       </div>
       <div class="search">
         <el-input placeholder="Search... "></el-input>
-        <div class="icon-header hover pointer">
+        <!-- <div class="icon-header hover pointer">
           <span class="material-icons-outlined"> info </span>
-        </div>
+        </div> -->
         <div class="icon-header hover pointer">
           <span class="material-icons-outlined"> notifications </span>
         </div>
@@ -61,7 +61,7 @@
     </nav>
     <div class="modal" v-if="isShowProfile">
       <div class="title">
-        <i class="el-icon-close" @click="isShowProfile = !isShowProfile"></i>
+        <i class="el-icon-close pointer" @click="isShowProfile = !isShowProfile"></i>
         <i>Account</i>
       </div>
       <hr />
@@ -84,17 +84,17 @@
             <strong>{{ createdBy.fullname }}</strong>
           </div>
 
-          <div class="fade">{{ createdBy.mail }}</div>
+          <div class="fade">{{ createdBy.email }}</div>
         </div>
       </div>
-      <div class="active">Activity</div>
-      <hr />
+      <!-- <div class="active">Activity</div> -->
+      <!-- <hr /> -->
       <div class="active"  @click="logout">Log out</div>
     </div>
 
     <div class="modal menu" v-if="isOpenMenu">
       <div class="title">
-        <i class="el-icon-close" @click="openMenu"></i>
+        <i class="el-icon-close pointer" @click="openMenu"></i>
         <i>More from Atlassian</i>
       </div>
       <hr />
@@ -110,7 +110,7 @@
 
     <div class="modal menu" v-if="isRecent">
       <div class="title">
-        <i class="el-icon-close" @click="openRecentBoards"></i>
+        <i class="el-icon-close pointer" @click="openRecentBoards"></i>
         <i>Recent boards</i>
       </div>
       <hr />
@@ -122,8 +122,8 @@
     "
     >
         <div v-for="board in getBoardsForDisplay.boards" :key="board._id" >
-            <router-link :to="`${board._id}`">
-          <div class="board-details">
+            <!-- <router-link :to="`${board._id}`"> -->
+          <div class="board-details" @click="moveToBoard(board._id)">
 
           <div class="board-preview"  >
 
@@ -135,14 +135,14 @@
             </div>
           </div>
           </div>
-            </router-link>
+            <!-- </router-link> -->
         </div>
       </div>
     </div>
 
     <div class="modal menu" v-if="isStared">
       <div class="title">
-        <i class="el-icon-close" @click="openStarredBoards"></i>
+        <i class="el-icon-close pointer" @click="openStarredBoards"></i>
         <i>Starred boards</i>
       </div>
       <hr />
@@ -155,9 +155,8 @@
     >
         <div v-for="board in getBoardsForDisplay.boardsStar" :key="board._id" >
             <!-- <router-link :to="`${board._id}`"> -->
-              <button @click="moveToBoard(board._id)">
 
-          <div class="board-details">
+          <div class="board-details" @click="moveToBoard(board._id)">
 
           <div class="board-preview"  >
 
@@ -169,7 +168,6 @@
             </div>
           </div>
           </div>
-              </button>
             <!-- </router-link> -->
         </div>
       </div>
@@ -177,7 +175,7 @@
 
     <div class="modal menu" v-if="isTemplate">
       <div class="title">
-        <i class="el-icon-close" @click="openTemplatesBoards"></i>
+        <i class="el-icon-close pointer" @click="openTemplatesBoards"></i>
         <i>Templates</i>
       </div>
       <hr />

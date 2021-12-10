@@ -109,12 +109,45 @@
       </div>
       <!-- members -->
       <div class="members" v-if="card.members && card.members.length > 0">
-        <div v-for="member in card.members" :key="member._id">
+        <div v-for="member in card.members" :key="member._id" @click.stop="showProfile(member)">
           <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
           <avatar v-else :username="member.username" :size="28" class="member"></avatar>
         </div>
       </div>
     </section>
+     <div class="modal" v-if="isShowProfile">
+        <div class="title">
+          <i class="el-icon-close pointer" @click="isShowProfile = !isShowProfile"></i>
+        </div>
+
+        <div class="user-details">
+          <div>
+            <avatar
+              v-if="currMember.imgUrl"
+              :src="currMember.imgUrl"
+              :size="50"
+              username="currMember.username"
+              class="member"
+            ></avatar>
+            <avatar
+              v-else
+              :size="50"
+              username="currMember.username"
+              class="member"
+            ></avatar>
+          </div>
+          <div class="name">
+            <strong>{{ currMember.fullname }}</strong>
+            <div class="mail">{{ currMember.email }}</div>
+          </div>
+        </div>
+
+        <div class="choice">
+          <div class="btn-choice pointer" @click=" updateMember(currMember)">
+            Remove from card...
+          </div>
+        </div>
+      </div>
   </section>
 </template>
 
@@ -134,6 +167,8 @@ export default {
       isHover: false,
       isOpenEditor: false,
       cardToUpdate: null,
+      currMember: null,
+      isShowProfile:null
     };
   },
   mounted() {},
@@ -152,7 +187,35 @@ export default {
     }
   },
   methods: {
-    
+      updateMember(currMember) {
+        console.log(currMember);
+        console.log(this.card);
+      let card = JSON.parse(JSON.stringify(this.card));
+      if (card.members.some((member) => member._id === currMember._id)) {
+        const memberIdx = card.members.findIndex((member) => member._id === currMember._id);
+        card.members.splice(memberIdx, 1);
+        this.updateCardToMember(card)
+      } else {
+        card.members.push(currMember);
+      }
+    },
+    async updateCardToMember(card) {
+      console.log(this.card);
+      try {
+        await this.$store.dispatch({
+          type: 'updateCard',
+          card,
+        });
+        this.isShowProfile = !this.isShowProfile
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    showProfile(member){
+    this.isShowProfile = !this.isShowProfile; 
+    this.currMember = member
+    },
     async isDone() {
       this.isCardDone = !this.isCardDone;
       try {

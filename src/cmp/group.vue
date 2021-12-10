@@ -1,6 +1,5 @@
 <template>
   <section class="group-container">
-    
     <div class="group">
       <header>
         <el-input
@@ -16,36 +15,48 @@
       </header>
       <div class="modal" v-if="openModal">
         <div class="title">
-          <span class="material-icons-outlined" @click="openModal = !openModal">close</span>
+          <span class="material-icons-outlined" @click="openModal = !openModal"
+            >close</span
+          >
           <p>List actions</p>
         </div>
         <hr />
         <ul>
           <li @click="openInput">Add card...</li>
-          <li>Copy list...</li>
-          <li>Move list...</li>
+          <!-- <li>Copy list...</li> -->
+          <!-- <li>Move list...</li> -->
           <li @click="deleteGroup">Archive this list</li>
         </ul>
       </div>
+
       <div class="modal" v-if="isModalAdd">
         <div class="title">
-          <span class="material-icons-outlined" @click="isModalAdd = !isModalAdd">close</span>
+          <span
+            class="material-icons-outlined"
+            @click="isModalAdd = !isModalAdd"
+            >close</span
+          >
           <p>Options</p>
         </div>
         <hr />
         <ul>
-          <li @click="dynamicCmp('members')">Members...</li>
-          <li @click="dynamicCmp('labels')">Labels...</li>
-          <li>Position...</li>
+          <li @click.stop.prevent="openMember">Members...</li>
+          <!-- <li @click="dynamicCmp('labels')">Labels...</li> -->
         </ul>
-        <div class="dynamic-cmp" v-if="component.currCmp">
+        <!-- <div class="dynamic-cmp" v-if="component.currCmp">
           <header>
             <h2>{{ component.name }}</h2>
             <a @click="closeModel" class="el-icon-close"> </a>
           </header>
-          <component :is="component.currCmp" :card="newCard" @dynamicCmp="dynamicCmp"> </component>
-        </div>
+          <component
+            :is="component.currCmp"
+            :card="newCard"
+            @dynamicCmp="dynamicCmp"
+          >
+          </component>
+        </div> -->
       </div>
+
       <div class="card-container">
         <!-- class="card-scroll list-group sortable-drag" -->
         <!-- class="card-ghost card-ghost-drop" -->
@@ -65,77 +76,165 @@
         >
           <Draggable class="for" v-for="card in group.cards" :key="card.id">
             <div>
-              <card :board="board" :card="card" @click.native="showEdit(card.id)" @updateGroup="loadGroup" />
+              <card
+                :board="board"
+                :card="card"
+                @click.native="showEdit(card.id)"
+                @updateGroup="loadGroup"
+              />
               <div class="col-3" :value="card" :title="card.title"></div>
             </div>
           </Draggable>
         </Container>
-        <label v-if="isAddCard">
-          <div class="btn-group">
-            <el-input
-              type="textarea"
-              :rows="3"
-              placeholder="Enter a title for this card... "
-              @keyup.enter.native="addCard"
-              v-model="newCard.title"
+        <div>
+          <!-- <div class="labels">
+        <ul class="labels-container" v-if="newCard.label">
+          <li v-for="label in newCard.label" :key="label.id">
+            <span
+              class="label"
+              :style="{
+                backgroundColor: label.color,
+              }"
             >
-            </el-input>
-            <div class="btn-add">
-              <div class="left">
-                <el-button class="btn" type="primary" @click="addCard"> Add card</el-button>
-                <p class="material-icons-outlined left" @click="toggleCard">close</p>
+            </span>
+          </li>
+        </ul>
+      </div> -->
+
+          <label v-if="isAddCard">
+            <div class="btn-group">
+              <el-input
+                type="textarea"
+                :rows="3"
+                placeholder="Enter a title for this card... "
+                @keyup.enter.native="addCard"
+                v-model="newCard.title"
+              >
+              </el-input>
+
+              <div
+                class="members"
+                v-if="newCard.members && newCard.members.length > 0"
+              >
+                <div v-for="member in newCard.members" :key="member._id">
+                  <avatar
+                    v-if="member.imgUrl"
+                    :src="member.imgUrl"
+                    :size="28"
+                    class="member-img"
+                  />
+                  <avatar
+                    v-else
+                    :username="member.username"
+                    :size="28"
+                    class="member"
+                  ></avatar>
+                </div>
               </div>
-              <p class="el-icon-more more" @click="openModalAdd"></p>
+
+              <div class="btn-add">
+                <div class="left">
+                  <el-button class="btn" type="primary" @click="addCard">
+                    Add card</el-button
+                  >
+                  <p class="material-icons-outlined left" @click="toggleCard">
+                    close
+                  </p>
+                </div>
+                <p class="el-icon-more more" @click="openMember"></p>
+              </div>
             </div>
-          </div>
-        </label>
+          </label>
+        </div>
       </div>
-      <label class="add-card" for="addCard" @click="toggleCard" v-if="!isAddCard">
-        <!-- <el-input
-                    class="opacity"
-                    name="addCard"
-                    placeholder="+ Add a card"
-                ></el-input> -->
-        <p class="add-card-btn"><span class="material-icons-outlined"> add </span> Add a card</p>
+      <label
+        class="add-card"
+        for="addCard"
+        @click="toggleCard"
+        v-if="!isAddCard"
+      >
+        <p class="add-card-btn">
+          <span class="material-icons-outlined"> add </span> Add a card
+        </p>
       </label>
     </div>
+
+    <section class="add-member" @click.stop v-if="isOpenMember">
+      <header>
+        <!-- <h2>Members</h2> -->
+        <a @click="openMember" class="el-icon-close"> </a>
+      </header>
+
+      <h3 class="member-title">Board members</h3>
+      <ul class="list-Member">
+        <li
+          class="member"
+          v-for="member in membersToShow"
+          :key="member._id"
+          @click="addMember(member)"
+        >
+          <div class="curr-user">
+            <avatar
+              v-if="member.imgUrl"
+              :src="member.imgUrl"
+              :size="32"
+              class="avatar"
+            ></avatar>
+            <avatar
+              v-else
+              :username="member.fullname"
+              class="avatar"
+              :size="32"
+            ></avatar>
+
+            <span class="user">
+              <span>{{ member.fullname }}</span>
+              <span>({{ member.username }})</span>
+            </span>
+          </div>
+
+          <span
+            class="check el-icon-check"
+            v-if="cardMembers(member._id)"
+          ></span>
+        </li>
+      </ul>
+    </section>
   </section>
 </template>
 
 <script>
-import member from './edit/edit-member.vue';
-import { applyDrag } from '../service/util.service.js';
-
-import label from './edit-label.vue';
-import { boardService } from '../service/board.service';
-import card from './card.vue';
-import { Container, Draggable } from 'vue-smooth-dnd';
+// import member from "./edit/edit-member.vue";
+import { applyDrag } from "../service/util.service.js";
+import avatar from "vue-avatar";
+// import label from './edit-label.vue';
+import { boardService } from "../service/board.service";
+import card from "./card.vue";
+import { Container, Draggable } from "vue-smooth-dnd";
 
 export default {
   components: {
+    avatar,
     card,
     Draggable,
     Container,
-    'card-members': member,
-    'card-labels': label,
   },
-  props: ['group', 'board'],
-  name: 'group',
+  props: ["group", "board"],
+  name: "group",
   data() {
     return {
+      filterMember: "",
       // isCardDrop:false,
-      title: 'xhr',
+      isOpenMember: false,
+      title: "xhr",
       isModalAdd: false,
       isEditTitle: false,
       isAddCard: false,
       openModal: false,
-      component: {
-        currCmp: null,
-        name: '',
-      },
+
       dropPlaceholderOptions: {
-        className: 'drop-preview',
-        animationDuration: '150',
+        className: "drop-preview",
+        animationDuration: "150",
         showOnTop: true,
       },
 
@@ -143,6 +242,13 @@ export default {
     };
   },
   methods: {
+    openMember() {
+      this.isOpenMember = !this.isOpenMember;
+    },
+    cardMembers(memberId) {
+      let currMembers = this.newCard.members;
+      return currMembers.some((member) => member._id === memberId);
+    },
     async onCardDrop(groupId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
         const board = Object.assign({}, this.board);
@@ -151,24 +257,46 @@ export default {
         const newGroup = Object.assign({}, group);
         newGroup.cards = applyDrag(newGroup.cards, dropResult);
         board.groups.splice(groupIndex, 1, newGroup);
-        await this.$store.dispatch({ type: 'updateBoard', board: JSON.parse(JSON.stringify(board))});
+        await this.$store.dispatch({
+          type: "updateBoard",
+          board: JSON.parse(JSON.stringify(board)),
+        });
       }
     },
     getCardPayload(groupId) {
       return (index) => {
-        return this.board.groups.filter((_g) => _g.id === groupId)[0].cards[index];
+        return this.board.groups.filter((_g) => _g.id === groupId)[0].cards[
+          index
+        ];
       };
     },
     endDrug() {
-      this.$emit('updateGroupDrug');
+      this.$emit("updateGroupDrug");
     },
+    addMember(currMember) {
+if (this.newCard.members.some((member) => member._id === currMember._id)) {
+        const labelIdx = this.newCard.members.findIndex((member) => member._id === currMember._id);
+        this.newCard.members.splice(labelIdx, 1);
+      } else {
+        this.newCard.members.push(currMember);
+      }
 
-    dynamicCmp(cmp) {
-      this.component.name = cmp;
-      this.component.currCmp = `card-${cmp}`;
-    },
-    closeModel() {
-      this.component.currCmp = null;
+
+
+      // let memberToCheek = this.newCard.members.map(
+      //   (member) => member._id === currMember._id
+      // );
+      // if (memberToCheek) {
+
+
+
+      //   const idx = this.newCard.members.findIndex(
+      //     (member) => member._id === currMember._id
+      //   );
+      //   this.newCard.members.splice(idx, 1);
+      // } else {
+      //   this.newCard.members.push(currMember);
+      // }
     },
     openModalAdd() {
       this.isModalAdd = !this.isModalAdd;
@@ -178,7 +306,7 @@ export default {
       this.toggleCard();
     },
     scroll() {
-      var container = this.$el.querySelector('.card-container');
+      var container = this.$el.querySelector(".card-container");
       container.scrollTop = container.scrollHeight;
     },
     toggleCard() {
@@ -197,7 +325,7 @@ export default {
       if (!this.newCard.title) return;
       try {
         await this.$store.dispatch({
-          type: 'addCard',
+          type: "addCard",
           newCard: this.newCard,
           groupId: this.group.id,
         });
@@ -210,8 +338,7 @@ export default {
     async deleteGroup() {
       try {
         await this.$store.dispatch({
-          type: 'deleteGroup',
-          // groupId: this.group.id,
+          type: "deleteGroup",
         });
         this.loadGroup();
       } catch (err) {
@@ -221,7 +348,7 @@ export default {
     async updateGroup() {
       try {
         await this.$store.dispatch({
-          type: 'updateGroup',
+          type: "updateGroup",
           group: this.group,
         });
         this.loadGroup();
@@ -230,16 +357,16 @@ export default {
       }
     },
     loadGroup() {
-      this.$emit('updateGroup');
+      this.$emit("updateGroup");
     },
   },
   computed: {
+    membersToShow() {
+      return this.$store.getters.boardMembers;
+    },
     getEmptyCard() {
       return this.newCard;
     },
-    // cardsToShow() {
-    // return this.group.cards
-    // },
   },
   watch: {
     isEditTitle() {
@@ -247,36 +374,10 @@ export default {
         this.$refs.input.select();
       } else this.$refs.input.focus();
     },
-    // group(val){
-    //   this.group = val
-    // }
   },
 };
 </script>
 
 <style>
-.card-ghost {
-  width: 100%;
-  height: 100%;
-  /* background-color: brown; */
-  transition: transform 0.15s ease;
-  transform: rotateZ(8deg);
-}
-.drop-preview {
-  background-color: rgb(218, 218, 218);
-  border-radius: 3px;
-}
-
-.card-ghost-drop {
-  /* background-color: brown; */
-
-  width: 100%;
-  height: 100%;
-  transition: transform 0.18s ease-in-out;
-  transform: rotateZ(0deg);
-}
-.smooth-dnd-container{
-    min-height: 3px;
-    min-width: 3px;;
-}
 </style>
+
