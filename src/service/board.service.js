@@ -204,7 +204,7 @@ function getEmptyCard() {
     comments: [],
     members: [],
     labelIds: [],
-    dueDate: null,
+    dueDate: { date: null, remind: '', isComplete: false },
     createdAt: Date.now(),
     byMember: null,
     style: {
@@ -487,7 +487,7 @@ const templates = [
               }
             ],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -518,7 +518,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -556,7 +556,7 @@ const templates = [
               }
             ],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -585,7 +585,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -620,7 +620,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -649,7 +649,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -676,7 +676,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -806,7 +806,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -828,7 +828,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -848,7 +848,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -883,7 +883,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -905,7 +905,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": Date.now(),
             "byMember": null,
             "style": {
@@ -925,7 +925,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996443911.0,
             "byMember": null,
             "style": {
@@ -959,7 +959,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996088585.0,
             "byMember": null,
             "style": {
@@ -981,7 +981,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996100062.0,
             "byMember": null,
             "style": {
@@ -1001,7 +1001,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996132576.0,
             "byMember": null,
             "style": {
@@ -1021,7 +1021,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996138058.0,
             "byMember": null,
             "style": {
@@ -1041,7 +1041,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996143495.0,
             "byMember": null,
             "style": {
@@ -1061,7 +1061,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996150194.0,
             "byMember": null,
             "style": {
@@ -1094,7 +1094,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996088586.0,
             "byMember": null,
             "style": {
@@ -1116,7 +1116,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996209035.0,
             "byMember": null,
             "style": {
@@ -1136,7 +1136,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996170999.0,
             "byMember": null,
             "style": {
@@ -1169,7 +1169,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996088588.0,
             "byMember": null,
             "style": {
@@ -1191,7 +1191,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996226764.0,
             "byMember": null,
             "style": {
@@ -1211,7 +1211,7 @@ const templates = [
             "comments": [],
             "members": [],
             "labelIds": [],
-            "dueDate": null,
+           "dueDate": { date: null, remind: '', isComplete: false },
             "createdAt": 1638996253233.0,
             "byMember": null,
             "style": {
