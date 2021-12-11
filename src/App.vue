@@ -16,28 +16,16 @@ export default {
     };
   },
   created() {
-      // this.$store.dispatch({ type: 'logIn', user: { email: 'eligranat@gmail.com', password: 'p' } });
-    //  socketService.on('update board',this.msg)
-    //     socketService.on('update board', msg=>{console.log(msg)})
   },
-  // destroyed(){
-  //   socketService.off(`update${this.$store.getters.getBoard._id}`)
-  // },
   methods: {
     updateBoard(updateBoard) {
-      // console.log(updateBoard.activities,'chack 2');
-
       this.$store.commit({ type: 'setBoard', board: updateBoard });
     },
     updateCard(updateCard) {
-      console.log(updateCard);
-      
-      // commit({ type: 'setBoard', board: updateBoard });
       this.$store.commit({ type: 'setCard', card: updateCard });
     },
     // updateMouse(mouseEvents){
     //   this.$store.commit({ type: 'updateMouse', mouseEvents });
-
     // }
   },
   components: {
@@ -52,16 +40,12 @@ export default {
     },
     '$store.getters.currCard'() {
       if (this.$store.getters.currCard) {
-        // console.log(this.$store.getters.currCard,'before');
         socketService.on(`updateCard${this.$store.getters.currCard.id}`, this.updateCard);
-        // console.log(this.$store.getters.currCard ,'after');
       }
     },
     // '$store.getters.getBoard'() {
     //   if (this.$store.getters.getBoard) {
-    //     // console.log(this.$store.getters.currCard,'before');
     //     socketService.on(`updateMouse${this.$store.getters.getBoard._id}`, this.updateMouse);
-    //     // console.log(this.$store.getters.currCard ,'after');
     //   }
     // },
   },

@@ -53,6 +53,10 @@ export default {
         });
         console.log(res);
         if (res) return this.$router.push(`/${res.username}/boards`)
+         this.$store.commit({
+            type: 'updateStyleHeader',
+            color: { background: ' #026AA7' },
+        });
         //  this.$store.dispatch({ type:'updateStyleHeader',color: null })
       } catch (err) {
         console.log(err);

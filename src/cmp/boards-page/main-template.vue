@@ -1,7 +1,6 @@
 <template>
   <section class="template-boards main-boards" >
          <div class="flex viewed" >
-          <!-- <div class="material-icons-outlined icon "> schedule </div> -->
           <span class="material-icons-outlined icon">published_with_changes</span>
           <h3> Popular template </h3>
         </div>
@@ -43,14 +42,11 @@ export default {
           try{
             const newBoard = await boardService.createBoardTemp(temp,copyUser)
              copyUser.boards.boards.push(newBoard._id);
-            //  console.log('copyUser',copyUser);
               this.$store.dispatch({ type: 'updateUser', currUser: copyUser });
               this.$router.push(`/board/${newBoard._id}`);
           }catch(err){
             throw err
           }
-        console.log('hi');
-        // this.iScreateBoard = !this.iScreateBoard
       },
     },
     computed:{

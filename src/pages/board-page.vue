@@ -1,13 +1,13 @@
 <template>
     <section>
-        <section  class="board-page">
+        <section  class="board-page" >
             <nav-boards @showTemp="showCmp" />
             <main-boards 
                 :userBoards="getBoards"
                 @changeFavorit="changeFavorit"
                 v-if="isShowCmp"
             />
-            <main-template :templateBoards="templateBoards" v-else />
+            <main-template  v-else />
         </section>
             <!-- v-if="getBoards"
         <div class="screen-loader" v-else>
@@ -28,7 +28,6 @@ export default {
             userConnect: {},
             boards: {},
             isShowCmp: true,
-            templateBoards: [],
         };
     },
     components: {
@@ -57,7 +56,7 @@ export default {
     },
     computed: {
         getBoards() {
-            // this.$store.commit({type:'updateStyleHeader',color:{background: ' #026AA7'}})
+            this.$store.commit({type:'updateStyleHeader',color:{background: ' #026AA7'}})
             return this.$store.getters.getBoardsForDisplay;
         },
     },

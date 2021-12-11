@@ -67,7 +67,6 @@ export default {
         '$route.params.boardId'() {
             const boardId = this.$route.params.boardId;
             this.loadBoard(boardId);
-            console.log('lalal');
         },
     },
 };

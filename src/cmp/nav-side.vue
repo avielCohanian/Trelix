@@ -101,4 +101,8 @@ export default {
 </script>
 
 <style>
+.create-board{
+  position: fixed;
+  z-index: 10;
+}
 </style>

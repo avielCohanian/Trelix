@@ -17,13 +17,20 @@
       <h2 class="about"><span> Board admins </span></h2>
       <div class="about-name">
          <avatar
+         v-if="board.createdBy.imgUrl"
+            class="avatar"
+            :size="50"
+            :src="`${board.createdBy.imgUrl}`"
+         ></avatar>
+         <avatar
+         v-else
             class="avatar"
             :size="50"
             :username="`${board.createdBy.fullname}`"
          ></avatar>
          <div class="details">
             <h2>{{ board.createdBy.fullname }}</h2>
-            <h3>{{ board.createdBy.mail }}</h3>
+            <h3>{{ board.createdBy.email }}</h3>
          </div>
       </div>
       <div class="description">

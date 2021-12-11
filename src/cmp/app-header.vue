@@ -306,7 +306,8 @@ export default {
   },
   watch:{
         '$store.getters.getUserConnect'(){
-            console.log(this.$store.getters.getUserConnect,'$store.getters.getUserConnect');
+          this.createdBy=this.$store.getters.getUserConnect
+            // console.log(,'$store.getters.getUserConnect');
         }
     },
   mounted() {},

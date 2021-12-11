@@ -113,6 +113,7 @@ export default {
        },
         getBoard(){
             this.bcgColor = this.$store.getters.getBoard.style
+            console.log(this.$store.getters.getBoard);
             return this.$store.getters.getBoard
         },
          getUrl(){

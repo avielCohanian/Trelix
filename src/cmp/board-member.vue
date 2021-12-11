@@ -69,6 +69,12 @@ export default {
           type: "addMember",
           member
         });
+        
+        await this.$store.dispatch({
+          type: "updateUserBoard",
+          update:{ userId: member._id , type: true ,boardId:board._id }
+        });
+       
       } catch (err) {
         console.log(err);
       }

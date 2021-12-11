@@ -1,6 +1,4 @@
-import { boardService } from '../service/board.service.js';
 import { userService } from '../service/user-service.js';
-// import { socketService, SOCKET_EMIT_USER_WATCH, SOCKET_EVENT_USER_UPDATED } from '../services/socket.service'
 
 export const userStore = {
   state: {
@@ -103,6 +101,15 @@ export const userStore = {
         throw err;
       }
     },
+    
+    
+    async updateUserBoard({ commit }, { update }) {
+      try {
+        await userService.updateUserBoard(update);
+      } catch (err) {
+        throw err;
+      }
+    },
     async changeFavorit({ commit, state, dispatch }, { change }) {
       try {
         const copyDetails = JSON.parse(
@@ -114,7 +121,6 @@ export const userStore = {
         );
         const updateUser = await userService.changeFevorit(copyDetails);
         commit({ type: 'changeFavorit', updateUser });
-        //    this.currUser =userUp
       } catch (err) {
         throw err;
       }

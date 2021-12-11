@@ -156,13 +156,16 @@ export default {
     },
     async removeMember() {
       try {
-        // console.log(this.board);
        await this.$store.dispatch({
           type: "removeMember",
           member: this.currMember,
           // board: this.board 
         });
          this.isShowProfile = false
+          await this.$store.dispatch({
+          type: "updateUserBoard",
+          update:{ userId: this.currMember._id , type: false ,boardId:this.board._id }
+        });
       } catch (err) {
         console.log(err);
       }

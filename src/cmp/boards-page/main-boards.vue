@@ -3,7 +3,6 @@
         <div class="flex viewvd" v-if="userBoards &&userBoards.boardsStar  && userBoards.boardsStar.length" >
           <h3 ><span class="startIcon"></span> Starred boards </h3>
         </div>
-
           <div class="boards-container flex" v-if="userBoards &&userBoards.boardsStar && userBoards.boardsStar.length">
             <div v-for="board in userBoards.boardsStar" :key="board._id">
               
@@ -13,7 +12,6 @@
               </div>
             </div>
           </div>
-
            <div class="flex viewed" v-if="userBoards && userBoards.boards &&userBoards.boards.length">
           <div class="material-icons-outlined icon"> schedule </div>
           <h3 class=""> Recently viewed </h3>
@@ -27,7 +25,6 @@
                 </div>
             </div>
           </div>
-
         <div class="personal-boards flex viewvd" >
           <div class="personal-logo flex-center">
                 <h3> p </h3>
@@ -35,12 +32,12 @@
           <h3 class=""> Personal boards </h3>
         </div>
         <div class="boards-container flex">
-          <!-- add templates for created -->
              <div class="card-board  flex-center pointer create-new"  @click="CreateBoard">
                       <h3 class="card-title "> Create new board </h3>
             </div>
           </div>
         </div>
+         <main-template  />
         <div class="create-board" v-if="iScreateBoard" >
           <create-board @closeCreate="CreateBoard" />
         </div>
@@ -48,22 +45,21 @@
 </template>
 
 <script>
-// import {boardService} from '../../service/board.service.js'
 import createBoard from './create-board.vue'
+import mainTemplate from './main-template.vue';
 export default {
   props:{
-    userBoards:{ type: Object }
+    userBoards:{ type: Object },
     },
     data(){
       return{
         iScreateBoard:null,
-          // bgcs:{}
         }
     },
     created(){
-      // this.getColors()
     },
     methods: {
+       
       openBoard(id){
         this.$router.push(`/board/${id}`)
       },
@@ -73,14 +69,12 @@ export default {
       CreateBoard(){
         this.iScreateBoard = !this.iScreateBoard
       },
-      // getColors(){
-      //    this.bgcs= boardService.getColors()
-      // }
     },
     computed:{
     },
     components:{
-      createBoard
+      createBoard,
+      mainTemplate
     }
 }
 </script>
