@@ -74,7 +74,7 @@
         </div>
         <h3>Add to card</h3>
         <div class="edit-btn">
-          <a class="btn members" @click="dynamicCmp('members', 'members', $event)" title="Members">
+          <a class="btn members" @click="dynamicCmp('members', 'members', $event)" title="Members" ref="membersEl">
             <span class="el-icon-user icon"></span>
             Members</a
           >
@@ -84,17 +84,27 @@
             Labels</a
           >
 
-          <a class="btn checklist" @click="dynamicCmp('checklist', 'Add checklist', $event)" title="Checklist">
+          <a
+            class="btn checklist"
+            @click="dynamicCmp('checklist', 'Add checklist', $event)"
+            title="Checklist"
+            ref="checklistEl"
+          >
             <span class="material-icons-outlined icon"> check_box </span>
             Checklist</a
           >
 
-          <a class="btn dates" @click="dynamicCmp('dueDate', 'dates', $event)" title="Dates">
+          <a class="btn dates" @click="dynamicCmp('dueDate', 'dates', $event)" title="Dates" ref="dueDateEl">
             <span class="el-icon-time icon"></span>
             Dates</a
           >
 
-          <a class="btn attachment" @click="dynamicCmp('attachment', 'attach from...', $event)" title="Attachment">
+          <a
+            class="btn attachment"
+            @click="dynamicCmp('attachment', 'attach from...', $event)"
+            title="Attachment"
+            ref="attachmentEl"
+          >
             <span class="el-icon-paperclip icon"></span> Attachment</a
           >
           <a
@@ -102,6 +112,7 @@
             @click="dynamicCmp('cover', 'cover', $event)"
             title="Cover"
             v-show="!card.style || (card.style && !card.style.bgColor && !card.style.bgUrl)"
+            ref="coverEl"
           >
             <span class="cover-icon">
               <span class="material-icons-outlined icon"> web_asset </span>
@@ -235,16 +246,19 @@ export default {
     dynamicCmp(cmp, header, e = null) {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
-      this.component.header = cmp.name && cmp.name ? cmp.name : header;
-      let position = this.$refs.labelsEl.getBoundingClientRect();
-      console.log(position);
+      this.component.header = cmp.name ? cmp.name : header;
+      let position = cmp.name ? cmp.name : `${cmp}El`;
+
+      // ;
       // this.component.position.x = 450;
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.component.position.y = cmp.pos.y - 50;
         this.component.position.x = cmp.pos.x - 300;
       } else {
-        this.component.position.x = position.x - 250;
-        this.component.position.y = position.y;
+        let cmpPosition = this.$refs[`${position}`].getBoundingClientRect();
+
+        this.component.position.x = cmpPosition.x - 350;
+        this.component.position.y = cmpPosition.y - 150;
         // this.component.position.x = e.clientX - 300;
         // this.component.position.y = e.clientY - 50;
         // console.log(e.clientX);
