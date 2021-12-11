@@ -149,7 +149,7 @@
                     <div class="att-card-icon">
                       <!-- dueDate -->
 
-                      <div class="due-date att-icon" v-if="attCard.dueDate">
+                      <div class="due-date att-icon" v-if="attCard.dueDate && attCard.dueDate.date">
                         <span class="material-icons-outlined att-icon"> check_box</span>
                         <span class="material-icons-outlined att-icon check">crop_din</span>
                         <span class="due-date-icon att-icon el-icon-time check"></span>

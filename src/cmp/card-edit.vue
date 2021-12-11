@@ -237,7 +237,6 @@ export default {
     dynamicCmp(cmp, header, e = null) {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
-      // this.component.position = { x: '', y: '' };
       this.component.header = cmp.name && cmp.name ? cmp.name : header;
       console.log(e);
       // this.component.position.x = 450;
