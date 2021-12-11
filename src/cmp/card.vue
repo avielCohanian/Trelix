@@ -22,7 +22,7 @@
         'img-cover': card.style && card.style.isFull && card.style.bgUrl,
       }"
     >
-<div class="icons-container">
+<div class="icons-container" :class="{ 'icons-full': card.style && card.style.isFull && card.style.bgUrl }">
     <!-- <template class="icons-container"> -->
       <div class="labels">
         <ul class="labels-container" v-if="myLabels">
@@ -69,10 +69,10 @@
           @mouseover="showCheck = true"
           @mouseleave="showCheck = false"
           @click.stop="isDone"
-          :class="{ 'done-card': isCardDone }"
+          :class="{ 'done-card': card.dueDate.isComplete }"
         >
-          <span v-if="isCardDone && showCheck" class="material-icons-outlined icon"> check_box</span>
-          <span v-if="showCheck && !isCardDone" class="material-icons-outlined icon check">crop_din</span>
+          <span v-if="card.dueDate.isComplete && showCheck" class="material-icons-outlined icon"> check_box</span>
+          <span v-if="showCheck && !card.dueDate.isComplete" class="material-icons-outlined icon check">crop_din</span>
           <span v-if="!showCheck" class="due-date-icon icon el-icon-time check"></span>
           <span v-if="card.dueDate.date">
             {{ card.dueDate.date | moment('MMM ') }}
@@ -86,7 +86,7 @@
         <!-- attachment -->
         <span
           v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
-          class="el-icon-paperclip icon"
+          class="el-icon-paperclip icon attachment"
         >
           {{ card.attachment.computerAttachment.length }}</span
         >
@@ -105,7 +105,7 @@
 
         <!-- comments  -->
         <span v-if="card.comments && card.comments.length > 0">
-          <span class="el-icon-chat-round icon"></span>{{ card.comment }}</span
+          <span class="el-icon-chat-round icon comments"></span>{{ card.comment }}</span
         >
       </div>
       <!-- members -->
@@ -188,6 +188,17 @@ export default {
     }
   },
   methods: {
+    async updateCard(card) {
+      console.log('updatcard');
+      try {
+        await this.$store.dispatch({
+          type: 'updateCard',
+          card,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
       updateMember(currMember) {
         console.log(currMember);
         console.log(this.card);
@@ -218,13 +229,15 @@ export default {
     this.currMember = member
     },
     async isDone() {
-      this.isCardDone = !this.isCardDone;
+      console.log('isDone');
       try {
-        var res = await this.$store.dispatch({
-          type: 'updateDuedate',
-          newDone: this.isCardDone,
-          card: JSON.parse(JSON.stringify(this.card)),
-        });
+        let card = JSON.parse(JSON.stringify(this.card))
+        console.log(card.dueDate.isComplete );
+        card.dueDate.isComplete = !card.dueDate.isComplete 
+        console.log(card.dueDate.isComplete );
+
+      await this.updateCard(card)
+       
       } catch (err) {
         console.log(err);
       }
@@ -360,3 +373,9 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.icons-full{
+     position: absolute;
+    width: 93%; 
+}
+</style>

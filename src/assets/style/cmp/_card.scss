@@ -99,8 +99,8 @@ section.card.img-cover {
 
     .icons {
         font-family: initial;
-        margin-bottom: 7px;
-        margin-top: 5px;
+        // margin-bottom: 7px;
+        // margin-top: 5px;
         
         min-height: 0;
         // padding-bottom: 7px;
@@ -111,6 +111,7 @@ section.card.img-cover {
         gap: 15px;
 
         .checklist {
+            padding: 7px 0;
             margin: 0;
             // height: 28px;
             display: flex;
@@ -118,6 +119,7 @@ section.card.img-cover {
             align-items: center;
         }
         .due-date {
+            padding: 7px 0;
             border-radius: 2px;
             padding: 3px;
             display: flex;
@@ -132,6 +134,15 @@ section.card.img-cover {
         }
         .check {
             font-size: 14px;
+        }
+        .description{
+            padding: 7px 0;
+        }
+        .comments{
+            padding: 7px 0;
+        }
+        .attachment{
+            padding: 7px 0;
         }
         .icon {
             display: flex;
@@ -422,7 +433,7 @@ font-size: 12px;
         }
     }
     .user-details {
-        flex-direction: row;
+        // flex-direction: row;
     }
 }
 .choice {

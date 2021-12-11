@@ -288,9 +288,12 @@ export default {
     showProfile() {
       this.isShowProfile = !this.isShowProfile;
     },
-     getTemplate(){
-        this.templateBoards =  boardService.getTemplates()
-       console.log( this.templateBoards);
+    //  getTemplate(){
+    //     this.templateBoards =  boardService.getTemplates()
+    //    console.log( this.templateBoards);
+    //   },
+      async getTemplate(){
+        this.templateBoards =  await boardService.getTemplates()
       },
   },
   computed:{

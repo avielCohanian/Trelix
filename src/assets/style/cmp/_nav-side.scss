@@ -1,5 +1,6 @@
 .nav-side {
     position: relative;
+    transition: width 2s;
     // min-width: 260px ;
     // margin-top: 7px;
     .nav-side-container {
@@ -109,6 +110,11 @@
                 fill: inherit;
                 flex-shrink: 0;
                 line-height: 1;
+                border-radius: 3px;
+                cursor: pointer;
+                &:hover{
+                    background-color: rgba(220, 220, 220, 0.555);
+                }
             }
         }
         .board-list-container a{
@@ -162,7 +168,9 @@
     margin-top: 8px;
     height: 93vh;
     width: 30px;
+    transition: width 2s;
     background-color: rgba(193, 199, 208, 0.2);
+    
     // background-color: rgba(255, 255, 255, 0.171);
     .btn-open {
         background-color: rgba(157, 162, 170, 0.486);
@@ -173,19 +181,24 @@
     }
 }
 .open-nav {
+    margin-bottom: 18px;
+    margin-top: 7px;
     background-color: rgb(157 162 170 / 76%);
     background-color: #ededed7a;
     border-radius: 0;
     border-right: 1.5px solid rgba(54, 58, 64, 0.24);
     min-width: 260px;
+    transition: width 2s
+    
     img{
         color: ghostwhite;
 
     }
 }
 .close-nav {
-    transform: translateX(0%);
-    transition: transform 0.3s;
+    transition: width 2s
+    // transform: translateX(0%);
+    // transition: transform 0.3s;
     // width: 260px;
     // background-color: rgba(193, 199, 208, 0.2);
     // border-radius: 0;
