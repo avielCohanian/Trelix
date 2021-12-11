@@ -18,9 +18,6 @@ export default {
   created() {
   },
   methods: {
-    updateBoard(updateBoard) {
-      this.$store.commit({ type: 'setBoard', board: updateBoard });
-    },
     updateCard(updateCard) {
       this.$store.commit({ type: 'setCard', card: updateCard });
     },
@@ -33,11 +30,6 @@ export default {
   },
   computed: {},
   watch: {
-    '$store.getters.getBoard'() {
-      if (this.$store.getters.getBoard) {
-        socketService.on(`update${this.$store.getters.getBoard._id}`, this.updateBoard);
-      }
-    },
     '$store.getters.currCard'() {
       if (this.$store.getters.currCard) {
         socketService.on(`updateCard${this.$store.getters.currCard.id}`, this.updateCard);

@@ -46,9 +46,16 @@ export default {
                     type: 'loadBoard',
                     boardId,
                 });
+                socketService.on(
+                    `update${this.$store.getters.getBoard._id}`,
+                    this.updateBoard
+                );
             } catch (err) {
                 console.log(err);
             }
+        },
+        updateBoard(updateBoard) {
+            this.$store.commit({ type: 'setBoard', board: updateBoard });
         },
     },
     computed: {
@@ -73,7 +80,7 @@ export default {
 </script>
 
 <style>
-.container-board{
+.container-board {
     height: 95vh;
 }
 </style>
