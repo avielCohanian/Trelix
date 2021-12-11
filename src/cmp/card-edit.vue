@@ -79,7 +79,7 @@
             Members</a
           >
 
-          <a class="btn labels" @click="dynamicCmp('labels', 'labels', $event)" title="Labels">
+          <a class="btn labels" @click="dynamicCmp('labels', 'labels', $event)" title="Labels" ref="labelsEl">
             <span class="el-icon-price-tag label-icon icon"></span>
             Labels</a
           >
@@ -236,15 +236,18 @@ export default {
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
       this.component.header = cmp.name && cmp.name ? cmp.name : header;
-      console.log(e);
+      let position = this.$refs.labelsEl.getBoundingClientRect();
+      console.log(position);
       // this.component.position.x = 450;
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.component.position.y = cmp.pos.y - 50;
         this.component.position.x = cmp.pos.x - 300;
       } else {
-        this.component.position.x = e.clientX - 300;
-        this.component.position.y = e.clientY - 50;
-        console.log(e.clientX);
+        this.component.position.x = position.x - 250;
+        this.component.position.y = position.y;
+        // this.component.position.x = e.clientX - 300;
+        // this.component.position.y = e.clientY - 50;
+        // console.log(e.clientX);
       }
       console.log(this.component.position.x);
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;

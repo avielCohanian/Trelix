@@ -1,22 +1,23 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    color: $clr2;
-    line-height: 1.8;
+  color: $clr2;
+  line-height: 1.8;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 body {
-    margin: 0;
- font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
-   sans-serif ,iconTrello;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
+    sans-serif, iconTrello;
 
-    color: #172b4d;
-    font-size: rem(12px);
-    font-weight: 400px;
-    line-height: 10px;
-    
+  color: #172b4d;
+  font-size: rem(12px);
+  font-weight: 400px;
+  line-height: 10px;
 }
 
 h1,
@@ -25,71 +26,68 @@ h3,
 h4,
 h5,
 h6 {
-    
-	font-weight: 500;
-	margin: 0.8rem 0.3rem;
+  font-weight: 500;
+  margin: 0.8rem 0.3rem;
 }
 
 h1 {
-    font-size: rem(60px);
+  font-size: rem(60px);
 }
 
 img {
-    width: 100%;
+  width: 100%;
 }
 
 p {
-    margin: 0 0 1rem;
-    max-width: 60ch;
-    line-height: 20px
+  margin: 0 0 1rem;
+  max-width: 60ch;
+  line-height: 20px;
 }
 
 button {
-    border-radius: 3em;
-    cursor: pointer;
+  border-radius: 3em;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: lightgrey;
+  background-color: lightgrey;
 }
 
 .el-input--suffix .el-input__inner,
 .el-input__inner {
-    width: 150px;
+  width: 150px;
 }
 
 li {
-    display: inline-block;
-    margin: 0;
+  display: inline-block;
+  margin: 0;
 }
-ul{
-    margin: 0;
-    padding: 0;
-}
-
-.el-textarea__inner{
-	resize: none;
-}
-#app{
-    position: relative;
-}
-.screen-loader{
-    width: 100vw;
-    height: 100vh;
-    background-color:rgba(255, 255, 255, 0.555);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .loader {
-        width: 100px;
-        height: 100px;
-        background-image: url('https://a.trellocdn.com/prgb/dist/images/spinner.24976c46bbf8be9db663.svg');
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    
+ul {
+  margin: 0;
+  padding: 0;
 }
 
+.el-textarea__inner {
+  resize: none;
+}
+#app {
+  position: relative;
+}
+.screen-loader {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.555);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .loader {
+    width: 100px;
+    height: 100px;
+    background-image: url('https://a.trellocdn.com/prgb/dist/images/spinner.24976c46bbf8be9db663.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
