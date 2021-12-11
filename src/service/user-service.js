@@ -13,13 +13,11 @@ export const userService = {
   remove,
   getLoggedinUser,
   getUsers,
+  updateUserBoard
 };
 
 async function remove(userId) {
   try {
-    // const removeUser = await axios.delete(USER_URL + '/' + userId);
-    // return removeUser;
-
     return httpService.delete(`user/${userId}`);
   } catch (err) {
     console.log(err);
@@ -27,23 +25,12 @@ async function remove(userId) {
 }
 function getUsers() {
   console.log('service');
-  // return storageService.query('user')
   return httpService.get(`user/` , getUsers);
 }
 async function logIn(user) {
-  // console.log(user);
   try {
     const loginUser = await httpService.post('auth/login', user);
-    // console.log(loginUser);
     if (loginUser) return _saveLocalUser(loginUser);
-    // if (loginUser) {
-    //     // let sessionUser = {
-    //     //     email: loginUser.email,
-    //     //     fullname: loginUser.fullname,
-    //     // };
-    //     console.log(sessionUser)
-    //     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(loginUser));
-    // }
     return loginUser;
   } catch (err) {
     console.log(err);
@@ -51,11 +38,7 @@ async function logIn(user) {
 }
 async function logout() {
   try {
-    // await axios.post(AUTH_URL + '/logout', user);
-    // sessionStorage.setItem(STORAGE_KEY, null);
-    // return null;
     sessionStorage.removeItem(STORAGE_KEY);
-    // socketService.emit('unset-user-socket');
     return await httpService.post('auth/logout');
   } catch (err) {
     console.log(err);
@@ -78,23 +61,52 @@ async function signup(user) {
 
 async function updateUser(user) {
   try {
-    // const user = await axios.put(AUTH_URL + '/' + user._id, user);
-    // return user.data;
-
-    user = await httpService.put(`user/${user._id}`, user);
-    // Handle case in which admin updates other user's details
-    if (getLoggedinUser()._id === user._id) _saveLocalUser(user);
-    return user;
+    const CurrUser = await httpService.put(`user/${user._id}`, user);
+    if (getLoggedinUser()._id === CurrUser._id) _saveLocalUser(CurrUser);
+    return CurrUser;
   } catch (err) {
     console.log(err);
   }
 }
-
-function getLoggedinUser() {
-  // return JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+ function getLoggedinUser() {
   return JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null');
 }
 
+async function getById(userId) {
+	try {
+		// const user = await axios.get(USER_URL + '/' + id);
+		// return user.data;
+
+		const user = await httpService.get(`user/${userId}`);
+		// gWatchedUser = user;
+		return user;
+	} catch (err) {
+		console.log(err);
+	}
+}
+async function updateUserBoard(update){
+  try{
+    const user = await getById(update.userId)
+    if (update.type) {
+      user.boards.boards.push(update.boardId)
+    }else{
+       const idx = user.boards.boards.findIndex(board=> board === update.boardId)
+       if (idx || idx === 0) {
+        user.boards.boards.splice(idx , 1)
+       }
+       else {
+         const idx = user.boards.starBoard.findIndex(board=> board === update.boardId)
+         user.boards.starBoard.splice(idx,1)
+       }
+    }
+     return await updateUser(user)
+  }catch(err){
+    throw err
+  }
+
+
+
+}
 async function changeFevorit(copyDetails) {
   const { idBoard, isFavorit, currUser } = copyDetails;
   try {

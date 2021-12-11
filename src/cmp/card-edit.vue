@@ -21,9 +21,7 @@
             <li @click.stop.prevent="dynamicCmp('cover', 'cover', $event)" class="pointer">
               <span class="material-icons-outlined"> branding_watermark </span>Change cover
             </li>
-            <li class="pointer"><span class="material-icons-outlined"> arrow_forward </span>Move</li>
-            <li class="pointer"><span class="material-icons-outlined"> file_copy </span>Copy</li>
-            <li @click.stop.prevent="dynamicCmp('dates')" class="pointer">
+            <li @click.stop.prevent="dynamicCmp('dueDate', 'dates', $event)" class="pointer">
               <span class="material-icons-outlined"> watch_later </span>
               Edit dates
             </li>

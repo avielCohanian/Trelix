@@ -1,9 +1,18 @@
 <template>
-    <section class="board-page">
-        <nav-boards @showTemp="showCmp"/>
-        <main-boards :userBoards="getBoards" @changeFavorit="changeFavorit" v-if="isShowCmp" />
-        <main-template :templateBoards="templateBoards" v-else />
-        
+    <section>
+        <section  class="board-page" >
+            <nav-boards @showTemp="showCmp" />
+            <main-boards 
+                :userBoards="getBoards"
+                @changeFavorit="changeFavorit"
+                v-if="isShowCmp"
+            />
+            <main-template  v-else />
+        </section>
+            <!-- v-if="getBoards"
+        <div class="screen-loader" v-else>
+            <div class="loader"></div>
+        </div> -->
     </section>
 </template>
 
@@ -18,22 +27,27 @@ export default {
         return {
             userConnect: {},
             boards: {},
-            isShowCmp:true,
-            templateBoards:[]
+            isShowCmp: true,
         };
     },
     components: {
         navBoards,
         mainBoards,
-        mainTemplate
+        mainTemplate,
     },
     created() {
         this.$store.dispatch({ type: 'loadBoards' });
+        this.$store.commit({
+            type: 'updateStyleHeader',
+            color: { background: ' #026AA7' },
+        });
+    },
+    destroyed() {
+        this.$store.commit({ type: 'updateStyleHeader', color: null });
     },
     methods: {
-        
-        showCmp(is){
-            this.isShowCmp=is
+        showCmp(is) {
+            this.isShowCmp = is;
         },
         async changeFavorit(change) {
             await this.$store.dispatch({ type: 'changeFavorit', change });
@@ -46,11 +60,7 @@ export default {
             return this.$store.getters.getBoardsForDisplay;
         },
     },
-   
-   
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -1,6 +1,4 @@
 import { boardService } from '../service/board.service.js';
-// import { socketService, SOCKET_EMIT_USER_WATCH, SOCKET_EVENT_USER_UPDATED } from '../service/socket.service.js';
-import { utilService } from '../service/util.service.js';
 
 export const boardStore = {
   state: {
@@ -57,7 +55,6 @@ export const boardStore = {
     //   state.mouseEvents = mouseEvents;
     // },
     updateModal(state, { isModal }) {
-      // console.log(isModal);
       state.modal = isModal;
     },
     updateStyleHeader(state, { color }) {
@@ -174,9 +171,7 @@ export const boardStore = {
       
       try {
         const updateBoard = await boardService.updatedBoard(board, JSON.parse(JSON.stringify(getters.getUserConnect)));
-        console.log(updateBoard,'updateBoard');
         // commit({ type: 'setBoard', board: JSON.parse(JSON.stringify(updateBoard)) });
-
         socketService.emit('update', updateBoard);
         
       } catch (err) {
@@ -218,17 +213,18 @@ export const boardStore = {
     },
     async removeMember({ commit, getters }, { member }) {
       try {
-        const board = JSON.parse(JSON.stringify(getters.getBoard));
-        var savedBoard = await boardService.deleteMember(board, member._id);
-        commit({ type: 'setBoard', board: savedBoard });
-        return savedBoard;
+
+        var savedBoard = await boardService.deleteMember(getters.getBoard, member._id);
+        console.log(member);
+        commit({ type: 'setBoard', board:savedBoard });
+        // return savedBoard;
       } catch (err) {
         console.log(err);
       }
     },
-    async addMember({ commit, getters }, { member }) {
+    async addMember({ commit, getters,dispatch }, { member }) {
       try {
-        const board = JSON.parse(JSON.stringify(getters.getBoard));
+        const board = JSON.parse(JSON.stringify(getters.getBoard))
         var savedBoard = await boardService.addMember(board, member);
         commit({ type: 'setBoard', board: savedBoard });
         return savedBoard;

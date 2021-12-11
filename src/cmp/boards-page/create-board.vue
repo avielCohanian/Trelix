@@ -41,9 +41,6 @@
 import { imgService } from '../../service/img.service.js';
 import { boardService } from '../../service/board.service.js';
 export default {
-  // props: {
-  //   bgcs: { type: Array },
-  // },
   data() {
     return {
       bgcs:[],

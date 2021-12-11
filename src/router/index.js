@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import home from '../pages/home.vue';
-import about from '../pages/about.vue';
 import boards from '../pages/board-page.vue';
 
 import cardDetails from '../pages/card-details.vue';
@@ -32,11 +31,6 @@ const routes = [
         path: '/signup/:email?',
         name: 'signup',
         component: signup,
-    },
-    {
-        path: '/about',
-        name: 'about',
-        component: about,
     },
     {
         path: '/:boardId/boards',

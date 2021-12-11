@@ -2,7 +2,6 @@
   <section class="full" @click.stop>
     <section class="nav-board" :style="color">
       <ul class="left">
-        <!-- <li class="pointer">Board <i class="el-icon-arrow-down"></i></li> -->
 
         <li class="edit-title-container">
           <el-input
@@ -11,7 +10,7 @@
             size="mini"
             :class="{ focus: isEditTitle }"
            
-            v-model="getBoard.title"
+            v-model="board.title"
             @keyup.enter.native="editTitle"
             @click.native="editTitle"
           ></el-input>
@@ -27,8 +26,8 @@
         <span class="divider"></span>
         <div class="icon-user pointer">
           <li
-            v-for="member in getBoard.members"
-            :key="member.id"
+            v-for="member in board.members"
+            :key="member._id"
             class="avatar-logo"
             @click="showProfile(member)"
           >
@@ -53,12 +52,8 @@
       </ul>
       <div class="modal" v-if="isShowProfile">
         <div class="title">
-          <i class="el-icon-close" @click="isShowProfile = !isShowProfile"></i>
-          <!-- <i>Account</i> -->
+          <i class="el-icon-close pointer" @click="isShowProfile = !isShowProfile"></i>
         </div>
-        <!-- <hr /> -->
-        <!-- <div class="avatar-user "> -->
-        <!-- <div class="flex-center"> -->
 
         <div class="user-details">
           <div>
@@ -78,24 +73,18 @@
           </div>
           <div class="name">
             <strong>{{ currMember.fullname }}</strong>
-            <div class="mail">{{ currMember.mail }}</div>
+            <div class="mail">{{ currMember.email }}</div>
           </div>
         </div>
 
         <div class="choice">
-          <div class="btn-choice">Change permissions... (Normal)</div>
-          <div class="btn-choice">view member's board activity</div>
-          <div class="btn-choice" @click="removeMember">
+          <div class="btn-choice pointer" @click="removeMember">
             Remove from board...
           </div>
         </div>
-        <!-- </div> -->
       </div>
-      <!-- </div> -->
       <ul class="right">
-        <!-- <li class="icon pointer">
-          <span class="material-icons-outlined">flash_on</span>Automation
-        </li> -->
+        
         <boardMember v-if="isInvite" @closeModel="toggleInvite"/>
         <span class="divider"></span>
         <li class="icon pointer">
@@ -117,9 +106,10 @@ import boardMember from "./board-member.vue"
 
 export default {
   name: "navBoard",
-  props: ["getBoard"],
+  // props: ["getBoard"],
   data() {
     return {
+      board:null,
       isStarOn: false,
       isEditTitle: false,
       isShowProfile: false,
@@ -128,7 +118,11 @@ export default {
       isInvite:false,
     };
   },
+  created(){
+  this.getBoard()
+  },
   computed: {
+    
     isShowMenu() {
       return this.showMenu ? "open-menu" : "close-menu";
     },
@@ -137,24 +131,41 @@ export default {
     }
   },
   methods: {
+    getBoard() {
+      console.log( JSON.parse(JSON.stringify(this.$store.getters.getBoard)) );
+      return this.board= JSON.parse(JSON.stringify(this.$store.getters.getBoard)) 
+        },
     async changeFavorite(change = this.isStarOn) {
       this.isStarOn = !this.isStarOn;
       await this.$store.dispatch({ type: "changeFavorit", change });
       this.$store.dispatch({ type: "loadBoards" });
     },
-    editTitle() {
-      this.isEditTitle = !this.isEditTitle;
+
+    async editTitle() {
+      try{
+        this.isEditTitle = !this.isEditTitle;
+      await this.$store.dispatch({ type: "updateBoard", board: this.board });
+      // this.getBoard()
+      }catch(err){
+        console.log(err)
+      }
+
     },
     toggleInvite() {
       this.isInvite = !this.isInvite;
     },
     async removeMember() {
       try {
-        var res = await this.$store.dispatch({
+       await this.$store.dispatch({
           type: "removeMember",
           member: this.currMember,
+          // board: this.board 
         });
-        if (res) return (this.isShowProfile = false);
+         this.isShowProfile = false
+          await this.$store.dispatch({
+          type: "updateUserBoard",
+          update:{ userId: this.currMember._id , type: false ,boardId:this.board._id }
+        });
       } catch (err) {
         console.log(err);
       }
@@ -169,6 +180,9 @@ export default {
     },
   },
   watch: {
+    "$store.getters.getBoard"(){
+    this.getBoard()
+    },
     isEditTitle() {
       if (this.isEditTitle) {
         this.$refs.input.select();

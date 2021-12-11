@@ -44,7 +44,7 @@
                     
 
                     <hr class="section-hr" />
-                    <div class="signup ">
+                    <div class="signup pointer">
                         <a @click="moveToLogin">Log in to another account</a>
                     </div>
                 </div>

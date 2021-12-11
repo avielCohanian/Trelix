@@ -1,7 +1,6 @@
 <template>
   <section class="template-boards main-boards" >
          <div class="flex viewed" >
-          <!-- <div class="material-icons-outlined icon "> schedule </div> -->
           <span class="material-icons-outlined icon">published_with_changes</span>
           <h3> Popular template </h3>
         </div>
@@ -32,8 +31,8 @@ export default {
       this.getTemplate()
     },
     methods: {
-      getTemplate(){
-        this.templateBoards =  boardService.getTemplates()
+      async getTemplate(){
+        this.templateBoards =  await boardService.getTemplates()
       },
       openBoard(id){
         this.$router.push(`/board/${id}`)
@@ -48,8 +47,6 @@ export default {
           }catch(err){
             throw err
           }
-        console.log('hi');
-        // this.iScreateBoard = !this.iScreateBoard
       },
     },
     computed:{
