@@ -285,7 +285,7 @@ async function getLabelByCard(boardId, card) {
 }
 
 function deleteMember(board, memberId) {
- const copyBoard = JSON.parse(JSON.stringify(board));
+  const copyBoard = JSON.parse(JSON.stringify(board));
   let idx = copyBoard.members.findIndex((member) => member._id === memberId);
   copyBoard.members.splice(idx, 1);
   return _updateService(copyBoard);
@@ -410,7 +410,7 @@ const colors = [
 ];
 
 async function getTemplates() {
-  const template = await queryTemplate()
+  const template = await queryTemplate();
   console.log(template);
-  return template
+  return template;
 }

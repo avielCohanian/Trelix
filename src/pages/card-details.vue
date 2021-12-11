@@ -149,13 +149,11 @@
                     <div class="att-card-icon">
                       <!-- dueDate -->
 
-                      <div class="due-date att-icon" v-if="attCard.dueDate && attCard.dueDate.date">
-                        <span class="material-icons-outlined att-icon"> check_box</span>
-                        <span class="material-icons-outlined att-icon check">crop_din</span>
+                      <div class="due-date-container att-icon" v-if="attCard.dueDate && attCard.dueDate.date">
                         <span class="due-date-icon att-icon el-icon-time check"></span>
                         <span v-if="attCard.dueDate.date">
                           {{ attCard.dueDate.date | moment('MMM ') }}
-                          {{ dueDateDay }}</span
+                          {{ dueDateDay.date }}</span
                         >
                       </div>
 
@@ -740,10 +738,11 @@ export default {
     },
     bgColor() {
       if (this.card.style.bgColor) {
-        return { backgroundColor: this.card.style.bgColor };
+        return { backgroundColor: this.card.style.bgColor, height: '116px' };
       } else if (this.card.style.bgUrl) {
         return {
           backgroundImage: this.card.style.bgUrl,
+          height: '180px',
         };
       }
     },

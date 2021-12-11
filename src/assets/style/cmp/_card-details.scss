@@ -591,6 +591,9 @@
                 padding-left: 6px;
                 color: #172b4d;
                 display: flex;
+                .due-date-container {
+                  display: flex;
+                }
 
                 .att-icon {
                   margin-top: 0;
