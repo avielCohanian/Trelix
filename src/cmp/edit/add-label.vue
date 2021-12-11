@@ -11,7 +11,6 @@
     <h3 class="labels-title">Select a color</h3>
     <ul>
       <li v-for="(color, idx) in colors" :key="idx" @click="chooseColor(color)">
-       
         <div
           v-if="!label.currLabel"
           class="label"
@@ -19,8 +18,7 @@
             backgroundColor: color,
           }"
         >
-
-          <span class="material-icons-outlined" v-show="color === newLabel.color  " @click="chooseColor(color)">
+          <span class="material-icons-outlined" v-show="color === newLabel.color" @click="chooseColor(color)">
             check
           </span>
         </div>
@@ -42,7 +40,7 @@
     </ul>
     <div class="flex-space">
       <a class="add-label" @click="addLabel">Save</a>
-      <a v-if="label.type === 'edit' || type==='edit'" class="delete-label" @click="deleteLabel">Delete</a>
+      <a v-if="label.type === 'edit' || type === 'edit'" class="delete-label" @click="deleteLabel">Delete</a>
     </div>
   </section>
 </template>
@@ -55,16 +53,12 @@ export default {
       type: Object,
       required: true,
     },
-     inMenu: {
+    inMenu: {
       type: Boolean,
-      default:false
+      default: false,
     },
-    type: {
-      type: String,
-    },
-    header: {
-      type: String,
-    },
+    type: String,
+    header: String,
   },
   data() {
     return {

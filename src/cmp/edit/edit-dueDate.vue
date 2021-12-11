@@ -92,6 +92,7 @@ export default {
       console.log(Date.now(this.dueTime));
       console.log(Date.now(this.dateTime));
       let dueDate = { date: Date.now(this.dueTime), remind: this.remind };
+      dueDate = JSON.parse(JSON.stringify(dueDate));
       this.$emit('dueDate', dueDate);
     },
   },
