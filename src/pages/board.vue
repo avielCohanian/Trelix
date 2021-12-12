@@ -46,17 +46,17 @@ export default {
                     type: 'loadBoard',
                     boardId,
                 });
-                socketService.on(
-                    `update${this.$store.getters.getBoard._id}`,
-                    this.updateBoard
-                );
+                // socketService.on(
+                //     `update${this.$store.getters.getBoard._id}`,
+                //     this.updateBoard
+                // );
             } catch (err) {
                 console.log(err);
             }
         },
-        updateBoard(updateBoard) {
-            this.$store.commit({ type: 'setBoard', board: updateBoard });
-        },
+        // updateBoard(updateBoard) {
+        //     this.$store.commit({ type: 'setBoard', board: updateBoard });
+        // },
     
   },
   computed: {

@@ -18,6 +18,10 @@ export default {
   created() {
   },
   methods: {
+    
+ updateBoard(updateBoard) {
+            this.$store.commit({ type: 'setBoard', board: updateBoard });
+        },
     updateCard(updateCard) {
       this.$store.commit({ type: 'setCard', card: updateCard });
     },
@@ -40,6 +44,11 @@ export default {
     //     socketService.on(`updateMouse${this.$store.getters.getBoard._id}`, this.updateMouse);
     //   }
     // },
+    '$store.getters.getBoard'() {
+      if (this.$store.getters.getBoard) {
+         socketService.on( `update${this.$store.getters.getBoard._id}`, this.updateBoard);
+      }
+    },
   },
 };
 </script>
