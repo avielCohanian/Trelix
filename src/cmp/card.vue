@@ -121,7 +121,7 @@
         <div class="title">
           <i class="el-icon-close pointer" @click="isShowProfile = !isShowProfile"></i>
         </div>
-        <div class="user-details">
+        <div class="user-details ">
           <div>
             <avatar
               v-if="currMember.imgUrl"

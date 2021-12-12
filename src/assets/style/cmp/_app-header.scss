@@ -224,6 +224,9 @@
         gap: 10px;
         flex-direction: column;
         margin-inline-start: 3px;
+        &.detraction{
+            flex-direction: column;
+        }
         .fade,
         hr {
             font-size: 12px;
