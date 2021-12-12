@@ -79,7 +79,7 @@
           :username="createdBy.fullname"
           class="member"
         ></avatar>
-        <div class="user-details">
+        <div class="user-details detraction">
           <div>
             <strong>{{ createdBy.fullname }}</strong>
           </div>

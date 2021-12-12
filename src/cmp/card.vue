@@ -128,9 +128,26 @@
           ></avatar>
           <avatar v-else :size="50" username="currMember.username" class="member"></avatar>
         </div>
-        <div class="name">
-          <strong>{{ currMember.fullname }}</strong>
-          <div class="mail">{{ currMember.email }}</div>
+        <div class="user-details ">
+          <div>
+            <avatar
+              v-if="currMember.imgUrl"
+              :src="currMember.imgUrl"
+              :size="50"
+              username="currMember.username"
+              class="member"
+            ></avatar>
+            <avatar
+              v-else
+              :size="50"
+              username="currMember.username"
+              class="member"
+            ></avatar>
+          </div>
+          <div class="name">
+            <strong>{{ currMember.fullname }}</strong>
+            <div class="mail">{{ currMember.email }}</div>
+          </div>
         </div>
       </div>
 

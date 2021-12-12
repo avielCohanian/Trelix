@@ -20,7 +20,10 @@ export default {
     updateCard(updateCard) {
       this.$store.commit({ type: 'setCard', card: updateCard });
     },
-    // updateMouse(mouseEvents) {
+    updateBoard(updateBoard) {
+      this.$store.commit({ type: 'setBoard', board: updateBoard });
+    },
+    // updateMouse(mouseEvents){
     //   this.$store.commit({ type: 'updateMouse', mouseEvents });
     // },
     updateBoard(updateBoard) {
