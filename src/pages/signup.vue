@@ -45,7 +45,7 @@
               <strong>Sign Up</strong>
             </button>
           </div>
-          <div class="or">OR</div>
+          <!-- <div class="or">OR</div>
           <div class="google-btn">
             <span class="icon"></span>
             <strong class="google-txt">Continue with Google</strong>
@@ -53,10 +53,10 @@
           <div class="google-btn">
             <span class="icon"></span>
             <strong class="google-txt">Continue with Facebook</strong>
-          </div>
+          </div> -->
 
           <hr class="section-hr" />
-          <div class="signup">
+          <div class="signup pointer">
             <a @click="moveToLogin">Already have an account? Log in</a>
           </div>
         </div>
