@@ -9,6 +9,7 @@ export const boardStore = {
     boardsForDisplay: null,
     styleHeader: null,
     modal: true,
+    isLabelOpen: false,
     // mouseEvents:[]
     // watchedUser: null,
     // currUser: userService.getLoggedinUser(),
@@ -47,6 +48,9 @@ export const boardStore = {
     boardMembers(state) {
       return state.currBoard.members;
     },
+    isLabelOpen(state) {
+      return state.isLabelOpen;
+    },
   },
   mutations: {
     // updateMouse(state,{mouseEvents}) {
@@ -55,6 +59,9 @@ export const boardStore = {
     // },
     updateModal(state, { isModal }) {
       state.modal = isModal;
+    },
+    updateIsLabelOpen(state, { isLabelOpen }) {
+      state.isLabelOpen = isLabelOpen;
     },
     updateStyleHeader(state, { color }) {
       state.styleHeader = color;

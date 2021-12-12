@@ -33,11 +33,11 @@
                 :style="{
                   backgroundColor: label.color,
                 }"
-                :class="{ 'label-text': isLabelText }"
+                :class="{ 'label-text': isLabelOpen }"
                 @click.stop.prevent="toggleLabel"
               >
                 <transition name="fade">
-                  <span class="label-title" v-if="label.title && isLabelText">{{ label.title }}</span>
+                  <span class="label-title" v-if="label.title && isLabelOpen">{{ label.title }}</span>
                 </transition>
               </span>
             </li>
@@ -242,7 +242,10 @@ export default {
       }
     },
     toggleLabel() {
-      this.isLabelText = !this.isLabelText;
+      let labelToggle = JSON.parse(JSON.stringify(this.$store.getters.isLabelOpen));
+      labelToggle = !labelToggle;
+      this.$store.commit({ type: 'updateIsLabelOpen', isLabelOpen: labelToggle });
+      // this.isLabelText = !this.isLabelText;
     },
     closeModel() {
       this.component.currCmp = null;
@@ -284,6 +287,10 @@ export default {
     },
   },
   computed: {
+    isLabelOpen() {
+      console.log(this.$store.getters.isLabelOpen);
+      return this.$store.getters.isLabelOpen;
+    },
     labelsForDisplay() {
       if (this.card.labelIds) {
         return this.getLabel();
