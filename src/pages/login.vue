@@ -20,18 +20,18 @@
             </el-input>
             <button @click="logIn"><strong>Log in</strong></button>
           </div>
-          <div class="or">OR</div>
-          <div class="google-btn">
+          <!-- <div class="or">OR</div>
+          <div class="google-btn" >
             <span class="icon"></span>
             <strong class="google-txt"> <span class="icon-g">Continue with Google</span></strong>
           </div>
           <div class="google-btn">
             <span class="icon"></span>
             <strong class="google-txt">Continue with Facebook</strong>
-          </div>
+          </div> -->
 
           <hr class="section-hr" />
-          <div class="signup">
+          <div class="signup pointer">
             <a  @click="moveToSignup">Sign up for an account</a>
           </div>
         </div>

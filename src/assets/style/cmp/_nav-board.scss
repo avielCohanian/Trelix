@@ -29,6 +29,15 @@
     li:hover {
         background-color: #ffffffa9;
     }
+    .show-menu{
+        position: absolute;
+        right: 10px;
+        @media (max-width: 850px) {
+            position:static;
+
+        }
+      
+    }
     li.edit-title-container{
         // width: 100px;
         margin: 0;
@@ -61,49 +70,27 @@
             
         }
     }
-//     .name-board{
-//         font-size: 18px;
-//     font-weight: 700;
-//     line-height: 32px;
-//     padding: 0 12px;
-//     p{
-//         margin: 0;
-//     }
-//     .edit-title{
-// height: 30px;
-// border-radius: 3px;
-// display: flex;
-//         align-items: center;
-//         justify-content: center;
-//     }
-//     input.edit-title-input{
-//         background-color: #ffffff91;
-//         border: none;
-//         box-sizing: border-box;
-//         font-size: 18px;
-//         font-weight: 700;
-//         margin: 0;
-//         padding: 0 12px;
-//         border-radius: 3px;
-//         height: 30px;
-//     }
-//     }
     .left {
         padding-inline-start: 0;
         // color: white;
         display: flex;
+        flex-wrap: wrap;
         gap: 5px;
+        @media (max-width: 850px) {
+            padding: 18px;
+            margin-top: 61px;
+            gap: 10px;
+
+
+        }
+      
         .icon-user {
             display: flex;
             justify-content: center;
             // align-items: center;
         }
     }
-    .right {
-        // color: white;
-        display: flex;
-        gap: 5px;
-    }
+   
     li.avatar-logo {
         margin-inline-end: 2px;
         background-color: rgba(65, 105, 225, 0);
@@ -164,4 +151,7 @@ font-size: 12px;
             }
         }
     }
+   
+
+
 }

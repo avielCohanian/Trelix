@@ -184,4 +184,14 @@
             }
         }
     }
+    @media (max-width: 1200px) {
+		.img-home , .img-details{
+            display: none;
+        }
+        .container-header-home{
+            padding: 30px;
+        }
+	}
+
+
 }
