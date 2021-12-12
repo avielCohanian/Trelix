@@ -66,9 +66,41 @@
         .selected-fevorit:hover{
             opacity: 1;
         }
+        @media (max-width: 750px) {
+                div {
+                display: flex;
+                // align-items: center;
+                justify-content: center;
+            }
+           
+        }
+        @media (max-width: 540px) {
+                div {
+                width: 100%;
+            }
+            justify-content: center;
+           
+        }
     } 
+    @media (max-width: 750px) {
+        .viewed{
+            display: flex;
+            justify-content: center;
+
+            // text-align: center;
+        }
+       
+    }
+
     .personal-boards{
         align-items: center;
+        @media (max-width: 750px) {
+           
+                display: flex;
+                justify-content: center;
+                align-items: center;
+           
+        }
 
     }
         .personal-logo{

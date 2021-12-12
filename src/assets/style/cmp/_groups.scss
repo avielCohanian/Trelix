@@ -106,6 +106,12 @@
       opacity: 0;
     }
   }
+
+  @media (max-width: 850px) {
+    // margin-top: 49px;
+    margin-top: 71px;
+
+}
 }
 .opacity-more input {
   color: white;

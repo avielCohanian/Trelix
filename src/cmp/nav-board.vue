@@ -49,6 +49,9 @@
         <li class="icon pointer" @click="toggleInvite">
           <span class="material-icons-outlined">person_add</span>Invite
         </li>
+          <li class="icon pointer show-menu" @click="toggleMenu">
+          <span class="el-icon-more icon "></span> Show menu
+        </li>
       </ul>
       <div class="modal" v-if="isShowProfile">
         <div class="title">
@@ -87,12 +90,10 @@
         
         <boardMember v-if="isInvite" @closeModel="toggleInvite"/>
         <span class="divider"></span>
-        <li class="icon pointer">
+        <!-- <li class="icon pointer">
           <span class="material-icons-outlined">filter_list</span>Filter
-        </li>
-        <li class="icon pointer" @click="toggleMenu">
-          <span class="el-icon-more icon"></span> Show menu
-        </li>
+        </li> -->
+      
       </ul>
     </section>
     <nav-menu @closeMenu="toggleMenu" :isShow="showMenu" :class="isShowMenu" />

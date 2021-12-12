@@ -14,7 +14,7 @@
             >
           </span>
 
-          <a class="delete-checklist" @click="deleteChecklist($event)">Delete</a>
+          <a class="delete-checklist" @click="deleteChecklist($event)" ref="checklistDeleteEl">Delete</a>
         </div>
       </div>
 
@@ -152,7 +152,11 @@ export default {
       this.editTitleMode = !this.editTitleMode;
     },
     deleteChecklist(e) {
-      this.$emit('deleteChecklist', this.checklist.id, e);
+      // delete-checklist
+      // .getBoundingClientRect()
+      let { x, y } = this.$refs.checklistDeleteEl.getBoundingClientRect();
+      let pos = { x, y };
+      this.$emit('deleteChecklist', this.checklist.id, pos);
     },
   },
   computed: {

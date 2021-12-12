@@ -1,0 +1,108 @@
+.screen .card-details {
+  width: 100vw;
+
+  .details {
+    flex-direction: column;
+    .card-edit {
+      width: 100%;
+      margin-left: 20px;
+      margin-left: 20px;
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        .edit-btn {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          & > * {
+            // display: inline-block;
+
+            height: 32px;
+            margin-top: 8px;
+            max-width: 300px;
+            overflow: hidden;
+            padding: 6px 12px;
+            // background-color: yellowgreen;
+          }
+        }
+      }
+    }
+
+    .main-details {
+      margin-bottom: -108px;
+    }
+  }
+}
+@media (max-width: 650px) {
+  .screen .card-details {
+    width: 100vw;
+
+    .color-header {
+      background-size: contain;
+      background-origin: content-box;
+      box-sizing: border-box;
+      background-position: center center;
+      transition: opacity 85ms;
+      width: 100%;
+      height: 160px;
+      min-height: 160px;
+      padding: 0px;
+    }
+    .section-attachments {
+      .attachment-list {
+        .attachment-link {
+          .attachment-option-container {
+            .attachment-option {
+              .title-option {
+                display: flex;
+                flex-direction: column;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .details {
+      .card-edit {
+        width: 100%;
+        margin-left: 20px;
+        margin-left: 20px;
+        .sidebar {
+          display: flex;
+          flex-direction: column;
+          .edit-btn {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            & > * {
+              // display: inline-block;
+
+              height: 32px;
+              margin-top: 8px;
+              max-width: 300px;
+              overflow: hidden;
+              padding: 6px 12px;
+              // background-color: yellowgreen;
+            }
+          }
+        }
+      }
+
+      .main-details {
+        margin-bottom: -108px;
+        .attachments-list {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+        .section-attachments {
+          .attachment-option-container {
+            .attachment-option {
+              .cover {
+                margin-top: -9px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
