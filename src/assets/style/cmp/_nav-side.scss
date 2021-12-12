@@ -1,6 +1,8 @@
 .nav-side {
+  margin-right: 14px;
   position: relative;
   transition: width 2s;
+  height: 93vh;
   // min-width: 260px ;
   // margin-top: 7px;
   .nav-side-container {
@@ -165,9 +167,11 @@
   }
 }
 .nav-close {
-  margin-top: 8px;
-  height: 93vh;
-  width: 30px;
+  border-right: 1px solid rgba(54, 58, 64, 0.24);
+  // border-right: solid 1px gray;
+  margin-top: 7px;
+  height: 94vh;
+  width: 16px;
   transition: width 2s;
   background-color: rgba(193, 199, 208, 0.2);
 
@@ -175,9 +179,24 @@
   .btn-open {
     background-color: rgba(157, 162, 170, 0.486);
     border: none;
-    width: 100%;
-    transform: rotate(180deg);
+    width: 23px;
+    // color: white;
+    // transform: rotate(180deg);
     padding: 3px;
+    height: 23px;
+    color: whitesmoke;
+    margin-left: 6px;
+    margin-top: 6px;
+    &:hover{
+      background-color: rgba(255, 255, 255, 0.726);
+      color:  rgb(157, 162, 170);
+    }
+    .arrow{
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      font-size: 16px;
+    }
   }
 }
 .open-nav {
@@ -193,6 +212,8 @@
   }
 }
 .close-nav {
+  // margin-right: 20px;
+  height: 93vh;
   transition: width 2s;
   // transform: translateX(0%);
   // transition: transform 0.3s;

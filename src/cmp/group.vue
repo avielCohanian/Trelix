@@ -87,19 +87,7 @@
           </Draggable>
         </Container>
         <div>
-          <!-- <div class="labels">
-        <ul class="labels-container" v-if="newCard.label">
-          <li v-for="label in newCard.label" :key="label.id">
-            <span
-              class="label"
-              :style="{
-                backgroundColor: label.color,
-              }"
-            >
-            </span>
-          </li>
-        </ul>
-      </div> -->
+       
 
           <label v-if="isAddCard">
             <div class="btn-group">
@@ -154,7 +142,8 @@
         v-if="!isAddCard"
       >
         <p class="add-card-btn">
-          <span class="material-icons-outlined"> add </span> Add a card
+          
+          <span class="icon-add icon add-card">  </span> Add a card
         </p>
       </label>
     </div>
@@ -379,5 +368,11 @@ if (this.newCard.members.some((member) => member._id === currMember._id)) {
 </script>
 
 <style>
+.icon-add:before {
+    content: "\e901";
+}
+.add-card{
+  font-size: 14px;
+}
 </style>
 
