@@ -12,16 +12,16 @@
             <li @click.stop.prevent="switchModel" class="pointer">
               <span class="material-icons-outlined"> branding_watermark </span>Open card
             </li>
-            <li @click.stop="dynamicCmp('labels', 'labels', $event)" class="pointer">
+            <li @click.stop="dynamicCmp('labels', 'labels', $event)" class="pointer" ref="labelsEl">
               <span class="material-icons-outlined"> sell </span>Edit labels
             </li>
-            <li @click.stop.prevent="dynamicCmp('members', 'members', $event)" class="pointer">
+            <li @click.stop.prevent="dynamicCmp('members', 'members', $event)" class="pointer" ref="membersEl">
               <span class="material-icons-outlined"> person_outline </span>Change members
             </li>
-            <li @click.stop.prevent="dynamicCmp('cover', 'cover', $event)" class="pointer">
+            <li @click.stop.prevent="dynamicCmp('cover', 'cover', $event)" class="pointer"  ref="coverEl">
               <span class="material-icons-outlined"> branding_watermark </span>Change cover
             </li>
-            <li @click.stop.prevent="dynamicCmp('dueDate', 'dates', $event)" class="pointer">
+            <li @click.stop.prevent="dynamicCmp('dueDate', 'dates', $event)" class="pointer" ref="dueDateEl">
               <span class="material-icons-outlined"> watch_later </span>
               Edit dates
             </li>
@@ -252,8 +252,9 @@ export default {
         // console.log(e);
         // this.component.position.x = cmpPosition.x;
         // this.component.position.y = cmpPosition.y + 350;
-        this.component.position.x = cmpPosition.x - 350;
-        this.component.position.y = cmpPosition.y - 150;
+        // this.component.position.x = cmpPosition.x - 350;
+        this.component.position.x = cmpPosition.x ;
+        this.component.position.y = cmpPosition.y -250;
         // console.log(cmpPosition);
       }
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;

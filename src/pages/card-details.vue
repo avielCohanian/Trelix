@@ -19,7 +19,7 @@
           @click="closeDetails"
         >
         </a>
-        <div class="secund-header" v-if="card.title">
+        <div class="secund-header" >
           <font-awesome-icon class="svg" :icon="['fab', 'trello']" />
           <div class="secund-header-input" @click="toggleTitle">
             <input

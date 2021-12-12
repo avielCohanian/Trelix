@@ -3,7 +3,7 @@
         // position: absolute;
         background-color: #ebecf0;
         margin: 0 4px;
-        padding: 0px 8px 5px 8px;
+        padding: 0px 3px 5px 8px;
         width: 272px;
         border-radius: 3px;
         // .add-card{
@@ -30,6 +30,8 @@
             padding: 5px 8px 5px 5px;
             font-size: 14px;
             border-radius: 3px;
+            gap: 6px;
+            color: #6b778c;
             &:hover{
                 background-color: #091e4214;
                 color: #172b4d;

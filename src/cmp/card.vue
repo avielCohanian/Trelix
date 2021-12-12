@@ -13,7 +13,7 @@
       @click.stop="openDetails(true)"
     ></div>
 
-    <span class="material-icons-outlined edit pointer" @click.stop="openDetails(false)" :style="isShow"> create </span>
+    <span class="icon-edit edit pointer" @click.stop="openDetails(false)" :style="isShow">  </span>
     <section
       :style="bgColorFull"
       class="card"
@@ -68,40 +68,40 @@
             @click.stop="isDone"
             :class="{ 'done-card': card.dueDate.isComplete }"
           >
-            <span v-if="card.dueDate.isComplete && showCheck" class="material-icons-outlined icon"> check_box</span>
-            <span v-if="showCheck && !card.dueDate.isComplete" class="material-icons-outlined icon check"
-              >crop_din</span
+            <span v-if="card.dueDate.isComplete && showCheck" class="icon-checkbox-unchecked icon"> </span>
+            <span v-if="showCheck && !card.dueDate.isComplete" class="icon-checklist icon check"
+              ></span
             >
-            <span v-if="!showCheck" class="due-date-icon icon el-icon-time check"></span>
+            <span v-if="!showCheck" class=" icon icon-clock check"></span>
             <span v-if="card.dueDate.date.date"> {{ card.dueDate.date.date | moment('MMM DD') }}</span>
           </div>
 
           <!-- description -->
-          <span v-if="card.description && card.description.length > 0" class="el-icon-s-unfold icon description"></span>
+          <span v-if="card.description && card.description.length > 0" class="icon-description icon"></span>
 
           <!-- attachment -->
           <span
             v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
-            class="el-icon-paperclip icon attachment"
+            class="icon-attachment icon icons-padding"
           >
             {{ card.attachment.computerAttachment.length }}</span
           >
 
           <!-- checklist -->
           <span
-            class="checklist icon"
+            class="checklist icon icons-padding"
             v-if="card.checklists && card.checklists.length > 0"
             :class="{ 'done-todos': isTodosDone }"
           >
-            <span class="material-icons-outlined icon"> check_box</span>
-            <span v-if="doneTodosAmount">{{ doneTodosAmount }}</span>
+            <span class="icon-checklist icon"> </span>
+            <span >{{ doneTodosAmount }}</span>
             <span>/</span>
             <span>{{ todosAmount }}</span>
           </span>
 
           <!-- comments  -->
-          <span v-if="card.comments && card.comments.length > 0">
-            <span class="el-icon-chat-round icon comments"></span>{{ card.comment }}</span
+          <span v-if="card.comments && card.comments.length > 0" class="icon icons-padding">
+            <span class="icon-comment icon"></span>{{ card.comments.length }}</span
           >
         </div>
         <!-- members -->
@@ -381,5 +381,27 @@ export default {
 .icons-full {
   position: absolute;
   width: 93%;
+}
+.icon-attachment:before {
+    content: "\e908";
+}
+.icon-description:before {
+    content: "\e922";
+}
+.icon-comment:before {
+  display: flex;
+    content: "\e91e";
+}
+.icon-checklist:before {
+    content: "\e91a";
+}
+.icon-edit:before {
+    content: "\e928";
+}
+.icon-clock:before {
+    content: "\e91b";
+}
+.icon-checkbox-unchecked:before {
+    content: "\e919";
 }
 </style>

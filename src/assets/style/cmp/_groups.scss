@@ -1,6 +1,6 @@
 .groups {
   display: flex;
-  height: 85vh;
+  height: 87vh;
   // display: inline-block;
   // height: 100%;
   margin: 0 4px;
@@ -17,8 +17,11 @@
   flex-direction: row;
   overflow-x: auto;
   &::-webkit-scrollbar {
+    // width:  80%; left:-100px;
+    // margin-left: 100px;
     width: 80%;
     background: #e2e4e9;
+    border-radius: 10px;
   }
 
   &::-webkit-scrollbar-track {
@@ -44,6 +47,7 @@
     margin-bottom: 6px;
   }
   .add-list {
+    margin-inline-end: 10px;
     margin-inline-start: 3px;
     .add-list-new {
       background-color: #ffffff91;
@@ -107,11 +111,11 @@
     }
   }
 
-  @media (max-width: 850px) {
-    // margin-top: 49px;
-    margin-top: 71px;
+//   @media (max-width: 850px) {
+//     // margin-top: 49px;
+//    // margin-top: 71px;
 
-}
+// }
 }
 .opacity-more input {
   color: white;
