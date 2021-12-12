@@ -272,8 +272,10 @@ export default {
       this.minComponent.currCmp = null;
       this.component.position = { x: '', y: '' };
       let { name, type, txt, title, btnTxt } = cmp.name;
+      console.log(cmp);
       this.minComponent = { name, type, txt, title, btnTxt };
-      this.minComponent.position = { x: '', y: '' };
+
+      this.minComponent.position = cmp.pos;
       // this.minComponent.position.x = 450;
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.minComponent.position.y = cmp.pos.y;

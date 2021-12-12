@@ -39,7 +39,7 @@
       }
 
       .comment-edit {
-        width: 491px;
+        width: 470px;
         overflow: hidden;
         cursor: pointer;
         overflow-wrap: break-word;
@@ -207,6 +207,19 @@
         line-height: 20px;
         font-size: 14px;
         color: #172b4d;
+      }
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .activity-log {
+    header {
+      width: 85vw;
+    }
+    .activity-container form {
+      .comment-edit {
+        width: 76vw;
       }
     }
   }

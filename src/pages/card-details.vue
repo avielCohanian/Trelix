@@ -149,7 +149,11 @@
                     <div class="att-card-icon">
                       <!-- dueDate -->
 
-                      <div class="due-date-container att-icon" v-if="attCard.dueDate && attCard.dueDate.date">
+                      <div
+                        class="due-date-container att-icon"
+                        v-if="attCard.dueDate && attCard.dueDate.date"
+                        :class="{ 'done-card': attCard.dueDate.isComplete }"
+                      >
                         <span class="due-date-icon att-icon el-icon-time check"></span>
                         <span v-if="attCard.dueDate.date">
                           {{ attCard.dueDate.date | moment('MMM ') }}
@@ -236,54 +240,53 @@
                       <span @click="openAttachUrl(att.url)" class="el-icon-top-right"></span>
                     </span>
                     <span class="title-option">
-                      <span>
-                        <span
-                          >Added
-                          {{ att.upAt | moment('from') }}
-                          <span v-if="dayLeft(att.upAt)">at{{ getTime(att.upAt) }}</span>
-                        </span>
-                        -
+                      <span
+                        >Added
+                        {{ att.upAt | moment('from') }}
+                        <span v-if="dayLeft(att.upAt)">at{{ getTime(att.upAt) }}</span>
+                        <span> - </span>
                       </span>
-
-                      <a class="title-option-btn" @click.stop="addLinkToActivity(att.link)">Comment</a>
-                      -
-                      <a
-                        class="title-option-btn"
-                        @click.stop="
-                          dynamicCmp(
-                            (cmp = {
-                              name: 'Att',
-                              txt: 'Remove this attachment? There is no undo.',
-                              type: 'remove',
-                              title: 'Delete attachment?',
-                              btnTxt: 'Delete',
-                            }),
-                            idx,
-                            null,
-                            $event
-                          )
-                        "
-                        >Remove</a
-                      >
-                      -
-                      <a
-                        class="title-option-btn"
-                        @click.stop="
-                          dynamicCmp(
-                            (cmp = {
-                              name: 'Att',
-                              txt: 'Link name',
-                              type: 'edit',
-                              title: 'Edit attachment',
-                              btnTxt: 'Update',
-                            }),
-                            idx,
-                            null,
-                            $event
-                          )
-                        "
-                        >Edit</a
-                      >
+                      <span class="title-option-container">
+                        <a class="title-option-btn" @click.stop="addLinkToActivity(att.url)">Comment</a>
+                        -
+                        <a
+                          class="title-option-btn"
+                          @click.stop="
+                            dynamicCmp(
+                              (cmp = {
+                                name: 'Att',
+                                txt: 'Remove this attachment? There is no undo.',
+                                type: 'remove',
+                                title: 'Delete attachment?',
+                                btnTxt: 'Delete',
+                              }),
+                              idx,
+                              null,
+                              $event
+                            )
+                          "
+                          >Remove</a
+                        >
+                        -
+                        <a
+                          class="title-option-btn"
+                          @click.stop="
+                            dynamicCmp(
+                              (cmp = {
+                                name: 'Att',
+                                txt: 'Link name',
+                                type: 'edit',
+                                title: 'Edit attachment',
+                                btnTxt: 'Update',
+                              }),
+                              idx,
+                              null,
+                              $event
+                            )
+                          "
+                          >Edit</a
+                        >
+                      </span>
                     </span>
                     <span v-if="att.url" class="cover" @click.stop="makeCover(`url(${att.url})`)">
                       <span class="material-icons-outlined"> web_asset </span>
@@ -513,9 +516,7 @@ export default {
       // TODO: start msg to the activity with link dynamicCmp
       console.log(link);
     },
-    editName(attName) {
-      // TODO: show input with attName and edit it with dynamicCmp
-    },
+
     toggleTitle() {
       this.isOpenTitle = !this.isOpenTitle;
     },
@@ -572,7 +573,7 @@ export default {
       this.cmp = { name: cmp, id, pos };
       this.$store.commit({ type: 'steCmpDyn', cmpDyn: this.cmp });
     },
-    deleteChecklist(checklistId, e) {
+    deleteChecklist(checklistId, pos) {
       //   let card = JSON.parse(JSON.stringify(this.card));
       const checklistIdx = this.card.checklists.findIndex((c) => c.id === checklistId);
       // this.dynamicCmp(
@@ -584,8 +585,8 @@ export default {
         btnTxt: 'Delete checklist',
       };
       let id = checklistIdx;
-      let pos = { x: e.clientX - 300, y: e.clientY - 850 };
-      // );
+      pos.x = pos.x - 350;
+
       this.dynamicCmp(cmp, id, pos);
     },
     removeAtt() {
