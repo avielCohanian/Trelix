@@ -22,133 +22,122 @@
         'img-cover': card.style && card.style.isFull && card.style.bgUrl,
       }"
     >
-<div class="icons-container" :class="{ 'icons-full': card.style && card.style.isFull && card.style.bgUrl }">
-    <!-- <template class="icons-container"> -->
-      <div class="labels">
-        <ul class="labels-container" v-if="myLabels">
-          <!-- {{myLabels}} -->
-          <li v-for="label in myLabels" :key="label.id">
-            <span
-              class="label"
-              :style="{
-                backgroundColor: label.color,
-              }"
-              :class="{ 'label-text': isLabelText }"
-              @click.stop.prevent="toggleLabel"
-            >
-              <transition name="fade">
-                <span class="label-title" v-if="label.title && isLabelText">{{ label.title }}</span>
-              </transition>
-            </span>
-          </li>
-        </ul>
-      </div>
-      <header class="single" v-if="card.title">
-        <p
-          :class="{
-            white: card.style && card.style.isFull && card.style.bgUrl,
-          }"
-        >
-          {{ card.title }}
-        </p>
-      </header>
+      <div class="icons-container" :class="{ 'icons-full': card.style && card.style.isFull && card.style.bgUrl }">
+        <!-- <template class="icons-container"> -->
+        <div class="labels">
+          <ul class="labels-container" v-if="myLabels">
+            <!-- {{myLabels}} -->
+            <li v-for="label in myLabels" :key="label.id">
+              <span
+                class="label"
+                :style="{
+                  backgroundColor: label.color,
+                }"
+                :class="{ 'label-text': isLabelText }"
+                @click.stop.prevent="toggleLabel"
+              >
+                <transition name="fade">
+                  <span class="label-title" v-if="label.title && isLabelText">{{ label.title }}</span>
+                </transition>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <header class="single" v-if="card.title">
+          <p
+            :class="{
+              white: card.style && card.style.isFull && card.style.bgUrl,
+            }"
+          >
+            {{ card.title }}
+          </p>
+        </header>
 
-      <!-- labels  -->
-      <!-- v-if="isBadgetsExist" -->
-      <div class="icons" v-if="
-      card.dueDate ||
-      card.description ||
-      card.attachment ||
-      card.checklists ||
-      card.comments
-      ">
-        <!-- dueDate -->
+        <!-- labels  -->
+        <!-- v-if="isBadgetsExist" -->
         <div
-          class="due-date icon"
-          v-if="card.dueDate && card.dueDate.date"
-          @mouseover="showCheck = true"
-          @mouseleave="showCheck = false"
-          @click.stop="isDone"
-          :class="{ 'done-card': card.dueDate.isComplete }"
+          class="icons"
+          v-if="card.dueDate || card.description || card.attachment || card.checklists || card.comments"
         >
-          <span v-if="card.dueDate.isComplete && showCheck" class="material-icons-outlined icon"> check_box</span>
-          <span v-if="showCheck && !card.dueDate.isComplete" class="material-icons-outlined icon check">crop_din</span>
-          <span v-if="!showCheck" class="due-date-icon icon el-icon-time check"></span>
-          <span v-if="card.dueDate.date">
-            {{ card.dueDate.date | moment('MMM ') }}
-            {{ dueDateDay }}</span
+          <!-- dueDate -->
+          <div
+            class="due-date icon"
+            v-if="card.dueDate && card.dueDate.date && card.dueDate.date.date"
+            @mouseover="showCheck = true"
+            @mouseleave="showCheck = false"
+            @click.stop="isDone"
+            :class="{ 'done-card': card.dueDate.isComplete }"
+          >
+            <span v-if="card.dueDate.isComplete && showCheck" class="material-icons-outlined icon"> check_box</span>
+            <span v-if="showCheck && !card.dueDate.isComplete" class="material-icons-outlined icon check"
+              >crop_din</span
+            >
+            <span v-if="!showCheck" class="due-date-icon icon el-icon-time check"></span>
+            <span v-if="card.dueDate.date.date"> {{ card.dueDate.date.date | moment('MMM DD') }}</span>
+          </div>
+
+          <!-- description -->
+          <span v-if="card.description && card.description.length > 0" class="el-icon-s-unfold icon description"></span>
+
+          <!-- attachment -->
+          <span
+            v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
+            class="el-icon-paperclip icon attachment"
+          >
+            {{ card.attachment.computerAttachment.length }}</span
+          >
+
+          <!-- checklist -->
+          <span
+            class="checklist icon"
+            v-if="card.checklists && card.checklists.length > 0"
+            :class="{ 'done-todos': isTodosDone }"
+          >
+            <span class="material-icons-outlined icon"> check_box</span>
+            <span v-if="doneTodosAmount">{{ doneTodosAmount }}</span>
+            <span>/</span>
+            <span>{{ todosAmount }}</span>
+          </span>
+
+          <!-- comments  -->
+          <span v-if="card.comments && card.comments.length > 0">
+            <span class="el-icon-chat-round icon comments"></span>{{ card.comment }}</span
           >
         </div>
-
-        <!-- description -->
-        <span v-if="card.description && card.description.length > 0" class="el-icon-s-unfold icon description"></span>
-
-        <!-- attachment -->
-        <span
-          v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
-          class="el-icon-paperclip icon attachment"
-        >
-          {{ card.attachment.computerAttachment.length }}</span
-        >
-
-        <!-- checklist -->
-        <span
-          class="checklist icon"
-          v-if="card.checklists && card.checklists.length > 0"
-          :class="{ 'done-todos': isTodosDone }"
-        >
-          <span class="material-icons-outlined icon"> check_box</span>
-          <span v-if="doneTodosAmount">{{ doneTodosAmount }}</span>
-          <span>/</span>
-          <span>{{ todosAmount }}</span>
-        </span>
-
-        <!-- comments  -->
-        <span v-if="card.comments && card.comments.length > 0">
-          <span class="el-icon-chat-round icon comments"></span>{{ card.comment }}</span
-        >
-      </div>
-      <!-- members -->
-      <div class="members" v-if="card.members && card.members.length > 0">
-        <div v-for="member in card.members" :key="member._id" @click.stop="showProfile(member)">
-          <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
-          <avatar v-else :username="member.username" :size="28" class="member"></avatar>
+        <!-- members -->
+        <div class="members" v-if="card.members && card.members.length > 0">
+          <div v-for="member in card.members" :key="member._id" @click.stop="showProfile(member)">
+            <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
+            <avatar v-else :username="member.username" :size="28" class="member"></avatar>
+          </div>
         </div>
       </div>
- </div>
     </section>
-     <div class="modal" v-if="isShowProfile">
-        <div class="title">
-          <i class="el-icon-close pointer" @click="isShowProfile = !isShowProfile"></i>
+    <div class="modal" v-if="isShowProfile">
+      <div class="title">
+        <i class="el-icon-close pointer" @click="isShowProfile = !isShowProfile"></i>
+      </div>
+      <div class="user-details">
+        <div>
+          <avatar
+            v-if="currMember.imgUrl"
+            :src="currMember.imgUrl"
+            :size="50"
+            username="currMember.username"
+            class="member"
+          ></avatar>
+          <avatar v-else :size="50" username="currMember.username" class="member"></avatar>
         </div>
-        <div class="user-details">
-          <div>
-            <avatar
-              v-if="currMember.imgUrl"
-              :src="currMember.imgUrl"
-              :size="50"
-              username="currMember.username"
-              class="member"
-            ></avatar>
-            <avatar
-              v-else
-              :size="50"
-              username="currMember.username"
-              class="member"
-            ></avatar>
-          </div>
-          <div class="name">
-            <strong>{{ currMember.fullname }}</strong>
-            <div class="mail">{{ currMember.email }}</div>
-          </div>
-        </div>
-
-        <div class="choice">
-          <div class="btn-choice pointer" @click=" updateMember(currMember)">
-            Remove from card...
-          </div>
+        <div class="name">
+          <strong>{{ currMember.fullname }}</strong>
+          <div class="mail">{{ currMember.email }}</div>
         </div>
       </div>
+
+      <div class="choice">
+        <div class="btn-choice pointer" @click="updateMember(currMember)">Remove from card...</div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -169,7 +158,7 @@ export default {
       isOpenEditor: false,
       cardToUpdate: null,
       currMember: null,
-      isShowProfile:null
+      isShowProfile: null,
     };
   },
   mounted() {},
@@ -199,14 +188,14 @@ export default {
         console.log(err);
       }
     },
-      updateMember(currMember) {
-        console.log(currMember);
-        console.log(this.card);
+    updateMember(currMember) {
+      console.log(currMember);
+      console.log(this.card);
       let card = JSON.parse(JSON.stringify(this.card));
       if (card.members.some((member) => member._id === currMember._id)) {
         const memberIdx = card.members.findIndex((member) => member._id === currMember._id);
         card.members.splice(memberIdx, 1);
-        this.updateCardToMember(card)
+        this.updateCardToMember(card);
       } else {
         card.members.push(currMember);
       }
@@ -218,26 +207,25 @@ export default {
           type: 'updateCard',
           card,
         });
-        this.isShowProfile = !this.isShowProfile
+        this.isShowProfile = !this.isShowProfile;
       } catch (err) {
         console.log(err);
       }
     },
 
-    showProfile(member){
-    this.isShowProfile = !this.isShowProfile; 
-    this.currMember = member
+    showProfile(member) {
+      this.isShowProfile = !this.isShowProfile;
+      this.currMember = member;
     },
     async isDone() {
       console.log('isDone');
       try {
-        let card = JSON.parse(JSON.stringify(this.card))
-        console.log(card.dueDate.isComplete );
-        card.dueDate.isComplete = !card.dueDate.isComplete 
-        console.log(card.dueDate.isComplete );
+        let card = JSON.parse(JSON.stringify(this.card));
+        console.log(card.dueDate.isComplete);
+        card.dueDate.isComplete = !card.dueDate.isComplete;
+        console.log(card.dueDate.isComplete);
 
-      await this.updateCard(card)
-       
+        await this.updateCard(card);
       } catch (err) {
         console.log(err);
       }
@@ -283,7 +271,6 @@ export default {
       const boardId = this.$route.params.boardId;
       this.$router.push(`/board/${boardId}/${this.card.id}`);
     },
-    
   },
   computed: {
     labelsForDisplay() {
@@ -374,8 +361,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.icons-full{
-     position: absolute;
-    width: 93%; 
+.icons-full {
+  position: absolute;
+  width: 93%;
 }
 </style>

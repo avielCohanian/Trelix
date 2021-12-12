@@ -6,13 +6,13 @@
     </header>
     <span class="backIcon material-icons-outlined" @click="backLabel" v-show="!inMenu"> chevron_left </span>
     <h3 class="labels-name">Name</h3>
-    <input v-if="!label.currLabel" class="search" type="text" v-model="newLabel.title" />
-    <input v-else class="search" type="text" v-model="label.currLabel.title" />
+    <input v-if="!label.editCurrLabel" class="search" type="text" v-model="newLabel.title" />
+    <input v-else class="search" type="text" v-model="label.editCurrLabel.title" />
     <h3 class="labels-title">Select a color</h3>
     <ul>
       <li v-for="(color, idx) in colors" :key="idx" @click="chooseColor(color)">
         <div
-          v-if="!label.currLabel"
+          v-if="!label.editCurrLabel"
           class="label"
           :style="{
             backgroundColor: color,
@@ -29,7 +29,7 @@
             backgroundColor: color,
           }"
         >
-          <span class="material-icons-outlined" v-show="color === label.currLabel.color"> check </span>
+          <span class="material-icons-outlined" v-show="color === label.editCurrLabel.color"> check </span>
         </div>
         <!-- <span class="material-icons-outlined" v-show="color === newLabel.color"> check </span> -->
       </li>
@@ -57,8 +57,12 @@ export default {
       type: Boolean,
       default: false,
     },
-    type: String,
-    header: String,
+    type: {
+      type: String,
+    },
+    header: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -79,7 +83,7 @@ export default {
     };
   },
   created() {
-    if (this.label.currLabel) {
+    if (this.label.editCurrLabel) {
       console.log(this.label);
     }
   },
@@ -87,22 +91,22 @@ export default {
     addLabel() {
       console.log(this.label);
       console.log(this.newLabel);
-      if (this.label.currLabel) {
-        console.log(this.label.currLabel);
-        let labelToSave = JSON.parse(JSON.stringify(this.label.currLabel));
+      if (this.label.editCurrLabel) {
+        console.log(this.label.editCurrLabel);
+        let labelToSave = JSON.parse(JSON.stringify(this.label.editCurrLabel));
         this.$emit('newLabel', labelToSave);
       } else {
         this.$emit('newLabel', this.newLabel);
       }
     },
     deleteLabel(e) {
-      if (this.label.currLabel) {
-        this.$emit('deleteLabel', this.label.currLabel, e);
+      if (this.label.editCurrLabel) {
+        this.$emit('deleteLabel', this.label.editCurrLabel, e);
       }
     },
     chooseColor(color) {
-      if (this.label.currLabel) {
-        this.label.currLabel.color = color;
+      if (this.label.editCurrLabel) {
+        this.label.editCurrLabel.color = color;
       } else {
         this.newLabel.color = color;
       }

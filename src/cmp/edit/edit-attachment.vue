@@ -1,37 +1,70 @@
 <template>
-  <div class="edit-attachment">
-    <header>
-      <h2 v-if="header">{{ header }}</h2>
-      <a @click="closeModel" class="el-icon-close"> </a>
-    </header>
+  <div>
+    <section class="edit-attachment" v-if="!isAttTr">
+      <header>
+        <h2 v-if="header">{{ header }}</h2>
+        <a @click="closeModel" class="el-icon-close"> </a>
+      </header>
 
-    <ul class="list">
-      <li>
-        <label class="attachment">
-          Computer
-          <input type="file" @change="onUploadImg" hidden />
+      <ul class="list">
+        <li>
+          <label class="attachment">
+            Computer
+            <input type="file" @change="onUploadImg" hidden />
+          </label>
+          {{ cmp }}
+        </li>
+        <li>
+          <label class="attachment" @click="dynamicCmp($event)" ref="trelixEl"> Trelix </label>
+        </li>
+      </ul>
+      <hr />
+
+      <form @submit.prevent="saveLink">
+        <label class="link">Attach a link</label>
+        <input type="text" placeholder="Paste any link here..." v-model="att.link" />
+
+        <label v-if="att.link" class="optional-link"
+          >Link name(optional)
+          <input type="text" v-model="att.name" />
         </label>
-        {{ cmp }}
-      </li>
-      <li>
-        <label class="attachment" @click="dynamicCmp($event)"> Trelix </label>
-      </li>
-    </ul>
-    <hr />
 
-    <form @submit.prevent="saveLink">
-      <label class="link">Attach a link</label>
-      <input type="text" placeholder="Paste any link here..." v-model="att.link" />
+        <button hidden></button>
+      </form>
+      <a class="attach-btn" @click="saveLink">Attach</a>
+      <hr />
+    </section>
+    <section class="trelix" v-else>
+      <header>
+        <h2 v-if="header">{{ header }}</h2>
+        <a @click="closeModel" class="el-icon-close"> </a>
+      </header>
 
-      <label v-if="att.link" class="optional-link"
-        >Link name(optional)
-        <input type="text" v-model="att.name" />
-      </label>
+      <div class="trelix-container">
+        <div class="tr-search">
+          Card or board to add:
+          <input class="tr-search-input" placeholder="Search terms or URL..." v-model="url" />
+        </div>
 
-      <button hidden></button>
-    </form>
-    <a class="attach-btn" @click="saveLink">Attach</a>
-    <hr />
+        <div class="tr-cards" v-if="boards">
+          <h3>Cards:</h3>
+          <!-- v-for="group in boards.groups" :key="group.id" -->
+          <ul v-for="group in boards.groups" :key="group.id">
+            <li v-for="card in group.cards" :key="card.id" @click="addAttTr(card.id)">
+              <span>{{ card.title }}</span>
+              <span>in {{ boards.title }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <ul v-if="boards">
+          <!-- <p>Boards:</p>
+            <li v-for="board in boards" :key="board._id"></li>
+            <p>{{board.title}}</p> -->
+          <!-- <p>{{board.title}}</p> להבין מה רוציםת מה רשום בכתוביות למטה-->
+        </ul>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -57,11 +90,22 @@ export default {
         name: '',
       },
       isLoading: false,
+      isAttTr: false,
+      url: '',
+      filterTr: null,
     };
   },
   methods: {
     dynamicCmp(e) {
-      this.$emit('attTrelix', 'trelix', e);
+      this.isAttTr = true;
+      // let { x, y } = this.$refs.trelixEl.getBoundingClientRect();
+      // let pos = { x, y };
+      // console.log(pos);
+      // let m = { name: 'attTrelix', pos };
+
+      // let cmp = { name: 'attTrelix', id: null, pos };
+
+      // this.$emit(cmp, 'trelix', pos);
     },
 
     async onUploadImg(ev) {
@@ -86,6 +130,54 @@ export default {
     closeModel() {
       this.$emit('closeModel');
     },
+    closeModel() {
+      this.$emit('closeModel');
+    },
+    filter() {
+      if (this.filterTr) {
+        const regex = new RegExp(this.filterLabels, 'i');
+        labelToShow = labelToShow.filter((label) => regex.test(label.title));
+      }
+    },
+    addAttTr(cardId) {
+      this.$emit('addAttTr', cardId);
+      //   this.$emit('closeModel');
+    },
+  },
+  computed: {
+    boards() {
+      let board = this.$store.getters.getBoard;
+      //   let card = null;
+      //   board.groups.forEach((g) => {
+      //     g.cars.forEach((c) => {
+      //       card.push(c);
+      //     });
+      //   });
+      //   if (this.filterTr) {
+      //     const regex = new RegExp(this.filterTr, 'i');
+      //     board = board.filter((card) => regex.test(card.title));
+      //   }
+      console.log(this.$store.getters.getBoard);
+      return board;
+    },
+
+    cardsToShow() {
+      let board = this.$store.getters.getBoard;
+      let cardAttTrelix = board.groups.reduce((acc, g) => {
+        g.cards.forEach((c) => {
+          c.attachment.trelixAttachments.forEach((cI) => {
+            console.log(cI);
+            if (cI !== c.id && cI !== this.card.id) acc.push(c);
+          });
+        });
+        return acc;
+      }, []);
+      return cardAttTrelix;
+    },
+    // boards() {
+    //   // not all
+    //   return this.$store.getters.getBoard.groups;
+    // },
   },
 };
 </script>

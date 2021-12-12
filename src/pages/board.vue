@@ -37,27 +37,26 @@ export default {
     this.$store.dispatch({ type: 'addColors' });
   },
   methods: {
-        closeModal() {
-            this.isOpenModal = !this.isOpenModal;
-        },
-        async loadBoard(boardId) {
-            try {
-                await this.$store.dispatch({
-                    type: 'loadBoard',
-                    boardId,
-                });
-                socketService.on(
-                    `update${this.$store.getters.getBoard._id}`,
-                    this.updateBoard
-                );
-            } catch (err) {
-                console.log(err);
-            }
-        },
-        updateBoard(updateBoard) {
-            this.$store.commit({ type: 'setBoard', board: updateBoard });
-        },
-    
+    closeModal() {
+      this.isOpenModal = !this.isOpenModal;
+    },
+    async loadBoard(boardId) {
+      try {
+        await this.$store.dispatch({
+          type: 'loadBoard',
+          boardId,
+        });
+        // socketService.on(
+        //     `update${this.$store.getters.getBoard._id}`,
+        //     this.updateBoard
+        // );
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    // updateBoard(updateBoard) {
+    //   this.$store.commit({ type: 'setBoard', board: updateBoard });
+    // },
   },
   computed: {
     ShowModal() {
@@ -70,9 +69,8 @@ export default {
       });
       return this.$store.getters.getBoard;
     },
-
   },
-   
+
   watch: {
     '$route.params.boardId'() {
       const boardId = this.$route.params.boardId;

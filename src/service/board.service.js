@@ -210,7 +210,7 @@ function getEmptyCard() {
     comments: [],
     members: [],
     labelIds: [],
-    dueDate: { date: null, remind: '', isComplete: false },
+    dueDate: { date: { date: this.dueTime, time: this.dateTime }, remind: '', isComplete: false },
     createdAt: Date.now(),
     byMember: null,
     style: {

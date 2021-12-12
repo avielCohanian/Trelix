@@ -61,6 +61,7 @@
                     :style="{
                       backgroundColor: label.color,
                     }"
+                    @click="dynamicCmp('labels', null, null, $event)"
                   >
                     {{ label.title }}</span
                   >
@@ -71,16 +72,17 @@
               </ul>
             </div>
 
-            <div class="dueDate" v-if="card.dueDate && card.dueDate.date">
+            <div class="dueDate" v-if="card.dueDate && card.dueDate.date && card.dueDate.date.date">
               <h3>Due date</h3>
               <div class="dueDate-container">
                 <!-- v-model="card.dueDate.isComplete" -->
                 <el-checkbox class="checkBox" @change="dateDone" v-model="card.dueDate.isComplete"></el-checkbox>
                 <a @click="dynamicCmp('dueDate', null, null, $event)" class="date-dedline-container">
-                  {{ card.dueDate.date | moment('MMM ') }}
-                  {{ dueDateDay.date }}
+                  <!-- {{ card.dueDate.date | moment('MMM ') }} -->
+                  <!-- {{ dueDateDay.date }} -->
+                  {{ dueDateTime }}
                   at
-                  {{ card.dueDate.date | moment(' h:mm: A') }}
+                  {{ card.dueDate.date.time | moment(' h:mm: A') }}
                   <span v-if="card.dueDate.isComplete" class="complete">complete</span>
                   <span class="el-icon-arrow-down"></span>
                 </a>
@@ -92,12 +94,20 @@
             <i class="el-icon-s-unfold icon"></i>
             <header>
               <h3>Description</h3>
-              <a class="edit-btn" v-show="!editDescription" @click="openEditDescription">Edit</a>
+              <a class="edit-btn" v-show="!editDescription && card.description" @click="openEditDescription">Edit</a>
             </header>
             <div class="description-container">
               <p v-show="!editDescription" @click="openEditDescription">
                 {{ card.description }}
               </p>
+
+              <div
+                @click="openEditDescription"
+                v-show="!card.description && !editDescription"
+                class="description-start"
+              >
+                <a class="description-start-txt">Add a more detailed description…</a>
+              </div>
               <div v-show="editDescription" class="description-edit">
                 <el-input
                   type="textarea"
@@ -156,7 +166,7 @@
                       >
                         <span class="due-date-icon att-icon el-icon-time check"></span>
                         <span v-if="attCard.dueDate.date">
-                          {{ attCard.dueDate.date | moment('MMM ') }}
+                          {{ attCard.dueDate.date.date | moment('MMM ') }}
                           {{ dueDateDay.date }}</span
                         >
                       </div>
@@ -568,6 +578,7 @@ export default {
     dynamicCmp(cmp, id = null, pos, e) {
       console.log(pos);
       console.log(e);
+      console.log(cmp);
       pos = pos ? pos : { x: e.clientX, y: e.clientY };
 
       this.cmp = { name: cmp, id, pos };
@@ -692,6 +703,9 @@ export default {
     },
   },
   computed: {
+    dueDateTime() {
+      return moment(this.card.dueDate.date.date, 'YYYY-MM-DD').format('MMM DD,YYYY');
+    },
     attTrelix() {
       let cardIds = this.card.attachment.trelixAttachments;
       const groups = JSON.parse(JSON.stringify(this.$store.getters.getBoard.groups));
