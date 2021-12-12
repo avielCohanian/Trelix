@@ -19,7 +19,7 @@
           @click="closeDetails"
         >
         </a>
-        <div class="secund-header" v-if="card.title">
+        <div class="secund-header">
           <font-awesome-icon class="svg" :icon="['fab', 'trello']" />
           <div class="secund-header-input" @click="toggleTitle">
             <input
@@ -82,7 +82,7 @@
                   <!-- {{ dueDateDay.date }} -->
                   {{ dueDateTime }}
                   at
-                  {{ card.dueDate.date.time | moment(' h:mm: A') }}
+                  {{ card.dueDate.date.time | moment(' h:mm A') }}
                   <span v-if="card.dueDate.isComplete" class="complete">complete</span>
                   <span class="el-icon-arrow-down"></span>
                 </a>
@@ -565,6 +565,7 @@ export default {
     async saveTitle() {
       let card = JSON.parse(JSON.stringify(this.card));
       card.title = this.card.title;
+      if (!card.title) return;
       try {
         await this.updateCard();
         this.isOpenTitle = false;

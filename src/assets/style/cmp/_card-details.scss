@@ -258,7 +258,7 @@
           .labels {
             .labels-container {
               display: flex;
-
+              flex-wrap: wrap;
               .label,
               .plus-btn {
                 border-radius: 3px;
@@ -670,8 +670,9 @@
               line-height: 16px;
               letter-spacing: -0.2px;
               padding: 4px 8px;
-              color: inherit;
-              .att-board-name {
+              color: white;
+              text-shadow: 0 0 9px black;
+              text .att-board-name {
                 display: inline-block;
                 text-decoration: none;
                 color: inherit;

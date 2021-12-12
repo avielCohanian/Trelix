@@ -55,60 +55,65 @@
 
         <!-- labels  -->
         <!-- v-if="isBadgetsExist" -->
-        <div
-          class="icons"
-          v-if="card.dueDate || card.description || card.attachment || card.checklists || card.comments"
-        >
-          <!-- dueDate -->
+        <div class="icon-list" :class="{ colum: card.members.length > 1 }">
           <div
-            class="due-date icon"
-            v-if="card.dueDate && card.dueDate.date && card.dueDate.date.date"
-            @mouseover="showCheck = true"
-            @mouseleave="showCheck = false"
-            @click.stop="isDone"
-            :class="{ 'done-card': card.dueDate.isComplete }"
+            class="icons"
+            v-if="card.dueDate || card.description || card.attachment || card.checklists || card.comments"
           >
-            <span v-if="card.dueDate.isComplete && showCheck" class="material-icons-outlined icon"> check_box</span>
-            <span v-if="showCheck && !card.dueDate.isComplete" class="material-icons-outlined icon check"
-              >crop_din</span
+            <!-- dueDate -->
+            <div
+              class="due-date icon"
+              v-if="card.dueDate && card.dueDate.date && card.dueDate.date.date"
+              @mouseover="showCheck = true"
+              @mouseleave="showCheck = false"
+              @click.stop="isDone"
+              :class="{ 'done-card': card.dueDate.isComplete }"
             >
-            <span v-if="!showCheck" class="due-date-icon icon el-icon-time check"></span>
-            <span v-if="card.dueDate.date.date"> {{ card.dueDate.date.date | moment('MMM DD') }}</span>
+              <span v-if="card.dueDate.isComplete && showCheck" class="material-icons-outlined icon"> check_box</span>
+              <span v-if="showCheck && !card.dueDate.isComplete" class="material-icons-outlined icon check"
+                >crop_din</span
+              >
+              <span v-if="!showCheck" class="due-date-icon icon el-icon-time check"></span>
+              <span v-if="card.dueDate.date.date"> {{ card.dueDate.date.date | moment('MMM DD') }}</span>
+            </div>
+
+            <!-- description -->
+            <span
+              v-if="card.description && card.description.length > 0"
+              class="el-icon-s-unfold icon description"
+            ></span>
+
+            <!-- attachment -->
+            <span
+              v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
+              class="el-icon-paperclip icon attachment"
+            >
+              {{ card.attachment.computerAttachment.length }}</span
+            >
+
+            <!-- checklist -->
+            <span
+              class="checklist icon"
+              v-if="card.checklists && card.checklists.length > 0"
+              :class="{ 'done-todos': isTodosDone }"
+            >
+              <span class="material-icons-outlined icon"> check_box</span>
+              <span v-if="doneTodosAmount">{{ doneTodosAmount }}</span>
+              <span>/</span>
+              <span>{{ todosAmount }}</span>
+            </span>
+
+            <!-- comments  -->
+            <span v-if="card.comments && card.comments.length > 0">
+              <span class="el-icon-chat-round icon comments"></span>{{ card.comment }}</span
+            >
           </div>
-
-          <!-- description -->
-          <span v-if="card.description && card.description.length > 0" class="el-icon-s-unfold icon description"></span>
-
-          <!-- attachment -->
-          <span
-            v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
-            class="el-icon-paperclip icon attachment"
-          >
-            {{ card.attachment.computerAttachment.length }}</span
-          >
-
-          <!-- checklist -->
-          <span
-            class="checklist icon"
-            v-if="card.checklists && card.checklists.length > 0"
-            :class="{ 'done-todos': isTodosDone }"
-          >
-            <span class="material-icons-outlined icon"> check_box</span>
-            <span v-if="doneTodosAmount">{{ doneTodosAmount }}</span>
-            <span>/</span>
-            <span>{{ todosAmount }}</span>
-          </span>
-
-          <!-- comments  -->
-          <span v-if="card.comments && card.comments.length > 0">
-            <span class="el-icon-chat-round icon comments"></span>{{ card.comment }}</span
-          >
-        </div>
-        <!-- members -->
-        <div class="members" v-if="card.members && card.members.length > 0">
-          <div v-for="member in card.members" :key="member._id" @click.stop="showProfile(member)">
-            <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
-            <avatar v-else :username="member.username" :size="28" class="member"></avatar>
+          <!-- members -->
+          <div class="members" v-if="card.members && card.members.length > 0">
+            <div v-for="member in card.members" :key="member._id" @click.stop="showProfile(member)">
+              <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
+              <avatar v-else :username="member.username" :size="28" class="member"></avatar>
+            </div>
           </div>
         </div>
       </div>
@@ -128,7 +133,7 @@
           ></avatar>
           <avatar v-else :size="50" username="currMember.username" class="member"></avatar>
         </div>
-        <div class="user-details ">
+        <div class="user-details">
           <div>
             <avatar
               v-if="currMember.imgUrl"
@@ -137,12 +142,7 @@
               username="currMember.username"
               class="member"
             ></avatar>
-            <avatar
-              v-else
-              :size="50"
-              username="currMember.username"
-              class="member"
-            ></avatar>
+            <avatar v-else :size="50" username="currMember.username" class="member"></avatar>
           </div>
           <div class="name">
             <strong>{{ currMember.fullname }}</strong>
@@ -164,7 +164,12 @@ import avatar from 'vue-avatar';
 
 export default {
   name: 'card',
-  props: { card: null },
+  props: {
+    card: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       isCardDone: false,
@@ -238,11 +243,11 @@ export default {
       console.log('isDone');
       try {
         let card = JSON.parse(JSON.stringify(this.card));
-        console.log(card.dueDate.isComplete);
+        console.log(this.card);
         card.dueDate.isComplete = !card.dueDate.isComplete;
         console.log(card.dueDate.isComplete);
 
-        await this.updateCard(card);
+        // await this.updateCard(card);
       } catch (err) {
         console.log(err);
       }
