@@ -47,11 +47,8 @@
             @dueDate="dueDate"
             @updateMember="updateMember"
             @changeBcg="changeBcg"
-            @attTrelix="dynamicCmp('trelix', 'Add card or board…', $event)"
             @addAttTr="addTrelixAtt"
             @updateLabel="updateLabel"
-            @addLabel="addLabel('Create label', $event)"
-            @editLabel="editLabel"
             @newLabel="newLabel"
             @deleteLabel="deleteLabel"
             @changeBcgSize="changeBcgSize"
@@ -146,10 +143,7 @@
           @dueDate="dueDate"
           @computerAttImg="computerAttImg"
           @computerAttLink="computerAttLink"
-          @attTrelix="dynamicCmp('trelix', 'Add card or board…', $event)"
           @searchImgCmp="dynamicCmp('coverSearch', 'photo search', $event)"
-          @addLabel="addLabel('Create label', $event)"
-          @editLabel="editLabel"
           @newLabel="newLabel"
           @deleteLabel="deleteLabel"
           @changeBcgSize="changeBcgSize"
@@ -187,7 +181,7 @@
 <script>
 import member from './edit/edit-member.vue';
 import label from './edit-label.vue';
-import addLabel from './edit/add-label.vue';
+// import addLabel from './edit/add-label.vue';
 import attachment from './edit/edit-attachment.vue';
 import trelix from './edit/edit-trelix.vue';
 import checklist from './edit/edit-checklist.vue';
@@ -243,27 +237,25 @@ export default {
     switchModel() {
       this.$store.commit({ type: 'updateModal', isModal: true });
     },
-    dynamicCmp(cmp, header, e = null) {
+    dynamicCmp(cmp, header, e = null, cmpPos) {
+      console.log(cmp);
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
       this.component.header = cmp.name ? cmp.name : header;
       let position = cmp.name ? cmp.name : `${cmp}El`;
 
-      // ;
-      // this.component.position.x = 450;
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.component.position.y = cmp.pos.y - 50;
         this.component.position.x = cmp.pos.x - 300;
       } else {
         let cmpPosition = this.$refs[`${position}`].getBoundingClientRect();
-
+        // console.log(e);
+        // this.component.position.x = cmpPosition.x;
+        // this.component.position.y = cmpPosition.y + 350;
         this.component.position.x = cmpPosition.x - 350;
         this.component.position.y = cmpPosition.y - 150;
-        // this.component.position.x = e.clientX - 300;
-        // this.component.position.y = e.clientY - 50;
-        // console.log(e.clientX);
+        // console.log(cmpPosition);
       }
-      console.log(this.component.position.x);
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
     },
 
@@ -393,18 +385,18 @@ export default {
         this.closeModel();
       }, 500);
     },
-    addLabel(header, e) {
-      this.label.type = 'add';
-      this.dynamicCmp('addLabels', header, e);
-    },
-    editLabel({ labelId, e }) {
-      let label = this.$store.getters.boardLabels;
-      label = label.find((l) => l.id === labelId);
-      this.label.currLabel = JSON.parse(JSON.stringify(label));
+    // addLabel(header, e) {
+    //   this.label.type = 'add';
+    //   this.dynamicCmp('addLabels', header, e);
+    // },
+    // editLabel({ labelId, e }) {
+    //   let label = this.$store.getters.boardLabels;
+    //   label = label.find((l) => l.id === labelId);
+    //   this.label.currLabel = JSON.parse(JSON.stringify(label));
 
-      this.label.type = 'edit';
-      this.dynamicCmp('addLabels', 'Change label', e);
-    },
+    //   this.label.type = 'edit';
+    //   this.dynamicCmp('addLabels', 'Change label', e);
+    // },
     deleteLabel(label, e) {
       this.$emit('deleteLabel', label, e);
       setTimeout(() => {
@@ -463,7 +455,7 @@ export default {
     'card-trelix': trelix,
     'card-members': member,
     'card-labels': label,
-    'card-addLabels': addLabel,
+    // 'card-addLabels': addLabel,
     'card-cover': cover,
     'card-checklist': checklist,
     'card-edit': edit,

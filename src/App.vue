@@ -15,8 +15,7 @@ export default {
       loadUser: false,
     };
   },
-  created() {
-  },
+  created() {},
   methods: {
     
  updateBoard(updateBoard) {
@@ -25,9 +24,15 @@ export default {
     updateCard(updateCard) {
       this.$store.commit({ type: 'setCard', card: updateCard });
     },
+    updateBoard(updateBoard) {
+      this.$store.commit({ type: 'setBoard', board: updateBoard });
+    },
     // updateMouse(mouseEvents){
     //   this.$store.commit({ type: 'updateMouse', mouseEvents });
-    // }
+    // },
+    updateBoard(updateBoard) {
+      this.$store.commit({ type: 'setBoard', board: updateBoard });
+    },
   },
   components: {
     appHeader,
@@ -39,6 +44,12 @@ export default {
         socketService.on(`updateCard${this.$store.getters.currCard.id}`, this.updateCard);
       }
     },
+    '$store.getters.getBoard'() {
+      if (this.$store.getters.getBoard) {
+        socketService.on(`update${this.$store.getters.getBoard._id}`, this.updateBoard);
+      }
+    },
+
     // '$store.getters.getBoard'() {
     //   if (this.$store.getters.getBoard) {
     //     socketService.on(`updateMouse${this.$store.getters.getBoard._id}`, this.updateMouse);

@@ -1,5 +1,5 @@
 .screen .card-details {
-  width: 100vw;
+  width: 90vw;
 
   .details {
     flex-direction: column;
@@ -34,7 +34,9 @@
 }
 @media (max-width: 650px) {
   .screen .card-details {
-    width: 100vw;
+    min-width: 100%;
+    min-height: 100%;
+    // width: 100vw;
 
     .color-header {
       background-size: contain;
@@ -70,6 +72,10 @@
         .sidebar {
           display: flex;
           flex-direction: column;
+          .join-btn {
+            max-width: 150px;
+          }
+
           .edit-btn {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -78,7 +84,7 @@
 
               height: 32px;
               margin-top: 8px;
-              max-width: 300px;
+              max-width: 150px;
               overflow: hidden;
               padding: 6px 12px;
               // background-color: yellowgreen;

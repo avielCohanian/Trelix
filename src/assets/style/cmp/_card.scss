@@ -3,14 +3,17 @@
   // overflow: scroll;
   overflow-x: hidden;
   &::-webkit-scrollbar {
+    margin-right: 3px;
     width: 5px;
     background: #e2e4e9;
   }
   &::-webkit-scrollbar-track {
+    margin-right: 3px;
     border-radius: 10px;
     background: transparent;
   }
-  &::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb { 
+    margin-right: 3px;
     border-radius: 10px;
     background: #c6cbd4;
     // background: rgba(0, 0, 0, 0.32);
@@ -96,7 +99,7 @@ section.card.img-cover {
   }
 
   .icons {
-    font-family: initial;
+    font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif, iconTrello;;
     // margin-bottom: 7px;
     // margin-top: 5px;
 
@@ -109,6 +112,7 @@ section.card.img-cover {
     gap: 15px;
 
     .checklist {
+      font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif, iconTrello;;
       padding: 7px 0;
       margin: 0;
       // height: 28px;
@@ -117,15 +121,19 @@ section.card.img-cover {
       align-items: center;
     }
     .due-date {
+      font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif, iconTrello;;
       padding: 7px 0;
       border-radius: 2px;
-      padding: 3px;
+      // padding: 3px;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 3px;
+      padding: 4px;
+    margin-bottom: 4px;
 
       &.done-card {
+        font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif, iconTrello;;
         color: white;
         background-color: yellowgreen;
       }
@@ -134,12 +142,15 @@ section.card.img-cover {
       font-size: 14px;
     }
     .description {
+      font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif, iconTrello;;
       padding: 7px 0;
     }
     .comments {
+      font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif, iconTrello;;
       padding: 7px 0;
     }
     .attachment {
+      font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif, iconTrello;;
       padding: 7px 0;
     }
     .icon {
@@ -431,7 +442,7 @@ section.card.img-cover {
     }
   }
   .user-details {
-    // flex-direction: row;
+    flex-direction: row;
   }
 }
 .choice {

@@ -70,9 +70,8 @@ export default {
       });
       return this.$store.getters.getBoard;
     },
-
   },
-   
+
   watch: {
     '$route.params.boardId'() {
       const boardId = this.$route.params.boardId;

@@ -49,7 +49,6 @@ export const boardStore = {
     },
   },
   mutations: {
-    
     // updateMouse(state,{mouseEvents}) {
     //   // console.log(isModal);
     //   state.mouseEvents = mouseEvents;
@@ -118,12 +117,13 @@ export const boardStore = {
 
     async updateCard({ commit, getters }, { card }) {
       const board = getters.getBoard;
-      console.log(card,'card');
+      console.log(card, 'card');
       try {
         console.log(card);
         const updateBoard = await boardService.updateCard(board, card);
         // commit({ type: 'setCard', card });
-        console.log(updateBoard,'updateBoard');
+
+        console.log(updateBoard, 'updateBoard');
         socketService.emit('updateCard', card);
         socketService.emit('update', updateBoard);
 
@@ -167,13 +167,11 @@ export const boardStore = {
       }
     },
 
-    async updateBoard({ getters , commit }, { board }) {
-      
+    async updateBoard({ getters, commit }, { board }) {
       try {
         const updatedBoard = await boardService.updatedBoard(board, JSON.parse(JSON.stringify(getters.getUserConnect)));
         commit({ type: 'setBoard', board: updatedBoard });
         socketService.emit('update', updatedBoard);
-        
       } catch (err) {
         throw err;
       }
@@ -213,18 +211,17 @@ export const boardStore = {
     },
     async removeMember({ commit, getters }, { member }) {
       try {
-
         var savedBoard = await boardService.deleteMember(getters.getBoard, member._id);
         console.log(member);
-        commit({ type: 'setBoard', board:savedBoard });
+        commit({ type: 'setBoard', board: savedBoard });
         // return savedBoard;
       } catch (err) {
         console.log(err);
       }
     },
-    async addMember({ commit, getters,dispatch }, { member }) {
+    async addMember({ commit, getters, dispatch }, { member }) {
       try {
-        const board = JSON.parse(JSON.stringify(getters.getBoard))
+        const board = JSON.parse(JSON.stringify(getters.getBoard));
         var savedBoard = await boardService.addMember(board, member);
         commit({ type: 'setBoard', board: savedBoard });
         return savedBoard;
@@ -283,7 +280,7 @@ export const boardStore = {
         console.log(err);
       }
     },
-    addActivity({ getters, dispatch ,commit}, { activity }) {
+    addActivity({ getters, dispatch, commit }, { activity }) {
       let board = JSON.parse(JSON.stringify(getters.getBoard));
       // let board = getters.getBoard
       console.log(board.activities, 'chack');
@@ -291,7 +288,7 @@ export const boardStore = {
       dispatch({ type: 'updateBoard', board });
     },
     // updateMouse({getters},{mouseEvent}){
-    //   const userConnect = JSON.parse(JSON.stringify(getters.getUserConnect)) 
+    //   const userConnect = JSON.parse(JSON.stringify(getters.getUserConnect))
     //   mouseEvent.userConnect =userConnect
     //   console.log(mouseEvent);
     //   mouseEvent.boardId = getters.getBoard._id

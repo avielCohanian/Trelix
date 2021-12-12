@@ -219,7 +219,16 @@
     }
     .activity-container form {
       .comment-edit {
-        width: 76vw;
+        width: 74vw;
+      }
+    }
+    .commit-list {
+      li {
+        form {
+          input {
+            width: 76vw;
+          }
+        }
       }
     }
   }
