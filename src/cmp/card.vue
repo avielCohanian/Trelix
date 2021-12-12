@@ -52,53 +52,62 @@
             {{ card.title }}
           </p>
         </header>
-
-        <!-- labels  -->
-        <!-- v-if="isBadgetsExist" -->
         <div class="icon-list" :class="{ colum: card.members.length > 1 }">
+          <!-- labels  -->
+          <!-- v-if="isBadgetsExist" -->
           <div
             class="icons"
             v-if="card.dueDate || card.description || card.attachment || card.checklists || card.comments"
           >
-            <span v-if="card.dueDate.isComplete && showCheck" class="icon-checkbox-unchecked icon"> </span>
-            <span v-if="showCheck && !card.dueDate.isComplete" class="icon-checklist icon check"></span>
-            <span v-if="!showCheck" class="icon icon-clock check"></span>
-            <span v-if="card.dueDate.date.date"> {{ card.dueDate.date.date | moment('MMM DD') }}</span>
+            <!-- dueDate -->
+            <div
+              class="due-date icon"
+              v-if="card.dueDate && card.dueDate.date && card.dueDate.date.date"
+              @mouseover="showCheck = true"
+              @mouseleave="showCheck = false"
+              @click.stop="isDone"
+              :class="{ 'done-card': card.dueDate.isComplete }"
+            >
+              <span v-if="card.dueDate.isComplete && showCheck" class="icon-checkbox-unchecked icon"> </span>
+              <span v-if="showCheck && !card.dueDate.isComplete" class="icon-checklist icon check"></span>
+              <span v-if="!showCheck" class="icon icon-clock check"></span>
+              <span v-if="card.dueDate.date.date"> {{ card.dueDate.date.date | moment('MMM DD') }}</span>
+            </div>
+
+            <!-- description -->
+            <span v-if="card.description && card.description.length > 0" class="icon-description icon"></span>
+
+            <!-- attachment -->
+            <span
+              v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
+              class="icon-attachment icon icons-padding"
+            >
+              {{ card.attachment.computerAttachment.length }}</span
+            >
+
+            <!-- checklist -->
+            <span
+              class="checklist icon icons-padding"
+              v-if="card.checklists && card.checklists.length > 0"
+              :class="{ 'done-todos': isTodosDone }"
+            >
+              <span class="icon-checklist icon"> </span>
+              <span>{{ doneTodosAmount }}</span>
+              <span>/</span>
+              <span>{{ todosAmount }}</span>
+            </span>
+
+            <!-- comments  -->
+            <span v-if="card.comments && card.comments.length > 0" class="icon icons-padding">
+              <span class="icon-comment icon"></span>{{ card.comments.length }}</span
+            >
           </div>
-
-          <!-- description -->
-          <span v-if="card.description && card.description.length > 0" class="icon-description icon"></span>
-
-          <!-- attachment -->
-          <span
-            v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
-            class="icon-attachment icon icons-padding"
-          >
-            {{ card.attachment.computerAttachment.length }}</span
-          >
-
-          <!-- checklist -->
-          <span
-            class="checklist icon icons-padding"
-            v-if="card.checklists && card.checklists.length > 0"
-            :class="{ 'done-todos': isTodosDone }"
-          >
-            <span class="icon-checklist icon"> </span>
-            <span>{{ doneTodosAmount }}</span>
-            <span>/</span>
-            <span>{{ todosAmount }}</span>
-          </span>
-
-          <!-- comments  -->
-          <span v-if="card.comments && card.comments.length > 0" class="icon icons-padding">
-            <span class="icon-comment icon"></span>{{ card.comments.length }}</span
-          >
-        </div>
-        <!-- members -->
-        <div class="members" v-if="card.members && card.members.length > 0">
-          <div v-for="member in card.members" :key="member._id" @click.stop="showProfile(member)">
-            <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
-            <avatar v-else :username="member.username" :size="28" class="member"></avatar>
+          <!-- members -->
+          <div class="members" v-if="card.members && card.members.length > 0">
+            <div v-for="member in card.members" :key="member._id" @click.stop="showProfile(member)">
+              <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
+              <avatar v-else :username="member.username" :size="28" class="member"></avatar>
+            </div>
           </div>
         </div>
       </div>
@@ -149,12 +158,7 @@ import avatar from 'vue-avatar';
 
 export default {
   name: 'card',
-  props: {
-    card: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: { card: null },
   data() {
     return {
       isCardDone: false,
@@ -228,11 +232,11 @@ export default {
       console.log('isDone');
       try {
         let card = JSON.parse(JSON.stringify(this.card));
-        console.log(this.card);
+        console.log(card.dueDate.isComplete);
         card.dueDate.isComplete = !card.dueDate.isComplete;
         console.log(card.dueDate.isComplete);
 
-        // await this.updateCard(card);
+        await this.updateCard(card);
       } catch (err) {
         console.log(err);
       }

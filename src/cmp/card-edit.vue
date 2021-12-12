@@ -250,16 +250,16 @@ export default {
         let cmpPosition = this.$refs[`${position}`].getBoundingClientRect();
         console.log(cmpPosition);
 
-        // if (cmpPosition.x > 500) {
-        //   cmpPosition.x -= 300;
-        // } else if (cmpPosition.x < 100) {
-        //   cmpPosition.x += 200;
-        // }
-        // if (cmpPosition.y > 600) {
-        //   cmpPosition.y += 500;
-        // } else if (cmpPosition.y < 100) {
-        //   cmpPosition.y += 300;
-        // }
+        if (cmpPosition.x > 500) {
+          cmpPosition.x -= 300;
+        } else if (cmpPosition.x < 100) {
+          cmpPosition.x += 200;
+        }
+        if (cmpPosition.y > 600) {
+          cmpPosition.y += 500;
+        } else if (cmpPosition.y < 100) {
+          cmpPosition.y += 300;
+        }
         this.component.position.x = cmpPosition.x;
         this.component.position.y = cmpPosition.y - 100;
       }
