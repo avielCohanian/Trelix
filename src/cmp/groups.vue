@@ -21,7 +21,7 @@
 
     <div class="add-list">
       <div class="add-list-new" @click="toggleGroup" v-if="!isAddGroup">
-        <span class="material-icons-outlined icon"> add </span>
+        <span class="icon-add">  </span>
         <span class="txt-add"> Add a list </span>
       </div>
       <div class="add-list-container" v-if="isAddGroup">

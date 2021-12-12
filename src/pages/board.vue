@@ -83,6 +83,6 @@ export default {
 
 <style>
 .container-board {
-  height: 100vh;
+  height: 93vh;
 }
 </style>

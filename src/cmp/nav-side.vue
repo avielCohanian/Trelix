@@ -4,10 +4,13 @@
   <div class="nav-close" v-if="!isOpen">
 
 <button class="btn-open" @click.stop="closeModal" >
-          <img
+  <span class="material-icons-outlined arrow">
+navigate_next
+</span >
+          <!-- <img
             src="https://a.trellocdn.com/prgb/dist/images/workspace-navigation/chevron-left.58243262833f693f6101.svg"
             alt=""
-          />
+          /> -->
         </button>
   </div>
   <div class="nav-side-container" v-else>
