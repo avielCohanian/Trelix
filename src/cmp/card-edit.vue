@@ -236,25 +236,25 @@ export default {
       this.minComponent.currCmp = null;
       this.component.header = cmp.name ? cmp.name : header;
       let position = cmp.name ? cmp.name : `${cmp}El`;
-      console.log(cmp);
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.component.position.y = cmp.pos.y - 50;
         this.component.position.x = cmp.pos.x - 300;
         if (cmp.name === 'members') this.component.position.x = cmp.pos.x - 100;
+        console.log(cmp.name === 'cover' && window.screen.width <= 1050);
+        if (cmp.name === 'cover' && window.screen.width >= 1110) this.component.position.x = 450;
         if (window.screen.width <= 500) this.component.position.x = window.screen.width / 2 - 150;
       } else {
         let cmpPosition = this.$refs[`${position}`].getBoundingClientRect();
 
         if (window.screen.width <= 500) {
           cmpPosition.x = window.screen.width / 2 - 150;
-          cmpPosition.y += 700;
+          cmpPosition.y += 500;
           // cmpPosition.y = window.screen.height - cmpPosition.bottom;
         } else cmpPosition.x = 450;
 
         this.component.position.x = cmpPosition.x;
         this.component.position.y = cmpPosition.y;
       }
-      console.log(this.component.position);
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
     },
 
@@ -436,6 +436,7 @@ export default {
       let card = JSON.parse(JSON.stringify(this.card));
       card.attachment.trelixAttachments.push(cardId);
       this.$emit('updateCard', card);
+      this.closeModel();
     },
     dueDate(dateObj) {
       let card = JSON.parse(JSON.stringify(this.card));
