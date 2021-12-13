@@ -247,12 +247,14 @@ export default {
 
         if (window.screen.width <= 500) {
           cmpPosition.x = window.screen.width / 2 - 150;
+          cmpPosition.y += 700;
           // cmpPosition.y = window.screen.height - cmpPosition.bottom;
         } else cmpPosition.x = 450;
 
         this.component.position.x = cmpPosition.x;
         this.component.position.y = cmpPosition.y;
       }
+      console.log(this.component.position);
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
     },
 
