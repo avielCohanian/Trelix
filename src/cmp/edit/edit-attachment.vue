@@ -151,8 +151,8 @@ export default {
 
   computed: {
     cardsToShow() {
-      let board = this.$store.getters.getBoard;
-      let cardAttTrelix = board.groups.reduce((acc, g) => {
+      const board = this.$store.getters.getBoard;
+      const cardAttTrelix = board.groups.reduce((acc, g) => {
         g.cards.forEach((c) => {
           if (c.id === this.card.id) return;
           if (this.card.attachment.trelixAttachments.some((cId) => cId === c.id)) return;

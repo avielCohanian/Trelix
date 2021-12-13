@@ -248,7 +248,7 @@ export default {
 
         if (window.screen.width <= 500) {
           cmpPosition.x = window.screen.width / 2 - 150;
-          cmpPosition.y += 500;
+          cmpPosition.y = 350;
           // cmpPosition.y = window.screen.height - cmpPosition.bottom;
         } else cmpPosition.x = 450;
 
