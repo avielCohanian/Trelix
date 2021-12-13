@@ -39,16 +39,11 @@ export const userStore = {
   },
   actions: {
     async logIn({ commit, dispatch }, { user }) {
-      console.log(user);
       try {
         const currUser = await userService.logIn(user);
-
-        // TODO:
-        // socketService.on(`updateUser${currUser._id}`, (user) => {
-        //   dispatch({ type: 'logIn', user });
-        // });
-
+        socketService.on(`updateUser${currUser._id}`, user =>{ dispatch({ type: 'logIn', user })});
         commit({ type: 'logIn', currUser });
+        dispatch({ type: 'loadBoards' });
         return currUser;
       } catch (err) {
         throw err;

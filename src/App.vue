@@ -15,7 +15,12 @@ export default {
       loadUser: false,
     };
   },
-  created() {},
+  created() {
+    if (this.$store.getters.getUserConnect) {
+      socketService.on(`updateUser${this.$store.getters.getUserConnect._id}`, this.updateUser);
+      }
+
+  },
   methods: {
     updateCard(updateCard) {
       this.$store.commit({ type: 'setCard', card: updateCard });
@@ -45,12 +50,6 @@ export default {
         socketService.on(`update${this.$store.getters.getBoard._id}`, this.updateBoard);
       }
     },
-    // '$store.getters.getUserConnect'() {
-    //   if (this.$store.getters.getUserConnect) {
-    //     console.log(this.$store.getters.getUserConnect);
-    //     socketService.on(`updateUser${this.$store.getters.getUserConnect._id}`, this.updateUser);
-    //   }
-    // },
 
     // '$store.getters.getBoard'() {
     //   if (this.$store.getters.getBoard) {

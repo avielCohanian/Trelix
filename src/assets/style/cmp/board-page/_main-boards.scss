@@ -23,6 +23,7 @@
         content: "\e966";
         font-size: 24px;
         font-weight: 500;
+        margin-left: 7px;
     }
     .boards-container{
         gap: 10px;
@@ -36,7 +37,11 @@
             background-size: cover;
             background-repeat: no-repeat;
             margin: 0 16px 32px 0;
-            
+            @media (max-width: 540px) {
+                margin: 0;
+                width: 176px;
+    
+            }
             
             .selected::before{
                 content: '\e967';
@@ -76,30 +81,39 @@
            
         }
         @media (max-width: 540px) {
-                div {
-                width: 100%;
-            }
-            justify-content: center;
+           
+            justify-content: flex-start;
+            margin-left: 10px;
+            padding-bottom: 25px;
            
         }
     } 
+
+
     @media (max-width: 750px) {
         .viewed{
             display: flex;
-            justify-content: center;
+            margin-left: 10px;
+            // justify-content: center;
 
             // text-align: center;
         }
        
     }
+    @media (max-width: 540px) {
+       width: 383px;
+       padding: 0;
 
+   
+}
     .personal-boards{
         align-items: center;
-        @media (max-width: 750px) {
+        @media (max-width: 540px) {
            
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                // display: flex;
+                // justify-content: center;
+                // align-items: center;
+                margin-left: 10px;
            
         }
 
