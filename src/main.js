@@ -14,11 +14,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTasks, faPlus, faTimes, faSearch, faUsers, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import Popover from 'vue-js-popover';
 
-Vue.use(Popover);
-import VPopover from 'vue-js-popover';
-Vue.use(VPopover, { tooltip: true });
 socketService.setup();
 library.add(faTasks, faPlus, faTimes, faSearch, faUsers, faCheck);
 library.add(faTrello);

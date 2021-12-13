@@ -15,9 +15,7 @@
       </header>
       <div class="modal" v-if="openModal">
         <div class="title">
-          <span class="material-icons-outlined" @click="openModal = !openModal"
-            >close</span
-          >
+          <span class="material-icons-outlined" @click="openModal = !openModal">close</span>
           <p>List actions</p>
         </div>
         <hr />
@@ -31,11 +29,7 @@
 
       <div class="modal" v-if="isModalAdd">
         <div class="title">
-          <span
-            class="material-icons-outlined"
-            @click="isModalAdd = !isModalAdd"
-            >close</span
-          >
+          <span class="material-icons-outlined" @click="isModalAdd = !isModalAdd">close</span>
           <p>Options</p>
         </div>
         <hr />
@@ -58,11 +52,11 @@
       </div>
 
       <div class="card-container">
-        <!-- class="card-scroll list-group sortable-drag" -->
-        <!-- class="card-ghost card-ghost-drop" -->
-        <!-- :class="[isActive ? 'card-ghost' :  'sortable-drag' ,'item' , 'card-ghost-drop']" -->
-        <!-- draggable=".item" -->
-        <!-- animation: 150
+        <!-- class="card-scroll list-group sortable-drag"
+        class="card-ghost card-ghost-drop"
+        :class="[isActive ? 'card-ghost' :  'sortable-drag' ,'item' , 'card-ghost-drop']"
+        draggable=".item"
+        animation: 150
                     touchStartThreshold: 50 -->
 
         <Container
@@ -76,19 +70,12 @@
         >
           <Draggable class="for" v-for="card in group.cards" :key="card.id">
             <div>
-              <card
-                :board="board"
-                :card="card"
-                @click.native="showEdit(card.id)"
-                @updateGroup="loadGroup"
-              />
+              <card :board="board" :card="card" @click.native="showEdit(card.id)" @updateGroup="loadGroup" />
               <div class="col-3" :value="card" :title="card.title"></div>
             </div>
           </Draggable>
         </Container>
         <div>
-       
-
           <label v-if="isAddCard">
             <div class="btn-group">
               <el-input
@@ -100,34 +87,17 @@
               >
               </el-input>
 
-              <div
-                class="members"
-                v-if="newCard.members && newCard.members.length > 0"
-              >
+              <div class="members" v-if="newCard.members && newCard.members.length > 0">
                 <div v-for="member in newCard.members" :key="member._id">
-                  <avatar
-                    v-if="member.imgUrl"
-                    :src="member.imgUrl"
-                    :size="28"
-                    class="member-img"
-                  />
-                  <avatar
-                    v-else
-                    :username="member.username"
-                    :size="28"
-                    class="member"
-                  ></avatar>
+                  <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
+                  <avatar v-else :username="member.username" :size="28" class="member"></avatar>
                 </div>
               </div>
 
               <div class="btn-add">
                 <div class="left">
-                  <el-button class="btn" type="primary" @click="addCard">
-                    Add card</el-button
-                  >
-                  <p class="material-icons-outlined left" @click="toggleCard">
-                    close
-                  </p>
+                  <el-button class="btn" type="primary" @click="addCard"> Add card</el-button>
+                  <p class="material-icons-outlined left" @click="toggleCard">close</p>
                 </div>
                 <p class="el-icon-more more" @click="openMember"></p>
               </div>
@@ -135,16 +105,8 @@
           </label>
         </div>
       </div>
-      <label
-        class="add-card"
-        for="addCard"
-        @click="toggleCard"
-        v-if="!isAddCard"
-      >
-        <p class="add-card-btn">
-          
-          <span class="icon-add icon add-card">  </span> Add a card
-        </p>
+      <label class="add-card" for="addCard" @click="toggleCard" v-if="!isAddCard">
+        <p class="add-card-btn"><span class="icon-add icon add-card"> </span> Add a card</p>
       </label>
     </div>
 
@@ -156,25 +118,10 @@
 
       <h3 class="member-title">Board members</h3>
       <ul class="list-Member">
-        <li
-          class="member"
-          v-for="member in membersToShow"
-          :key="member._id"
-          @click="addMember(member)"
-        >
+        <li class="member" v-for="member in membersToShow" :key="member._id" @click="addMember(member)">
           <div class="curr-user">
-            <avatar
-              v-if="member.imgUrl"
-              :src="member.imgUrl"
-              :size="32"
-              class="avatar"
-            ></avatar>
-            <avatar
-              v-else
-              :username="member.fullname"
-              class="avatar"
-              :size="32"
-            ></avatar>
+            <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="32" class="avatar"></avatar>
+            <avatar v-else :username="member.fullname" class="avatar" :size="32"></avatar>
 
             <span class="user">
               <span>{{ member.fullname }}</span>
@@ -182,10 +129,7 @@
             </span>
           </div>
 
-          <span
-            class="check el-icon-check"
-            v-if="cardMembers(member._id)"
-          ></span>
+          <span class="check el-icon-check" v-if="cardMembers(member._id)"></span>
         </li>
       </ul>
     </section>
@@ -194,12 +138,12 @@
 
 <script>
 // import member from "./edit/edit-member.vue";
-import { applyDrag } from "../service/util.service.js";
-import avatar from "vue-avatar";
+import { applyDrag } from '../service/util.service.js';
+import avatar from 'vue-avatar';
 // import label from './edit-label.vue';
-import { boardService } from "../service/board.service";
-import card from "./card.vue";
-import { Container, Draggable } from "vue-smooth-dnd";
+import { boardService } from '../service/board.service';
+import card from './card.vue';
+import { Container, Draggable } from 'vue-smooth-dnd';
 
 export default {
   components: {
@@ -208,22 +152,22 @@ export default {
     Draggable,
     Container,
   },
-  props: ["group", "board"],
-  name: "group",
+  props: ['group', 'board'],
+  name: 'group',
   data() {
     return {
-      filterMember: "",
+      filterMember: '',
       // isCardDrop:false,
       isOpenMember: false,
-      title: "xhr",
+      title: 'xhr',
       isModalAdd: false,
       isEditTitle: false,
       isAddCard: false,
       openModal: false,
 
       dropPlaceholderOptions: {
-        className: "drop-preview",
-        animationDuration: "150",
+        className: 'drop-preview',
+        animationDuration: '150',
         showOnTop: true,
       },
 
@@ -244,40 +188,35 @@ export default {
         const group = board.groups.filter((_g) => _g.id === groupId)[0];
         const groupIndex = board.groups.indexOf(group);
         const newGroup = Object.assign({}, group);
+        console.log(newGroup);
         newGroup.cards = applyDrag(newGroup.cards, dropResult);
         board.groups.splice(groupIndex, 1, newGroup);
         await this.$store.dispatch({
-          type: "updateBoard",
+          type: 'updateBoard',
           board: JSON.parse(JSON.stringify(board)),
         });
       }
     },
     getCardPayload(groupId) {
       return (index) => {
-        return this.board.groups.filter((_g) => _g.id === groupId)[0].cards[
-          index
-        ];
+        return this.board.groups.filter((_g) => _g.id === groupId)[0].cards[index];
       };
     },
     endDrug() {
-      this.$emit("updateGroupDrug");
+      this.$emit('updateGroupDrug');
     },
     addMember(currMember) {
-if (this.newCard.members.some((member) => member._id === currMember._id)) {
+      if (this.newCard.members.some((member) => member._id === currMember._id)) {
         const labelIdx = this.newCard.members.findIndex((member) => member._id === currMember._id);
         this.newCard.members.splice(labelIdx, 1);
       } else {
         this.newCard.members.push(currMember);
       }
 
-
-
       // let memberToCheek = this.newCard.members.map(
       //   (member) => member._id === currMember._id
       // );
       // if (memberToCheek) {
-
-
 
       //   const idx = this.newCard.members.findIndex(
       //     (member) => member._id === currMember._id
@@ -295,7 +234,7 @@ if (this.newCard.members.some((member) => member._id === currMember._id)) {
       this.toggleCard();
     },
     scroll() {
-      var container = this.$el.querySelector(".card-container");
+      var container = this.$el.querySelector('.card-container');
       container.scrollTop = container.scrollHeight;
     },
     toggleCard() {
@@ -314,7 +253,7 @@ if (this.newCard.members.some((member) => member._id === currMember._id)) {
       if (!this.newCard.title) return;
       try {
         await this.$store.dispatch({
-          type: "addCard",
+          type: 'addCard',
           newCard: this.newCard,
           groupId: this.group.id,
         });
@@ -327,7 +266,7 @@ if (this.newCard.members.some((member) => member._id === currMember._id)) {
     async deleteGroup() {
       try {
         await this.$store.dispatch({
-          type: "deleteGroup",
+          type: 'deleteGroup',
         });
         this.loadGroup();
       } catch (err) {
@@ -337,7 +276,7 @@ if (this.newCard.members.some((member) => member._id === currMember._id)) {
     async updateGroup() {
       try {
         await this.$store.dispatch({
-          type: "updateGroup",
+          type: 'updateGroup',
           group: this.group,
         });
         this.loadGroup();
@@ -346,7 +285,7 @@ if (this.newCard.members.some((member) => member._id === currMember._id)) {
       }
     },
     loadGroup() {
-      this.$emit("updateGroup");
+      this.$emit('updateGroup');
     },
   },
   computed: {
@@ -369,10 +308,9 @@ if (this.newCard.members.some((member) => member._id === currMember._id)) {
 
 <style>
 .icon-add:before {
-    content: "\e901";
+  content: '\e901';
 }
-.add-card{
+.add-card {
   font-size: 14px;
 }
 </style>
-
