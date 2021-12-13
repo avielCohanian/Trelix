@@ -61,7 +61,6 @@ export default {
       };
     },
     async logIn() {
-      e.log(this.userToLogIn);
       try {
         var user = await this.$store.dispatch({
           type: 'logIn',
