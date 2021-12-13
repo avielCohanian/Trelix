@@ -13,7 +13,7 @@
       @click.stop="openDetails(true)"
     ></div>
 
-    <span class="icon-edit edit pointer" @click.stop="openDetails(false)" :style="isShow">  </span>
+    <span class="icon-edit edit pointer" @click.stop="openDetails(false)" :style="isShow"> </span>
     <section
       :style="bgColorFull"
       class="card"
@@ -33,11 +33,11 @@
                 :style="{
                   backgroundColor: label.color,
                 }"
-                :class="{ 'label-text': isLabelText }"
+                :class="{ 'label-text': isLabelOpen }"
                 @click.stop.prevent="toggleLabel"
               >
                 <transition name="fade">
-                  <span class="label-title" v-if="label.title && isLabelText">{{ label.title }}</span>
+                  <span class="label-title" v-if="label.title && isLabelOpen">{{ label.title }}</span>
                 </transition>
               </span>
             </li>
@@ -52,63 +52,62 @@
             {{ card.title }}
           </p>
         </header>
-
-        <!-- labels  -->
-        <!-- v-if="isBadgetsExist" -->
-        <div
-          class="icons"
-          v-if="card.dueDate || card.description || card.attachment || card.checklists || card.comments"
-        >
-          <!-- dueDate -->
+        <div class="icon-list" :class="{ colum: card.members.length > 1 }">
+          <!-- labels  -->
+          <!-- v-if="isBadgetsExist" -->
           <div
-            class="due-date icon"
-            v-if="card.dueDate && card.dueDate.date && card.dueDate.date.date"
-            @mouseover="showCheck = true"
-            @mouseleave="showCheck = false"
-            @click.stop="isDone"
-            :class="{ 'done-card': card.dueDate.isComplete }"
+            class="icons"
+            v-if="card.dueDate || card.description || card.attachment || card.checklists || card.comments"
           >
-            <span v-if="card.dueDate.isComplete && showCheck" class="icon-checkbox-unchecked icon"> </span>
-            <span v-if="showCheck && !card.dueDate.isComplete" class="icon-checklist icon check"
-              ></span
+            <!-- dueDate -->
+            <div
+              class="due-date icon"
+              v-if="card.dueDate && card.dueDate.date && card.dueDate.date.date"
+              @mouseover="showCheck = true"
+              @mouseleave="showCheck = false"
+              @click.stop="isDone"
+              :class="{ 'done-card': card.dueDate.isComplete }"
             >
-            <span v-if="!showCheck" class=" icon icon-clock check"></span>
-            <span v-if="card.dueDate.date.date"> {{ card.dueDate.date.date | moment('MMM DD') }}</span>
+              <span v-if="card.dueDate.isComplete && showCheck" class="icon-checkbox-unchecked icon"> </span>
+              <span v-if="showCheck && !card.dueDate.isComplete" class="icon-checklist icon check"></span>
+              <span v-if="!showCheck" class="icon icon-clock check"></span>
+              <span v-if="card.dueDate.date.date"> {{ card.dueDate.date.date | moment('MMM DD') }}</span>
+            </div>
+
+            <!-- description -->
+            <span v-if="card.description && card.description.length > 0" class="icon-description icon"></span>
+
+            <!-- attachment -->
+            <span
+              v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
+              class="icon-attachment icon icons-padding"
+            >
+              {{ card.attachment.computerAttachment.length }}</span
+            >
+
+            <!-- checklist -->
+            <span
+              class="checklist icon icons-padding"
+              v-if="card.checklists && card.checklists.length > 0"
+              :class="{ 'done-todos': isTodosDone }"
+            >
+              <span class="icon-checklist icon"> </span>
+              <span>{{ doneTodosAmount }}</span>
+              <span>/</span>
+              <span>{{ todosAmount }}</span>
+            </span>
+
+            <!-- comments  -->
+            <span v-if="card.comments && card.comments.length > 0" class="icon icons-padding">
+              <span class="icon-comment icon"></span>{{ card.comments.length }}</span
+            >
           </div>
-
-          <!-- description -->
-          <span v-if="card.description && card.description.length > 0" class="icon-description icon"></span>
-
-          <!-- attachment -->
-          <span
-            v-if="card.attachment.computerAttachment && card.attachment.computerAttachment.length > 0"
-            class="icon-attachment icon icons-padding"
-          >
-            {{ card.attachment.computerAttachment.length }}</span
-          >
-
-          <!-- checklist -->
-          <span
-            class="checklist icon icons-padding"
-            v-if="card.checklists && card.checklists.length > 0"
-            :class="{ 'done-todos': isTodosDone }"
-          >
-            <span class="icon-checklist icon"> </span>
-            <span >{{ doneTodosAmount }}</span>
-            <span>/</span>
-            <span>{{ todosAmount }}</span>
-          </span>
-
-          <!-- comments  -->
-          <span v-if="card.comments && card.comments.length > 0" class="icon icons-padding">
-            <span class="icon-comment icon"></span>{{ card.comments.length }}</span
-          >
-        </div>
-        <!-- members -->
-        <div class="members" v-if="card.members && card.members.length > 0">
-          <div v-for="member in card.members" :key="member._id" @click.stop="showProfile(member)">
-            <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
-            <avatar v-else :username="member.username" :size="28" class="member"></avatar>
+          <!-- members -->
+          <div class="members" v-if="card.members && card.members.length > 0">
+            <div v-for="member in card.members" :key="member._id" @click.stop="showProfile(member)">
+              <avatar v-if="member.imgUrl" :src="member.imgUrl" :size="28" class="member-img" />
+              <avatar v-else :username="member.username" :size="28" class="member"></avatar>
+            </div>
           </div>
         </div>
       </div>
@@ -128,7 +127,7 @@
           ></avatar>
           <avatar v-else :size="50" username="currMember.username" class="member"></avatar>
         </div>
-        <div class="user-details ">
+        <div class="user-details">
           <div>
             <avatar
               v-if="currMember.imgUrl"
@@ -137,12 +136,7 @@
               username="currMember.username"
               class="member"
             ></avatar>
-            <avatar
-              v-else
-              :size="50"
-              username="currMember.username"
-              class="member"
-            ></avatar>
+            <avatar v-else :size="50" username="currMember.username" class="member"></avatar>
           </div>
           <div class="name">
             <strong>{{ currMember.fullname }}</strong>
@@ -173,7 +167,6 @@ export default {
       isLabelText: false,
       isHover: false,
       isOpenEditor: false,
-      cardToUpdate: null,
       currMember: null,
       isShowProfile: null,
     };
@@ -181,7 +174,6 @@ export default {
   mounted() {},
   created() {
     try {
-      this.cardToUpdate = JSON.parse(JSON.stringify(this.card));
       this.labels = this.myLabels;
       if (this.card.style && this.card.style.isFull === false) {
         if (this.card.style.bgUrl) return this.bgUrlHalf;
@@ -234,21 +226,19 @@ export default {
       this.isShowProfile = !this.isShowProfile;
       this.currMember = member;
     },
-    async isDone() {
-      console.log('isDone');
-      try {
-        let card = JSON.parse(JSON.stringify(this.card));
-        console.log(card.dueDate.isComplete);
-        card.dueDate.isComplete = !card.dueDate.isComplete;
-        console.log(card.dueDate.isComplete);
+    isDone() {
+      let card = JSON.parse(JSON.stringify(this.card));
+      console.log(card.dueDate.isComplete);
+      card.dueDate.isComplete = !card.dueDate.isComplete;
+      console.log(card.dueDate.isComplete);
 
-        await this.updateCard(card);
-      } catch (err) {
-        console.log(err);
-      }
+      this.updateCard(card);
     },
     toggleLabel() {
-      this.isLabelText = !this.isLabelText;
+      let labelToggle = JSON.parse(JSON.stringify(this.$store.getters.isLabelOpen));
+      labelToggle = !labelToggle;
+      this.$store.commit({ type: 'updateIsLabelOpen', isLabelOpen: labelToggle });
+      // this.isLabelText = !this.isLabelText;
     },
     closeModel() {
       this.component.currCmp = null;
@@ -265,18 +255,7 @@ export default {
         console.log(err);
       }
     },
-    async updateCard() {
-      try {
-        var res = await this.$store.dispatch({
-          type: 'updateCard',
-          card: this.cardToUpdate,
-        });
-        this.$emit('updateGroup');
-        if (res) this.openEditor();
-      } catch (err) {
-        console.log(err);
-      }
-    },
+
     openEditor() {
       this.isOpenEditor = !this.isOpenEditor;
     },
@@ -290,6 +269,9 @@ export default {
     },
   },
   computed: {
+    isLabelOpen() {
+      return this.$store.getters.isLabelOpen;
+    },
     labelsForDisplay() {
       if (this.card.labelIds) {
         return this.getLabel();
@@ -383,25 +365,25 @@ export default {
   width: 93%;
 }
 .icon-attachment:before {
-    content: "\e908";
+  content: '\e908';
 }
 .icon-description:before {
-    content: "\e922";
+  content: '\e922';
 }
 .icon-comment:before {
   display: flex;
-    content: "\e91e";
+  content: '\e91e';
 }
 .icon-checklist:before {
-    content: "\e91a";
+  content: '\e91a';
 }
 .icon-edit:before {
-    content: "\e928";
+  content: '\e928';
 }
 .icon-clock:before {
-    content: "\e91b";
+  content: '\e91b';
 }
 .icon-checkbox-unchecked:before {
-    content: "\e919";
+  content: '\e919';
 }
 </style>

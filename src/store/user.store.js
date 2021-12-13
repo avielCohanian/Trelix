@@ -7,8 +7,7 @@ export const userStore = {
     cmpDyn: null,
   },
   getters: {
-    getUsers(state){
-      console.log(state.users);
+    getUsers(state) {
       return state.users;
     },
     getUserConnect(state) {
@@ -21,7 +20,6 @@ export const userStore = {
   mutations: {
     logIn(state, { currUser }) {
       state.currUser = currUser || userService.getLoggedinUser();
-      console.log(state.currUser);
     },
     signUp(state, { currUser }) {
       state.currUser = currUser;
@@ -29,22 +27,27 @@ export const userStore = {
     logout(state) {
       state.currUser = null;
     },
-    getUsers(state,{currUsers}) {
-      state.users = currUsers
+    getUsers(state, { currUsers }) {
+      state.users = currUsers;
     },
     changeFavorit(state, { updateUser }) {
       state.currUser = updateUser;
     },
     steCmpDyn(state, { cmpDyn }) {
-      console.log(cmpDyn);
       state.cmpDyn = cmpDyn;
     },
   },
   actions: {
-    async logIn({ commit }, { user }) {
-      console.log('user', user);
+    async logIn({ commit, dispatch }, { user }) {
+      console.log(user);
       try {
         const currUser = await userService.logIn(user);
+
+        // TODO:
+        // socketService.on(`updateUser${currUser._id}`, (user) => {
+        //   dispatch({ type: 'logIn', user });
+        // });
+
         commit({ type: 'logIn', currUser });
         return currUser;
       } catch (err) {
@@ -53,13 +56,11 @@ export const userStore = {
     },
     async signUp({ commit }, { user }) {
       try {
-        console.log(user);
         const currUser = await userService.signup(user);
         commit({
           type: 'signUp',
           currUser,
         });
-        console.log(currUser);
         return currUser;
       } catch (err) {
         console.log(err);
@@ -79,7 +80,6 @@ export const userStore = {
     },
     async logout({ state, commit }) {
       try {
-        console.log('here');
         const currUser = await userService.logout(state.currUser);
         commit({
           type: 'logout',
@@ -91,21 +91,19 @@ export const userStore = {
       }
     },
     async updateUser({ commit }, { currUser }) {
-      console.log('updateUser ', currUser);
       try {
         const updateUser = await userService.updateUser(currUser);
-        console.log(updateUser);
-        console.log('up', updateUser);
         commit({ type: 'logIn', user: updateUser });
       } catch (err) {
         throw err;
       }
     },
-    
-    
+
     async updateUserBoard({ commit }, { update }) {
       try {
-        await userService.updateUserBoard(update);
+        let user = await userService.updateUserBoard(update);
+        console.log(user);
+        socketService.emit('updateUser', user);
       } catch (err) {
         throw err;
       }

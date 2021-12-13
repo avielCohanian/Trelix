@@ -18,7 +18,7 @@
             <li @click.stop.prevent="dynamicCmp('members', 'members', $event)" class="pointer" ref="membersEl">
               <span class="material-icons-outlined"> person_outline </span>Change members
             </li>
-            <li @click.stop.prevent="dynamicCmp('cover', 'cover', $event)" class="pointer"  ref="coverEl">
+            <li @click.stop.prevent="dynamicCmp('cover', 'cover', $event)" class="pointer" ref="coverEl">
               <span class="material-icons-outlined"> branding_watermark </span>Change cover
             </li>
             <li @click.stop.prevent="dynamicCmp('dueDate', 'dates', $event)" class="pointer" ref="dueDateEl">
@@ -238,7 +238,6 @@ export default {
       this.$store.commit({ type: 'updateModal', isModal: true });
     },
     dynamicCmp(cmp, header, e = null, cmpPos) {
-      console.log(cmp);
       this.component.currCmp = null;
       this.minComponent.currCmp = null;
       this.component.header = cmp.name ? cmp.name : header;
@@ -249,13 +248,20 @@ export default {
         this.component.position.x = cmp.pos.x - 300;
       } else {
         let cmpPosition = this.$refs[`${position}`].getBoundingClientRect();
-        // console.log(e);
-        // this.component.position.x = cmpPosition.x;
-        // this.component.position.y = cmpPosition.y + 350;
-        // this.component.position.x = cmpPosition.x - 350;
-        this.component.position.x = cmpPosition.x ;
-        this.component.position.y = cmpPosition.y -250;
-        // console.log(cmpPosition);
+        console.log(cmpPosition);
+
+        if (cmpPosition.x > 500) {
+          cmpPosition.x -= 300;
+        } else if (cmpPosition.x < 100) {
+          cmpPosition.x += 200;
+        }
+        if (cmpPosition.y > 600) {
+          cmpPosition.y += 500;
+        } else if (cmpPosition.y < 100) {
+          cmpPosition.y += 300;
+        }
+        this.component.position.x = cmpPosition.x;
+        this.component.position.y = cmpPosition.y - 100;
       }
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
     },
@@ -277,6 +283,18 @@ export default {
         this.minComponent.position.y = e.clientY;
         this.minComponent.position.x = e.clientX;
       }
+
+      if (this.minComponent.position.x > 500) {
+        this.minComponent.position.x -= 300;
+      } else if (this.minComponent.position.x < 100) {
+        this.minComponent.position.x += 200;
+      }
+      if (this.minComponent.position.y > 600) {
+        this.minComponent.position.y += 500;
+      } else if (this.minComponent.position.y < 100) {
+        this.minComponent.position.y += 300;
+      }
+
       console.log(this.minComponent.position);
       this.minComponent.currCmp = cmp.name.name ? `card-${cmp.name.type}` : `card-${cmp}`;
 
@@ -386,18 +404,6 @@ export default {
         this.closeModel();
       }, 500);
     },
-    // addLabel(header, e) {
-    //   this.label.type = 'add';
-    //   this.dynamicCmp('addLabels', header, e);
-    // },
-    // editLabel({ labelId, e }) {
-    //   let label = this.$store.getters.boardLabels;
-    //   label = label.find((l) => l.id === labelId);
-    //   this.label.currLabel = JSON.parse(JSON.stringify(label));
-
-    //   this.label.type = 'edit';
-    //   this.dynamicCmp('addLabels', 'Change label', e);
-    // },
     deleteLabel(label, e) {
       this.$emit('deleteLabel', label, e);
       setTimeout(() => {
@@ -405,8 +411,9 @@ export default {
       }, 0);
     },
     async newLabel(newLabel) {
-      newLabel.id = utilService.makeId();
-
+      if (!newLabel.lId) {
+        newLabel.id = utilService.makeId();
+      }
       this.updateLabel(newLabel);
 
       try {
@@ -437,8 +444,6 @@ export default {
       let card = JSON.parse(JSON.stringify(this.card));
       card.attachment.trelixAttachments.push(cardId);
       this.$emit('updateCard', card);
-
-      // this.$emit('addTrelixAtt', card);
     },
     dueDate(dateObj) {
       let card = JSON.parse(JSON.stringify(this.card));
@@ -449,6 +454,15 @@ export default {
     },
     deleteCard() {
       this.$emit('deleteCard', this.card);
+    },
+    changeMuchBookOnPage() {
+      console.log(window.innerWidth);
+      var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      console.log(width);
+      // if (width > 992) {
+      //     gSizePage = 12;
+      // }
+      return width;
     },
   },
   components: {

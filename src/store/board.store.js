@@ -9,6 +9,7 @@ export const boardStore = {
     boardsForDisplay: null,
     styleHeader: null,
     modal: true,
+    isLabelOpen: false,
     // mouseEvents:[]
     // watchedUser: null,
     // currUser: userService.getLoggedinUser(),
@@ -47,6 +48,9 @@ export const boardStore = {
     boardMembers(state) {
       return state.currBoard.members;
     },
+    isLabelOpen(state) {
+      return state.isLabelOpen;
+    },
   },
   mutations: {
     // updateMouse(state,{mouseEvents}) {
@@ -55,6 +59,9 @@ export const boardStore = {
     // },
     updateModal(state, { isModal }) {
       state.modal = isModal;
+    },
+    updateIsLabelOpen(state, { isLabelOpen }) {
+      state.isLabelOpen = isLabelOpen;
     },
     updateStyleHeader(state, { color }) {
       state.styleHeader = color;
@@ -69,7 +76,6 @@ export const boardStore = {
       state.boardsForDisplay = boards;
     },
     setCard(state, { card }) {
-      console.log(card);
       state.currCard = card;
     },
 
@@ -96,7 +102,6 @@ export const boardStore = {
 
       try {
         const board = await boardService.getById(boardId);
-        console.log(board);
         commit({ type: 'setBoard', board });
         return board;
       } catch (err) {
@@ -117,13 +122,10 @@ export const boardStore = {
 
     async updateCard({ commit, getters }, { card }) {
       const board = getters.getBoard;
-      console.log(card, 'card');
       try {
-        console.log(card);
         const updateBoard = await boardService.updateCard(board, card);
         // commit({ type: 'setCard', card });
 
-        console.log(updateBoard, 'updateBoard');
         socketService.emit('updateCard', card);
         socketService.emit('update', updateBoard);
 
@@ -212,18 +214,21 @@ export const boardStore = {
     async removeMember({ commit, getters }, { member }) {
       try {
         var savedBoard = await boardService.deleteMember(getters.getBoard, member._id);
-        console.log(member);
-        commit({ type: 'setBoard', board: savedBoard });
+        socketService.emit('update', savedBoard);
+
+        // commit({ type: 'setBoard', board: savedBoard });
         // return savedBoard;
       } catch (err) {
         console.log(err);
       }
     },
-    async addMember({ commit, getters, dispatch }, { member }) {
+    async addMember({ commit, getters }, { member }) {
       try {
         const board = JSON.parse(JSON.stringify(getters.getBoard));
         var savedBoard = await boardService.addMember(board, member);
-        commit({ type: 'setBoard', board: savedBoard });
+        socketService.emit('update', savedBoard);
+
+        // commit({ type: 'setBoard', board: savedBoard });
         return savedBoard;
       } catch (err) {
         console.log(err);
@@ -274,7 +279,6 @@ export const boardStore = {
       try {
         const updateBoard = await boardService.updatedBoard(board);
 
-        console.log(board.labels);
         commit({ type: 'setBoard', board: updateBoard });
       } catch (err) {
         console.log(err);
@@ -283,7 +287,6 @@ export const boardStore = {
     addActivity({ getters, dispatch, commit }, { activity }) {
       let board = JSON.parse(JSON.stringify(getters.getBoard));
       // let board = getters.getBoard
-      console.log(board.activities, 'chack');
       board.activities.unshift(activity);
       dispatch({ type: 'updateBoard', board });
     },
