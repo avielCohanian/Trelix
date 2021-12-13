@@ -66,7 +66,7 @@
       </div>
       <ul class="right">
         <boardMember v-if="isInvite" @closeModel="toggleInvite" />
-        <span class="divider"></span>
+        <!-- <span class="divider"></span> -->
         <!-- <li class="icon pointer">
           <span class="material-icons-outlined">filter_list</span>Filter
         </li> -->
