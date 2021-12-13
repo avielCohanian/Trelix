@@ -171,7 +171,10 @@ export const boardStore = {
 
     async updateBoard({ getters, commit }, { board }) {
       try {
-        const updatedBoard = await boardService.updatedBoard(board, JSON.parse(JSON.stringify(getters.getUserConnect)));
+        let deepBoard = JSON.parse(JSON.stringify(board));
+        console.log(deepBoard);
+        commit({ type: 'setBoard', board: deepBoard });
+        const updatedBoard = await boardService.updatedBoard(board, getters.getUserConnect);
         commit({ type: 'setBoard', board: updatedBoard });
         socketService.emit('update', updatedBoard);
       } catch (err) {

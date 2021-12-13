@@ -242,18 +242,26 @@ export default {
         if (cmp.name === 'members') this.component.position.x = cmp.pos.x - 100;
         console.log(cmp.name === 'cover' && window.screen.width <= 1050);
         if (cmp.name === 'cover' && window.screen.width >= 1110) this.component.position.x = 450;
-        if (window.screen.width <= 500) this.component.position.x = window.screen.width / 2 - 150;
+
+        if (window.screen.width <= 500) {
+          this.component.position.x = window.screen.width / 2 - 150;
+          this.component.position.y = 167;
+        }
       } else {
         let cmpPosition = this.$refs[`${position}`].getBoundingClientRect();
 
         if (window.screen.width <= 500) {
           cmpPosition.x = window.screen.width / 2 - 150;
-          cmpPosition.y = 350;
+          cmpPosition.y = 783;
           // cmpPosition.y = window.screen.height - cmpPosition.bottom;
         } else cmpPosition.x = 450;
-
+        console.log(cmp === 'labels' && window.screen.width >= 1110);
+        if (cmp === 'labels' && window.screen.width >= 1110) cmpPosition.y = 167;
+        if (cmp === 'dueDate' && window.screen.width >= 1110) cmpPosition.y = 167;
         this.component.position.x = cmpPosition.x;
         this.component.position.y = cmpPosition.y;
+        console.log(this.component.position);
+        console.log(cmp);
       }
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
     },

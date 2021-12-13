@@ -184,12 +184,10 @@ export default {
     },
     async onCardDrop(groupId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        console.log(groupId, dropResult);
         const board = Object.assign({}, this.board);
         const group = board.groups.filter((_g) => _g.id === groupId)[0];
         const groupIndex = board.groups.indexOf(group);
         const newGroup = Object.assign({}, group);
-        console.log(newGroup);
         newGroup.cards = applyDrag(newGroup.cards, dropResult);
         board.groups.splice(groupIndex, 1, newGroup);
         await this.$store.dispatch({
