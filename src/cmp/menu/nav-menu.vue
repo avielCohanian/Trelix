@@ -118,7 +118,7 @@ export default {
       return this.$store.getters.getBoard;
     },
     getUrl() {
-      return `http://localhost:8080/#/board/${this.$route.params.boardId}`;
+      return `https://trelix-proj-21.herokuapp.com/#/board/${this.$route.params.boardId}`;
     },
   },
 };
