@@ -16,9 +16,9 @@ export default {
     };
   },
   created() {
-    // if (this.$store.getters.getUserConnect) {
-    //   socketService.on(`updateUser${this.$store.getters.getUserConnect._id}`, this.updateUser);
-    //   }
+    if (this.$store.getters.getUserConnect) {
+      socketService.on(`updateUser${this.$store.getters.getUserConnect._id}`, this.updateUser);
+      }
 
   },
   methods: {
@@ -28,9 +28,9 @@ export default {
     updateBoard(updateBoard) {
       this.$store.commit({ type: 'setBoard', board: updateBoard });
     },
-    // updateUser(user) {
-    //   this.$store.dispatch({ type: 'logIn', user });
-    // },
+    updateUser(user) {
+      this.$store.dispatch({ type: 'logIn', user });
+    },
     // updateMouse(mouseEvents){
     //   this.$store.commit({ type: 'updateMouse', mouseEvents });
     // },
