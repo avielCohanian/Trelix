@@ -83,6 +83,7 @@
             flex-direction: column;
             margin-bottom: 6px;
             textarea {
+                width: 256px;
                 resize: none;
                 border: none;
                 // box-shadow: 0 1px 0 #091e4240;
@@ -142,6 +143,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    margin-right: 5px;
                     // padding-right: 3px;
                     // padding-top: 10px;
                     font-size: 20px;
