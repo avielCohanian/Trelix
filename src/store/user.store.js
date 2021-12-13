@@ -41,9 +41,9 @@ export const userStore = {
     async logIn({ commit, dispatch }, { user }) {
       try {
         const currUser = await userService.logIn(user);
-        // socketService.on(`updateUser${currUser._id}`, user =>{ dispatch({ type: 'logIn', user })});
+        socketService.on(`updateUser${currUser._id}`, user =>{ dispatch({ type: 'logIn', user })});
         commit({ type: 'logIn', currUser });
-        // dispatch({ type: 'loadBoards' });
+        dispatch({ type: 'loadBoards' });
         return currUser;
       } catch (err) {
         throw err;
@@ -98,8 +98,8 @@ export const userStore = {
       try {
         let user = await userService.updateUserBoard(update);
         console.log(user);
-        dispatch({ type: 'logIn', user });
-        // socketService.emit('updateUser', user);
+        // dispatch({ type: 'logIn', user });
+        socketService.emit('updateUser', user);
       } catch (err) {
         throw err;
       }

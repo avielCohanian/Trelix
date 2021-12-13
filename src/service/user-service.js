@@ -63,6 +63,7 @@ async function updateUser(user) {
     console.log(user._id);
     const CurrUser = await httpService.put(`user/${user._id}`, user);
     if (getLoggedinUser()._id === CurrUser._id) _saveLocalUser(CurrUser);
+    console.log(CurrUser);
     return CurrUser;
   } catch (err) {
     console.log(err);
@@ -98,6 +99,7 @@ async function updateUserBoard(update) {
         user.boards.starBoard.splice(idx, 1);
       }
     }
+    console.log(user);
     return await updateUser(user);
   } catch (err) {
     throw err;
