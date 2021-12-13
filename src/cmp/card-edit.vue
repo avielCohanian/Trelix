@@ -240,46 +240,18 @@ export default {
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.component.position.y = cmp.pos.y - 50;
         this.component.position.x = cmp.pos.x - 300;
-        if (cmp.name !== 'members') this.component.position.x = cmp.pos.x - 300;
+        if (cmp.name === 'members') this.component.position.x = cmp.pos.x - 100;
         if (window.screen.width <= 500) this.component.position.x = window.screen.width / 2 - 150;
       } else {
         let cmpPosition = this.$refs[`${position}`].getBoundingClientRect();
-        console.log(cmpPosition);
-        // console.log(e);
-        console.log(window);
 
-        // if (cmpPosition.y > 600) {
-        //   cmpPosition.y += 500;
-        // } else if (cmpPosition.y < 100) {
-        //   cmpPosition.y += 300;
-        // }
-
-        // if (window.screen.width <= cmpPosition.x + window.screen.width / 2) {
-        //   cmpPosition.x -= window.screen.width / 3;
-        // } else if (0 >= cmpPosition.x - window.screen.width / 3) {
-        //   cmpPosition.x += window.screen.width / 3;
-        // }
-        console.log(window.screen.height);
         if (window.screen.width <= 500) {
           cmpPosition.x = window.screen.width / 2 - 150;
           // cmpPosition.y = window.screen.height - cmpPosition.bottom;
-        }
-        // if (window.screen.width <= 500) cmpPosition.x = window.screen.width / 2 - 150;
-
-        // if (cmpPosition.y > 600) {
-        //   cmpPosition.y += 500;
-        // } else if (cmpPosition.y < 100) {
-        //   cmpPosition.y += 300;
-        // }
-        const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-        console.log(width, height);
+        } else cmpPosition.x = 450;
 
         this.component.position.x = cmpPosition.x;
         this.component.position.y = cmpPosition.y;
-        // this.component.position.y = e.screenY + 500;
-        console.log(this.component.position);
       }
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
     },
