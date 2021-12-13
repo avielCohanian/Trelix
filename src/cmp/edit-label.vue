@@ -124,11 +124,7 @@ export default {
       },
     };
   },
-  created() {
-    if (this.labelToEdit) {
-      console.log(this.labelToEdit);
-    }
-  },
+  created() {},
   computed: {
     getStyle() {
       return this.inMenu ? { 'max-height': 'fit-content' } : '';
@@ -178,10 +174,7 @@ export default {
       this.$emit('closeModel');
     },
     addLabelEdit() {
-      console.log(this.labelToEdit);
-      console.log(this.newLabel);
       if (this.labelToEdit.title) {
-        console.log(this.labelToEdit);
         let labelToSave = JSON.parse(JSON.stringify(this.labelToEdit));
         this.$emit('newLabel', labelToSave);
       } else {

@@ -578,9 +578,6 @@ export default {
       console.log(this.$refs);
     },
     dynamicCmp(cmp, id = null, pos, e) {
-      console.log(pos);
-      console.log(e);
-      console.log(cmp);
       pos = pos ? pos : { x: e.clientX, y: e.clientY };
 
       this.cmp = { name: cmp, id, pos };

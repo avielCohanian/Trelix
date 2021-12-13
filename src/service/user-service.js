@@ -60,10 +60,8 @@ async function signup(user) {
 
 async function updateUser(user) {
   try {
-    console.log(user._id);
     const CurrUser = await httpService.put(`user/${user._id}`, user);
     if (getLoggedinUser()._id === CurrUser._id) _saveLocalUser(CurrUser);
-    console.log(CurrUser);
     return CurrUser;
   } catch (err) {
     console.log(err);

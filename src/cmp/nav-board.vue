@@ -150,7 +150,6 @@ export default {
       this.currMember = member;
     },
     toggleMenu() {
-      console.log('hi');
       this.showMenu = !this.showMenu;
     },
   },

@@ -65,7 +65,6 @@ export default {
     },
     async searchBy() {
       this.imgs = await imgService.getImgs(this.search);
-      console.log(this.imgs);
       // this.imgs = imgs.splice(0, 6);
     },
     closeModel() {

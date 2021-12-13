@@ -82,17 +82,10 @@ export default {
       newLabel: { color: '#51e898', title: '' },
     };
   },
-  created() {
-    if (this.label.editCurrLabel) {
-      console.log(this.label);
-    }
-  },
+  created() {},
   methods: {
     addLabel() {
-      console.log(this.label);
-      console.log(this.newLabel);
       if (this.label.editCurrLabel) {
-        console.log(this.label.editCurrLabel);
         let labelToSave = JSON.parse(JSON.stringify(this.label.editCurrLabel));
         this.$emit('newLabel', labelToSave);
       } else {

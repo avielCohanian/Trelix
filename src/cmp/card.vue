@@ -187,7 +187,6 @@ export default {
   },
   methods: {
     async updateCard(card) {
-      console.log('updatcard');
       try {
         await this.$store.dispatch({
           type: 'updateCard',
@@ -198,8 +197,6 @@ export default {
       }
     },
     updateMember(currMember) {
-      console.log(currMember);
-      console.log(this.card);
       let card = JSON.parse(JSON.stringify(this.card));
       if (card.members.some((member) => member._id === currMember._id)) {
         const memberIdx = card.members.findIndex((member) => member._id === currMember._id);
@@ -210,7 +207,6 @@ export default {
       }
     },
     async updateCardToMember(card) {
-      console.log(this.card);
       try {
         await this.$store.dispatch({
           type: 'updateCard',
@@ -228,9 +224,7 @@ export default {
     },
     isDone() {
       let card = JSON.parse(JSON.stringify(this.card));
-      console.log(card.dueDate.isComplete);
       card.dueDate.isComplete = !card.dueDate.isComplete;
-      console.log(card.dueDate.isComplete);
 
       this.updateCard(card);
     },

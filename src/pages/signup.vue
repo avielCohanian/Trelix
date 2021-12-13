@@ -15,28 +15,13 @@
             <strong class="title"> Sign up for your account</strong>
           </p>
           <div class="login-password-container">
-            <el-input
-              placeholder="Enter email"
-              type="email"
-              v-model="userToSignUp.email"
-            >
-            </el-input>
+            <el-input placeholder="Enter email" type="email" v-model="userToSignUp.email"> </el-input>
             <template v-if="isLogin">
-              <el-input
-                placeholder="Enter full name"
-                type="text"
-                v-model="userToSignUp.fullname"
-              ></el-input>
-              <el-input
-                placeholder="Enter password"
-                type="password"
-                v-model="userToSignUp.password"
-              >
-              </el-input>
+              <el-input placeholder="Enter full name" type="text" v-model="userToSignUp.fullname"></el-input>
+              <el-input placeholder="Enter password" type="password" v-model="userToSignUp.password"> </el-input>
             </template>
             <p class="small">
-              By signing up, you confirm that you've read and accepted our Terms
-              of Service and Privacy Policy.
+              By signing up, you confirm that you've read and accepted our Terms of Service and Privacy Policy.
             </p>
             <button v-if="!isLogin" @click="toggle">
               <strong>Continue</strong>
@@ -75,28 +60,27 @@
 
 <script>
 export default {
-  name: "login",
+  name: 'login',
   data() {
     return {
       isLogin: false,
-      userToSignUp: "",
+      userToSignUp: '',
     };
   },
   created() {
     this.userToSignUp = this.getEmptyUser();
-    this.$store.commit({ type: "updateStyleHeader", style: false });
+    this.$store.commit({ type: 'updateStyleHeader', style: false });
   },
 
   methods: {
     moveToLogin() {
-      this.$router.push("/login");
+      this.$router.push('/login');
     },
     async signUp() {
-      console.log(this.userToSignUp);
       this.userToSignUp.username = this.userToSignUp.fullname;
       try {
         var res = await this.$store.dispatch({
-          type: "signUp",
+          type: 'signUp',
           user: this.userToSignUp,
         });
         console.log(res);
@@ -111,11 +95,11 @@ export default {
     },
     getEmptyUser() {
       return {
-        fullname: "",
-        username: "",
-        password: "",
-        email: "",
-        imgUrl: "",
+        fullname: '',
+        username: '',
+        password: '',
+        email: '',
+        imgUrl: '',
         boards: {
           boards: [],
           starBoard: [],
@@ -125,4 +109,3 @@ export default {
   },
 };
 </script>
-

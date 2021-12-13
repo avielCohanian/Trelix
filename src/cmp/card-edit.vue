@@ -240,7 +240,6 @@ export default {
         this.component.position.y = cmp.pos.y - 50;
         this.component.position.x = cmp.pos.x - 300;
         if (cmp.name === 'members') this.component.position.x = cmp.pos.x - 100;
-        console.log(cmp.name === 'cover' && window.screen.width <= 1050);
         if (cmp.name === 'cover' && window.screen.width >= 1110) this.component.position.x = 450;
 
         if (window.screen.width <= 500) {
@@ -255,13 +254,10 @@ export default {
           cmpPosition.y = 783;
           // cmpPosition.y = window.screen.height - cmpPosition.bottom;
         } else cmpPosition.x = 450;
-        console.log(cmp === 'labels' && window.screen.width >= 1110);
         if (cmp === 'labels' && window.screen.width >= 1110) cmpPosition.y = 167;
         if (cmp === 'dueDate' && window.screen.width >= 1110) cmpPosition.y = 167;
         this.component.position.x = cmpPosition.x;
         this.component.position.y = cmpPosition.y;
-        console.log(this.component.position);
-        console.log(cmp);
       }
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
     },
@@ -271,7 +267,6 @@ export default {
       this.minComponent.currCmp = null;
       this.component.position = { x: '', y: '' };
       let { name, type, txt, title, btnTxt } = cmp.name;
-      console.log(cmp);
       this.minComponent = { name, type, txt, title, btnTxt };
 
       this.minComponent.position = cmp.pos;
@@ -295,7 +290,6 @@ export default {
         this.minComponent.position.y += 300;
       }
 
-      console.log(this.minComponent.position);
       this.minComponent.currCmp = cmp.name.name ? `card-${cmp.name.type}` : `card-${cmp}`;
 
       // this.minComponent.currCmp = `card-${cmp.name.type}`;
@@ -457,9 +451,7 @@ export default {
       this.$emit('deleteCard', this.card);
     },
     changeMuchBookOnPage() {
-      console.log(window.innerWidth);
       var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-      console.log(width);
       // if (width > 992) {
       //     gSizePage = 12;
       // }

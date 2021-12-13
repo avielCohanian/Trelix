@@ -125,11 +125,10 @@ export default {
     },
     saveLink() {
       (this.att.upAt = Date.now()), this.$emit('computerAttLink', this.att);
-      (this.att = {
+      this.att = {
         link: '',
         name: '',
-      }),
-        console.log(this.att);
+      };
     },
     closeModel() {
       this.$emit('closeModel');
@@ -164,7 +163,6 @@ export default {
     },
 
     board() {
-      console.log(this.$store.getters.getBoard);
       let board = this.$store.getters.getBoard;
       return board;
     },

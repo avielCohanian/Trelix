@@ -84,7 +84,6 @@ avatar
       try {
         var res = await this.$store.dispatch({ type: "logout" });
         if (res) return this.$router.push("/")
-        console.log(res);
       } catch (err) {
         console.log(err);
       }

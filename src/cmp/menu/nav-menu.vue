@@ -25,9 +25,6 @@
             <h2>Change Background</h2>
           </div>
         </li>
-        <!-- <li class="menu-stickers" @click="changeCmp('addStickers')">
-        <h2> Stickers </h2>
-        </li> -->
 
         <li class="menu-label pointer" @click="changeCmp('labelMenu')">
           <span class="el-icon-price-tag icon logo-menu"></span>
@@ -65,7 +62,6 @@
 import aboutBoard from './about-board.vue';
 import changeBackground from './change-background.vue';
 import labelMenu from './label-menu.vue';
-import addStickers from './stickers.vue';
 import menuActivity from './menu-activity.vue';
 
 export default {
@@ -91,7 +87,6 @@ export default {
       this.showCmp = null;
     },
     changeBcg(newColor) {
-      console.log('bcg change');
       this.bcgColor = newColor;
     },
   },
@@ -99,7 +94,6 @@ export default {
     aboutBoard,
     changeBackground,
     labelMenu,
-    addStickers,
     menuActivity,
   },
   watch: {

@@ -83,7 +83,6 @@ export default {
   },
   created() {
     if (this.card.dueDate) {
-      console.log(this.card);
       this.dueTime = this.card.dueDate.date.date;
       this.dateTime = this.card.dueDate.date.time;
       this.checkbox = true;
@@ -100,8 +99,6 @@ export default {
       // },
     },
     saveDueDate() {
-      console.log(this.dueTime);
-      console.log(this.dateTime);
       // let dueDate = { date: Date.now(this.dueTime), remind: this.remind };
       let dueDate = { date: { date: this.dueTime, time: this.dateTime }, remind: this.remind };
       // let dueDate = { date: this.dueTime, remind: this.remind };
@@ -117,7 +114,6 @@ export default {
         this.dateTime = null;
         this.dueTime = null;
       }
-      console.log('ccc');
     },
   },
 

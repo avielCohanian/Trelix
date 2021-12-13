@@ -52,7 +52,6 @@ async function addBoard(newBoard, userConnect) {
   copyUser.boards = [];
   try {
     newBoard.createdBy = copyUser;
-    console.log(newBoard, 'newboard');
     newBoard.createdAt = Date.now();
     newBoard.members.push(copyUser);
 

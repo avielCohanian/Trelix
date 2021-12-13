@@ -203,7 +203,6 @@ export default {
       }
     },
     editTodoMode() {
-      console.log(this.$refs);
       if (this.editTodoMode) {
         setTimeout(() => {
           this.$refs.editInputNew.focus();
@@ -211,7 +210,6 @@ export default {
       }
     },
     editInputNew() {
-      console.log(this.$refs);
       if (this.editInputNew) {
         setTimeout(() => {
           this.$refs.editInputTodo.focus();

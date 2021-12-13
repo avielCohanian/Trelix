@@ -196,6 +196,7 @@ export default {
         });
       }
     },
+
     getCardPayload(groupId) {
       return (index) => {
         return this.board.groups.filter((_g) => _g.id === groupId)[0].cards[index];

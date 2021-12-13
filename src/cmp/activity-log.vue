@@ -101,7 +101,6 @@ export default {
     },
     editUserComment(cmm) {
       this.activity = cmm;
-      console.log(this.activity.id);
     },
     saveCommit(cmmId = null) {
       if (!cmmId) {

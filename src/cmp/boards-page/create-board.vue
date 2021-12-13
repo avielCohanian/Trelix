@@ -4,12 +4,7 @@
       <div class="created-model" v-if="imgs && imgs.length > 0">
         <div class="header-created flex-center">
           <div class="board-title" :style="emptyBoard.style" @click.stop="">
-            <input
-              class="input-title"
-              placeholder="Add board title"
-              v-model="emptyBoard.title"
-              @click.stop=""
-            />
+            <input class="input-title" placeholder="Add board title" v-model="emptyBoard.title" @click.stop="" />
             <div class="material-icons-outlined pointer close-btn" @click.stop="close">close</div>
           </div>
           <ul class="choice-bcg" @click.stop="">
@@ -18,7 +13,7 @@
               v-for="bgc in getBgcImg"
               :style="bgc.small"
               :key="bgc.description"
-              @click="changeBgc(bgc.full ,bgc.color)"
+              @click="changeBgc(bgc.full, bgc.color)"
             ></li>
             <li
               class="card-bcg pointer"
@@ -43,30 +38,28 @@ import { boardService } from '../../service/board.service.js';
 export default {
   data() {
     return {
-      bgcs:[],
+      bgcs: [],
       imgs: [],
       emptyBoard: null,
     };
   },
-  async created(){
-    this.loadColors()
+  async created() {
+    this.loadColors();
     this.loadEmptyBoard();
     await this.getImgs();
-    console.log(this.$route.params );
   },
   methods: {
-    loadColors(){
-         this.bgcs= boardService.getColors()
-      },
-    changeBgc(bgc,color) {
-      console.log(color);
+    loadColors() {
+      this.bgcs = boardService.getColors();
+    },
+    changeBgc(bgc, color) {
       this.emptyBoard.style = bgc;
       this.emptyBoard.color = color;
     },
     async addBoard() {
       if (!this.emptyBoard.title) return;
       try {
-        this.$store.commit({type:'logIn'})
+        this.$store.commit({ type: 'logIn' });
         const copyUser = JSON.parse(JSON.stringify(this.$store.getters.getUserConnect));
         const newBoard = await boardService.addBoard(this.emptyBoard, copyUser);
         copyUser.boards.boards.push(newBoard._id);
@@ -101,4 +94,3 @@ export default {
   },
 };
 </script>
-

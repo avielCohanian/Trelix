@@ -84,7 +84,6 @@ export default {
       //     const regex = new RegExp(this.filterTr, 'i');
       //     board = board.filter((card) => regex.test(card.title));
       //   }
-      console.log(this.$store.getters.getBoard);
       return board;
     },
 
@@ -93,7 +92,6 @@ export default {
       const cardAttTrelix = board.groups.reduce((acc, g) => {
         g.cards.forEach((c) => {
           c.attachment.trelixAttachments.forEach((cI) => {
-            console.log(cI);
             if (cI !== c.id && cI !== this.card.id) acc.push(c);
           });
         });

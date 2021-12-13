@@ -1,16 +1,9 @@
 <template>
-  <section class="app-header" :style="styleHeader" v-if="styleHeader ">
+  <section class="app-header" :style="styleHeader" v-if="styleHeader">
     <nav>
       <div class="nav-list">
-        <i class="material-icons-outlined pointer grid" @click="openMenu">
-          apps
-        </i>
-        <div
-          @click="moveToBoards"
-          class="logo pointer"
-          @mouseover="isHover = true"
-          @mouseleave="isHover = false"
-        >
+        <i class="material-icons-outlined pointer grid" @click="openMenu"> apps </i>
+        <div @click="moveToBoards" class="logo pointer" @mouseover="isHover = true" @mouseleave="isHover = false">
           <img
             v-if="isHover"
             src="https://res.cloudinary.com/trelix-casep21/image/upload/v1638632845/ezgif.com-gif-maker_ro1ned.gif"
@@ -24,12 +17,10 @@
           <strong> Trelix</strong>
         </div>
         <ul>
-          <li @click="openRecentBoards">
-            Recent <i class="el-icon-arrow-down pointer"></i>
-          </li>
+          <li @click="openRecentBoards">Recent <i class="el-icon-arrow-down pointer"></i></li>
           <li @click="openStarredBoards">Starred <i class="el-icon-arrow-down pointer"></i></li>
           <li @click="openTemplatesBoards">Templates <i class="el-icon-arrow-down pointer"></i></li>
-          <li @click="moveToBoards" :style="{margin: '2px'}">Create</li>
+          <li @click="moveToBoards" :style="{ margin: '2px' }">Create</li>
         </ul>
       </div>
       <div class="search">
@@ -49,13 +40,7 @@
             :username="createdBy.fullname"
             class="member"
           ></avatar>
-          <avatar
-            v-else
-            :size="35"
-            @click.native="showProfile"
-            :username="createdBy.fullname"
-            class="member"
-          ></avatar>
+          <avatar v-else :size="35" @click.native="showProfile" :username="createdBy.fullname" class="member"></avatar>
         </div>
       </div>
     </nav>
@@ -73,12 +58,7 @@
           :username="createdBy.fullname"
           class="member"
         ></avatar>
-        <avatar
-          v-else
-          :size="40"
-          :username="createdBy.fullname"
-          class="member"
-        ></avatar>
+        <avatar v-else :size="40" :username="createdBy.fullname" class="member"></avatar>
         <div class="user-details detraction">
           <div>
             <strong>{{ createdBy.fullname }}</strong>
@@ -89,7 +69,7 @@
       </div>
       <!-- <div class="active">Activity</div> -->
       <!-- <hr /> -->
-      <div class="active"  @click="logout">Log out</div>
+      <div class="active" @click="logout">Log out</div>
     </div>
 
     <div class="modal menu" v-if="isOpenMenu">
@@ -114,28 +94,19 @@
         <i>Recent boards</i>
       </div>
       <hr />
-      <div  
-      
-       v-if=" getBoardsForDisplay &&
-        getBoardsForDisplay.boards &&
-    getBoardsForDisplay.boards.length 
-    "
-    >
-        <div v-for="board in getBoardsForDisplay.boards" :key="board._id" >
-            <!-- <router-link :to="`${board._id}`"> -->
+      <div v-if="getBoardsForDisplay && getBoardsForDisplay.boards && getBoardsForDisplay.boards.length">
+        <div v-for="board in getBoardsForDisplay.boards" :key="board._id">
+          <!-- <router-link :to="`${board._id}`"> -->
           <div class="board-details" @click="moveToBoard(board._id)">
-
-          <div class="board-preview"  >
-
-            <!-- {{board.style}} -->
-         <div class="board-template" :style="board.style"></div>
-            <div class="board-txt-container">
-
-         <div class="board-title"> {{board.title}}</div>
+            <div class="board-preview">
+              <!-- {{board.style}} -->
+              <div class="board-template" :style="board.style"></div>
+              <div class="board-txt-container">
+                <div class="board-title">{{ board.title }}</div>
+              </div>
             </div>
           </div>
-          </div>
-            <!-- </router-link> -->
+          <!-- </router-link> -->
         </div>
       </div>
     </div>
@@ -146,29 +117,20 @@
         <i>Starred boards</i>
       </div>
       <hr />
-      <div  
-      
-       v-if=" getBoardsForDisplay &&
-        getBoardsForDisplay.boardsStar &&
-    getBoardsForDisplay.boardsStar.length 
-    "
-    >
-        <div v-for="board in getBoardsForDisplay.boardsStar" :key="board._id" >
-            <!-- <router-link :to="`${board._id}`"> -->
+      <div v-if="getBoardsForDisplay && getBoardsForDisplay.boardsStar && getBoardsForDisplay.boardsStar.length">
+        <div v-for="board in getBoardsForDisplay.boardsStar" :key="board._id">
+          <!-- <router-link :to="`${board._id}`"> -->
 
           <div class="board-details" @click="moveToBoard(board._id)">
-
-          <div class="board-preview"  >
-
-            <!-- {{board.style}} -->
-         <div class="board-template" :style="board.style"></div>
-            <div class="board-txt-container">
-
-         <div class="board-title"> {{board.title}}</div>
+            <div class="board-preview">
+              <!-- {{board.style}} -->
+              <div class="board-template" :style="board.style"></div>
+              <div class="board-txt-container">
+                <div class="board-title">{{ board.title }}</div>
+              </div>
             </div>
           </div>
-          </div>
-            <!-- </router-link> -->
+          <!-- </router-link> -->
         </div>
       </div>
     </div>
@@ -179,19 +141,16 @@
         <i>Templates</i>
       </div>
       <hr />
-      <div  
-    >
-        <div v-for="temp in templateBoards" :key="temp._id" >
-              <div class="board-details" @click="createBoardTemp(temp)"> 
-
-          <div class="board-preview"  >
-         <div class="board-template" :style="temp.style"></div>
-            <div class="board-txt-container">
-
-         <div class="board-title"> {{temp.title}}</div>
+      <div>
+        <div v-for="temp in templateBoards" :key="temp._id">
+          <div class="board-details" @click="createBoardTemp(temp)">
+            <div class="board-preview">
+              <div class="board-template" :style="temp.style"></div>
+              <div class="board-txt-container">
+                <div class="board-title">{{ temp.title }}</div>
+              </div>
             </div>
           </div>
-              </div>
         </div>
       </div>
     </div>
@@ -199,11 +158,11 @@
 </template>
 
 <script>
-import {boardService} from '../service/board.service.js'
-import avatar from "vue-avatar";
+import { boardService } from '../service/board.service.js';
+import avatar from 'vue-avatar';
 
 export default {
-  name: "appHeader",
+  name: 'appHeader',
   // props: ['createdBy'],
   data() {
     return {
@@ -214,76 +173,75 @@ export default {
       isShowProfile: false,
       isOpenMenu: false,
       isRecent: false,
-      isStared:false,
-      isTemplate:false,
-      templateBoards:'',
+      isStared: false,
+      isTemplate: false,
+      templateBoards: '',
     };
   },
- 
+
   created() {
-    this.$store.dispatch({type:'loadBoards'})
-      this.getTemplate()
+    this.$store.dispatch({ type: 'loadBoards' });
+    this.getTemplate();
     this.createdBy = this.$store.getters.getUserConnect;
     // this.headerStyle = this.$store.getters.getStyleHeader;
   },
   methods: {
-    async createBoardTemp(temp){
-        const copyUser = JSON.parse(JSON.stringify(this.$store.getters.getUserConnect));
-          try{
-            const newBoard = await boardService.createBoardTemp(temp,copyUser)
-             copyUser.boards.boards.push(newBoard._id);
-              this.$store.dispatch({ type: 'updateUser', currUser: copyUser });
-              this.$router.push(`/board/${newBoard._id}`);
-          }catch(err){
-            throw err
-          }
-        console.log('hi');
-        // this.iScreateBoard = !this.iScreateBoard
-      },
-    logout(){
-       this.isShowProfile = false
-       this.$store.commit({ type: 'removeStyleHeader' });
-       return this.$router.push("/logout")
-  },
-   
+    async createBoardTemp(temp) {
+      const copyUser = JSON.parse(JSON.stringify(this.$store.getters.getUserConnect));
+      try {
+        const newBoard = await boardService.createBoardTemp(temp, copyUser);
+        copyUser.boards.boards.push(newBoard._id);
+        this.$store.dispatch({ type: 'updateUser', currUser: copyUser });
+        this.$router.push(`/board/${newBoard._id}`);
+      } catch (err) {
+        throw err;
+      }
+      // this.iScreateBoard = !this.iScreateBoard
+    },
+    logout() {
+      this.isShowProfile = false;
+      this.$store.commit({ type: 'removeStyleHeader' });
+      return this.$router.push('/logout');
+    },
+
     openRecentBoards() {
       this.isRecent = !this.isRecent;
-       this.isStared = false
-        this.isTemplate= false
-        this.isOpenMenu =false
+      this.isStared = false;
+      this.isTemplate = false;
+      this.isOpenMenu = false;
     },
     openStarredBoards() {
       this.isStared = !this.isStared;
-       this.isTemplate= false
-        this.isRecent =false
-        this.isOpenMenu =false
+      this.isTemplate = false;
+      this.isRecent = false;
+      this.isOpenMenu = false;
     },
     openTemplatesBoards() {
-      this.isTemplate= !this.isTemplate;
-        this.isRecent =false
-         this.isStared = false
-           this.isOpenMenu =false
+      this.isTemplate = !this.isTemplate;
+      this.isRecent = false;
+      this.isStared = false;
+      this.isOpenMenu = false;
     },
     moveToBoards() {
-      this.isOpenMenu =  false
-      this.isRecent =false
-         this.isStared = false
-         this.isTemplate= false
+      this.isOpenMenu = false;
+      this.isRecent = false;
+      this.isStared = false;
+      this.isTemplate = false;
       return this.$router.push(`/${this.createdBy.username}/boards`);
     },
     moveToBoard(boardId) {
-       this.isOpenMenu =  false
-         this.isStared = false
-         this.isTemplate= false
-      this.isRecent =  false
+      this.isOpenMenu = false;
+      this.isStared = false;
+      this.isTemplate = false;
+      this.isRecent = false;
       //  this.$router.push(`/${this.createdBy.username}/boards`);
       return this.$router.push(`/board/${boardId}`);
     },
     openMenu() {
       this.isOpenMenu = !this.isOpenMenu;
-       this.isTemplate= false
-        this.isRecent =false
-         this.isStared = false
+      this.isTemplate = false;
+      this.isRecent = false;
+      this.isStared = false;
     },
     showProfile() {
       this.isShowProfile = !this.isShowProfile;
@@ -292,27 +250,24 @@ export default {
     //     this.templateBoards =  boardService.getTemplates()
     //    console.log( this.templateBoards);
     //   },
-      async getTemplate(){
-        this.templateBoards =  await boardService.getTemplates()
-      },
+    async getTemplate() {
+      this.templateBoards = await boardService.getTemplates();
+    },
   },
-  computed:{
-     styleHeader() {
+  computed: {
+    styleHeader() {
       return this.$store.getters.getStyleHeader;
     },
-    getBoardsForDisplay(){
-      console.log(this.$store.getters.getBoardsForDisplay);
-        return this.$store.getters.getBoardsForDisplay
-    }
-    
-    
-  },
-  watch:{
-        '$store.getters.getUserConnect'(){
-          this.createdBy=this.$store.getters.getUserConnect
-            // console.log(,'$store.getters.getUserConnect');
-        }
+    getBoardsForDisplay() {
+      return this.$store.getters.getBoardsForDisplay;
     },
+  },
+  watch: {
+    '$store.getters.getUserConnect'() {
+      this.createdBy = this.$store.getters.getUserConnect;
+      // console.log(,'$store.getters.getUserConnect');
+    },
+  },
   mounted() {},
   components: {
     avatar,
