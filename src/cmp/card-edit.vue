@@ -271,6 +271,11 @@ export default {
         // } else if (cmpPosition.y < 100) {
         //   cmpPosition.y += 300;
         // }
+        const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+        console.log(width, height);
+
         this.component.position.x = cmpPosition.x;
         this.component.position.y = cmpPosition.y;
         // this.component.position.y = e.screenY + 500;
