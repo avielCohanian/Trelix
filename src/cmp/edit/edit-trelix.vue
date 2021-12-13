@@ -89,8 +89,8 @@ export default {
     },
 
     cardsToShow() {
-      let board = this.$store.getters.getBoard;
-      let cardAttTrelix = board.groups.reduce((acc, g) => {
+      const board = this.$store.getters.getBoard;
+      const cardAttTrelix = board.groups.reduce((acc, g) => {
         g.cards.forEach((c) => {
           c.attachment.trelixAttachments.forEach((cI) => {
             console.log(cI);
@@ -101,10 +101,6 @@ export default {
       }, []);
       return cardAttTrelix;
     },
-    // boards() {
-    //   // not all
-    //   return this.$store.getters.getBoard.groups;
-    // },
   },
 };
 </script>

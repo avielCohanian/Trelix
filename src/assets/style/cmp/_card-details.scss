@@ -124,6 +124,13 @@
         align-items: center;
         min-height: 32px;
         margin: 12px 40px 8px 60px;
+        .icon-card:before {
+          content: '\e912';
+        }
+        .icon-card {
+          left: -32px;
+          color: #42526e;
+        }
         .secund-header-input {
           width: 100%;
           margin-top: 13px;
@@ -638,7 +645,7 @@
                   font-weight: 400;
                   height: 24px;
                   line-height: 24px;
-                  max-width: calc(100% - 16px);
+                  max-width: calc(100% - 7px);
                   min-height: 24px;
                   padding: 0 6px;
                   text-overflow: ellipsis;

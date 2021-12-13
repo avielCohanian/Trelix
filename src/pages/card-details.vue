@@ -20,7 +20,8 @@
         >
         </a>
         <div class="secund-header">
-          <font-awesome-icon class="svg" :icon="['fab', 'trello']" />
+          <!-- <font-awesome-icon class="svg" :icon="['fab', 'trello']" /> -->
+          <span class="icon-lg icon-lg icon icon-card js-card-header-icon"></span>
           <div class="secund-header-input" @click="toggleTitle">
             <input
               type="text"

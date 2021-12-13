@@ -80,7 +80,6 @@
             <span class="el-icon-price-tag label-icon icon"></span>
             Labels</a
           >
-
           <a
             class="btn checklist"
             @click="dynamicCmp('checklist', 'Add checklist', $event)"
@@ -118,16 +117,12 @@
           >
         </div>
       </div>
+      <!-- :style="{ top: component.position.y + 'px', left: component.position.x + 'px' }" -->
       <div
         class="dynamic-cmp"
         v-if="component.currCmp"
         :style="{ top: component.position.y + 'px', left: component.position.x + 'px' }"
       >
-        <!-- :style="{ top: component.position.top + 'px', left: component.position.left + 'px' }" -->
-        <!-- <header>
-        <h2>{{ component.name }}</h2>
-        <a @click="closeModel" class="el-icon-close"> </a>
-      </header> -->
         <component
           :is="component.currCmp"
           :card="card"
@@ -151,7 +146,6 @@
         >
         </component>
       </div>
-
       <div
         class="dynamic-cmp-minimal"
         v-if="minComponent.currCmp"
@@ -242,26 +236,45 @@ export default {
       this.minComponent.currCmp = null;
       this.component.header = cmp.name ? cmp.name : header;
       let position = cmp.name ? cmp.name : `${cmp}El`;
-
+      console.log(cmp);
       if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
         this.component.position.y = cmp.pos.y - 50;
         this.component.position.x = cmp.pos.x - 300;
+        if (cmp.name !== 'members') this.component.position.x = cmp.pos.x - 300;
+        if (window.screen.width <= 500) this.component.position.x = window.screen.width / 2 - 150;
       } else {
         let cmpPosition = this.$refs[`${position}`].getBoundingClientRect();
         console.log(cmpPosition);
+        // console.log(e);
+        console.log(window);
 
-        if (cmpPosition.x > 500) {
-          cmpPosition.x -= 300;
-        } else if (cmpPosition.x < 100) {
-          cmpPosition.x += 200;
+        // if (cmpPosition.y > 600) {
+        //   cmpPosition.y += 500;
+        // } else if (cmpPosition.y < 100) {
+        //   cmpPosition.y += 300;
+        // }
+
+        // if (window.screen.width <= cmpPosition.x + window.screen.width / 2) {
+        //   cmpPosition.x -= window.screen.width / 3;
+        // } else if (0 >= cmpPosition.x - window.screen.width / 3) {
+        //   cmpPosition.x += window.screen.width / 3;
+        // }
+        console.log(window.screen.height);
+        if (window.screen.width <= 500) {
+          cmpPosition.x = window.screen.width / 2 - 150;
+          // cmpPosition.y = window.screen.height - cmpPosition.bottom;
         }
-        if (cmpPosition.y > 600) {
-          cmpPosition.y += 500;
-        } else if (cmpPosition.y < 100) {
-          cmpPosition.y += 300;
-        }
+        // if (window.screen.width <= 500) cmpPosition.x = window.screen.width / 2 - 150;
+
+        // if (cmpPosition.y > 600) {
+        //   cmpPosition.y += 500;
+        // } else if (cmpPosition.y < 100) {
+        //   cmpPosition.y += 300;
+        // }
         this.component.position.x = cmpPosition.x;
-        this.component.position.y = cmpPosition.y - 100;
+        this.component.position.y = cmpPosition.y;
+        // this.component.position.y = e.screenY + 500;
+        console.log(this.component.position);
       }
       this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
     },
