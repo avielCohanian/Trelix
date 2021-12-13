@@ -118,7 +118,6 @@ function updatedBoard(board, userConnect, type = 'makeChange', loc = { title: bo
 }
 
 async function getBoardsForDisplay(userLog) {
-  console.log(userLog);
   try {
     const boards = await query();
     var boardsStar = userLog.boards.starBoard.reduce((acc, boardId) => {
@@ -411,6 +410,5 @@ const colors = [
 
 async function getTemplates() {
   const template = await queryTemplate();
-  console.log(template);
   return template;
 }

@@ -17,22 +17,18 @@ export default {
   },
   created() {},
   methods: {
-    
- updateBoard(updateBoard) {
-            this.$store.commit({ type: 'setBoard', board: updateBoard });
-        },
     updateCard(updateCard) {
       this.$store.commit({ type: 'setCard', card: updateCard });
     },
     updateBoard(updateBoard) {
       this.$store.commit({ type: 'setBoard', board: updateBoard });
     },
+    updateUser(user) {
+      this.$store.dispatch({ type: 'logIn', user });
+    },
     // updateMouse(mouseEvents){
     //   this.$store.commit({ type: 'updateMouse', mouseEvents });
     // },
-    updateBoard(updateBoard) {
-      this.$store.commit({ type: 'setBoard', board: updateBoard });
-    },
   },
   components: {
     appHeader,
@@ -49,17 +45,18 @@ export default {
         socketService.on(`update${this.$store.getters.getBoard._id}`, this.updateBoard);
       }
     },
+    // '$store.getters.getUserConnect'() {
+    //   if (this.$store.getters.getUserConnect) {
+    //     console.log(this.$store.getters.getUserConnect);
+    //     socketService.on(`updateUser${this.$store.getters.getUserConnect._id}`, this.updateUser);
+    //   }
+    // },
 
     // '$store.getters.getBoard'() {
     //   if (this.$store.getters.getBoard) {
     //     socketService.on(`updateMouse${this.$store.getters.getBoard._id}`, this.updateMouse);
     //   }
     // },
-    '$store.getters.getBoard'() {
-      if (this.$store.getters.getBoard) {
-         socketService.on( `update${this.$store.getters.getBoard._id}`, this.updateBoard);
-      }
-    },
   },
 };
 </script>

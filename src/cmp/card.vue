@@ -167,7 +167,6 @@ export default {
       isLabelText: false,
       isHover: false,
       isOpenEditor: false,
-      cardToUpdate: null,
       currMember: null,
       isShowProfile: null,
     };
@@ -175,7 +174,6 @@ export default {
   mounted() {},
   created() {
     try {
-      this.cardToUpdate = JSON.parse(JSON.stringify(this.card));
       this.labels = this.myLabels;
       if (this.card.style && this.card.style.isFull === false) {
         if (this.card.style.bgUrl) return this.bgUrlHalf;
@@ -228,18 +226,13 @@ export default {
       this.isShowProfile = !this.isShowProfile;
       this.currMember = member;
     },
-    async isDone() {
-      console.log('isDone');
-      try {
-        let card = JSON.parse(JSON.stringify(this.card));
-        console.log(card.dueDate.isComplete);
-        card.dueDate.isComplete = !card.dueDate.isComplete;
-        console.log(card.dueDate.isComplete);
+    isDone() {
+      let card = JSON.parse(JSON.stringify(this.card));
+      console.log(card.dueDate.isComplete);
+      card.dueDate.isComplete = !card.dueDate.isComplete;
+      console.log(card.dueDate.isComplete);
 
-        await this.updateCard(card);
-      } catch (err) {
-        console.log(err);
-      }
+      this.updateCard(card);
     },
     toggleLabel() {
       let labelToggle = JSON.parse(JSON.stringify(this.$store.getters.isLabelOpen));
@@ -262,18 +255,7 @@ export default {
         console.log(err);
       }
     },
-    async updateCard() {
-      try {
-        var res = await this.$store.dispatch({
-          type: 'updateCard',
-          card: this.cardToUpdate,
-        });
-        this.$emit('updateGroup');
-        if (res) this.openEditor();
-      } catch (err) {
-        console.log(err);
-      }
-    },
+
     openEditor() {
       this.isOpenEditor = !this.isOpenEditor;
     },
@@ -288,7 +270,6 @@ export default {
   },
   computed: {
     isLabelOpen() {
-      console.log(this.$store.getters.isLabelOpen);
       return this.$store.getters.isLabelOpen;
     },
     labelsForDisplay() {

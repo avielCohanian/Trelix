@@ -147,7 +147,6 @@ export default {
       return 'save';
     },
     currCommits() {
-      console.log(this.$store.getters.currCard);
       return JSON.parse(JSON.stringify(this.$store.getters.currCard.comments));
     },
   },

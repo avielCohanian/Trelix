@@ -13,7 +13,7 @@ export const userService = {
   remove,
   getLoggedinUser,
   getUsers,
-  updateUserBoard
+  updateUserBoard,
 };
 
 async function remove(userId) {
@@ -24,8 +24,7 @@ async function remove(userId) {
   }
 }
 function getUsers() {
-  console.log('service');
-  return httpService.get(`user/` , getUsers);
+  return httpService.get(`user/`, getUsers);
 }
 async function logIn(user) {
   try {
@@ -61,6 +60,7 @@ async function signup(user) {
 
 async function updateUser(user) {
   try {
+    console.log(user._id);
     const CurrUser = await httpService.put(`user/${user._id}`, user);
     if (getLoggedinUser()._id === CurrUser._id) _saveLocalUser(CurrUser);
     return CurrUser;
@@ -68,44 +68,40 @@ async function updateUser(user) {
     console.log(err);
   }
 }
- function getLoggedinUser() {
+function getLoggedinUser() {
   return JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null');
 }
 
 async function getById(userId) {
-	try {
-		// const user = await axios.get(USER_URL + '/' + id);
-		// return user.data;
+  try {
+    // const user = await axios.get(USER_URL + '/' + id);
+    // return user.data;
 
-		const user = await httpService.get(`user/${userId}`);
-		// gWatchedUser = user;
-		return user;
-	} catch (err) {
-		console.log(err);
-	}
-}
-async function updateUserBoard(update){
-  try{
-    const user = await getById(update.userId)
-    if (update.type) {
-      user.boards.boards.push(update.boardId)
-    }else{
-       const idx = user.boards.boards.findIndex(board=> board === update.boardId)
-       if (idx || idx === 0) {
-        user.boards.boards.splice(idx , 1)
-       }
-       else {
-         const idx = user.boards.starBoard.findIndex(board=> board === update.boardId)
-         user.boards.starBoard.splice(idx,1)
-       }
-    }
-     return await updateUser(user)
-  }catch(err){
-    throw err
+    const user = await httpService.get(`user/${userId}`);
+    // gWatchedUser = user;
+    return user;
+  } catch (err) {
+    console.log(err);
   }
-
-
-
+}
+async function updateUserBoard(update) {
+  try {
+    const user = await getById(update.userId);
+    if (update.type) {
+      user.boards.boards.push(update.boardId);
+    } else {
+      const idx = user.boards.boards.findIndex((board) => board === update.boardId);
+      if (idx || idx === 0) {
+        user.boards.boards.splice(idx, 1);
+      } else {
+        const idx = user.boards.starBoard.findIndex((board) => board === update.boardId);
+        user.boards.starBoard.splice(idx, 1);
+      }
+    }
+    return await updateUser(user);
+  } catch (err) {
+    throw err;
+  }
 }
 async function changeFevorit(copyDetails) {
   const { idBoard, isFavorit, currUser } = copyDetails;
