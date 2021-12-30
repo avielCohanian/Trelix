@@ -21,8 +21,6 @@
         <hr />
         <ul>
           <li @click="openInput">Add card...</li>
-          <!-- <li>Copy list...</li> -->
-          <!-- <li>Move list...</li> -->
           <li @click="deleteGroup">Archive this list</li>
         </ul>
       </div>
@@ -35,33 +33,13 @@
         <hr />
         <ul>
           <li @click.stop.prevent="openMember">Members...</li>
-          <!-- <li @click="dynamicCmp('labels')">Labels...</li> -->
         </ul>
-        <!-- <div class="dynamic-cmp" v-if="component.currCmp">
-          <header>
-            <h2>{{ component.name }}</h2>
-            <a @click="closeModel" class="el-icon-close"> </a>
-          </header>
-          <component
-            :is="component.currCmp"
-            :card="newCard"
-            @dynamicCmp="dynamicCmp"
-          >
-          </component>
-        </div> -->
       </div>
 
       <div class="card-container">
-        <!-- class="card-scroll list-group sortable-drag"
-        class="card-ghost card-ghost-drop"
-        :class="[isActive ? 'card-ghost' :  'sortable-drag' ,'item' , 'card-ghost-drop']"
-        draggable=".item"
-        animation: 150
-                    touchStartThreshold: 50 -->
-
         <Container
           class="hover"
-          drag-handle-selector=".card"
+          drag-handle-selector=".card-preview"
           group-name="col"
           @drop="(e) => onCardDrop(group.id, e)"
           :get-child-payload="getCardPayload(group.id)"
@@ -137,180 +115,180 @@
 </template>
 
 <script>
-// import member from "./edit/edit-member.vue";
-import { applyDrag } from '../service/util.service.js';
-import avatar from 'vue-avatar';
-// import label from './edit-label.vue';
-import { boardService } from '../service/board.service';
-import card from './card.vue';
-import { Container, Draggable } from 'vue-smooth-dnd';
+  // import member from "./edit/edit-member.vue";
+  import { applyDrag } from '../service/util.service.js';
+  import avatar from 'vue-avatar';
+  // import label from './edit-label.vue';
+  import { boardService } from '../service/board.service';
+  import card from './card.vue';
+  import { Container, Draggable } from 'vue-smooth-dnd';
 
-export default {
-  components: {
-    avatar,
-    card,
-    Draggable,
-    Container,
-  },
-  props: ['group', 'board'],
-  name: 'group',
-  data() {
-    return {
-      filterMember: '',
-      // isCardDrop:false,
-      isOpenMember: false,
-      title: 'xhr',
-      isModalAdd: false,
-      isEditTitle: false,
-      isAddCard: false,
-      openModal: false,
-
-      dropPlaceholderOptions: {
-        className: 'drop-preview',
-        animationDuration: '150',
-        showOnTop: true,
-      },
-
-      newCard: boardService.getEmptyCard(),
-    };
-  },
-  methods: {
-    openMember() {
-      this.isOpenMember = !this.isOpenMember;
+  export default {
+    components: {
+      avatar,
+      card,
+      Draggable,
+      Container,
     },
-    cardMembers(memberId) {
-      let currMembers = this.newCard.members;
-      return currMembers.some((member) => member._id === memberId);
-    },
-    async onCardDrop(groupId, dropResult) {
-      if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        const board = Object.assign({}, this.board);
-        const group = board.groups.filter((_g) => _g.id === groupId)[0];
-        const groupIndex = board.groups.indexOf(group);
-        const newGroup = Object.assign({}, group);
-        newGroup.cards = applyDrag(newGroup.cards, dropResult);
-        board.groups.splice(groupIndex, 1, newGroup);
-        await this.$store.dispatch({
-          type: 'updateBoard',
-          board: JSON.parse(JSON.stringify(board)),
-        });
-      }
-    },
+    props: ['group', 'board'],
+    name: 'group',
+    data() {
+      return {
+        filterMember: '',
+        // isCardDrop:false,
+        isOpenMember: false,
+        title: 'xhr',
+        isModalAdd: false,
+        isEditTitle: false,
+        isAddCard: false,
+        openModal: false,
 
-    getCardPayload(groupId) {
-      return (index) => {
-        return this.board.groups.filter((_g) => _g.id === groupId)[0].cards[index];
+        dropPlaceholderOptions: {
+          className: 'drop-preview',
+          animationDuration: '150',
+          showOnTop: true,
+        },
+
+        newCard: boardService.getEmptyCard(),
       };
     },
-    endDrug() {
-      this.$emit('updateGroupDrug');
-    },
-    addMember(currMember) {
-      if (this.newCard.members.some((member) => member._id === currMember._id)) {
-        const labelIdx = this.newCard.members.findIndex((member) => member._id === currMember._id);
-        this.newCard.members.splice(labelIdx, 1);
-      } else {
-        this.newCard.members.push(currMember);
-      }
+    methods: {
+      openMember() {
+        this.isOpenMember = !this.isOpenMember;
+      },
+      cardMembers(memberId) {
+        let currMembers = this.newCard.members;
+        return currMembers.some((member) => member._id === memberId);
+      },
+      async onCardDrop(groupId, dropResult) {
+        if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+          const board = Object.assign({}, this.board);
+          const group = board.groups.filter((_g) => _g.id === groupId)[0];
+          const groupIndex = board.groups.indexOf(group);
+          const newGroup = Object.assign({}, group);
+          newGroup.cards = applyDrag(newGroup.cards, dropResult);
+          board.groups.splice(groupIndex, 1, newGroup);
+          await this.$store.dispatch({
+            type: 'updateBoard',
+            board: JSON.parse(JSON.stringify(board)),
+          });
+        }
+      },
 
-      // let memberToCheek = this.newCard.members.map(
-      //   (member) => member._id === currMember._id
-      // );
-      // if (memberToCheek) {
+      getCardPayload(groupId) {
+        return (index) => {
+          return this.board.groups.filter((_g) => _g.id === groupId)[0].cards[index];
+        };
+      },
+      endDrug() {
+        this.$emit('updateGroupDrug');
+      },
+      addMember(currMember) {
+        if (this.newCard.members.some((member) => member._id === currMember._id)) {
+          const labelIdx = this.newCard.members.findIndex((member) => member._id === currMember._id);
+          this.newCard.members.splice(labelIdx, 1);
+        } else {
+          this.newCard.members.push(currMember);
+        }
 
-      //   const idx = this.newCard.members.findIndex(
-      //     (member) => member._id === currMember._id
-      //   );
-      //   this.newCard.members.splice(idx, 1);
-      // } else {
-      //   this.newCard.members.push(currMember);
-      // }
+        // let memberToCheek = this.newCard.members.map(
+        //   (member) => member._id === currMember._id
+        // );
+        // if (memberToCheek) {
+
+        //   const idx = this.newCard.members.findIndex(
+        //     (member) => member._id === currMember._id
+        //   );
+        //   this.newCard.members.splice(idx, 1);
+        // } else {
+        //   this.newCard.members.push(currMember);
+        // }
+      },
+      openModalAdd() {
+        this.isModalAdd = !this.isModalAdd;
+      },
+      openInput() {
+        this.openModal = !this.openModal;
+        this.toggleCard();
+      },
+      scroll() {
+        var container = this.$el.querySelector('.card-container');
+        container.scrollTop = container.scrollHeight;
+      },
+      toggleCard() {
+        this.scroll();
+        this.isAddCard = !this.isAddCard;
+      },
+      showEdit(cardId) {
+        const { boardId } = this.$route.params;
+        // this.$router.push(`board/${boardId}/${cardId}`);
+      },
+      editTitle() {
+        this.isEditTitle = !this.isEditTitle;
+        this.updateGroup(this.group);
+      },
+      async addCard() {
+        if (!this.newCard.title) return;
+        try {
+          await this.$store.dispatch({
+            type: 'addCard',
+            newCard: this.newCard,
+            groupId: this.group.id,
+          });
+          this.newCard = boardService.getEmptyCard();
+          this.loadGroup();
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      async deleteGroup() {
+        try {
+          await this.$store.dispatch({
+            type: 'deleteGroup',
+          });
+          this.loadGroup();
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      async updateGroup() {
+        try {
+          await this.$store.dispatch({
+            type: 'updateGroup',
+            group: this.group,
+          });
+          this.loadGroup();
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      loadGroup() {
+        this.$emit('updateGroup');
+      },
     },
-    openModalAdd() {
-      this.isModalAdd = !this.isModalAdd;
+    computed: {
+      membersToShow() {
+        return this.$store.getters.boardMembers;
+      },
+      getEmptyCard() {
+        return this.newCard;
+      },
     },
-    openInput() {
-      this.openModal = !this.openModal;
-      this.toggleCard();
+    watch: {
+      isEditTitle() {
+        if (this.isEditTitle) {
+          this.$refs.input.select();
+        } else this.$refs.input.focus();
+      },
     },
-    scroll() {
-      var container = this.$el.querySelector('.card-container');
-      container.scrollTop = container.scrollHeight;
-    },
-    toggleCard() {
-      this.scroll();
-      this.isAddCard = !this.isAddCard;
-    },
-    showEdit(cardId) {
-      const { boardId } = this.$route.params;
-      // this.$router.push(`board/${boardId}/${cardId}`);
-    },
-    editTitle() {
-      this.isEditTitle = !this.isEditTitle;
-      this.updateGroup(this.group);
-    },
-    async addCard() {
-      if (!this.newCard.title) return;
-      try {
-        await this.$store.dispatch({
-          type: 'addCard',
-          newCard: this.newCard,
-          groupId: this.group.id,
-        });
-        this.newCard = boardService.getEmptyCard();
-        this.loadGroup();
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    async deleteGroup() {
-      try {
-        await this.$store.dispatch({
-          type: 'deleteGroup',
-        });
-        this.loadGroup();
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    async updateGroup() {
-      try {
-        await this.$store.dispatch({
-          type: 'updateGroup',
-          group: this.group,
-        });
-        this.loadGroup();
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    loadGroup() {
-      this.$emit('updateGroup');
-    },
-  },
-  computed: {
-    membersToShow() {
-      return this.$store.getters.boardMembers;
-    },
-    getEmptyCard() {
-      return this.newCard;
-    },
-  },
-  watch: {
-    isEditTitle() {
-      if (this.isEditTitle) {
-        this.$refs.input.select();
-      } else this.$refs.input.focus();
-    },
-  },
-};
+  };
 </script>
 
 <style>
-.icon-add:before {
-  content: '\e901';
-}
-.add-card {
-  font-size: 14px;
-}
+  .icon-add:before {
+    content: '\e901';
+  }
+  .add-card {
+    font-size: 14px;
+  }
 </style>

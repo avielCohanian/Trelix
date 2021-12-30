@@ -373,462 +373,459 @@
 </template>
 
 <script>
-import cardEdit from '../cmp/card-edit.vue';
-import checkList from '../cmp/checklist-details.vue';
-import activityLog from '../cmp/activity-log.vue';
-import card from '../cmp/card.vue';
+  import cardEdit from '../cmp/card-edit.vue';
+  import checkList from '../cmp/checklist-details.vue';
+  import activityLog from '../cmp/activity-log.vue';
+  import card from '../cmp/card.vue';
 
-import avatar from 'vue-avatar';
-import moment from 'moment';
+  import avatar from 'vue-avatar';
+  import moment from 'moment';
 
-import { boardService } from '../service/board.service.js';
+  import { boardService } from '../service/board.service.js';
 
-export default {
-  name: 'cardDetails',
-  data() {
-    return {
-      board: null,
-      card: null,
-      currGroup: null,
-      checked: false,
-      description: '',
-      editDescription: false,
-      isOpenTitle: false,
-      labels: [],
-      cmp: { name: null, id: null, pos: { x: null, y: null } },
-      attachmentViewer: false,
-      logAtt: false,
-      labelToDeleteId: null,
-      attTrToDeleteId: null,
-      attTrLong: false,
-      attTrLongLength: 0,
-    };
-  },
-  methods: {
-    openAttachUrl(url) {
-      window.open(url, '_blank');
+  export default {
+    name: 'cardDetails',
+    data() {
+      return {
+        board: null,
+        card: null,
+        currGroup: null,
+        checked: false,
+        description: '',
+        editDescription: false,
+        isOpenTitle: false,
+        labels: [],
+        cmp: { name: null, id: null, pos: { x: null, y: null } },
+        attachmentViewer: false,
+        logAtt: false,
+        labelToDeleteId: null,
+        attTrToDeleteId: null,
+        attTrLong: false,
+        attTrLongLength: 0,
+      };
     },
-    async loadCard() {
-      try {
-        const cardId = this.$route.params.cardId;
-        const currCard = await this.$store.dispatch({
-          type: 'cardById',
-          cardId,
-        });
-        const card = JSON.parse(JSON.stringify(currCard));
-        // if (!card.style.bgUrl) card.style.bgUrl = { backgroundImage: null };
-        this.card = card;
-        if (this.card.labelIds) {
-          this.labels = await this.getLabel();
+    methods: {
+      openAttachUrl(url) {
+        window.open(url, '_blank');
+      },
+      async loadCard() {
+        try {
+          const cardId = this.$route.params.cardId;
+          const currCard = await this.$store.dispatch({
+            type: 'cardById',
+            cardId,
+          });
+          const card = JSON.parse(JSON.stringify(currCard));
+          // if (!card.style.bgUrl) card.style.bgUrl = { backgroundImage: null };
+          this.card = card;
+          if (this.card.labelIds) {
+            this.labels = await this.getLabel();
+          }
+          let { boardId } = this.$route.params;
+          this.currGroup = await boardService.getGroupByCardId(boardId, cardId);
+          this.description = this.card.description;
+        } catch (err) {
+          console.log(err);
         }
+      },
+      closeDetails() {
+        const { boardId } = this.$route.params;
+        this.$router.push(`/board/${boardId}`);
+      },
+      async getLabel(card = this.card) {
         let { boardId } = this.$route.params;
-        this.currGroup = await boardService.getGroupByCardId(boardId, cardId);
-        this.description = this.card.description;
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    closeDetails() {
-      const { boardId } = this.$route.params;
-      this.$router.push(`/board/${boardId}`);
-    },
-    async getLabel(card = this.card) {
-      let { boardId } = this.$route.params;
-      try {
-        let labels = await boardService.getLabelByCard(boardId, card);
-        return labels;
-      } catch (err) {
-        console.log(err);
-      }
-    },
-
-    labelByCardSyn(card) {
-      let boardLabels = JSON.parse(JSON.stringify(this.$store.getters.boardLabels));
-      let carrLabels = [];
-      boardLabels.forEach((label) => {
-        if (
-          card.labelIds.some((labelId) => {
-            if (labelId.lId === label.id) {
-              label.idDone = labelId.isDone;
-              return true;
-            }
-          })
-        ) {
-          carrLabels.push(label);
+        try {
+          let labels = await boardService.getLabelByCard(boardId, card);
+          return labels;
+        } catch (err) {
+          console.log(err);
         }
-      });
-      return carrLabels;
-    },
+      },
 
-    dateDone() {
-      let card = JSON.parse(JSON.stringify(this.card));
-      this.updateCard(card);
-    },
-
-    openEditDescription() {
-      this.editDescription = !this.editDescription;
-    },
-    closeDescription() {
-      this.editDescription = false;
-    },
-    saveDescription() {
-      this.card.description = this.description;
-      this.updateCard(this.card);
-      this.editDescription = false;
-      this.updateCard(this.card);
-    },
-    attachmentLink(attachmentIdx) {
-      console.log('TODO');
-      // TODO: move in groups/board to another place
-    },
-    makeCover(imgUrl) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      if (!this.inCover(imgUrl)) {
-        card.style.bgUrl = imgUrl;
-        card.style.bgColor = null;
-      } else card.style.bgUrl = null;
-      if (!card.style.isFull) card.style.isFull = false;
-      this.updateCard(card);
-    },
-    inCover(imgUrl) {
-      if (!this.card.style.bgUrl) this.card.style.bgUrl = null;
-      return this.card.style.bgUrl === imgUrl;
-    },
-    removeMsg(cardId, e) {
-      this.attTrToDeleteId = cardId;
-      let cmp = {
-        name: 'AttTrelix',
-        txt: 'Remove this attachment? There is no undo.',
-        title: `Remove attachment?`,
-        type: 'remove',
-        btnTxt: 'Remove',
-      };
-      let id = cardId;
-      this.dynamicCmp(cmp, id, null, e);
-    },
-    getTime(t) {
-      return `${new Date(t).getHours()} :${new Date(t).getMinutes()} `;
-    },
-    dayLeft(t) {
-      return Date.now() - t > 100 * 60 * 60 * 24;
-    },
-    openAttachment(e) {
-      let cmp = {
-        name: 'trelix',
-        txt: 'Remove this attachment? There is no undo.',
-        title: `Remove attachment?`,
-        type: 'remove',
-        btnTxt: 'Remove',
-      };
-      let id = cardId;
-      this.dynamicCmp(cmp, id, null, e);
-    },
-    addLinkToActivity(link) {
-      // TODO: start msg to the activity with link dynamicCmp
-      console.log(link);
-    },
-
-    toggleTitle() {
-      this.isOpenTitle = !this.isOpenTitle;
-    },
-    updateList(checklist) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      const checklistIdx = card.checklists.findIndex((ch) => ch.id === checklist.id);
-      card.checklists.splice(checklistIdx, 1, checklist);
-      this.updateCard(card);
-      // console.log(checklist);
-    },
-    updateChecklist(newVal) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      let checklistIdx = card.checklists.findIndex((l) => l === this.cmp.id);
-      card.checklists.splice(checklistIdx, 1, newVal);
-      this.updateCard(card);
-    },
-    async updateCard(card) {
-      try {
-        if (!card) card = JSON.parse(JSON.stringify(this.card));
-        await this.$store.dispatch({
-          type: 'updateCard',
-          card,
-        });
-        this.cmp.cmp = null;
-        this.cmp.id = null;
-        // await this.loadCard();
-        this.$emit('updateCard');
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    closeModel() {
-      this.cmp.cmp = null;
-      this.cmp.id = null;
-    },
-    async saveTitle() {
-      let card = JSON.parse(JSON.stringify(this.card));
-      card.title = this.card.title;
-      if (!card.title) return;
-      try {
-        await this.updateCard();
-        this.isOpenTitle = false;
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    selectInInput() {
-      console.log(this.$refs);
-    },
-    dynamicCmp(cmp, id = null, pos, e) {
-      pos = pos ? pos : { x: e.clientX, y: e.clientY };
-
-      this.cmp = { name: cmp, id, pos };
-      this.$store.commit({ type: 'steCmpDyn', cmpDyn: this.cmp });
-    },
-    deleteChecklist(checklistId, pos) {
-      //   let card = JSON.parse(JSON.stringify(this.card));
-      const checklistIdx = this.card.checklists.findIndex((c) => c.id === checklistId);
-      // this.dynamicCmp(
-      let cmp = {
-        name: 'Checklist',
-        txt: 'Deleting a checklist is permanent and there is no way to get it back.',
-        title: `Delete ${this.card.checklists[checklistIdx].title}?`,
-        type: 'remove',
-        btnTxt: 'Delete checklist',
-      };
-      let id = checklistIdx;
-      pos.x = pos.x - 350;
-
-      this.dynamicCmp(cmp, id, pos);
-    },
-    removeAtt() {
-      let card = JSON.parse(JSON.stringify(this.card));
-      card.attachment.computerAttachment.splice(this.cmp.id, 1);
-      this.updateCard(card);
-    },
-    removeAttTrelix() {
-      let card = JSON.parse(JSON.stringify(this.card));
-      const cardIdx = card.attachment.trelixAttachments.findIndex((a) => a === this.attTrToDeleteId);
-      card.attachment.trelixAttachments.splice(cardIdx, 1);
-      this.updateCard(card);
-    },
-    removeChecklist() {
-      let card = JSON.parse(JSON.stringify(this.card));
-      card.checklists.splice(this.cmp.id, 1);
-      this.updateCard(card);
-    },
-    updateAtt(newVal) {
-      let card = JSON.parse(JSON.stringify(this.card));
-
-      card.attachment.computerAttachment[this.cmp.id].name = newVal;
-      this.updateCard(card);
-    },
-    deleteLabel(label, e) {
-      let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
-      let labelIdx = board.labels.findIndex((l) => l.id === label.id);
-      this.labelToDeleteId = labelIdx;
-      let cmp = {
-        name: 'Label',
-        txt: 'There is no undo. This will remove this label from all cards and destroy its history.',
-        title: `Delete label?`,
-        type: 'remove',
-        btnTxt: 'Delete',
-      };
-      let id = labelIdx;
-      let pos = { x: 0, y: 0 };
-      this.dynamicCmp(cmp, id, pos, null);
-
-      // card.labelIds.splice(labelIdx, 1);
-      // this.updateCard(card);
-    },
-
-    removeLabel() {
-      let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
-      board.labels.splice(this.labelToDeleteId, 1);
-      this.updateBoard(board);
-    },
-    updateBoard(board) {
-      this.$store.dispatch({ type: 'updateBoard', board });
-    },
-
-    saveCommit(commit) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      card.comments.unshift(commit);
-      this.updateCard(card);
-      setTimeout(() => {
-        this.$store.dispatch({ type: 'addActivity', activity: commit });
-      }, 500);
-    },
-    updateCmm(commit) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      let cmmIdx = card.comments.findIndex((cm) => cm.id === commit.id);
-      card.comments.splice(cmmIdx, 1, commit);
-      this.updateCard(card);
-    },
-    removeCommit(commId) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      let cmmIdx = card.comments.findIndex((cm) => cm.id === commId);
-      card.comments.splice(cmmIdx, 1);
-      this.updateCard(card);
-    },
-    async deleteCard(card) {
-      try {
-        await this.$store.dispatch({
-          type: 'deleteCard',
-          card,
-        });
-
-        this.closeDetails();
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    getGroup(cardId) {
-      const groups = JSON.parse(JSON.stringify(this.$store.getters.getBoard.groups));
-      let currGroup = groups.find((g) => {
-        return g.cards.find((c) => {
-          // console.log(cardId);
-          if (cardId === c.id) return g;
-        });
-      });
-      return currGroup.title;
-    },
-    moveCard(cardId) {
-      const boardId = this.$store.getters.getBoard._id;
-      // console.log();
-      this.$router.push(`/board/${boardId}/${cardId}`);
-      this.loadCard();
-    },
-    toggleAttTr() {
-      this.attTrLong = !this.attTrLong;
-    },
-  },
-  computed: {
-    dueDateTime() {
-      return moment(this.card.dueDate.date.date, 'YYYY-MM-DD').format('MMM DD,YYYY');
-    },
-    attTrelix() {
-      let cardIds = this.card.attachment.trelixAttachments;
-      const groups = JSON.parse(JSON.stringify(this.$store.getters.getBoard.groups));
-      let cardAttTrelix = groups.reduce((acc, g) => {
-        g.cards.forEach((c) => {
-          if (cardIds.some((cI) => cI === c.id)) {
-            acc.push(c);
+      labelByCardSyn(card) {
+        let boardLabels = JSON.parse(JSON.stringify(this.$store.getters.boardLabels));
+        let carrLabels = [];
+        boardLabels.forEach((label) => {
+          if (
+            card.labelIds.some((labelId) => {
+              if (labelId.lId === label.id) {
+                label.idDone = labelId.isDone;
+                return true;
+              }
+            })
+          ) {
+            carrLabels.push(label);
           }
         });
-        return acc;
-      }, []);
-      this.attTrLongLength = cardAttTrelix.length;
-      return this.attTrLong && cardAttTrelix.length > 4 ? cardAttTrelix : cardAttTrelix.splice(0, 4);
-    },
-    dynamicCmpToShow() {
-      return this.cmp.cmp;
-    },
-    headerShow() {
-      return (
-        (this.card.members && this.card.members.length) ||
-        (this.card.labelIds && this.card.labelIds.length) ||
-        this.card.dueDate
-      );
-    },
-    cardAttachments() {
-      let computerAttachment = JSON.parse(JSON.stringify(this.card.attachment.computerAttachment));
+        return carrLabels;
+      },
 
-      return !this.logAtt
-        ? computerAttachment.splice(0, 4)
-        : computerAttachment.length < 4
-        ? computerAttachment
-        : computerAttachment;
-    },
-    attHidden() {
-      let computerAttachment = JSON.parse(JSON.stringify(this.card.attachment.computerAttachment));
-      return computerAttachment.length - 4;
-    },
-    isCover() {
-      // TODO: if we have bcg to the card
-      // return this.card.bcg;
-    },
-    dueDateDay() {
-      let t = this.card.dueDate;
-      return new Date(t).getUTCDay() + 1;
-    },
-    bgColor() {
-      if (this.card.style.bgColor) {
-        return { backgroundColor: this.card.style.bgColor, height: '116px' };
-      } else if (this.card.style.bgUrl) {
-        return {
-          backgroundImage: this.card.style.bgUrl,
-          height: '180px',
-        };
-      }
-    },
-    boardBcg() {
-      if (this.getBoard.style.background) {
-        return { background: this.getBoard.style.background };
-      } else if (this.getBoard.style.backgroundImage) {
-        return {
-          backgroundImage: this.getBoard.style.backgroundImage,
-        };
-      }
-    },
-    editor() {
-      return this.$store.getters.getModalForDisplay;
-    },
-    doneTodosAmount() {
-      let doneTodos = 0;
-      this.card.checklists.forEach((checklist) => {
-        if (checklist.todos && checklist.todos.length) {
-          doneTodos += checklist.todos.filter((todo) => todo.isDone).length;
-        }
-      });
-      return doneTodos;
-    },
-    todosAmount() {
-      let todos = 0;
-      this.card.checklists.forEach((checklist) => {
-        if (checklist.todos) {
-          todos += checklist.todos.length;
-        }
-      });
+      dateDone() {
+        let card = JSON.parse(JSON.stringify(this.card));
+        this.updateCard(card);
+      },
 
-      return todos;
-    },
-    getBoard() {
-      const board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
-      return board;
-    },
-  },
-  watch: {
-    editDescription() {
-      if (this.editDescription) {
+      openEditDescription() {
+        this.editDescription = !this.editDescription;
+      },
+      closeDescription() {
+        this.editDescription = false;
+      },
+      saveDescription() {
+        this.card.description = this.description;
+        this.updateCard(this.card);
+        this.editDescription = false;
+        this.updateCard(this.card);
+      },
+      attachmentLink(attachmentIdx) {
+        console.log('TODO');
+        // TODO: move in groups/board to another place
+      },
+      makeCover(imgUrl) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        if (!this.inCover(imgUrl)) {
+          card.style.bgUrl = imgUrl;
+          card.style.bgColor = null;
+        } else card.style.bgUrl = null;
+        if (!card.style.isFull) card.style.isFull = false;
+        this.updateCard(card);
+      },
+      inCover(imgUrl) {
+        if (!this.card.style.bgUrl) this.card.style.bgUrl = null;
+        return this.card.style.bgUrl === imgUrl;
+      },
+      removeMsg(cardId, e) {
+        this.attTrToDeleteId = cardId;
+        let cmp = {
+          name: 'AttTrelix',
+          txt: 'Remove this attachment? There is no undo.',
+          title: `Remove attachment?`,
+          type: 'remove',
+          btnTxt: 'Remove',
+        };
+        let id = cardId;
+        this.dynamicCmp(cmp, id, null, e);
+      },
+      getTime(t) {
+        return `${new Date(t).getHours()} :${new Date(t).getMinutes()} `;
+      },
+      dayLeft(t) {
+        return Date.now() - t > 100 * 60 * 60 * 24;
+      },
+      openAttachment(e) {
+        let cmp = {
+          name: 'trelix',
+          txt: 'Remove this attachment? There is no undo.',
+          title: `Remove attachment?`,
+          type: 'remove',
+          btnTxt: 'Remove',
+        };
+        let id = cardId;
+        this.dynamicCmp(cmp, id, null, e);
+      },
+      addLinkToActivity(link) {
+        // TODO: start msg to the activity with link dynamicCmp
+        console.log(link);
+      },
+
+      toggleTitle() {
+        this.isOpenTitle = !this.isOpenTitle;
+      },
+      updateList(checklist) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        const checklistIdx = card.checklists.findIndex((ch) => ch.id === checklist.id);
+        card.checklists.splice(checklistIdx, 1, checklist);
+        this.updateCard(card);
+      },
+      updateChecklist(newVal) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        let checklistIdx = card.checklists.findIndex((l) => l === this.cmp.id);
+        card.checklists.splice(checklistIdx, 1, newVal);
+        this.updateCard(card);
+      },
+      async updateCard(card) {
+        try {
+          if (!card) card = JSON.parse(JSON.stringify(this.card));
+          await this.$store.dispatch({
+            type: 'updateCard',
+            card,
+          });
+          this.cmp.cmp = null;
+          this.cmp.id = null;
+          // await this.loadCard();
+          this.$emit('updateCard');
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      closeModel() {
+        this.cmp.cmp = null;
+        this.cmp.id = null;
+      },
+      async saveTitle() {
+        let card = JSON.parse(JSON.stringify(this.card));
+        card.title = this.card.title;
+        if (!card.title) return;
+        try {
+          await this.updateCard();
+          this.isOpenTitle = false;
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      selectInInput() {
+        console.log(this.$refs);
+      },
+      dynamicCmp(cmp, id = null, pos, e) {
+        pos = pos ? pos : { x: e.clientX, y: e.clientY };
+
+        this.cmp = { name: cmp, id, pos };
+        this.$store.commit({ type: 'steCmpDyn', cmpDyn: this.cmp });
+      },
+      deleteChecklist(checklistId, pos) {
+        //   let card = JSON.parse(JSON.stringify(this.card));
+        const checklistIdx = this.card.checklists.findIndex((c) => c.id === checklistId);
+        // this.dynamicCmp(
+        let cmp = {
+          name: 'Checklist',
+          txt: 'Deleting a checklist is permanent and there is no way to get it back.',
+          title: `Delete ${this.card.checklists[checklistIdx].title}?`,
+          type: 'remove',
+          btnTxt: 'Delete checklist',
+        };
+        let id = checklistIdx;
+        pos.x = pos.x - 350;
+
+        this.dynamicCmp(cmp, id, pos);
+      },
+      removeAtt() {
+        let card = JSON.parse(JSON.stringify(this.card));
+        card.attachment.computerAttachment.splice(this.cmp.id, 1);
+        this.updateCard(card);
+      },
+      removeAttTrelix() {
+        let card = JSON.parse(JSON.stringify(this.card));
+        const cardIdx = card.attachment.trelixAttachments.findIndex((a) => a === this.attTrToDeleteId);
+        card.attachment.trelixAttachments.splice(cardIdx, 1);
+        this.updateCard(card);
+      },
+      removeChecklist() {
+        let card = JSON.parse(JSON.stringify(this.card));
+        card.checklists.splice(this.cmp.id, 1);
+        this.updateCard(card);
+      },
+      updateAtt(newVal) {
+        let card = JSON.parse(JSON.stringify(this.card));
+
+        card.attachment.computerAttachment[this.cmp.id].name = newVal;
+        this.updateCard(card);
+      },
+      deleteLabel(label, e) {
+        let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
+        let labelIdx = board.labels.findIndex((l) => l.id === label.id);
+        this.labelToDeleteId = labelIdx;
+        let cmp = {
+          name: 'Label',
+          txt: 'There is no undo. This will remove this label from all cards and destroy its history.',
+          title: `Delete label?`,
+          type: 'remove',
+          btnTxt: 'Delete',
+        };
+        let id = labelIdx;
+        let pos = { x: 0, y: 0 };
+        this.dynamicCmp(cmp, id, pos, null);
+
+        // card.labelIds.splice(labelIdx, 1);
+        // this.updateCard(card);
+      },
+
+      removeLabel() {
+        let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
+        board.labels.splice(this.labelToDeleteId, 1);
+        this.updateBoard(board);
+      },
+      updateBoard(board) {
+        this.$store.dispatch({ type: 'updateBoard', board });
+      },
+
+      saveCommit(commit) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        card.comments.unshift(commit);
+        this.updateCard(card);
         setTimeout(() => {
-          this.$refs.editInput.focus();
-          this.$refs.editInput.select();
-        }, 0);
-      }
-    },
-    async '$store.getters.currCard'() {
-      this.card = this.$store.getters.currCard;
-      this.labels = await this.getLabel();
-    },
-    '$route.params.cardId'() {
-      const cardId = this.$route.params.cardId;
-      cardId ? this.loadCard() : '';
-    },
-  },
-  mounted() {
-    // this.selectInInput();
-  },
+          this.$store.dispatch({ type: 'addActivity', activity: commit });
+        }, 500);
+      },
+      updateCmm(commit) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        let cmmIdx = card.comments.findIndex((cm) => cm.id === commit.id);
+        card.comments.splice(cmmIdx, 1, commit);
+        this.updateCard(card);
+      },
+      removeCommit(commId) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        let cmmIdx = card.comments.findIndex((cm) => cm.id === commId);
+        card.comments.splice(cmmIdx, 1);
+        this.updateCard(card);
+      },
+      async deleteCard(card) {
+        try {
+          await this.$store.dispatch({
+            type: 'deleteCard',
+            card,
+          });
 
-  components: {
-    cardEdit,
-    checkList,
-    activityLog,
-    card,
-    avatar,
-  },
-  async created() {
-    await this.loadCard();
-  },
-};
+          this.closeDetails();
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      getGroup(cardId) {
+        const groups = JSON.parse(JSON.stringify(this.$store.getters.getBoard.groups));
+        let currGroup = groups.find((g) => {
+          return g.cards.find((c) => {
+            if (cardId === c.id) return g;
+          });
+        });
+        return currGroup.title;
+      },
+      moveCard(cardId) {
+        const boardId = this.$store.getters.getBoard._id;
+        this.$router.push(`/board/${boardId}/${cardId}`);
+        this.loadCard();
+      },
+      toggleAttTr() {
+        this.attTrLong = !this.attTrLong;
+      },
+    },
+    computed: {
+      dueDateTime() {
+        return moment(this.card.dueDate.date.date, 'YYYY-MM-DD').format('MMM DD,YYYY');
+      },
+      attTrelix() {
+        let cardIds = this.card.attachment.trelixAttachments;
+        const groups = JSON.parse(JSON.stringify(this.$store.getters.getBoard.groups));
+        let cardAttTrelix = groups.reduce((acc, g) => {
+          g.cards.forEach((c) => {
+            if (cardIds.some((cI) => cI === c.id)) {
+              acc.push(c);
+            }
+          });
+          return acc;
+        }, []);
+        this.attTrLongLength = cardAttTrelix.length;
+        return this.attTrLong && cardAttTrelix.length > 4 ? cardAttTrelix : cardAttTrelix.splice(0, 4);
+      },
+      dynamicCmpToShow() {
+        return this.cmp.cmp;
+      },
+      headerShow() {
+        return (
+          (this.card.members && this.card.members.length) ||
+          (this.card.labelIds && this.card.labelIds.length) ||
+          this.card.dueDate
+        );
+      },
+      cardAttachments() {
+        let computerAttachment = JSON.parse(JSON.stringify(this.card.attachment.computerAttachment));
+
+        return !this.logAtt
+          ? computerAttachment.splice(0, 4)
+          : computerAttachment.length < 4
+          ? computerAttachment
+          : computerAttachment;
+      },
+      attHidden() {
+        let computerAttachment = JSON.parse(JSON.stringify(this.card.attachment.computerAttachment));
+        return computerAttachment.length - 4;
+      },
+      isCover() {
+        // TODO: if we have bcg to the card
+        // return this.card.bcg;
+      },
+      dueDateDay() {
+        let t = this.card.dueDate;
+        return new Date(t).getUTCDay() + 1;
+      },
+      bgColor() {
+        if (this.card.style.bgColor) {
+          return { backgroundColor: this.card.style.bgColor, height: '116px' };
+        } else if (this.card.style.bgUrl) {
+          return {
+            backgroundImage: this.card.style.bgUrl,
+            height: '180px',
+          };
+        }
+      },
+      boardBcg() {
+        if (this.getBoard.style.background) {
+          return { background: this.getBoard.style.background };
+        } else if (this.getBoard.style.backgroundImage) {
+          return {
+            backgroundImage: this.getBoard.style.backgroundImage,
+          };
+        }
+      },
+      editor() {
+        return this.$store.getters.getModalForDisplay;
+      },
+      doneTodosAmount() {
+        let doneTodos = 0;
+        this.card.checklists.forEach((checklist) => {
+          if (checklist.todos && checklist.todos.length) {
+            doneTodos += checklist.todos.filter((todo) => todo.isDone).length;
+          }
+        });
+        return doneTodos;
+      },
+      todosAmount() {
+        let todos = 0;
+        this.card.checklists.forEach((checklist) => {
+          if (checklist.todos) {
+            todos += checklist.todos.length;
+          }
+        });
+
+        return todos;
+      },
+      getBoard() {
+        const board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
+        return board;
+      },
+    },
+    watch: {
+      editDescription() {
+        if (this.editDescription) {
+          setTimeout(() => {
+            this.$refs.editInput.focus();
+            this.$refs.editInput.select();
+          }, 0);
+        }
+      },
+      async '$store.getters.currCard'() {
+        this.card = this.$store.getters.currCard;
+        this.labels = await this.getLabel();
+      },
+      '$route.params.cardId'() {
+        const cardId = this.$route.params.cardId;
+        cardId ? this.loadCard() : '';
+      },
+    },
+    mounted() {
+      // this.selectInInput();
+    },
+
+    components: {
+      cardEdit,
+      checkList,
+      activityLog,
+      card,
+      avatar,
+    },
+    async created() {
+      await this.loadCard();
+    },
+  };
 </script>
 
 <style></style>

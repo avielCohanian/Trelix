@@ -53,10 +53,6 @@ export const boardStore = {
     },
   },
   mutations: {
-    // updateMouse(state,{mouseEvents}) {
-    //   // console.log(isModal);
-    //   state.mouseEvents = mouseEvents;
-    // },
     updateModal(state, { isModal }) {
       state.modal = isModal;
     },
@@ -288,16 +284,9 @@ export const boardStore = {
     },
     addActivity({ getters, dispatch, commit }, { activity }) {
       let board = JSON.parse(JSON.stringify(getters.getBoard));
-      // let board = getters.getBoard
+
       board.activities.unshift(activity);
       dispatch({ type: 'updateBoard', board });
     },
-    // updateMouse({getters},{mouseEvent}){
-    //   const userConnect = JSON.parse(JSON.stringify(getters.getUserConnect))
-    //   mouseEvent.userConnect =userConnect
-    //   console.log(mouseEvent);
-    //   mouseEvent.boardId = getters.getBoard._id
-    //   socketService.emit('updateMouse', mouseEvent);
-    // }
   },
 };

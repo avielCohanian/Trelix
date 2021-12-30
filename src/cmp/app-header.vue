@@ -158,119 +158,113 @@
 </template>
 
 <script>
-import { boardService } from '../service/board.service.js';
-import avatar from 'vue-avatar';
+  import { boardService } from '../service/board.service.js';
+  import avatar from 'vue-avatar';
 
-export default {
-  name: 'appHeader',
-  // props: ['createdBy'],
-  data() {
-    return {
-      boards: null,
-      // starBoards: [],
-      createdBy: null,
-      isHover: false,
-      isShowProfile: false,
-      isOpenMenu: false,
-      isRecent: false,
-      isStared: false,
-      isTemplate: false,
-      templateBoards: '',
-    };
-  },
-
-  created() {
-    this.$store.dispatch({ type: 'loadBoards' });
-    this.getTemplate();
-    this.createdBy = this.$store.getters.getUserConnect;
-    // this.headerStyle = this.$store.getters.getStyleHeader;
-  },
-  methods: {
-    async createBoardTemp(temp) {
-      const copyUser = JSON.parse(JSON.stringify(this.$store.getters.getUserConnect));
-      try {
-        const newBoard = await boardService.createBoardTemp(temp, copyUser);
-        copyUser.boards.boards.push(newBoard._id);
-        this.$store.dispatch({ type: 'updateUser', currUser: copyUser });
-        this.$router.push(`/board/${newBoard._id}`);
-      } catch (err) {
-        throw err;
-      }
-      // this.iScreateBoard = !this.iScreateBoard
-    },
-    logout() {
-      this.isShowProfile = false;
-      this.$store.commit({ type: 'removeStyleHeader' });
-      return this.$router.push('/logout');
+  export default {
+    name: 'appHeader',
+    // props: ['createdBy'],
+    data() {
+      return {
+        boards: null,
+        // starBoards: [],
+        createdBy: null,
+        isHover: false,
+        isShowProfile: false,
+        isOpenMenu: false,
+        isRecent: false,
+        isStared: false,
+        isTemplate: false,
+        templateBoards: '',
+      };
     },
 
-    openRecentBoards() {
-      this.isRecent = !this.isRecent;
-      this.isStared = false;
-      this.isTemplate = false;
-      this.isOpenMenu = false;
-    },
-    openStarredBoards() {
-      this.isStared = !this.isStared;
-      this.isTemplate = false;
-      this.isRecent = false;
-      this.isOpenMenu = false;
-    },
-    openTemplatesBoards() {
-      this.isTemplate = !this.isTemplate;
-      this.isRecent = false;
-      this.isStared = false;
-      this.isOpenMenu = false;
-    },
-    moveToBoards() {
-      this.isOpenMenu = false;
-      this.isRecent = false;
-      this.isStared = false;
-      this.isTemplate = false;
-      return this.$router.push(`/${this.createdBy.username}/boards`);
-    },
-    moveToBoard(boardId) {
-      this.isOpenMenu = false;
-      this.isStared = false;
-      this.isTemplate = false;
-      this.isRecent = false;
-      //  this.$router.push(`/${this.createdBy.username}/boards`);
-      return this.$router.push(`/board/${boardId}`);
-    },
-    openMenu() {
-      this.isOpenMenu = !this.isOpenMenu;
-      this.isTemplate = false;
-      this.isRecent = false;
-      this.isStared = false;
-    },
-    showProfile() {
-      this.isShowProfile = !this.isShowProfile;
-    },
-    //  getTemplate(){
-    //     this.templateBoards =  boardService.getTemplates()
-    //    console.log( this.templateBoards);
-    //   },
-    async getTemplate() {
-      this.templateBoards = await boardService.getTemplates();
-    },
-  },
-  computed: {
-    styleHeader() {
-      return this.$store.getters.getStyleHeader;
-    },
-    getBoardsForDisplay() {
-      return this.$store.getters.getBoardsForDisplay;
-    },
-  },
-  watch: {
-    '$store.getters.getUserConnect'() {
+    created() {
+      this.$store.dispatch({ type: 'loadBoards' });
+      this.getTemplate();
       this.createdBy = this.$store.getters.getUserConnect;
-      // console.log(,'$store.getters.getUserConnect');
+      // this.headerStyle = this.$store.getters.getStyleHeader;
     },
-  },
-  mounted() {},
-  components: {
-    avatar,
-  },
-};
+    methods: {
+      async createBoardTemp(temp) {
+        const copyUser = JSON.parse(JSON.stringify(this.$store.getters.getUserConnect));
+        try {
+          const newBoard = await boardService.createBoardTemp(temp, copyUser);
+          copyUser.boards.boards.push(newBoard._id);
+          this.$store.dispatch({ type: 'updateUser', currUser: copyUser });
+          this.$router.push(`/board/${newBoard._id}`);
+        } catch (err) {
+          throw err;
+        }
+        // this.iScreateBoard = !this.iScreateBoard
+      },
+      logout() {
+        this.isShowProfile = false;
+        this.$store.commit({ type: 'removeStyleHeader' });
+        return this.$router.push('/logout');
+      },
+
+      openRecentBoards() {
+        this.isRecent = !this.isRecent;
+        this.isStared = false;
+        this.isTemplate = false;
+        this.isOpenMenu = false;
+      },
+      openStarredBoards() {
+        this.isStared = !this.isStared;
+        this.isTemplate = false;
+        this.isRecent = false;
+        this.isOpenMenu = false;
+      },
+      openTemplatesBoards() {
+        this.isTemplate = !this.isTemplate;
+        this.isRecent = false;
+        this.isStared = false;
+        this.isOpenMenu = false;
+      },
+      moveToBoards() {
+        this.isOpenMenu = false;
+        this.isRecent = false;
+        this.isStared = false;
+        this.isTemplate = false;
+        return this.$router.push(`/${this.createdBy.username}/boards`);
+      },
+      moveToBoard(boardId) {
+        this.isOpenMenu = false;
+        this.isStared = false;
+        this.isTemplate = false;
+        this.isRecent = false;
+        return this.$router.push(`/board/${boardId}`);
+      },
+      openMenu() {
+        this.isOpenMenu = !this.isOpenMenu;
+        this.isTemplate = false;
+        this.isRecent = false;
+        this.isStared = false;
+      },
+      showProfile() {
+        this.isShowProfile = !this.isShowProfile;
+      },
+      async getTemplate() {
+        this.templateBoards = await boardService.getTemplates();
+      },
+    },
+    computed: {
+      styleHeader() {
+        return this.$store.getters.getStyleHeader;
+      },
+      getBoardsForDisplay() {
+        return this.$store.getters.getBoardsForDisplay;
+      },
+    },
+    watch: {
+      '$store.getters.getUserConnect'() {
+        this.createdBy = this.$store.getters.getUserConnect;
+      },
+    },
+    mounted() {},
+    components: {
+      avatar,
+    },
+  };
 </script>

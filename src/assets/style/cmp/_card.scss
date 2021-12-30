@@ -39,23 +39,19 @@
   .cover-Half {
     margin: 0;
     padding: 0;
-    // width: 256px;
     height: 32px;
     border-radius: 3px 3px 0 0;
-    // background-position: 50%;
-
     background-repeat: no-repeat;
     background-size: cover;
     -webkit-user-select: none;
     user-select: none;
   }
   .img-cover-Half {
+    cursor: pointer;
     margin: 0;
     padding: 0;
-    // width: 256px;
     height: 250px;
     border-radius: 3px 3px 0 0;
-    // background-position: 50%;
     height: 100px;
     background-repeat: no-repeat;
     background-size: cover;
@@ -92,13 +88,10 @@ section.card.img-cover {
   flex-direction: column;
   margin-bottom: 8px;
   width: 256px;
-  // min-height: 41px;
 
   position: relative;
   text-decoration: none;
   box-sizing: border-box;
-  // z-index: 10;
-  // z-index: 1;
   padding: 6px 8px 2px;
 
   &:hover {
@@ -118,11 +111,7 @@ section.card.img-cover {
       color: #6b778c;
       font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
         sans-serif, iconTrello;
-      // margin-bottom: 7px;
-      // margin-top: 5px;
-
       min-height: 0;
-      // padding-bottom: 7px;
       max-height: 28px;
       display: flex;
       justify-content: flex-start;
@@ -136,7 +125,6 @@ section.card.img-cover {
           sans-serif, iconTrello;
         padding: 7px 0;
         margin: 0;
-        // height: 28px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -146,7 +134,6 @@ section.card.img-cover {
           sans-serif, iconTrello;
         padding: 7px 0;
         border-radius: 2px;
-        // padding: 3px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -201,7 +188,6 @@ section.card.img-cover {
       height: 8px;
       line-height: 100px;
       margin: 0 4px 4px 0;
-      // max-width: 63px;
       min-width: 40px;
       padding: 0;
       text-shadow: none;
@@ -209,11 +195,8 @@ section.card.img-cover {
       &.label-text {
         height: 16px;
         line-height: 16px;
-        // min-width: 198px;
         padding: 0 8px;
         min-width: 52px;
-        // line-height: 16px;
-        //  height: rem(22px);
       }
       .fade-enter-active,
       .fade-leave-active {
@@ -230,11 +213,12 @@ section.card.img-cover {
       line-height: 16px;
       width: 198px;
       padding: 0 8px;
-
-      //  font-size: 0.8rem;
-      // color: $clr1;
       font-weight: bold;
-      //  padding: rem(5px);
+    }
+  }
+  .single {
+    .txtShadow {
+      text-shadow: 0 0 3px black;
     }
   }
   .members {
@@ -251,11 +235,9 @@ section.card.img-cover {
     align-items: center;
     width: 20px;
     height: 20px;
-    // padding: 7px;
     border-radius: 4px;
     &:hover {
       background-color: #f5f5f5;
-      // padding: 7px;
     }
   }
   header {
@@ -277,9 +259,7 @@ section.card.img-cover {
   }
 }
 .editor {
-  // background-color: #0009;
   bottom: 0;
-  // color: #fff;
   left: 0;
   position: fixed;
   right: 0;
@@ -335,18 +315,14 @@ section.card.img-cover {
         align-items: center;
         font-size: 14px;
         gap: 7px;
-        // width: 110px;
         height: 32px;
         background: #0009;
         border-radius: 3px;
         clear: both;
         color: #e6e6e6;
-        // display: block;
         float: left;
         margin: 0 0 4px 8px;
         padding: 6px 12px 6px 8px;
-        // text-decoration: none;
-        // transition: transform 85ms ease-in,-webkit-transform 85ms ease-in;
         transition: transform 85ms ease-in;
         span {
           font-size: 15px;
@@ -359,7 +335,6 @@ section.card.img-cover {
   }
 
   .dynamic-cmp {
-    // color: black;
     position: absolute;
     z-index: 50;
     background: #fff;
@@ -416,28 +391,14 @@ section.card.img-cover {
       box-shadow: inset 0 0 0 2px #0079bf;
     }
   }
-
-  // justify-content: space-between;
 }
 .screen {
   width: 100vw;
   height: 100vh;
   position: fixed;
-  //   z-index: 900;
   top: 0;
   background-color: rgba(0, 0, 0, 0.64);
   overflow-y: auto;
-  // &::-webkit-scrollbar {
-  //     width: 10px;
-  // }
-  // &::-webkit-scrollbar-track {
-  //     border-radius: 10px;
-  //     background: transparent;
-  // }
-  // &::-webkit-scrollbar-thumb {
-  //     border-radius: 10px;
-  //     background: rgba(0, 0, 0, 0.32);
-  // }
 }
 
 .avatar {
@@ -452,12 +413,9 @@ section.card.img-cover {
 }
 
 .modal {
-  // top: 100px;
-  // left: 400px;
   .title {
     font-size: 18px;
   }
-  // background-color: #091e4212;
   .name {
     margin-top: 4px;
     display: flex;
@@ -482,19 +440,13 @@ section.card.img-cover {
   padding-bottom: 4px;
   .btn-choice {
     cursor: pointer;
-    // margin-top: 10px;
-    // margin-bottom: 10px;
     padding: 14px;
     border-radius: 3px;
-    // padding-top: 14px;
-    // padding-bottom: 14px;
-    // padding-bottom: 4px;
     &:hover {
       background-color: gainsboro;
     }
   }
 }
 .icons-container {
-  // position: absolute;
   bottom: 0;
 }

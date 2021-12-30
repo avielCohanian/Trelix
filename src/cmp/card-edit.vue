@@ -173,337 +173,329 @@
 </template>
 
 <script>
-import member from './edit/edit-member.vue';
-import label from './edit-label.vue';
-// import addLabel from './edit/add-label.vue';
-import attachment from './edit/edit-attachment.vue';
-import trelix from './edit/edit-trelix.vue';
-import checklist from './edit/edit-checklist.vue';
-import edit from './edit/edit-details.vue';
-import remove from './edit/remove-edit.vue';
-import cover from './edit/edit-cover.vue';
-import coverSearch from './edit/edit-cover-search.vue';
-import dueDate from './edit/edit-dueDate.vue';
+  import member from './edit/edit-member.vue';
+  import label from './edit-label.vue';
+  // import addLabel from './edit/add-label.vue';
+  import attachment from './edit/edit-attachment.vue';
+  import trelix from './edit/edit-trelix.vue';
+  import checklist from './edit/edit-checklist.vue';
+  import edit from './edit/edit-details.vue';
+  import remove from './edit/remove-edit.vue';
+  import cover from './edit/edit-cover.vue';
+  import coverSearch from './edit/edit-cover-search.vue';
+  import dueDate from './edit/edit-dueDate.vue';
 
-import { utilService } from '../service/util.service.js';
+  import { utilService } from '../service/util.service.js';
 
-export default {
-  name: 'cardEdit',
-  props: {
-    card: {
-      type: Object,
-      required: true,
-    },
-    cmp: {
-      type: Object,
-    },
-  },
-  data() {
-    return {
-      isOpenEditor: false,
-      cardToUpdate: null,
-      component: {
-        currCmp: null,
-        header: '',
-        position: { x: '', y: '' },
+  export default {
+    name: 'cardEdit',
+    props: {
+      card: {
+        type: Object,
+        required: true,
       },
-      minComponent: {
-        currCmp: null,
-        name: '',
-        txt: '',
-        type: '',
-        title: '',
-        btnTxt: '',
-        position: { x: '', y: '' },
+      cmp: {
+        type: Object,
       },
-      label: { type: '', currLabel: null },
-      propCmp: this.cmp,
-      userJoin: false,
-    };
-  },
-  created() {
-    this.cardToUpdate = JSON.parse(JSON.stringify(this.card));
-    if (this.cmp) {
-      this.dynamicCmp(this.cmp);
-    }
-  },
-  methods: {
-    switchModel() {
-      this.$store.commit({ type: 'updateModal', isModal: true });
     },
-    dynamicCmp(cmp, header, e = null, cmpPos) {
-      this.component.currCmp = null;
-      this.minComponent.currCmp = null;
-      this.component.header = cmp.name ? cmp.name : header;
-      let position = cmp.name ? cmp.name : `${cmp}El`;
-      if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
-        this.component.position.y = cmp.pos.y - 50;
-        this.component.position.x = cmp.pos.x - 300;
-        if (cmp.name === 'members') this.component.position.x = cmp.pos.x - 100;
-        if (cmp.name === 'cover' && window.screen.width >= 1110) this.component.position.x = 450;
-
-        if (window.screen.width <= 500) {
-          this.component.position.x = window.screen.width / 2 - 150;
-          this.component.position.y = 167;
-        }
-      } else {
-        let cmpPosition = this.$refs[`${position}`].getBoundingClientRect();
-
-        if (window.screen.width <= 500) {
-          cmpPosition.x = window.screen.width / 2 - 150;
-          cmpPosition.y = 783;
-          // cmpPosition.y = window.screen.height - cmpPosition.bottom;
-        } else cmpPosition.x = 450;
-        if (cmp === 'labels' && window.screen.width >= 1110) cmpPosition.y = 167;
-        if (cmp === 'dueDate' && window.screen.width >= 1110) cmpPosition.y = 167;
-        this.component.position.x = cmpPosition.x;
-        this.component.position.y = cmpPosition.y;
-      }
-      this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
-    },
-
-    minDynamicCmp(cmp, e) {
-      this.component.currCmp = null;
-      this.minComponent.currCmp = null;
-      this.component.position = { x: '', y: '' };
-      let { name, type, txt, title, btnTxt } = cmp.name;
-      this.minComponent = { name, type, txt, title, btnTxt };
-
-      this.minComponent.position = cmp.pos;
-      // this.minComponent.position.x = 450;
-      if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
-        this.minComponent.position.y = cmp.pos.y;
-        this.minComponent.position.x = cmp.pos.x;
-      } else {
-        this.minComponent.position.y = e.clientY;
-        this.minComponent.position.x = e.clientX;
-      }
-
-      if (this.minComponent.position.x > 500) {
-        this.minComponent.position.x -= 300;
-      } else if (this.minComponent.position.x < 100) {
-        this.minComponent.position.x += 200;
-      }
-      if (this.minComponent.position.y > 600) {
-        this.minComponent.position.y += 500;
-      } else if (this.minComponent.position.y < 100) {
-        this.minComponent.position.y += 300;
-      }
-
-      this.minComponent.currCmp = cmp.name.name ? `card-${cmp.name.type}` : `card-${cmp}`;
-
-      // this.minComponent.currCmp = `card-${cmp.name.type}`;
-    },
-    closeModel() {
-      this.component.currCmp = null;
-      this.minComponent = {
-        currCmp: null,
-        name: '',
-        txt: '',
-        type: '',
-        title: '',
-        btnTxt: '',
-        position: { x: '', y: '' },
+    data() {
+      return {
+        isOpenEditor: false,
+        cardToUpdate: null,
+        component: {
+          currCmp: null,
+          header: '',
+          position: { x: '', y: '' },
+        },
+        minComponent: {
+          currCmp: null,
+          name: '',
+          txt: '',
+          type: '',
+          title: '',
+          btnTxt: '',
+          position: { x: '', y: '' },
+        },
+        label: { type: '', currLabel: null },
+        propCmp: this.cmp,
+        userJoin: false,
       };
-      // this.position = null;
-      this.$emit('closeModel');
     },
-    saveCard() {
-      //  this.closeModel()
-      this.closeDetails();
-      this.$emit('updateCard', this.cardToUpdate);
+    created() {
+      this.cardToUpdate = JSON.parse(JSON.stringify(this.card));
+      if (this.cmp) {
+        this.dynamicCmp(this.cmp);
+      }
     },
-    closeDetails() {
-      this.$emit('closeDetails');
-    },
+    methods: {
+      switchModel() {
+        this.$store.commit({ type: 'updateModal', isModal: true });
+      },
+      dynamicCmp(cmp, header, e = null, cmpPos) {
+        this.component.currCmp = null;
+        this.minComponent.currCmp = null;
+        this.component.header = cmp.name ? cmp.name : header;
+        let position = cmp.name ? cmp.name : `${cmp}El`;
+        if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
+          this.component.position.y = cmp.pos.y - 50;
+          this.component.position.x = cmp.pos.x - 300;
+          if (cmp.name === 'members') this.component.position.x = cmp.pos.x - 100;
+          if (cmp.name === 'cover' && window.screen.width >= 1110) this.component.position.x = 450;
 
-    changeBcg(color) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      if (card.style.bgUrl !== color && color.length > 15) {
-        card.style.bgUrl = color;
-        card.style.bgColor = null;
-      } else if (card.style.bgColor !== color) {
-        if (color === card.style.bgColor || color === card.style.bgUrl) {
+          if (window.screen.width <= 500) {
+            this.component.position.x = window.screen.width / 2 - 150;
+            this.component.position.y = 167;
+          }
+        } else {
+          let cmpPosition = this.$refs[`${position}`].getBoundingClientRect();
+
+          if (window.screen.width <= 500) {
+            cmpPosition.x = window.screen.width / 2 - 150;
+            cmpPosition.y = 783;
+            // cmpPosition.y = window.screen.height - cmpPosition.bottom;
+          } else cmpPosition.x = 450;
+          if (cmp === 'labels' && window.screen.width >= 1110) cmpPosition.y = 167;
+          if (cmp === 'dueDate' && window.screen.width >= 1110) cmpPosition.y = 167;
+          this.component.position.x = cmpPosition.x;
+          this.component.position.y = cmpPosition.y;
+        }
+        this.component.currCmp = cmp.name && cmp.name ? `card-${cmp.name}` : `card-${cmp}`;
+      },
+
+      minDynamicCmp(cmp, e) {
+        this.component.currCmp = null;
+        this.minComponent.currCmp = null;
+        this.component.position = { x: '', y: '' };
+        let { name, type, txt, title, btnTxt } = cmp.name;
+        this.minComponent = { name, type, txt, title, btnTxt };
+
+        this.minComponent.position = cmp.pos;
+        // this.minComponent.position.x = 450;
+        if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
+          this.minComponent.position.y = cmp.pos.y;
+          this.minComponent.position.x = cmp.pos.x;
+        } else {
+          this.minComponent.position.y = e.clientY;
+          this.minComponent.position.x = e.clientX;
+        }
+
+        if (this.minComponent.position.x > 500) {
+          this.minComponent.position.x -= 300;
+        } else if (this.minComponent.position.x < 100) {
+          this.minComponent.position.x += 200;
+        }
+        if (this.minComponent.position.y > 600) {
+          this.minComponent.position.y += 500;
+        } else if (this.minComponent.position.y < 100) {
+          this.minComponent.position.y += 300;
+        }
+
+        this.minComponent.currCmp = cmp.name.name ? `card-${cmp.name.type}` : `card-${cmp}`;
+
+        // this.minComponent.currCmp = `card-${cmp.name.type}`;
+      },
+      closeModel() {
+        this.component.currCmp = null;
+        this.minComponent = {
+          currCmp: null,
+          name: '',
+          txt: '',
+          type: '',
+          title: '',
+          btnTxt: '',
+          position: { x: '', y: '' },
+        };
+        // this.position = null;
+        this.$emit('closeModel');
+      },
+      saveCard() {
+        //  this.closeModel()
+        this.closeDetails();
+        this.$emit('updateCard', this.cardToUpdate);
+      },
+      closeDetails() {
+        this.$emit('closeDetails');
+      },
+
+      changeBcg(color) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        if (card.style.bgUrl !== color && color.length > 15) {
+          card.style.bgUrl = color;
+          card.style.bgColor = null;
+        } else if (card.style.bgColor !== color) {
+          if (color === card.style.bgColor || color === card.style.bgUrl) {
+            card.style.bgColor = null;
+            card.style.bgUrl = null;
+          } else {
+            card.style.bgColor = color;
+            card.style.bgUrl = null;
+          }
+        } else {
           card.style.bgColor = null;
           card.style.bgUrl = null;
-        } else {
-          card.style.bgColor = color;
-          card.style.bgUrl = null;
         }
-      } else {
-        card.style.bgColor = null;
-        card.style.bgUrl = null;
-      }
-      if (!card.style.isFull) card.style.isFull = false;
+        if (!card.style.isFull) card.style.isFull = false;
 
-      // this.closeModel();
-      this.$emit('updateCard', card);
-    },
-    changeBcgSize(size) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      card.style.isFull = size;
-      this.$emit('updateCard', card);
-    },
-    updateLabel(label) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      if (card.labelIds.some((labelId) => labelId.lId === label.id)) {
-        const labelIdx = card.labelIds.findIndex((labelId) => labelId.lId === label.id);
-        card.labelIds.splice(labelIdx, 1);
-      } else {
-        let currLabel = { lId: label.id, isDone: false };
-        card.labelIds.push(currLabel);
-      }
-      this.$emit('updateCard', card);
-    },
-    updateMember(currMember) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      if (card.members.some((member) => member._id === currMember._id)) {
-        const labelIdx = card.members.findIndex((member) => member._id === currMember._id);
-        card.members.splice(labelIdx, 1);
-      } else {
-        card.members.push(currMember);
-      }
-      this.$emit('updateCard', card);
-    },
-    addChecklist(checklist) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      card.checklists.push(checklist);
-      this.closeModel();
-      this.$emit('updateCard', card);
-    },
-    computerAttImg(imgUrl) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      card.attachment.computerAttachment.push(imgUrl);
-      this.$emit('updateCard', card);
-    },
-    deleteChecklist(checklistId) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      card.checklists.filter((c) => c.id !== checklistId);
-      this.$emit('updateCard', card);
-    },
-    computerAttLink(link) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      card.attachment.computerAttachment.push(link);
-      this.$emit('updateCard', card);
-    },
-    cmpRemove() {
-      this.$emit(`remove${this.minComponent.name}`);
-      setTimeout(() => {
-        this.closeModel();
-      }, 500);
-    },
-    update(newVal) {
-      this.$emit(`update${this.minComponent.name}`, newVal);
-      setTimeout(() => {
-        this.closeModel();
-      }, 500);
-    },
-    deleteLabel(label, e) {
-      this.$emit('deleteLabel', label, e);
-      setTimeout(() => {
-        this.closeModel();
-      }, 0);
-    },
-    async newLabel(newLabel) {
-      if (!newLabel.lId) {
-        newLabel.id = utilService.makeId();
-      }
-      this.updateLabel(newLabel);
-
-      try {
-        let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
-
-        const lIdx = board.labels.findIndex((l) => l.id === newLabel.id);
-        if (lIdx >= 0) {
-          board.labelIds.splice(lIdx, 1, labelToUpdate);
+        // this.closeModel();
+        this.$emit('updateCard', card);
+      },
+      changeBcgSize(size) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        card.style.isFull = size;
+        this.$emit('updateCard', card);
+      },
+      updateLabel(label) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        if (card.labelIds.some((labelId) => labelId.lId === label.id)) {
+          const labelIdx = card.labelIds.findIndex((labelId) => labelId.lId === label.id);
+          card.labelIds.splice(labelIdx, 1);
         } else {
-          const labelToUpdate = { id: newLabel.id, title: newLabel.title, color: newLabel.color };
-          board.labels.push(labelToUpdate);
+          let currLabel = { lId: label.id, isDone: false };
+          card.labelIds.push(currLabel);
         }
-        this.$emit('updateBoard', board);
-        this.$store.dispatch({ type: 'updateBoard', board: JSON.parse(JSON.stringify(board)) });
-        this.label.currLabel = null;
+        this.$emit('updateCard', card);
+      },
+      updateMember(currMember) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        if (card.members.some((member) => member._id === currMember._id)) {
+          const labelIdx = card.members.findIndex((member) => member._id === currMember._id);
+          card.members.splice(labelIdx, 1);
+        } else {
+          card.members.push(currMember);
+        }
+        this.$emit('updateCard', card);
+      },
+      addChecklist(checklist) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        card.checklists.push(checklist);
         this.closeModel();
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    joinUser() {
-      let currUser = this.$store.getters.getUserConnect;
-      const card = JSON.parse(JSON.stringify(this.card));
-      card.members.push(currUser);
-      this.$emit('updateCard', card);
-    },
-    addTrelixAtt(cardId) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      card.attachment.trelixAttachments.push(cardId);
-      this.$emit('updateCard', card);
-      this.closeModel();
-    },
-    dueDate(dateObj) {
-      let card = JSON.parse(JSON.stringify(this.card));
-      let { date, remind } = dateObj;
-      card.dueDate = { date, remind };
-      this.$emit('updateCard', card);
-      this.closeModel();
-    },
-    deleteCard() {
-      this.$emit('deleteCard', this.card);
-    },
-    changeMuchBookOnPage() {
-      var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-      // if (width > 992) {
-      //     gSizePage = 12;
-      // }
-      return width;
-    },
-  },
-  components: {
-    'card-attachment': attachment,
-    'card-trelix': trelix,
-    'card-members': member,
-    'card-labels': label,
-    // 'card-addLabels': addLabel,
-    'card-cover': cover,
-    'card-checklist': checklist,
-    'card-edit': edit,
-    'card-remove': remove,
-    'card-coverSearch': coverSearch,
-    'card-dueDate': dueDate,
-  },
+        this.$emit('updateCard', card);
+      },
+      computerAttImg(imgUrl) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        card.attachment.computerAttachment.push(imgUrl);
+        this.$emit('updateCard', card);
+      },
+      deleteChecklist(checklistId) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        card.checklists.filter((c) => c.id !== checklistId);
+        this.$emit('updateCard', card);
+      },
+      computerAttLink(link) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        card.attachment.computerAttachment.push(link);
+        this.$emit('updateCard', card);
+      },
+      cmpRemove() {
+        this.$emit(`remove${this.minComponent.name}`);
+        setTimeout(() => {
+          this.closeModel();
+        }, 500);
+      },
+      update(newVal) {
+        this.$emit(`update${this.minComponent.name}`, newVal);
+        setTimeout(() => {
+          this.closeModel();
+        }, 500);
+      },
+      deleteLabel(label, e) {
+        this.$emit('deleteLabel', label, e);
+        setTimeout(() => {
+          this.closeModel();
+        }, 0);
+      },
+      async newLabel(newLabel) {
+        if (!newLabel.lId) {
+          newLabel.id = utilService.makeId();
+        }
+        this.updateLabel(newLabel);
 
-  computed: {
-    meInCardMember(userId) {
-      this.card.members.some(member._id === userId);
-    },
-    cmpToShow() {
-      return this.$store.getters.getModalForDisplay;
-    },
-    join() {
-      let currUser = this.$store.getters.getUserConnect;
-      if (this.card.members.some((m) => m._id === currUser._id)) {
-        return false;
-      }
-      return true;
-    },
-  },
-  watch: {
-    // cmp: function (cmpName) {
-    //   console.log(cmpName);
+        try {
+          let board = JSON.parse(JSON.stringify(this.$store.getters.getBoard));
 
-    //   if (cmpName) {
-    //     cmpName.type ? this.minDynamicCmp(cmpName) : this.dynamicCmp(cmpName.name);
-    //   }
-    //   deep: true;
-    // },
-    '$store.getters.cmpDyn'() {
-      let cmp = JSON.parse(JSON.stringify(this.$store.getters.cmpDyn));
-      if (cmp) {
-        cmp.name.type ? this.minDynamicCmp(cmp) : this.dynamicCmp(cmp);
-      }
+          const lIdx = board.labels.findIndex((l) => l.id === newLabel.id);
+          if (lIdx >= 0) {
+            board.labelIds.splice(lIdx, 1, labelToUpdate);
+          } else {
+            const labelToUpdate = { id: newLabel.id, title: newLabel.title, color: newLabel.color };
+            board.labels.push(labelToUpdate);
+          }
+          this.$emit('updateBoard', board);
+          this.$store.dispatch({ type: 'updateBoard', board: JSON.parse(JSON.stringify(board)) });
+          this.label.currLabel = null;
+          this.closeModel();
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      joinUser() {
+        let currUser = this.$store.getters.getUserConnect;
+        const card = JSON.parse(JSON.stringify(this.card));
+        card.members.push(currUser);
+        this.$emit('updateCard', card);
+      },
+      addTrelixAtt(cardId) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        card.attachment.trelixAttachments.push(cardId);
+        this.$emit('updateCard', card);
+        this.closeModel();
+      },
+      dueDate(dateObj) {
+        let card = JSON.parse(JSON.stringify(this.card));
+        let { date, remind } = dateObj;
+        card.dueDate = { date, remind };
+        this.$emit('updateCard', card);
+        this.closeModel();
+      },
+      deleteCard() {
+        this.$emit('deleteCard', this.card);
+      },
+      changeMuchBookOnPage() {
+        var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        // if (width > 992) {
+        //     gSizePage = 12;
+        // }
+        return width;
+      },
     },
-  },
-};
+    components: {
+      'card-attachment': attachment,
+      'card-trelix': trelix,
+      'card-members': member,
+      'card-labels': label,
+      // 'card-addLabels': addLabel,
+      'card-cover': cover,
+      'card-checklist': checklist,
+      'card-edit': edit,
+      'card-remove': remove,
+      'card-coverSearch': coverSearch,
+      'card-dueDate': dueDate,
+    },
+
+    computed: {
+      meInCardMember(userId) {
+        this.card.members.some(member._id === userId);
+      },
+      cmpToShow() {
+        return this.$store.getters.getModalForDisplay;
+      },
+      join() {
+        let currUser = this.$store.getters.getUserConnect;
+        if (this.card.members.some((m) => m._id === currUser._id)) {
+          return false;
+        }
+        return true;
+      },
+    },
+    watch: {
+      '$store.getters.cmpDyn'() {
+        let cmp = JSON.parse(JSON.stringify(this.$store.getters.cmpDyn));
+        if (cmp) {
+          cmp.name.type ? this.minDynamicCmp(cmp) : this.dynamicCmp(cmp);
+        }
+      },
+    },
+  };
 </script>
 
 <style></style>
