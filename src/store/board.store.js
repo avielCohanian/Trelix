@@ -95,7 +95,6 @@ export const boardStore = {
     },
     async loadBoard({ commit }, { boardId }) {
       commit({ type: 'updateStyleHeader', color: { background: 'rgba(0, 0, 0, 0.32)' } });
-
       try {
         const board = await boardService.getById(boardId);
         commit({ type: 'setBoard', board });
@@ -169,9 +168,8 @@ export const boardStore = {
       try {
         let deepBoard = JSON.parse(JSON.stringify(board));
         commit({ type: 'setBoard', board: deepBoard });
-        const updatedBoard = await boardService.updatedBoard(board, getters.getUserConnect);
-        commit({ type: 'setBoard', board: updatedBoard });
-        socketService.emit('update', updatedBoard);
+        socketService.emit('update', deepBoard);
+        boardService.updatedBoard(board, getters.getUserConnect);
       } catch (err) {
         throw err;
       }

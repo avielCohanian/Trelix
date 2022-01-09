@@ -1,6 +1,6 @@
 .groups {
   display: flex;
-  height: 87vh;
+  height: 82vh;
   // display: inline-block;
   // height: 100%;
   margin: 0 4px;
@@ -21,16 +21,13 @@
     padding-top: 39px;
     max-width: 89%;
     // gap: 10px;
-
-
-}
+  }
   &::-webkit-scrollbar {
     // width:  80%; left:-100px;
     // margin-left: 100px;
     width: 80%;
     background: #e2e4e9;
     border-radius: 10px;
-    
   }
 
   &::-webkit-scrollbar-track {
@@ -120,11 +117,11 @@
     }
   }
 
-//   @media (max-width: 850px) {
-//     // margin-top: 49px;
-//    // margin-top: 71px;
+  //   @media (max-width: 850px) {
+  //     // margin-top: 49px;
+  //    // margin-top: 71px;
 
-// }
+  // }
 }
 .opacity-more input {
   color: white;

@@ -236,12 +236,14 @@
         this.minComponent.currCmp = null;
         this.component.header = cmp.name ? cmp.name : header;
         let position = cmp.name ? cmp.name : `${cmp}El`;
+        // console.log(this.$refs[`${position}`].getBoundingClientRect());
+        console.log(window.screen);
         if (cmp.pos && (cmp.pos.y || cmp.pos.y === 0)) {
           this.component.position.y = cmp.pos.y - 50;
           this.component.position.x = cmp.pos.x - 300;
           if (cmp.name === 'members') this.component.position.x = cmp.pos.x - 100;
           if (cmp.name === 'cover' && window.screen.width >= 1110) this.component.position.x = 450;
-
+          console.log(this.component.position);
           if (window.screen.width <= 500) {
             this.component.position.x = window.screen.width / 2 - 150;
             this.component.position.y = 167;
@@ -251,8 +253,7 @@
 
           if (window.screen.width <= 500) {
             cmpPosition.x = window.screen.width / 2 - 150;
-            cmpPosition.y = 783;
-            // cmpPosition.y = window.screen.height - cmpPosition.bottom;
+            if (cmpPosition.bottom + 500 > window.screen.height) cmpPosition.y = cmpPosition.y - 300;
           } else cmpPosition.x = 450;
           if (cmp === 'labels' && window.screen.width >= 1110) cmpPosition.y = 167;
           if (cmp === 'dueDate' && window.screen.width >= 1110) cmpPosition.y = 167;

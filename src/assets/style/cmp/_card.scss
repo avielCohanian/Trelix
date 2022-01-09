@@ -1,5 +1,5 @@
 .card-container {
-  max-height: 72vh;
+  max-height: 64vh;
   // overflow: scroll;
   overflow-x: hidden;
   &::-webkit-scrollbar {
@@ -75,6 +75,8 @@
   }
 }
 section.card.img-cover {
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
   min-height: 250px;
   color: white;

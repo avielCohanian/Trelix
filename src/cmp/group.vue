@@ -168,9 +168,13 @@
           const newGroup = Object.assign({}, group);
           newGroup.cards = applyDrag(newGroup.cards, dropResult);
           board.groups.splice(groupIndex, 1, newGroup);
+          // await this.$store.dispatch({
+          //   type: 'updateGroup',
+          //   group: newGroup,
+          // });
           await this.$store.dispatch({
             type: 'updateBoard',
-            board: JSON.parse(JSON.stringify(board)),
+            board: board,
           });
         }
       },
@@ -179,9 +183,6 @@
         return (index) => {
           return this.board.groups.filter((_g) => _g.id === groupId)[0].cards[index];
         };
-      },
-      endDrug() {
-        this.$emit('updateGroupDrug');
       },
       addMember(currMember) {
         if (this.newCard.members.some((member) => member._id === currMember._id)) {
