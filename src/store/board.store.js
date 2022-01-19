@@ -168,7 +168,7 @@ export const boardStore = {
       try {
         let deepBoard = JSON.parse(JSON.stringify(board));
         commit({ type: 'setBoard', board: deepBoard });
-        socketService.emit('update', deepBoard);
+        // socketService.emit('update', deepBoard);
         boardService.updatedBoard(board, getters.getUserConnect);
       } catch (err) {
         throw err;
