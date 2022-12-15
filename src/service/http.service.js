@@ -25,7 +25,7 @@ export const httpService = {
 async function ajax(endpoint, method = 'GET', data = null) {
   try {
     const res = await axios({
-      url: `https://trelix-api.onrender.com${BASE_URL}${endpoint}`,
+      url: `${BASE_URL}${endpoint}`,
       method,
       data,
       params: method === 'GET' ? data : null,
